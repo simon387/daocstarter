@@ -10,5 +10,9 @@
 	"license": "ISC",
 	"devDependencies": {
 		"electron": "^1.4.15"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:simon387/daocstarter.git"
 	}
 }
