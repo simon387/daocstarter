@@ -1,0 +1,14 @@
+{
+  "name": "daocstarter",
+  "version": "1.0.0",
+  "description": "a DAOC starter tool",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "simone celia",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^1.4.15"
+  }
+}
