@@ -5,7 +5,7 @@
 	"main": "app.js",
 	"scripts": {
 		"start": "electron ."
-		},
+	},
 	"author": "simone celia",
 	"license": "ISC",
 	"devDependencies": {
@@ -14,5 +14,11 @@
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:simon387/daocstarter.git"
+	},
+	"dependencies": {
+		"nedb": "^1.8.0"
+	},
+	"jshintConfig": {
+		"esversion": "6"
 	}
 }
