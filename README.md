@@ -5,7 +5,3 @@ based on electron
 
 working in progress...
 
-TODO:
-  choise DB
-  packaging & autoupdate
-  
