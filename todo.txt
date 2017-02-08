@@ -1,2 +1,14 @@
 sudo npm install -g bower
 npm install nedb --save
+
+</body>
+<script>
+	document.getElementById("btn").addEventListener("click", () => {
+		...
+	}, false);
+</script>
+<html>
+
+npm install tingodb
+npm install assert
+
