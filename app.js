@@ -12,6 +12,9 @@ var mainWindow;
 
 app.on('ready', function() {
 
+
+
+/*
 	let Db = require('tingodb')().Db;
 	let assert = require('assert');
 
@@ -32,7 +35,7 @@ app.on('ready', function() {
 			assert.equal('world_safe2', item.hello);
 		})
 	});
-
+*/
 
 
 
@@ -41,7 +44,7 @@ app.on('ready', function() {
 	//mainWindow.loadURL('https://github.com');
 
 	mainWindow.loadURL(url.format({
-		pathname: path.join(__dirname, 'index.html'),
+		pathname: path.join(__dirname, 'html', 'views', 'main.html'),
 		//pathname: path.join(__dirname, 'html', 'main.html'),
 		protocol: 'file',
 		slashes: true

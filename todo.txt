@@ -12,3 +12,18 @@ npm install nedb --save
 npm install tingodb
 npm install assert
 
+npm install -g yo
+
+
+
+//MONGO
+RDBMS			MongoDB
+Database		Database
+Table			Collection
+Tuple/Row		Document
+column			Field
+Table Join		Embedded Documents
+Primary Key		Primary Key (Default key _id provided by mongodb itself)
+
+
+
