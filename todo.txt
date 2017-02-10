@@ -14,7 +14,8 @@ npm install assert
 
 npm install -g yo
 
-
+npm install datatables.net
+npm install datatables.net-dt
 
 //MONGO
 RDBMS			MongoDB
@@ -26,4 +27,8 @@ Table Join		Embedded Documents
 Primary Key		Primary Key (Default key _id provided by mongodb itself)
 
 
+
+https://editor.datatables.net/examples/inline-editing/simple
+
+http://issues.wenzhixin.net.cn/bootstrap-table/index.html
 
