@@ -28,7 +28,19 @@ Primary Key		Primary Key (Default key _id provided by mongodb itself)
 
 
 
-https://editor.datatables.net/examples/inline-editing/simple
+chiede soldi -> https://editor.datatables.net/examples/inline-editing/simple
 
-http://issues.wenzhixin.net.cn/bootstrap-table/index.html
+sembrerebbe non avere db -> http://issues.wenzhixin.net.cn/bootstrap-table/index.html
+
+php + routing -> http://mbahcoding.com/tutorial/php/codeigniter/codeigniter-ajax-crud-using-bootstrap-modals-and-datatable.html
+
+1000 robe da installare -> http://techbrij.com/mongodb-angularjs-nodejs-sailsjs-crud-bower
+
+npm install sails
+	sails generate api employee
+
+fa cagare -> https://www.mindstick.com/Articles/1469/crud-operation-in-node-js-with-mongodb
+
+php che funzion
+http://www.discussdesk.com/online-demo/bootstrap-datatable-curd/datatable.php
 
