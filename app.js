@@ -9,9 +9,9 @@ const BrowserWindow = electron.BrowserWindow;
 var mainWindow;
 
 //const nw = require('nw.gui');
+var router = require('electron-request-response/main');
 
 app.on('ready', function() {
-
 
 
 /*
@@ -49,10 +49,14 @@ app.on('ready', function() {
 		protocol: 'file',
 		slashes: true
 	}));
-
+	//dev mode
+	mainWindow.webContents.openDevTools();
+	router.makeAddressable('mainWindow', mainWindow);
+	
 	// Type 4: Persistent datastore for a Node Webkit app called 'nwtest'
 	// For example on Linux, the datafile will be ~/.config/nwtest/nedb-data/something.db
 	//var Datastore = require('nedb'),
 	//path = require('path'),
 	//db = new Datastore({ filename: path.join(nw.App.dataPath, 'something.db') });
 });
+

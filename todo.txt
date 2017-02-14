@@ -44,3 +44,10 @@ fa cagare -> https://www.mindstick.com/Articles/1469/crud-operation-in-node-js-w
 php che funzion
 http://www.discussdesk.com/online-demo/bootstrap-datatable-curd/datatable.php
 
+dev mode
+	mainWindow.webContents.openDevTools();
+
+npm i electron-request-response
+	https://www.npmjs.com/package/electron-request-response
+
+	
