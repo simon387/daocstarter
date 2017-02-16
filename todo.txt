@@ -50,4 +50,3 @@ dev mode
 npm i electron-request-response
 	https://www.npmjs.com/package/electron-request-response
 
-	
