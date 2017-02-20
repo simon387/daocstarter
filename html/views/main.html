@@ -206,11 +206,10 @@
 		window.jQuery = window.$ = require('jquery'); 
 		
 		var dt = require( 'datatables.net' )();
-		dt.$('#example').DataTable({
-		//	"ajax":"../../ajax.txt"
-			//"aProcessing":true,
-			//"aServerSide":true,
-			"ajax":"../../ajax.js"
+		dt.$('#example').DataTable({//"ajax":"../../ajax.txt",
+			"aProcessing":false,
+			"aServerSide":false,
+			"ajax":"http://localhost:3000?ajax"
 		});
 /*
 		$('#example').dataTable({
