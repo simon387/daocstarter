@@ -31,7 +31,7 @@
 		}
 	}
 
-	// AJAX EDIT FROM JQUERY
+	// @JAX EDIT FROM JQUERY
 	if ( isset($_GET['edit']) && 0 < intval($_GET['edit']) ) {
 		dbinit($gaSql);
 
@@ -48,21 +48,22 @@
 		die(json_encode(mysql_fetch_assoc($query)));
 	}
 
-	// AJAX ADD FROM JQUERY
+	// @JAX ADD FROM JQUERY
 	if ( isset($_GET['add']) && isset($_POST) ) {
 		dbinit($gaSql);
 
 		$p = $_POST;
 		foreach ( $p as &$val ) $val = mysql_real_escape_string($val);
 		if ( !empty($p['firstname']) && !empty($p['email']) && !empty($p['mobile']) ) {
-			@mysql_query(" INSERT INTO $sTable (name, email, mobile) VALUES ('" . $p['firstname'] . "', '" . $p['email'] . "', '" . $p['mobile'] . "')");
+			@mysql_query(" INSERT INTO $sTable (name, email, mobile) VALUES 
+			('" . $p['firstname'] . "', '" . $p['email'] . "', '" . $p['mobile'] . "')");
 			$id = mysql_insert_id();
 			$query = mysql_query(" SELECT * FROM $sTable WHERE $sIndexColumn = " . $id, $gaSql['link']);
 			die(json_encode(mysql_fetch_assoc($query)));
 		}
 	}
 
-	// AJAX REMOVE FROM JQUERY
+	// @JAX REMOVE FROM JQUERY
 	if ( isset($_GET['remove']) && 0 < intval($_GET['remove']) ) {
 		dbinit($gaSql);
 
@@ -71,7 +72,7 @@
 	}
 
 
-	// AJAX FROM JQUERY
+	// @JAX FROM JQUERY
 	if ( isset($_GET['ajax']) ) {
 		dbinit($gaSql);
 
@@ -168,7 +169,7 @@
 	</head>
 	<body>
 		<h1>
-			AJAX CURD with Bootstrap Datatable and Modal
+			@JAX CURD with Bootstrap Datatable and Modal
 			
 		</h1>
 		<br>

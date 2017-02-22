@@ -204,12 +204,13 @@
 
 	<script>
 		window.jQuery = window.$ = require('jquery'); 
+		let localhost = "http://localhost:3000";
 		
 		var dt = require( 'datatables.net' )();
 		dt.$('#example').DataTable({//"ajax":"../../ajax.txt",
 			"aProcessing":false,
 			"aServerSide":false,
-			"ajax":"http://localhost:3000?ajax"
+			"ajax":localhost + '?ajax'
 		});
 /*
 		$('#example').dataTable({
@@ -221,7 +222,7 @@
 		// Save edited row
 		$("#edit-form").on("submit", function(event) {
 			event.preventDefault();
-			$.post("../../datatable.js?edit=" + $('#edit-id').val(), $(this).serialize(), function(data) {
+			$.post(localhost + '?edit=' + $('#edit-id').val(), $(this).serialize(), function(data) {
 				var obj = $.parseJSON(data);
 				var tr = $('a[data-id="row-' + $('#edit-id').val() + '"]').parent().parent();
 				$('td:eq(1)', tr).html(obj.name);
@@ -233,30 +234,30 @@
 		// Add new row
 		$("#add-form").on("submit", function(event) {
 			event.preventDefault();
-			$.post("../../datatable.js?add", $(this).serialize(), function(data) {
+			$.post(localhost + '?add', $(this).serialize(), function(data) {
 				var obj = $.parseJSON(data);
 				$('#example tbody tr:last').after('<tr role="row"><td class="sorting_1">' + obj.id + '</td><td>' + obj.name + '</td><td>' + obj.email + '</td><td>' + obj.mobile + '</td><td>' + obj.start_date + '</td><td><a data-id="row-' + obj.id + '" href="javascript:editRow(' + obj.id + ');" class="btn btn-default btn-sm">edit</a>&nbsp;<a href="javascript:removeRow(' + obj.id + ');" class="btn btn-default btn-sm">remove</a></td></tr>');
 				$('#add-modal').modal('hide');
-			}).fail(function() { alert('Unable to save data, please try again later.'); });
+			}).fail(function() { alert('Unable to Add new row'); });
 		});
 		// Edit row
 		function editRow(id) {
 			if ( 'undefined' != typeof id ) {
-				$.getJSON('../../datatable.js?edit=' + id, function(obj) {
+				$.getJSON(localhost + '?edit=' + id, function(obj) {
 					$('#edit-id').val(obj.id);
 					$('#firstname').val(obj.name);
 					$('#email').val(obj.email);
 					$('#mobile').val(obj.mobile);
 					$('#edit-modal').modal('show')
-				}).fail(function() { alert('Unable to fetch data, please try again later.') });
+				}).fail(function() { alert('unable to edit row.') });
 			} else alert('Unknown row id.');
 		}
 		// Remove row
 		function removeRow(id) {
 			if ( 'undefined' != typeof id ) {
-				$.get('../../datatable.js?remove=' + id, function() {
+				$.get(localhost + '?remove=' + id, function() {
 					$('a[data-id="row-' + id + '"]').parent().parent().remove();
-				}).fail(function() { alert('Unable to fetch data, please try again later.') });
+				}).fail(function() { alert('unable to remove row.') });
 			} else alert('Unknown row id.');
 		}
 	</script>
