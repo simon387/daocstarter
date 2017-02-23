@@ -1,29 +1,30 @@
 {
-	"name": "daocstarter",
-	"version": "1.0.0",
-	"description": "a DAOC starter tool",
-	"main": "app.js",
-	"scripts": {
-		"start": "electron ."
-	},
-	"author": "simone celia",
-	"license": "ISC",
-	"devDependencies": {
-		"electron": "^1.4.15"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:simon387/daocstarter.git"
-	},
-	"dependencies": {
-		"express":"*",
-		"jquery":"*",
-		"datatables.net":"*",
-		"datatables.net-dt":"*",
-		"tingodb":"*",
-		"assert":"*"
-	},
-	"jshintConfig": {
-		"esversion": "6"
-	}
+  "name": "daocstarter",
+  "version": "1.0.0",
+  "description": "a DAOC starter tool",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "simone celia",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^1.4.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:simon387/daocstarter.git"
+  },
+  "dependencies": {
+    "assert": "*",
+    "datatables.net": "*",
+    "datatables.net-dt": "*",
+    "each-async": "^1.1.1",
+    "express": "*",
+    "jquery": "*",
+    "tingodb": "*"
+  },
+  "jshintConfig": {
+    "esversion": "6"
+  }
 }

@@ -17,9 +17,7 @@
 	<link href="../../vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 	<!-- Theme CSS -->
 	<link href="../../css/creative.min.css" rel="stylesheet">
-
 </head>
-
 <body id="page-top">
 	<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
@@ -207,17 +205,11 @@
 		let localhost = "http://localhost:3000";
 		
 		var dt = require( 'datatables.net' )();
-		dt.$('#example').DataTable({//"ajax":"../../ajax.txt",
+		dt.$('#example').DataTable({
 			"aProcessing":false,
 			"aServerSide":false,
 			"ajax":localhost + '?ajax'
 		});
-/*
-		$('#example').dataTable({
-			"aProcessing": true,
-			"aServerSide": true,
-			"ajax": "datatable.php?ajax"
-		});*/
 
 		// Save edited row
 		$("#edit-form").on("submit", function(event) {
@@ -261,8 +253,7 @@
 			} else alert('Unknown row id.');
 		}
 	</script>
-	
-	
+
 	<!-- Bootstrap Core JavaScript -->
 	<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
 	<!-- Plugin JavaScript -->
@@ -271,7 +262,5 @@
 	<script src="../../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 	<!-- Theme JavaScript -->
 	<script src="../../js/creative.min.js"></script>
-
 </body>
-
 </html>
