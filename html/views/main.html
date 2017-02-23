@@ -81,7 +81,7 @@
 			<div class="row">
 				<div class="col-md-12 marginT20">
 					<div class="table-responsive demo-x content">
-						<table id="example" class="display" cellspacing="0" width="100%">
+						<table id="accountsDT" class="display" cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -205,7 +205,7 @@
 		let localhost = "http://localhost:3000";
 		
 		var dt = require( 'datatables.net' )();
-		dt.$('#example').DataTable({
+		dt.$('#accountsDT').DataTable({
 			"aProcessing":false,
 			"aServerSide":false,
 			"ajax":localhost + '?ajax'
@@ -228,7 +228,7 @@
 			event.preventDefault();
 			$.post(localhost + '?add', $(this).serialize(), function(data) {
 				var obj = $.parseJSON(data);
-				$('#example tbody tr:last').after('<tr role="row"><td class="sorting_1">' + obj.id + '</td><td>' + obj.name + '</td><td>' + obj.email + '</td><td>' + obj.mobile + '</td><td>' + obj.start_date + '</td><td><a data-id="row-' + obj.id + '" href="javascript:editRow(' + obj.id + ');" class="btn btn-default btn-sm">edit</a>&nbsp;<a href="javascript:removeRow(' + obj.id + ');" class="btn btn-default btn-sm">remove</a></td></tr>');
+				$('#accountsDT tbody tr:last').after('<tr role="row"><td class="sorting_1">' + obj.id + '</td><td>' + obj.name + '</td><td>' + obj.email + '</td><td>' + obj.mobile + '</td><td>' + obj.start_date + '</td><td><a data-id="row-' + obj.id + '" href="javascript:editRow(' + obj.id + ');" class="btn btn-default btn-sm">edit</a>&nbsp;<a href="javascript:removeRow(' + obj.id + ');" class="btn btn-default btn-sm">remove</a></td></tr>');
 				$('#add-modal').modal('hide');
 			}).fail(function() { alert('Unable to Add new row'); });
 		});
