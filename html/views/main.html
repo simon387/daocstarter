@@ -4,8 +4,6 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
 	<title>DAoC Starter</title>
 	<!-- Bootstrap Core CSS -->
 	<link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -17,6 +15,8 @@
 	<link href="../../vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 	<!-- Theme CSS -->
 	<link href="../../css/creative.min.css" rel="stylesheet">
+	<!-- Datatable CSS-->
+	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.10/css/jquery.dataTables.css">
 </head>
 <body id="page-top">
 	<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -77,7 +77,14 @@
 
 	<section id="accounts">
 		<div class="container-fluid">
-			<button type="button" style="padding:10px; margin:0 50px 15px 0;" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#add-modal"><b>Add More Rows</b></button>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 text-center">
+					<h2 class="section-heading">Accounts Management</h2>
+					<hr class="light">
+					<p class="text-faded">Accounts Management</p>
+				</div>
+			</div>
+			<button type="button" style="padding:10px; margin:0 50px 15px 0;" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#add-modal"><b>Add new Account</b></button>
 			<div class="row">
 				<div class="col-md-12 marginT20">
 					<div class="table-responsive demo-x content">
@@ -85,10 +92,8 @@
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>First name</th>
-									<th>Email</th>
-									<th>Mobile</th>
-									<th>Start Date</th>
+									<th>Name</th>
+									<th>Password</th>
 									<th style="background-image: none">Edit</th>
 								</tr>
 							</thead>
@@ -103,26 +108,20 @@
 					<form class="form-horizontal" id="edit-form">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="edit-modal-label">Edit selected row</h4>
+							<h4 class="modal-title" id="edit-modal-label">Edit selected account</h4>
 						</div>
 						<div class="modal-body">
 							<input type="hidden" id="edit-id" value="" class="hidden">
 							<div class="form-group">
-								<label for="firstname" class="col-sm-2 control-label">Firstname</label>
+								<label for="firstname" class="col-sm-2 control-label">Name</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Firstname" required>
+									<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Account Name" required>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="email" class="col-sm-2 control-label">E-mail</label>
+								<label for="email" class="col-sm-2 control-label">Password</label>
 								<div class="col-sm-10">
-									<input type="email" class="form-control" id="email" name="email" placeholder="E-mail address" required>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="mobile" class="col-sm-2 control-label">Mobile</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile" required>
+									<input type="email" class="form-control" id="email" name="email" placeholder="Account Password" required>
 								</div>
 							</div>
 						</div>
@@ -140,25 +139,19 @@
 					<form class="form-horizontal" id="add-form">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="add-modal-label">Add new row</h4>
+							<h4 class="modal-title" id="add-modal-label">Add new account</h4>
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
-								<label for="add-firstname" class="col-sm-2 control-label">Firstname</label>
+								<label for="add-firstname" class="col-sm-2 control-label">Name</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="add-firstname" name="firstname" placeholder="Firstname" required>
+									<input type="text" class="form-control" id="add-firstname" name="firstname" placeholder="Account Name" required>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="add-email" class="col-sm-2 control-label">E-mail</label>
+								<label for="add-email" class="col-sm-2 control-label">Password</label>
 								<div class="col-sm-10">
-									<input type="email" class="form-control" id="add-email" name="email" placeholder="E-mail address" required>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="add-mobile" class="col-sm-2 control-label">Mobile</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="add-mobile" name="mobile" placeholder="Mobile" required>
+									<input type="email" class="form-control" id="add-email" name="email" placeholder="Account Password" required>
 								</div>
 							</div>
 						</div>
@@ -200,60 +193,8 @@
 		</div>
 	</section>
 
-	<script>
-		window.jQuery = window.$ = require('jquery'); 
-		let localhost = "http://localhost:3000";
-		
-		var dt = require( 'datatables.net' )();
-		dt.$('#accountsDT').DataTable({
-			"aProcessing":false,
-			"aServerSide":false,
-			"ajax":localhost + '?ajax'
-		});
-
-		// Save edited row
-		$("#edit-form").on("submit", function(event) {
-			event.preventDefault();
-			$.post(localhost + '?edit=' + $('#edit-id').val(), $(this).serialize(), function(data) {
-				var obj = $.parseJSON(data);
-				var tr = $('a[data-id="row-' + $('#edit-id').val() + '"]').parent().parent();
-				$('td:eq(1)', tr).html(obj.name);
-				$('td:eq(2)', tr).html(obj.email);
-				$('td:eq(3)', tr).html(obj.mobile);
-				$('#edit-modal').modal('hide');
-			}).fail(function() { alert('Unable to save data, please try again later.'); });
-		});
-		// Add new row
-		$("#add-form").on("submit", function(event) {
-			event.preventDefault();
-			$.post(localhost + '?add', $(this).serialize(), function(data) {
-				var obj = $.parseJSON(data);
-				$('#accountsDT tbody tr:last').after('<tr role="row"><td class="sorting_1">' + obj.id + '</td><td>' + obj.name + '</td><td>' + obj.email + '</td><td>' + obj.mobile + '</td><td>' + obj.start_date + '</td><td><a data-id="row-' + obj.id + '" href="javascript:editRow(' + obj.id + ');" class="btn btn-default btn-sm">edit</a>&nbsp;<a href="javascript:removeRow(' + obj.id + ');" class="btn btn-default btn-sm">remove</a></td></tr>');
-				$('#add-modal').modal('hide');
-			}).fail(function() { alert('Unable to Add new row'); });
-		});
-		// Edit row
-		function editRow(id) {
-			if ( 'undefined' != typeof id ) {
-				$.getJSON(localhost + '?edit=' + id, function(obj) {
-					$('#edit-id').val(obj.id);
-					$('#firstname').val(obj.name);
-					$('#email').val(obj.email);
-					$('#mobile').val(obj.mobile);
-					$('#edit-modal').modal('show')
-				}).fail(function() { alert('unable to edit row.') });
-			} else alert('Unknown row id.');
-		}
-		// Remove row
-		function removeRow(id) {
-			if ( 'undefined' != typeof id ) {
-				$.get(localhost + '?remove=' + id, function() {
-					$('a[data-id="row-' + id + '"]').parent().parent().remove();
-				}).fail(function() { alert('unable to remove row.') });
-			} else alert('Unknown row id.');
-		}
-	</script>
-
+	<!-- Gestione account-->
+	<script src="../../js/controller/main.js"></script>
 	<!-- Bootstrap Core JavaScript -->
 	<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
 	<!-- Plugin JavaScript -->

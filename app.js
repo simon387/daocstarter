@@ -16,9 +16,10 @@ function initAndFetchDB() {
 	let accounts = db.collection('account');
 
 	//creazione di una riga di test
-	//accounts.insert([{name:'nome',email:'email',mobile:'mobile',start_date:'start_date',buttons:'buttons'}], {w:1}, function(err, result) {});
+	accounts.insert([{name:'name',password:'password',buttons:"<a data-id='row-2' href='javascript:editRow(2);' class='btn btn-md btn-success'>edit<\/a>&nbsp;<a href='javascript:removeRow(2);' class='btn btn-default btn-md' style='background-color: #c83a2a;border-color: #b33426; color: #ffffff;'>remove<\/a>"}], {w:1}, function(err, result) {});
 
 	let cursor = accounts.find({});
+
 	let sAccounts = '{"aaData":[';
 
 	cursor.each(function(err, item) {
@@ -26,13 +27,13 @@ function initAndFetchDB() {
 		if(item == null) {
 			sAccounts = sAccounts.slice(0, -1);
 			sAccounts += ']}';
-			//console.log(sAccounts);
+			console.log(sAccounts);
 			if (sAccounts === '{"aaData":]}') {
 				sAccounts ='{"aaData":[]}';
 			}
 			startExpress(sAccounts);
 		} else {
-			sAccounts += '["' + item._id + '","' + item.name + '","' + item.email + '","' + item.mobile + '","' + item.start_date + '","' + item.buttons + '"],';
+			sAccounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' + item.buttons + '"],';
 		}
 	});
 }
@@ -85,7 +86,7 @@ app.on('ready', function() {
 	const path = require('path');
 	const url = require('url');
 	const BrowserWindow = electron.BrowserWindow;
-	let mainWindow = new BrowserWindow(); //"/*width: 400, height: 300,*/ /*backgroundColor: '#2e2c29'*/});
+	let mainWindow = new BrowserWindow({width: 1024, height: 768 /*backgroundColor: '#2e2c29'*/});
 	//mainWindow.loadURL('https://github.com');
 	mainWindow.loadURL(url.format({
 		pathname: path.join(__dirname, 'html', 'views', 'main.html'),
@@ -93,5 +94,5 @@ app.on('ready', function() {
 		slashes: true
 	}));
 	//dev mode automatica
-	mainWindow.webContents.openDevTools();	
+	//mainWindow.webContents.openDevTools();	
 });
