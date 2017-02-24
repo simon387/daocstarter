@@ -16,7 +16,7 @@ function initAndFetchDB() {
 	let accounts = db.collection('account');
 
 	//creazione di una riga di test
-	accounts.insert([{name:'name',password:'password',buttons:"<a data-id='row-2' href='javascript:editRow(2);' class='btn btn-md btn-success'>edit<\/a>&nbsp;<a href='javascript:removeRow(2);' class='btn btn-default btn-md' style='background-color: #c83a2a;border-color: #b33426; color: #ffffff;'>remove<\/a>"}], {w:1}, function(err, result) {});
+	accounts.insert([{name:'rayvaughan',password:'password',buttons:"<a data-id='row-2' href='javascript:editRow(2);' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeRow(2);' class='btnX btn-default btn-md' style='background-color: #c83a2a;border-color: #b33426; color: #ffffff;'>remove<\/a>"}], {w:1}, function(err, result) {});
 
 	let cursor = accounts.find({});
 
@@ -27,7 +27,7 @@ function initAndFetchDB() {
 		if(item == null) {
 			sAccounts = sAccounts.slice(0, -1);
 			sAccounts += ']}';
-			console.log(sAccounts);
+			//console.log(sAccounts);
 			if (sAccounts === '{"aaData":]}') {
 				sAccounts ='{"aaData":[]}';
 			}
