@@ -1,6 +1,14 @@
+/*
+!!
+
+vedere logger-temp
+non committato su macchina windows!
+
+*/
+
+
 //const electron = require('electron');
 //const app = electron.app;
-
 
 
 function startClicked() {
@@ -33,7 +41,10 @@ function startClicked() {
 	var dir = "C:\\Program Files (x86)\\Electronic Arts\\Dark Age of Camelot";
 
 	var spawn = require('child_process').spawn;
-	var prc = spawn(executablePath, ["107.23.173.143"], {cwd : dir, 
-	setsid: false});
+	var prc = spawn(executablePath, ["107.23.173.143"], {
+		cwd : dir, 
+		setsid: false,
+		detached: true,
+	});
 	console.log('Spawned child pid: ' + prc.pid)
 }

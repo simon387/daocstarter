@@ -16,7 +16,6 @@ $("#edit-form").on("submit", function(event) {
 		var tr = $('a[data-id="row-' + $('#edit-id').val() + '"]').parent().parent();
 		$('td:eq(1)', tr).html(obj.name);
 		$('td:eq(2)', tr).html(obj.email);
-		$('td:eq(3)', tr).html(obj.mobile);
 		$('#edit-modal').modal('hide');
 	}).fail(function() { alert('Unable to save data, please try again later.'); });
 });

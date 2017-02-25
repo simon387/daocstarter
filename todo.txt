@@ -50,8 +50,10 @@ dev mode
 npm i electron-request-response
 	https://www.npmjs.com/package/electron-request-response
 
-id
-name
-email
-mobile
-start_date
+
+TODO VERO:
+	autoupdater
+	packager
+	css locali e non web
+	ottimizzare custom.css
+	
