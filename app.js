@@ -59,16 +59,43 @@ function startExpress() {
 	});
 
 	server.post('/', function (request, response) {
-		console.log(request);
-
+		//console.log(request);
+		response.setHeader('Content-Type', 'application/json');
 
 		if (request.query.add === '') {
 			console.log('ricevuta richiesta di aggiunta nuova riga');
+
+			// salva su db?
+			console.log(request);
+
+			
 		}
+		sendAllAccounts2(response);
 	});
 
 	server.listen(port, function () {
 		console.log('Express running in electron and listening on port ' + port + '!');
+	});
+}
+
+function sendAllAccounts2 (response) {
+	let accountCollection = db.collection('account');
+	//creazione di una riga di test
+	//accountCollection.insert([{name:'rayvaughan',password:'password',buttons:"<a data-id='row-2' href='javascript:editRow(2);' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeRow(2);' class='btnX btn-default btn-md' style='background-color: #c83a2a;border-color: #b33426; color: #ffffff;'>remove<\/a>"}], {w:1}, function(err, result) {});
+	let cursor = accountCollection.find({});
+	let accounts = '{"aaData":[';
+	cursor.each(function(err, item) {
+		if(item == null) {
+			accounts = accounts.slice(0, -1);
+			accounts += ']}';
+			//console.log(accounts);
+			if (accounts === '{"aaData":]}') {
+				accounts ='{"aaData":[]}';
+			}
+			response.send(JSON.stringify(accounts));
+		} else {
+			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' + item.buttons + '"],';
+		}
 	});
 }
 
@@ -84,5 +111,5 @@ app.on('ready', function() {
 		slashes: true
 	}));
 	//dev mode automatica
-	//mainWindow.webContents.openDevTools();	
+	mainWindow.webContents.openDevTools();	
 });
