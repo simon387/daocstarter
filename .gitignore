@@ -1,4 +1,4 @@
 node_modules/
 db/
-npm-debug.log
 js/controller/logger-temp.js
+npm-debug.log.*

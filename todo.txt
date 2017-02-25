@@ -56,4 +56,5 @@ TODO VERO:
 	packager
 	css locali e non web
 	ottimizzare custom.css
+	ottimizzare package.json
 	
