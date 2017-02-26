@@ -57,7 +57,7 @@ function startExpress() {
 			sendAllAccounts(response);
 		}
 
-		if (request.query.edit != undefined) {
+		if (request.query.edit != undefined) {//per aprire la modal di edit, ritorniamo l'elemento da modificare
 			accountCollection.findOne({"_id":request.query.edit}, function(err, item) {
 				response.send(item);
 			});
@@ -65,8 +65,6 @@ function startExpress() {
 			//view normale
 			sendAllAccounts(response)	
 		}
-		
-		//sendAllAccounts(response);
 	});
 
 	server.post('/', function (request, response) {
@@ -85,8 +83,32 @@ function startExpress() {
 				let qs = require('querystring');
 				let post = qs.parse(body);
 				let accountCollection = db.collection('account');
-				accountCollection.insert([{name:post['account-name'],password:post['account-password']}], {w:1}, function(err, result) {
+				accountCollection.insert([{name:post['account-name'], password:post['account-password']}], {w:1}, function(err, result) {
 					response.setHeader('Content-Type', 'application/json');
+					response.send(result);
+				});
+			});
+		}
+		//console.log(request.query.edit);
+		if (request.query.edit != undefined) {
+			//console.log(request);
+			let body = '';
+			
+			request.on('data', function (data) {
+				body += data;
+				if (body.length > 1e6) {
+					request.connection.destroy();
+				}
+			});
+			
+			request.on('end', function () {
+				let qs = require('querystring');
+				let post = qs.parse(body);
+				let accountCollection = db.collection('account');
+				//console.log(post);
+				accountCollection.findAndModify({_id:request.query.edit}, {name:post['account-name'], password:post['account-password']}, function(err, result) {
+					response.setHeader('Content-Type', 'application/json');
+					console.log(result);
 					response.send(result);
 				});
 			});

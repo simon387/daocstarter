@@ -11,11 +11,12 @@ dt.$('#accountsDT').DataTable({
 // Save edited row
 $("#edit-form").on("submit", function(event) {
 	event.preventDefault();
+	//console.log($('#edit-id').val());
 	$.post(localhost + '?edit=' + $('#edit-id').val(), $(this).serialize(), function(data) {
 		var obj = $.parseJSON(data);
 		var tr = $('a[data-id="row-' + $('#edit-id').val() + '"]').parent().parent();
 		$('td:eq(1)', tr).html(obj.name);
-		$('td:eq(2)', tr).html(obj.email);
+		$('td:eq(2)', tr).html(obj.password);
 		$('#edit-modal').modal('hide');
 	}).fail(function() { alert('Unable to save data, please try again later.'); });
 });
@@ -31,7 +32,7 @@ $("#add-form").on("submit", function(event) {
 function editRow(id) {
 	if ( 'undefined' != typeof id ) {
 		$.getJSON(localhost + '?edit=' + id, function(obj) {
-			$('#edit-id').val(obj.id);
+			$('#edit-id').val(obj._id);
 			$('#account-name').val(obj.name);
 			$('#account-password').val(obj.password);
 			$('#edit-modal').modal('show')
