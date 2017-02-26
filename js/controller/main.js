@@ -22,17 +22,9 @@ $("#edit-form").on("submit", function(event) {
 // Add new row
 $("#add-form").on("submit", function(event) {
 	event.preventDefault();
-	console.log("?");
 	$.post(localhost + '?add', $(this).serialize(), function(data) {
-		console.log("ci entri?");
-
-		console.log(data);
-//JSON.stringify
-		var obj = $.parseJSON(data);
-		$('#accountsDT tbody tr:last').after('<tr role="row"><td class="sorting_1">' + obj.id + '</td><td>' + obj.name + '</td><td>' + obj.email + '</td><td>' + obj.mobile + '</td><td>' + obj.start_date + '</td><td><a data-id="row-' + obj.id + '" href="javascript:editRow(' + obj.id + ');" class="btn btn-default btn-sm">edit</a>&nbsp;<a href="javascript:removeRow(' + obj.id + ');" class="btn btn-default btn-sm">remove</a></td></tr>');
-		alert("mela nascondi?");
+		$('#accountsDT tbody tr:last').after('<tr role="row"><td class="sorting_1">' + data[0]._id + '</td><td>' +data[0].name + '</td><td>' + data[0].password + '</td><td><a data-id="row-' + data[0]._id + '" href="javascript:editRow(' + data[0]._id + ');" class="btn btn-default btn-sm">edit</a>&nbsp;<a href="javascript:removeRow(' + data[0]._id + ');" class="btn btn-default btn-sm">remove</a></td></tr>');
 		$('#add-modal').modal('hide');
-		console.log("tutt'appost");
 	}).fail(function() { alert('Unable to Add new row'); });
 });
 // Edit row
@@ -40,11 +32,11 @@ function editRow(id) {
 	if ( 'undefined' != typeof id ) {
 		$.getJSON(localhost + '?edit=' + id, function(obj) {
 			$('#edit-id').val(obj.id);
-			$('#firstname').val(obj.name);
-			$('#email').val(obj.email);
+			$('#account-name').val(obj.name);
+			$('#account-password').val(obj.password);
 			$('#edit-modal').modal('show')
-		}).fail(function() { alert('unable to edit row.') });
-	} else alert('Unknown row id.');
+		}).fail(function() { alert('unable to edit account.') });
+	} else alert('Unknown account id.');
 }
 // Remove row
 function removeRow(id) {

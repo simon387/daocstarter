@@ -16,7 +16,6 @@
     "url": "git@github.com:simon387/daocstarter.git"
   },
   "dependencies": {
-    "assert": "*",
     "datatables.net": "*",
     "datatables.net-dt": "*",
     "express": "*",

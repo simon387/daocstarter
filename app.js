@@ -1,3 +1,4 @@
+"use strict";
 const electron = require('electron');
 const app = electron.app;
 let db;
@@ -16,7 +17,7 @@ function initDB() {
 function sendAllAccounts (response) {
 	let accountCollection = db.collection('account');
 	//creazione di una riga di test
-	//accountCollection.insert([{name:'rayvaughan',password:'password',buttons:"<a data-id='row-2' href='javascript:editRow(2);' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeRow(2);' class='btnX btn-default btn-md' style='background-color: #c83a2a;border-color: #b33426; color: #ffffff;'>remove<\/a>"}], {w:1}, function(err, result) {});
+	//accountCollection.insert([{name:'rayvaughan',password:'password'}], {w:1}, function(err, result) {});
 	let cursor = accountCollection.find({});
 	let accounts = '{"aaData":[';
 	cursor.each(function(err, item) {
@@ -28,8 +29,12 @@ function sendAllAccounts (response) {
 				accounts ='{"aaData":[]}';
 			}
 			response.send(accounts);
+			
 		} else {
-			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' + item.buttons + '"],';
+			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' + 
+			"<a data-id='row-" + item._id + "' href='javascript:editRow(" + item._id +
+			 ");' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeRow(" + item._id + 
+			 ");' class='btnX btn-default btn-md' style='background-color: #c83a2a;border-color: #b33426; color: #ffffff;'>remove<\/a>" + '"],';
 		}
 	});
 }
@@ -41,61 +46,55 @@ function startExpress() {
 
 	server.get('/', function (request, response) {
 		//console.log(request);
+		let accountCollection = db.collection('account');
 		response.setHeader('Content-Type', 'application/json');
-
-		if (request.query.ajax === '') {
-			console.log('ricevuta normale richiesta di visualizzazione');
-		}
+		//if (request.query.ajax === '') {
+		//	console.log('ricevuta normale richiesta di visualizzazione');
+		//}
 
 		if (request.query.remove != undefined) {
-			console.log('ricevuta richiesta di elimiazione riga');
+			accountCollection.remove({"_id":request.query.remove});
+			sendAllAccounts(response);
 		}
 
 		if (request.query.edit != undefined) {
-			console.log('ricevuta richista di modifica riga');
+			accountCollection.findOne({"_id":request.query.edit}, function(err, item) {
+				response.send(item);
+			});
+		} else {
+			//view normale
+			sendAllAccounts(response)	
 		}
 		
-		sendAllAccounts(response);
+		//sendAllAccounts(response);
 	});
 
 	server.post('/', function (request, response) {
-		//console.log(request);
-		response.setHeader('Content-Type', 'application/json');
-
 		if (request.query.add === '') {
 			console.log('ricevuta richiesta di aggiunta nuova riga');
-
-			// salva su db?
-			console.log(request);
-
+			let body = '';
 			
+			request.on('data', function (data) {
+				body += data;
+				if (body.length > 1e6) {
+					request.connection.destroy();
+				}
+			});
+			
+			request.on('end', function () {
+				let qs = require('querystring');
+				let post = qs.parse(body);
+				let accountCollection = db.collection('account');
+				accountCollection.insert([{name:post['account-name'],password:post['account-password']}], {w:1}, function(err, result) {
+					response.setHeader('Content-Type', 'application/json');
+					response.send(result);
+				});
+			});
 		}
-		sendAllAccounts2(response);
 	});
 
 	server.listen(port, function () {
 		console.log('Express running in electron and listening on port ' + port + '!');
-	});
-}
-
-function sendAllAccounts2 (response) {
-	let accountCollection = db.collection('account');
-	//creazione di una riga di test
-	//accountCollection.insert([{name:'rayvaughan',password:'password',buttons:"<a data-id='row-2' href='javascript:editRow(2);' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeRow(2);' class='btnX btn-default btn-md' style='background-color: #c83a2a;border-color: #b33426; color: #ffffff;'>remove<\/a>"}], {w:1}, function(err, result) {});
-	let cursor = accountCollection.find({});
-	let accounts = '{"aaData":[';
-	cursor.each(function(err, item) {
-		if(item == null) {
-			accounts = accounts.slice(0, -1);
-			accounts += ']}';
-			//console.log(accounts);
-			if (accounts === '{"aaData":]}') {
-				accounts ='{"aaData":[]}';
-			}
-			response.send(JSON.stringify(accounts));
-		} else {
-			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' + item.buttons + '"],';
-		}
 	});
 }
 
@@ -111,5 +110,5 @@ app.on('ready', function() {
 		slashes: true
 	}));
 	//dev mode automatica
-	mainWindow.webContents.openDevTools();	
+	//mainWindow.webContents.openDevTools();	
 });
