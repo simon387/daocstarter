@@ -1,8 +1,4 @@
-window.jQuery = window.$ = require('jquery'); 
-let localhost = "http://localhost:3000";
-
-var dt = require( 'datatables.net' )();
-dt.$('#accountsDT').DataTable({
+require('datatables.net')().$('#accountsDT').DataTable({
 	"aProcessing":false,
 	"aServerSide":false,
 	"ajax":localhost + '?ajax'

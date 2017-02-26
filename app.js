@@ -63,9 +63,6 @@ function startExpress() {
 
 	server.post('/', function (request, response) {
 		let body = '';
-		let qs = require('querystring');
-		let accountCollection = db.collection('account');
-		
 		request.on('data', function (data) {
 			body += data;
 			if (body.length > 1e6) {
@@ -74,48 +71,21 @@ function startExpress() {
 		});
 
 		request.on('end', function () {
-			let post = qs.parse(body);
+			let post = require('querystring').parse(body);
+			let accountCollection = db.collection('account');
+			response.setHeader('Content-Type', 'application/json');
 			if (request.query.add === '') {
 				accountCollection.insert([{name:post['account-name'], password:post['account-password']}], {w:1}, function(err, result) {
-				response.setHeader('Content-Type', 'application/json');
-				response.send(result);
-			});
-			} else {
-				if (request.query.edit != undefined) {
-				
-				
-				accountCollection.update({_id:request.query.edit},{name:post['account-name'], password:post['account-password']}, function(){
-					accountCollection.findOne({"_id":request.query.edit}, function(err, item) {
-					response.send(item);
-					});
-				});
-			
-		}
-			}
-			
-		});
-/*
-
-		if (request.query.add === '') {
-			request.on('end', function () {
-				let post = qs.parse(body);
-				accountCollection.insert([{name:post['account-name'], password:post['account-password']}], {w:1}, function(err, result) {
-					response.setHeader('Content-Type', 'application/json');
 					response.send(result);
 				});
-			});
-		}
-
-		if (request.query.edit != undefined) {
-			request.on('end', function () {
-				let post = qs.parse(body);
+			} else if (request.query.edit != undefined) {
 				accountCollection.update({_id:request.query.edit},{name:post['account-name'], password:post['account-password']}, function(){
 					accountCollection.findOne({"_id":request.query.edit}, function(err, item) {
-					response.send(item);
+						response.send(item);
 					});
 				});
-			});
-		}*/
+			}
+		});
 	});
 
 	server.listen(port, function () {

@@ -25,8 +25,7 @@ a Dark Age of Camelot client starter
 
 + autoupdater
 + packager
-+ css locali e non web
 + ottimizzare custom.css
 + ottimizzare package.json
-+ accounts, char, settings, ecc manca ancora tutta la BL
++ accounts, chars, settings, ecc manca ancora tutta la BL
 
