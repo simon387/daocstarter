@@ -16,20 +16,16 @@ function initDB() {
 
 function sendAllAccounts (response) {
 	let accountCollection = db.collection('account');
-	//creazione di una riga di test
-	//accountCollection.insert([{name:'rayvaughan',password:'password'}], {w:1}, function(err, result) {});
 	let cursor = accountCollection.find({});
 	let accounts = '{"aaData":[';
 	cursor.each(function(err, item) {
 		if(item == null) {
 			accounts = accounts.slice(0, -1);
 			accounts += ']}';
-			//console.log(accounts);
 			if (accounts === '{"aaData":]}') {
 				accounts ='{"aaData":[]}';
 			}
 			response.send(accounts);
-			
 		} else {
 			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' + 
 			"<a data-id='row-" + item._id + "' href='javascript:editRow(" + item._id +
@@ -45,7 +41,6 @@ function startExpress() {
 	let port = 3000;
 
 	server.get('/', function (request, response) {
-		//console.log(request);
 		let accountCollection = db.collection('account');
 		response.setHeader('Content-Type', 'application/json');
 		//if (request.query.ajax === '') {
@@ -61,58 +56,66 @@ function startExpress() {
 			accountCollection.findOne({"_id":request.query.edit}, function(err, item) {
 				response.send(item);
 			});
-		} else {
-			//view normale
+		} else {//view normale
 			sendAllAccounts(response)	
 		}
 	});
 
 	server.post('/', function (request, response) {
-		if (request.query.add === '') {
-			console.log('ricevuta richiesta di aggiunta nuova riga');
-			let body = '';
-			
-			request.on('data', function (data) {
-				body += data;
-				if (body.length > 1e6) {
-					request.connection.destroy();
-				}
+		let body = '';
+		let qs = require('querystring');
+		let accountCollection = db.collection('account');
+		
+		request.on('data', function (data) {
+			body += data;
+			if (body.length > 1e6) {
+				request.connection.destroy();
+			}
+		});
+
+		request.on('end', function () {
+			let post = qs.parse(body);
+			if (request.query.add === '') {
+				accountCollection.insert([{name:post['account-name'], password:post['account-password']}], {w:1}, function(err, result) {
+				response.setHeader('Content-Type', 'application/json');
+				response.send(result);
 			});
+			} else {
+				if (request.query.edit != undefined) {
+				
+				
+				accountCollection.update({_id:request.query.edit},{name:post['account-name'], password:post['account-password']}, function(){
+					accountCollection.findOne({"_id":request.query.edit}, function(err, item) {
+					response.send(item);
+					});
+				});
 			
+		}
+			}
+			
+		});
+/*
+
+		if (request.query.add === '') {
 			request.on('end', function () {
-				let qs = require('querystring');
 				let post = qs.parse(body);
-				let accountCollection = db.collection('account');
 				accountCollection.insert([{name:post['account-name'], password:post['account-password']}], {w:1}, function(err, result) {
 					response.setHeader('Content-Type', 'application/json');
 					response.send(result);
 				});
 			});
 		}
-		//console.log(request.query.edit);
+
 		if (request.query.edit != undefined) {
-			//console.log(request);
-			let body = '';
-			
-			request.on('data', function (data) {
-				body += data;
-				if (body.length > 1e6) {
-					request.connection.destroy();
-				}
-			});
-			
 			request.on('end', function () {
-				let qs = require('querystring');
 				let post = qs.parse(body);
-				let accountCollection = db.collection('account');
-				//console.log(post);
-				accountCollection.findAndModify({_id:request.query.edit}, {name:post['account-name'], password:post['account-password']}, function(err, result) {
-					response.setHeader('Content-Type', 'application/json');
-					console.log(result);
-					response.send(result);
+				accountCollection.update({_id:request.query.edit},{name:post['account-name'], password:post['account-password']}, function(){
+					accountCollection.findOne({"_id":request.query.edit}, function(err, item) {
+					response.send(item);
+					});
 				});
 			});
-		}
+		}*/
 	});
 
 	server.listen(port, function () {
