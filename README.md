@@ -1,7 +1,7 @@
 # DAoC Starter
 a Dark Age of Camelot client starter
 
-based on:
+## based on:
 
 NodeJS
 Electron
@@ -12,12 +12,12 @@ tingodb (mongodb)
 Bootstrap
 scrollreveal
 
-developer's installation:
+## developer's installation:
 
 git clone
 npm i
 
-developer's debug start:
+## developer's debug start:
 
 npm start
 
