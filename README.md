@@ -14,8 +14,8 @@ scrollreveal
 
 ## developer's installation:
 
-git clone
-npm i
+1. git clone
+2. npm i
 
 ## developer's debug start:
 
