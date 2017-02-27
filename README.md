@@ -14,7 +14,7 @@ a Dark Age of Camelot client starter
 
 ## developer's installation:
 
-1. git clone git@github.com:simon387/daocstarter.git
+1. git clone <git@github.com:simon387/daocstarter.git>
 2. npm i
 
 ## developer's debug start:
