@@ -25,6 +25,7 @@ function sendAllAccounts (response) {
 			if (accounts === '{"aaData":]}') {
 				accounts ='{"aaData":[]}';
 			}
+			//console.log('volta' + accounts);
 			response.send(accounts);
 		} else {
 			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' + 
@@ -49,7 +50,6 @@ function startExpress() {
 
 		if (request.query.remove != undefined) {
 			accountCollection.remove({"_id":request.query.remove});
-			sendAllAccounts(response);
 		}
 
 		if (request.query.edit != undefined) {//per aprire la modal di edit, ritorniamo l'elemento da modificare
