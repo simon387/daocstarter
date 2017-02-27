@@ -3,14 +3,14 @@ a Dark Age of Camelot client starter
 
 ## based on:
 
-+ NodeJS
-+ Electron
-+ Express
-+ Datatables.net
-+ jQuery
-+ tingodb (mongodb)
-+ Bootstrap
-+ scrollreveal
++ NodeJS <https://nodejs.org/it/>
++ Electron <https://github.com/electron/electron>
++ Express <https://github.com/expressjs/express>
++ Datatables.net <https://datatables.net>
++ jQuery <https://github.com/jquery/jquery>
++ tingodb (mongodb) <https://github.com/sergeyksv/tingodb>
++ Bootstrap <https://github.com/twbs/bootstrap>
++ Scrollreveal <https://github.com/jlmakes/scrollreveal>
 
 ## developer's installation:
 
