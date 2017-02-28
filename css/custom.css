@@ -1,45 +1,70 @@
 .btnX {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .btn-successX {
-    color: #fff;
-    background-color: #5cb85c;
-    border-color: #4cae4c;
+	color: #fff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .btn-successX:hover {
-    color: #fff;
-    background-color: #449d44;
-    border-color: #398439;
+	color: #fff;
+	background-color: #449d44;
+	border-color: #398439;
+	text-decoration:none;
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .btn-primary:hover {
-    color: #fff;
-    background-color: #286090;
-    border-color: #204d74;
+	color: #fff;
+	background-color: #286090;
+	border-color: #204d74;
+	text-decoration:none;
+}
+
+.btn-default:hover {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+	text-decoration:none;
+}
+
+.btn-default {
+	border-bottom-color:rgb(204, 204, 204);
+	border-left-color:rgb(204, 204, 204);
+	border-right-color:rgb(204, 204, 204);
+	border-top-color:rgb(204, 204, 204);
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.btn-crea-a-dx {
+	padding:10px;
+	margin:0 50px 15px 0;
 }

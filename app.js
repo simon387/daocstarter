@@ -25,13 +25,13 @@ function sendAllAccounts (response) {
 			if (accounts === '{"aaData":]}') {
 				accounts ='{"aaData":[]}';
 			}
-			//console.log('volta' + accounts);
 			response.send(accounts);
 		} else {
-			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' + 
-			"<a data-id='row-" + item._id + "' href='javascript:editRow(" + item._id +
-			 ");' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeRow(" + item._id + 
-			 ");' class='btnX btn-default btn-md' style='background-color: #c83a2a;border-color: #b33426; color: #ffffff;'>remove<\/a>" + '"],';
+			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' +
+			"<a data-id='row-" + item._id + "' href='javascript:editAccountRow(" + item._id +
+			");' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeAccountRow("
+			+ item._id +
+			");' class='btnX btn-default btn-md' style='background-color: #c83a2a;border-color: #b33426; color: #ffffff;'>remove<\/a>" + '"],';
 		}
 	});
 }
@@ -42,27 +42,26 @@ function startExpress() {
 	let port = 3000;
 
 	server.get('/', function (request, response) {
-		let accountCollection = db.collection('account');
 		response.setHeader('Content-Type', 'application/json');
-		//if (request.query.ajax === '') {
-		//	console.log('ricevuta normale richiesta di visualizzazione');
-		//}
-
-		if (request.query.remove != undefined) {
-			accountCollection.remove({"_id":request.query.remove});
-		}
-
-		if (request.query.edit != undefined) {//per aprire la modal di edit, ritorniamo l'elemento da modificare
-			accountCollection.findOne({"_id":request.query.edit}, function(err, item) {
-				response.send(item);
-			});
-		} else {//view normale
-			sendAllAccounts(response)	
+		
+		if (request.query.ajaxAccount != undefined || request.query.removeAccount != undefined || request.query.editAccount != undefined) {
+			let accountCollection = db.collection('account');
+			if (request.query.removeAccount != undefined) {
+				accountCollection.remove({"_id":request.query.removeAccount});
+			}
+			if (request.query.editAccount != undefined) {//per aprire la modal di edit, ritorniamo l'elemento da modificare
+				accountCollection.findOne({"_id":request.query.editAccount}, function(err, item) {
+					response.send(item);
+				});
+			} else {//view normale
+				sendAllAccounts(response)	
+			}
 		}
 	});
 
 	server.post('/', function (request, response) {
 		let body = '';
+		response.setHeader('Content-Type', 'application/json');
 		request.on('data', function (data) {
 			body += data;
 			if (body.length > 1e6) {
@@ -72,18 +71,19 @@ function startExpress() {
 
 		request.on('end', function () {
 			let post = require('querystring').parse(body);
-			let accountCollection = db.collection('account');
-			response.setHeader('Content-Type', 'application/json');
-			if (request.query.add === '') {
-				accountCollection.insert([{name:post['account-name'], password:post['account-password']}], {w:1}, function(err, result) {
-					response.send(result);
-				});
-			} else if (request.query.edit != undefined) {
-				accountCollection.update({_id:request.query.edit},{name:post['account-name'], password:post['account-password']}, function(){
-					accountCollection.findOne({"_id":request.query.edit}, function(err, item) {
-						response.send(item);
+			if (request.query.addAccount != undefined || request.query.editAccount != undefined) {
+				let accountCollection = db.collection('account');
+				if (request.query.addAccount != undefined) {
+					accountCollection.insert([{name:post['account-name'], password:post['account-password']}], {w:1}, function(err, result) {
+						response.send(result);
 					});
-				});
+				} else if (request.query.editAccount != undefined) {
+					accountCollection.update({_id:request.query.editAccount},{name:post['account-name'], password:post['account-password']}, function(){
+						accountCollection.findOne({"_id":request.query.editAccount}, function(err, item) {
+							response.send(item);
+						});
+					});
+				}
 			}
 		});
 	});

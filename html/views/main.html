@@ -47,16 +47,37 @@
 			</div>
 		</div>
 	</header>
-<!-- CHARACTERS-->
-	<section class="bg-primary" id="characters">
+<!-- CHARACTERS class="bg-primary" ad id=character, da lo sfondo arancione-->
+	<section  id="characters">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 text-center">
-					<h2 class="section-heading">Characters</h2>
+					<h2 class="section-heading">Characters Management</h2>
 					<hr class="light">
-					<p class="text-faded">characters:todo</p>
 					<a href="#" class="page-scroll btn btn-default btn-xl sr-button" onclick="startClicked('Raysav', 49)">RAYSAV</a>
 					<a href="#" class="page-scroll btn btn-default btn-xl sr-button" onclick="startClicked('Rayvaughan', 41)">RAYVAUGHAN</a>
+				</div>
+			</div>
+			<button type="button" class="btnX btn-primary btn-sm pull-right btn-crea-a-dx" data-toggle="modal" data-target="#add-character-modal"><b>Add new Chararacter</b></button>
+			<div class="row">
+				<div class="col-md-12 marginT20">
+					<div class="table-responsive demo-x content">
+						<table id="charactersDT" class="display" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Name</th>
+									<th>Account</th>
+									<th>Server</th>
+									<th>Realm</th>
+									<th>Class</th>
+									<th>Resolution</th>
+									<th>Windowed</th>
+									<th style="background-image: none">Edit</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -68,10 +89,9 @@
 				<div class="col-lg-8 col-lg-offset-2 text-center">
 					<h2 class="section-heading">Accounts Management</h2>
 					<hr class="light">
-					<p class="text-faded">Accounts Management</p>
 				</div>
 			</div>
-			<button type="button" style="padding:10px; margin:0 50px 15px 0;" class="btnX btn-primary btn-sm pull-right" data-toggle="modal" data-target="#add-modal"><b>Add new Account</b></button>
+			<button type="button" class="btnX btn-primary btn-sm pull-right btn-crea-a-dx" data-toggle="modal" data-target="#add-account-modal"><b>Add new Account</b></button>
 			<div class="row">
 				<div class="col-md-12 marginT20">
 					<div class="table-responsive demo-x content">
@@ -89,16 +109,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label">
+		<div class="modal fade" id="edit-account-modal" tabindex="-1" role="dialog" aria-labelledby="edit-account-modal-label">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<form class="form-horizontal" id="edit-form">
+					<form class="form-horizontal" id="edit-account-form">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="edit-modal-label">Edit selected account</h4>
+							<h4 class="modal-title" id="edit-account-modal-label">Edit selected account</h4>
 						</div>
 						<div class="modal-body">
-							<input type="hidden" id="edit-id" value="" class="hidden">
+							<input type="hidden" id="edit-account-id" value="" class="hidden">
 							<div class="form-group">
 								<label for="account-name" class="col-sm-2 control-label">Name</label>
 								<div class="col-sm-10">
@@ -113,21 +133,20 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Save changes</button>
+							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		<!-- ADD -->
-		<div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-labelledby="add-modal-label">
+		<div class="modal fade" id="add-account-modal" tabindex="-1" role="dialog" aria-labelledby="add-account-modal-label">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<form class="form-horizontal" id="add-form">
+					<form class="form-horizontal" id="add-account-form">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="add-modal-label">Add new account</h4>
+							<h4 class="modal-title" id="add-account-modal-label">Add new account</h4>
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
@@ -144,8 +163,8 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Save changes</button>
+							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
 						</div>
 					</form>
 				</div>
@@ -191,9 +210,10 @@
 			</div>
 		</div>
 	</section>
-	<!-- main script-->
 	<script src="../../js/main.js"></script>
 	<script src="../../js/controller/account.js"></script>
+	<script src="../../js/controller/character.js"></script>
+	<script src="../../js/controller/setting.js"></script>
 	<!-- logger temp-->
 	<script src="../../js/controller/character-temp.js"></script>
 	<!-- Bootstrap Core JavaScript -->
