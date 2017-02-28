@@ -1,7 +1,12 @@
 require('datatables.net')().$('#accountsDT').DataTable({
 	"aProcessing":false,
 	"aServerSide":false,
-	"ajax":localhost + '?ajaxAccount'
+	"ajax":localhost + '?ajaxAccount',
+	columnDefs: [
+		{
+			
+		}
+	]
 });
 // Save edited row
 $("#edit-account-form").on("submit", function(event) {

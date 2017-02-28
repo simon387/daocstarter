@@ -11,6 +11,8 @@ function initDB() {
 	}
 	let tingoDB = require('tingodb')().Db;
 	db = new tingoDB('db', {});
+	db.collection('account').createIndex({name:1},{unique:true});
+	//db.collection('character').createIndex({name:1,account:1},{unique:true});
 	startExpress();
 }
 
@@ -19,7 +21,7 @@ function sendAllAccounts (response) {
 	let cursor = accountCollection.find({});
 	let accounts = '{"aaData":[';
 	cursor.each(function(err, item) {
-		if(item == null) {
+		if (item == null) {
 			accounts = accounts.slice(0, -1);
 			accounts += ']}';
 			if (accounts === '{"aaData":]}') {
@@ -27,11 +29,20 @@ function sendAllAccounts (response) {
 			}
 			response.send(accounts);
 		} else {
-			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' +
-			"<a data-id='row-" + item._id + "' href='javascript:editAccountRow(" + item._id +
-			");' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeAccountRow("
-			+ item._id +
-			");' class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
+			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' + "<a data-id='row-" + item._id + "' href='javascript:editAccountRow(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeAccountRow(" + item._id + ");' class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
+		}
+	});
+}
+
+function getAllAccountsNames(response) {
+	let accountCollection = db.collection('account');
+	let cursor = accountCollection.find({}, {name:1, _id:0});
+	let accountsArray = [];
+	cursor.each(function(err, item) {
+		if (item == null) {
+			return response.send(accountsArray);
+		} else {
+			accountsArray.push(item.name);
 		}
 	});
 }
@@ -44,6 +55,10 @@ function startExpress() {
 	server.get('/', function (request, response) {
 		response.setHeader('Content-Type', 'application/json');
 		
+		if (request.query.getAllAccountsNames != undefined) {
+			getAllAccountsNames(response);
+		}
+
 		if (request.query.ajaxAccount != undefined || request.query.removeAccount != undefined || request.query.editAccount != undefined) {
 			let accountCollection = db.collection('account');
 			if (request.query.removeAccount != undefined) {
@@ -77,7 +92,7 @@ function startExpress() {
 					accountCollection.insert([{name:post['account-name'], password:post['account-password']}], {w:1}, function(err, result) {
 						response.send(result);
 					});
-				} else if (request.query.editAccount != undefined) {
+				} else if (request.query.editAccount != undefined) {//edit effettiva
 					accountCollection.update({_id:request.query.editAccount},{name:post['account-name'], password:post['account-password']}, function(){
 						accountCollection.findOne({"_id":request.query.editAccount}, function(err, item) {
 							response.send(item);

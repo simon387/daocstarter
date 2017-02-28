@@ -58,7 +58,7 @@
 					<a href="#" class="page-scroll btn btn-default btn-xl sr-button" onclick="startClicked('Rayvaughan', 41)">RAYVAUGHAN</a>
 				</div>
 			</div>
-			<button type="button" class="btnX btn-primary btn-sm pull-right btn-crea-a-dx" data-toggle="modal" data-target="#add-character-modal"><b>Add new Chararacter</b></button>
+			<button type="button" class="btnX btn-primary btn-sm pull-right btn-crea-a-dx sr-button" data-toggle="modal" data-target="#add-character-modal" onclick="addNewCharacterClicked()"><b>Add new Chararacter</b></button>
 			<div class="row">
 				<div class="col-md-12 marginT20">
 					<div class="table-responsive demo-x content">
@@ -79,6 +79,70 @@
 							</thead>
 						</table>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="edit-character-modal" tabindex="-1" role="dialog" aria-labelledby="edit-character-modal-label">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="form-horizontal" id="edit-character-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="edit-character-modal-label">Edit selected character</h4>
+						</div>
+						<div class="modal-body">
+							<input type="hidden" id="edit-character-id" value="" class="hidden">
+							<div class="form-group">
+								<label for="character-name" class="col-sm-2 control-label">Name</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="character-name" name="character-name" placeholder="Character Name" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="character-account" class="col-sm-2 control-label">Name</label>
+								<div class="col-sm-10">
+									<input type="range" class="form-control" id="character-account" name="character-account" placeholder="Character Account" required>
+								</div>
+							</div>
+							
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="add-character-modal" tabindex="-1" role="dialog" aria-labelledby="add-character-modal-label">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="form-horizontal" id="add-character-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="add-character-modal-label">Add new character</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="add-character-name" class="col-sm-2 control-label">Name</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="add-character-name" name="character-name" placeholder="Character Name" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="character-account" class="col-sm-2 control-label">Name</label>
+								<div class="col-sm-10">
+									<select class="form-control" id="character-account">
+									</select>
+								</div>
+							</div>
+							
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -129,7 +193,7 @@
 							<div class="form-group">
 								<label for="account-password" class="col-sm-2 control-label">Password</label>
 								<div class="col-sm-10">
-									<input type="password" class="form-control" id="account-password" name="account-password" placeholder="Account Password" required>
+									<input type="text" class="form-control" id="account-password" name="account-password" placeholder="Account Password" required>
 								</div>
 							</div>
 						</div>
@@ -159,7 +223,7 @@
 							<div class="form-group">
 								<label for="add-account-password" class="col-sm-2 control-label">Password</label>
 								<div class="col-sm-10">
-									<input type="password" class="form-control" id="add-account-password" name="account-password" placeholder="Account Password" required>
+									<input type="text" class="form-control" id="add-account-password" name="account-password" placeholder="Account Password" required>
 								</div>
 							</div>
 						</div>
