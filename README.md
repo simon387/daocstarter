@@ -11,6 +11,9 @@ a Dark Age of Camelot client starter
 + tingodb (mongodb) <https://github.com/sergeyksv/tingodb>
 + Bootstrap <https://github.com/twbs/bootstrap>
 + Scrollreveal <https://github.com/jlmakes/scrollreveal>
++ Start Bootstrap - Creative v3.3.7+1 <http://startbootstrap.com/template-overviews/creative>
++ Font-Awesome <https://github.com/FortAwesome/Font-Awesome>
++ Magnific Popup - v1.1.0 - 2016-02-20 <http://dimsemenov.com/plugins/magnific-popup/>
 
 ## developer's installation:
 
@@ -21,11 +24,12 @@ a Dark Age of Camelot client starter
 
 1. npm start
 
-## TODO LIST
+## TODO LIST (for me!)
 
 + autoupdater
 + packager
 + ottimizzare custom.css
 + ottimizzare package.json
 + accounts, chars, settings, ecc manca ancora tutta la BL
-
++ menu bar
++ spostare db dalla current dir alla app data
