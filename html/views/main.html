@@ -7,15 +7,15 @@
 	<title>DAoC Starter</title>
 	<!-- Bootstrap Core CSS -->
 	<link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<!-- Custom Fonts -->
+	<!-- Custom Fonts       -->
 	<link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href='../../vendor/googleapis/1.css' rel='stylesheet' type='text/css'>
 	<link href='../../vendor/googleapis/2.css' rel='stylesheet' type='text/css'>
-	<!-- Plugin CSS -->
+	<!-- Plugin CSS         -->
 	<link href="../../vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
-	<!-- Theme CSS -->
+	<!-- Theme CSS          -->
 	<link href="../../css/creative.min.css" rel="stylesheet" type="text/css">
-	<!-- Datatable CSS-->
+	<!-- Datatable CSS      -->
 	<link href="../../vendor/datatables/1.10.10/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
 	<link href="../../css/custom.css" rel="stylesheet" type="text/css">
 </head>
@@ -33,7 +33,7 @@
 					<li><a class="page-scroll" href="#characters">Characters</a></li>
 					<li><a class="page-scroll" href="#accounts">Accounts</a></li>
 					<li><a class="page-scroll" href="#settings">Settings</a></li>
-					<li><a class="page-scroll" href="#contact">Contact</a></li>
+					<li><a class="page-scroll" href="#contacts">Contacts</a></li>
 				</ul>
 			</div>
 		</div>
@@ -67,13 +67,14 @@
 								<tr>
 									<th>#</th>
 									<th>Name</th>
+									<th>Last Login</th>
 									<th>Account</th>
 									<th>Server</th>
 									<th>Realm</th>
 									<th>Class</th>
 									<th>Resolution</th>
 									<th>Windowed</th>
-									<th style="background-image: none">Edit</th>
+									<th class="edit-button-in-row">Edit</th>
 								</tr>
 							</thead>
 						</table>
@@ -101,7 +102,7 @@
 									<th>#</th>
 									<th>Name</th>
 									<th>Password</th>
-									<th style="background-image: none">Edit</th>
+									<th class="edit-button-in-row">Edit</th>
 								</tr>
 							</thead>
 						</table>
@@ -178,24 +179,28 @@
 				<div class="col-lg-8 col-lg-offset-2 text-center">
 					<h2 class="section-heading">Settings</h2>
 					<hr class="light">
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
-					<p class="text-faded">settings:TODO</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 marginT20">
+					<div class="table-responsive demo-x content">
+						<table id="settingsDT" class="display" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>key</th>
+									<th>Value</th>
+									<th class="edit-button-in-row">Edit</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 <!-- CONTACTS -->
-	<section id="contact">
+	<section id="contacts">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 text-center">

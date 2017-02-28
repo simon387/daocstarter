@@ -31,7 +31,7 @@ function sendAllAccounts (response) {
 			"<a data-id='row-" + item._id + "' href='javascript:editAccountRow(" + item._id +
 			");' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeAccountRow("
 			+ item._id +
-			");' class='btnX btn-default btn-md' style='background-color: #c83a2a;border-color: #b33426; color: #ffffff;'>remove<\/a>" + '"],';
+			");' class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
 		}
 	});
 }

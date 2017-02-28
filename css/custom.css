@@ -68,3 +68,19 @@
 	padding:10px;
 	margin:0 50px 15px 0;
 }
+
+.btnX-delete {
+	background-color: #c83a2a;
+	border-color: #b33426;
+	color: #ffffff;
+}
+
+.btnX-delete:hover {
+	background-color: #c83a2a;
+	color: #ffffff;
+}
+
+.edit-button-in-row {
+	background-image: none;
+}
+
