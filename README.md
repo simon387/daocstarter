@@ -8,7 +8,7 @@ a Dark Age of Camelot client starter
 + Express <https://github.com/expressjs/express>
 + Datatables.net <https://datatables.net>
 + jQuery <https://github.com/jquery/jquery>
-+ tingodb (mongodb) <https://github.com/sergeyksv/tingodb>
++ tingodb (as mongodb) <https://github.com/sergeyksv/tingodb>
 + Bootstrap <https://github.com/twbs/bootstrap>
 + Scrollreveal <https://github.com/jlmakes/scrollreveal>
 + Start Bootstrap - Creative v3.3.7+1 <http://startbootstrap.com/template-overviews/creative>
