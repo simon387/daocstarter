@@ -105,6 +105,24 @@ function sendAllAccounts (response) {
 	});
 }
 
+function sendAllCharacters (response) {
+	let characterCollection = db.collection('character');
+	let cursor = characterCollection.find({});
+	let characters = '{"aaData":[';
+	cursor.each(function(err, item) {
+		if (item == null) {
+			characters = characters.slice(0, -1);
+			characters += ']}';
+			if (characters === '{"aaData":]}') {
+				characters ='{"aaData":[]}';
+			}
+			response.send(characters);
+		} else {
+			characters += '["' + item._id + '","' + item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.class + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id + "' href='javascript:editCharacterRow(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeCharacterRow(" + item._id + ");' class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
+		}
+	});
+}
+
 function getAllAccountsNames(response) {
 	let accountCollection = db.collection('account');
 	let cursor = accountCollection.find({}, {name:1, _id:0});
@@ -116,6 +134,58 @@ function getAllAccountsNames(response) {
 			accountsArray.push(item.name);
 		}
 	});
+}
+
+function getAllServersNames(response) {
+	let serverCollection = db.collection('server');
+	let cursor = serverCollection.find({}, {name:1, _id:0});
+	let serversArray = [];
+	cursor.each(function(err, item) {
+		if (item == null) {
+			return response.send(serversArray);
+		} else {
+			serversArray.push(item.name);
+		}
+	});
+}
+
+function getAllClassesNames(response) {
+	let classCollection = db.collection('class');
+	let cursor = classCollection.find({}, {name:1, _id:0});
+	let classesArray = [];
+	cursor.each(function(err, item) {
+		if (item == null) {
+			return response.send(classesArray);
+		} else {
+			classesArray.push(item.name);
+		}
+	});
+}
+
+function getAllResolutions(response) {
+	if (require('os').platform() != 'win32') {
+		return;
+	}
+	var shell = require('node-powershell');
+	var ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
+	ps.addCommand('Get-WMIObject -query "SELECT * FROM CIM_VideoControllerResolution" | Select Caption')
+		.then(function(){
+			return ps.invoke();
+		})
+		.then(function(output){
+			let str = output.replace(/[\n\r]/g, '').replace(/ +/g, '');
+			let regexp = /\d+x\d+x\d/g;
+			let match, matches = [];
+			while ((match = regexp.exec(str)) != null) {
+				matches.push(match[0].slice(0, -2));
+			}
+			response.send(matches);
+			ps.dispose();
+		})
+		.catch(function(err){
+			console.log(err);
+			ps.dispose();
+		});
 }
 
 function startExpress() {
@@ -130,6 +200,18 @@ function startExpress() {
 			getAllAccountsNames(response);
 		}
 
+		if (request.query.getAllServersNames != undefined) {
+			getAllServersNames(response);
+		}
+
+		if (request.query.getAllClassesNames != undefined) {
+			getAllClassesNames(response);
+		}
+		
+		if (request.query.getAllResolutions != undefined) {
+			getAllResolutions(response);
+		}
+		
 		if (request.query.ajaxAccount != undefined || request.query.removeAccount != undefined || request.query.editAccount != undefined) {
 			let accountCollection = db.collection('account');
 			if (request.query.removeAccount != undefined) {
@@ -140,7 +222,21 @@ function startExpress() {
 					response.send(item);
 				});
 			} else {//view normale
-				sendAllAccounts(response)	
+				sendAllAccounts(response);
+			}
+		}
+
+		if (request.query.ajaxCharacter != undefined || request.query.removeCharacter != undefined || request.query.editCharacter != undefined) {
+			let characterCollection = db.collection('character');
+			if (request.query.removeCharacter != undefined) {
+				characterCollection.remove({"_id":request.query.removeCharacter});
+			}
+			if (request.query.editCharacter != undefined) {
+				characterCollection.findOne({"_id":request.query.editCharacter}, function(err, item) {
+					response.send(item);
+				});
+			} else {
+				sendAllCharacters(response);
 			}
 		}
 	});
@@ -171,6 +267,24 @@ function startExpress() {
 					});
 				}
 			}
+
+			//char
+			if (request.query.addCharacter != undefined || request.query.editCharacter != undefined) {
+				let characterCollection = db.collection('character');
+				if (request.query.addCharacter != undefined) {
+					let characterWindowed = post['character-windowed'] === undefined ? "false" : "true"; 
+					//console.log(post['character-windowed']);
+					characterCollection.insert([{name:post['character-name'], lastlogin:'-', account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}], {w:1}, function(err, result) {
+						response.send(result);
+					});
+				} else if (request.query.editCharacter != undefined) {//TODO
+					characterCollection.update({_id:request.query.editCharacter},{name:post['character-name'], password:post['character-password']}, function(){
+						characterCollection.findOne({"_id":request.query.editCharacter}, function(err, item) {
+							response.send(item);
+						});
+					});
+				}
+			}
 		});
 	});
 
@@ -183,7 +297,7 @@ app.on('ready', function() {
 	const path = require('path');
 	const url = require('url');
 	const BrowserWindow = electron.BrowserWindow;
-	let mainWindow = new BrowserWindow({width: 1024, height: 768 /*backgroundColor: '#2e2c29'*/});
+	let mainWindow = new BrowserWindow({width: 1280, height: 720 /*backgroundColor: '#2e2c29'*/});
 	//mainWindow.loadURL('https://github.com');
 	mainWindow.loadURL(url.format({
 		pathname: path.join(__dirname, 'html', 'views', 'main.html'),

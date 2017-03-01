@@ -25,13 +25,3 @@ A Dark Age of Camelot client starter.
 ## developer's debug start:
 
 1. npm start
-
-## TODO LIST (for me!)
-
-+ autoupdater
-+ packager
-+ ottimizzare custom.css
-+ ottimizzare package.json
-+ accounts, chars, settings, ecc manca ancora tutta la BL
-+ menu bar
-+ spostare db dalla current dir alla app data

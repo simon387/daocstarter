@@ -20,7 +20,8 @@
     "datatables.net-dt": "*",
     "express": "*",
     "jquery": "*",
-    "tingodb": "*"
+    "tingodb": "*",
+	"node-powershell": "*"
   },
   "jshintConfig": {
     "esversion": "6"

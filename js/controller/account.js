@@ -28,7 +28,8 @@ $("#add-account-form").on("submit", function(event) {
 		let table = tbody.length ? tbody : $('#accountsDT');
 		table.append('<tr role="row"><td class="sorting_1">' + data[0]._id +
 		'</td><td>' +data[0].name + '</td><td>' + data[0].password + '</td><td><a data-id="row-' +
-		data[0]._id + '" href="javascript:editAccountRow(' + data[0]._id + ');" class="btnX btn-md btn-successX">edit</a>&nbsp;<a href="javascript:removeAccountRow('
+		data[0]._id + '" href="javascript:editAccountRow(' + data[0]._id +
+		');" class="btnX btn-md btn-successX">edit</a>&nbsp;<a href="javascript:removeAccountRow('
 		+ data[0]._id + ');" class="btnX btn-default btn-md btnX-delete" >remove</a></td></tr>');
 		$('#accountsDT tbody tr').remove(":contains('No data available in table')");
 		$('#add-account-modal').modal('hide');
