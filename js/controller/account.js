@@ -34,7 +34,7 @@ $("#add-account-form").on("submit", function(event) {
 		$('#accountsDT tbody tr').remove(":contains('No data available in table')");
 		$('#add-account-modal').modal('hide');
 	}).fail(function() {
-		alert('Unable to Add new row');
+		alert('Unable to Add new account');
 	});
 });
 // Edit row
