@@ -11,7 +11,78 @@ function initDB() {
 	}
 	let tingoDB = require('tingodb')().Db;
 	db = new tingoDB('db', {});
+	//account
 	db.collection('account').createIndex({name:1},{unique:true});
+	//server
+	let serverCollection = db.collection('server');
+	db.collection('server').createIndex({name:1},{unique:true});
+	serverCollection.insert([{name:'Ywain1', ip:"107.23.173.143", port:"10622", n:"41"}], {w:1}, function(err, result) {});
+	serverCollection.insert([{name:'Ywain2', ip:"107.23.173.143", port:"10622", n:"49"}], {w:1}, function(err, result) {});
+	serverCollection.insert([{name:'Ywain3', ip:"107.23.173.143", port:"10622", n:"50"}], {w:1}, function(err, result) {});
+	serverCollection.insert([{name:'Ywain4', ip:"107.23.173.143", port:"10622", n:"51"}], {w:1}, function(err, result) {});
+	serverCollection.insert([{name:'Ywain5', ip:"107.23.173.143", port:"10622", n:"52"}], {w:1}, function(err, result) {});
+	serverCollection.insert([{name:'Ywain6', ip:"107.23.173.143", port:"10622", n:"53"}], {w:1}, function(err, result) {});
+	serverCollection.insert([{name:'Ywain7', ip:"107.23.173.143", port:"10622", n:"54"}], {w:1}, function(err, result) {});
+	serverCollection.insert([{name:'Ywain8', ip:"107.23.173.143", port:"10622", n:"55"}], {w:1}, function(err, result) {});
+	serverCollection.insert([{name:'Ywain9', ip:"107.23.173.143", port:"10622", n:"56"}], {w:1}, function(err, result) {});
+	serverCollection.insert([{name:'Ywain10', ip:"107.23.173.143", port:"10622", n:"57"}], {w:1}, function(err, result) {});
+	//realm
+	let realmCollection = db.collection('realm');
+	db.collection('realm').createIndex({name:1},{unique:true});
+	realmCollection.insert([{name:'Albion', n:1}], {w:1}, function(err, result) {});
+	realmCollection.insert([{name:'Hibernia', n:3}], {w:1}, function(err, result) {});
+	realmCollection.insert([{name:'Midgard', n:2}], {w:1}, function(err, result) {});
+	//class
+	let classCollection = db.collection('class');
+	db.collection('class').createIndex({name:1},{unique:true});
+	classCollection.insert([{name:'Armsman', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Cabalist', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Cleric', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Friar', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Heretic', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Infiltrator', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Mauler (Alb)', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Mercenary', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Minstrel', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Necromancer', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Paladin', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Reaver', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Scout', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Sorcerer', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Theurg', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Wizard', realm:'Albion'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Animist', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Bainshee', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Bard', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Blademaster', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Champion', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Druid', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Eldritch', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Enchanter', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Hero', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Mauler (Hib)', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Mentalist', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Nightshade', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Ranger', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Valewalker', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Vampiir', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Warden', realm:'Hibernia'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Berserker', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Bonedancer', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Healer', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Hunter', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Mauler (Mid)', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Runemaster', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Savage', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Shadowblade', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Shaman', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Skald', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Spiritmaster', realm:''}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Thane', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Valkyrie', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Warlock', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classCollection.insert([{name:'Warrior', realm:'Midgard'}], {w:1}, function(err, result) {});
+	//character
 	//db.collection('character').createIndex({name:1,account:1},{unique:true});
 	startExpress();
 }
