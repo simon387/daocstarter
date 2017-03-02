@@ -53,7 +53,7 @@
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 text-center">
 					<h2 class="section-heading">Characters Management</h2>
-					<hr class="light">
+					<hr class="primary"><!--light bianca-->
 					<a href="#" class="page-scroll btn btn-default btn-xl sr-button" onclick="startClicked('Raysav', 49)">RAYSAV</a>
 					<a href="#" class="page-scroll btn btn-default btn-xl sr-button" onclick="startClicked('Rayvaughan', 41)">RAYVAUGHAN</a>
 				</div>
@@ -179,7 +179,7 @@
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 text-center">
 					<h2 class="section-heading">Accounts Management</h2>
-					<hr class="light">
+					<hr class="primary">
 				</div>
 			</div>
 			<button type="button" class="btnX btn-primary btn-sm pull-right btn-crea-a-dx" data-toggle="modal" data-target="#add-account-modal"><b>Add new Account</b></button>
@@ -263,12 +263,12 @@
 		</div>
 	</section>
 <!-- SETTINGS -->
-	<section class="no-padding bg-primary" id="settings">
+	<section class="no-padding " id="settings"><!-- bg-primary-->
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 text-center">
 					<h2 class="section-heading">Settings</h2>
-					<hr class="light">
+					<hr class="primary">
 				</div>
 			</div>
 			<div class="row">
@@ -285,6 +285,31 @@
 							</thead>
 						</table>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="edit-setting-modal-file" tabindex="-1" role="dialog" aria-labelledby="edit-setting-modal-label">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="form-horizontal" id="edit-setting-form-file">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="edit-setting-modal-label">Edit selected setting</h4>
+						</div>
+						<div class="modal-body">
+							<input type="hidden" id="edit-setting-id-file" value="" class="hidden">
+							<div class="form-group">
+								<label for="setting-value-file" class="col-sm-2 control-label">Value</label>
+								<div class="col-sm-10">
+									<input type="file" accept=".dll" class="form-control" id="setting-value-file" name="setting-value-file" required>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

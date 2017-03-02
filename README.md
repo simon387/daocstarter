@@ -1,6 +1,6 @@
 # DAoC Starter - STILL WORK IN PROGRESS!!!
 
-A Dark Age of Camelot client starter.  
+A Dark Age of Camelot client starter <http://darkageofcamelot.com>  
 100% HTML+CSS+JS platform independent Desktop application.
 
 ## based on:

@@ -84,10 +84,15 @@ function initDB() {
 	classCollection.insert([{name:'Warrior', realm:'Midgard'}], {w:1}, function(err, result) {});
 	//character
 	//db.collection('character').createIndex({name:1,account:1},{unique:true});
+	//settings
+	let settingCollection = db.collection('setting');
+	db.collection('setting').createIndex({key:1},{unique:true});
+	settingCollection.insert([{key:'game.dll.path', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], {w:1}, function(err, result) {});
+	//settingCollection.insert([{key:'game.dll.path', type:'File', value:'dll'}], {w:1}, function(err, result) {});
 	startExpress();
 }
 
-function sendAllAccounts (response) {
+function sendAllAccounts(response) {
 	let accountCollection = db.collection('account');
 	let cursor = accountCollection.find({});
 	let accounts = '{"aaData":[';
@@ -105,7 +110,7 @@ function sendAllAccounts (response) {
 	});
 }
 
-function sendAllCharacters (response) {
+function sendAllCharacters(response) {
 	let characterCollection = db.collection('character');
 	let cursor = characterCollection.find({});
 	let characters = '{"aaData":[';
@@ -114,11 +119,30 @@ function sendAllCharacters (response) {
 			characters = characters.slice(0, -1);
 			characters += ']}';
 			if (characters === '{"aaData":]}') {
-				characters ='{"aaData":[]}';
+				characters = '{"aaData":[]}';
 			}
 			response.send(characters);
 		} else {
 			characters += '["' + item._id + '","' + item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.class + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id + "' href='javascript:editCharacterRow(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeCharacterRow(" + item._id + ");' class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
+		}
+	});
+}
+
+function sendAllSettings(response) {
+	let settingCollection = db.collection('setting');
+	let cursor = settingCollection.find({});
+	let settings = '{"aaData":[';
+	cursor.each(function(err, item) {
+		if (item == null) {
+			settings = settings.slice(0, -1);
+			settings += ']}';
+			if (settings === '{"aaData":]}') {
+				settings = '{"aaData":[]}';
+			}
+			console.log(settings);
+			response.send(settings);
+		} else {
+			settings += '["' + item._id + '","' + item.key + '","' + item.value + '","' + "<a data-id='row-" + item._id + "' href='javascript:editSettingRow" + item.type + "(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>" + '"],';
 		}
 	});
 }
@@ -239,6 +263,20 @@ function startExpress() {
 				sendAllCharacters(response);
 			}
 		}
+
+		if (request.query.ajaxSetting != undefined || request.query.editSetting != undefined) {
+			let settingCollection = db.collection('setting');
+			
+			//console.log(request);
+			if (request.query.editSetting != undefined) {
+				console.log(request.query.editSetting);
+				settingCollection.findOne({"_id":request.query.editSetting}, function(err, item) {
+					response.send(item);
+				});
+			} else {
+				sendAllSettings(response);
+			}
+		}
 	});
 
 	server.post('/', function (request, response) {
@@ -247,12 +285,16 @@ function startExpress() {
 		request.on('data', function (data) {
 			body += data;
 			if (body.length > 1e6) {
+				console.log("no dai");
 				request.connection.destroy();
 			}
 		});
 
 		request.on('end', function () {
 			let post = require('querystring').parse(body);
+			console.log("post sopra");
+			console.log(post);
+			//account
 			if (request.query.addAccount != undefined || request.query.editAccount != undefined) {
 				let accountCollection = db.collection('account');
 				if (request.query.addAccount != undefined) {
@@ -280,6 +322,24 @@ function startExpress() {
 				} else if (request.query.editCharacter != undefined) {//TODO
 					characterCollection.update({_id:request.query.editCharacter},{name:post['character-name'], password:post['character-password']}, function(){
 						characterCollection.findOne({"_id":request.query.editCharacter}, function(err, item) {
+							response.send(item);
+						});
+					});
+				}
+			}
+
+			//setting
+			if (request.query.editSetting != undefined) {
+				let settingCollection = db.collection('setting');
+				if (request.query.editSetting != undefined) {
+					console.log("request.query.editSetting");
+					console.log(request.query.editSetting);
+					console.log('post');
+					console.log(post);
+					console.log("post['setting-value-file']");
+					console.log(post['setting-value-file']);
+					settingCollection.update({_id:request.query.editSetting},{value:post['setting-value-file']}, function(){
+						settingCollection.findOne({"_id":request.query.editSetting}, function(err, item) {
 							response.send(item);
 						});
 					});
