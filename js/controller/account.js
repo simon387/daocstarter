@@ -13,6 +13,7 @@ $("#edit-account-form").on("submit", function(event) {
 	event.preventDefault();
 	$.post(localhost + '?editAccount=' + $('#edit-account-id').val(), $(this).serialize(), function(data) {
 		var tr = $('a[data-id="row-' + $('#edit-account-id').val() + '"]').parent().parent();
+		//var tr = $('a[href="javascript:editAccountRow(' + $('#edit-account-id').val() + ');"]').parent().parent();
 		$('td:eq(1)', tr).html(data.name);
 		$('td:eq(2)', tr).html(data.password);
 		$('#edit-account-modal').modal('hide');

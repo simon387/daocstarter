@@ -6,11 +6,7 @@ let realmDatastore;
 let classDatastore;
 let settingDatastore;
 
-
-var fs = require('fs');//C:\electron\daocstarter\db
-var filePath = 'C:/electron/daocstarter/db/setting'; 
-fs.unlinkSync(filePath);
-
+//require('fs').unlinkSync('C:/electron/daocstarter/db/setting');
 initDBandExpress();
 
 function initDBandExpress() {
@@ -96,7 +92,7 @@ function initDBandExpress() {
 	settingDatastore = new Datastore({filename:'db/setting', autoload:true});
 	settingDatastore.ensureIndex({fieldName:'key', unique:true}, function(err) {});
 	settingDatastore.insert([{_id:'1', key:'game.dll.path', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], function(err) {});
-	settingDatastore.persistence.setAutocompactionInterval(5555);
+	//settingDatastore.persistence.setAutocompactionInterval(5555);
 	startExpress();
 }
 
@@ -106,7 +102,7 @@ function getAllAccounts(response) {
 		let ret = '{"aaData":[';
 		docs.forEach(function (item) {
 			ret += '["' + item._id + '","' + item.name + '","' + item.password + '","' + "<a data-id='row-" + item._id
-			+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'" + item._id + "\'); class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';;
+			+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'" + item._id + "\'); class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
 		});
 		response.send(correggiRispostaPerDT(ret));
 	});
@@ -117,7 +113,7 @@ function getAllCharacters(response) {
 		let ret = '{"aaData":[';
 		docs.forEach(function (item) {
 			ret += '["' + item._id + '","' + item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.class + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
-			+ "' href='javascript:editCharacterRow(\'" + item._id + "\'); class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeCharacterRow(\'" + item._id + "\'); class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
+			+ "' href=javascript:editCharacterRow(\'" + item._id + "\'); class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeCharacterRow(\'" + item._id + "\'); class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
 		});
 		response.send(correggiRispostaPerDT(ret));
 	});
@@ -252,6 +248,7 @@ function startExpress() {
 				getAllSettings(response);
 			}
 		}
+		compattaTutto();
 	});
 
 	server.post('/', function (request, response) {
@@ -273,49 +270,47 @@ function startExpress() {
 						response.send(newDoc);
 					});
 				} else if (request.query.editAccount != undefined) {//edit effettiva
-					accountDatastore.update({_id:request.query.editAccount}, {name:post['account-name'], password:post['account-password']}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments, upsert) {
-						response.send(affectedDocuments);//NOTA CHE RITORNA UN DOC CON SOLO I CMAPI MODIFICATI
+					accountDatastore.update({_id:request.query.editAccount}, {name:post['account-name'], password:post['account-password']}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
+						response.send(affectedDocuments);//NOTA CHE RITORNA UN DOC CON SOLO I CAMPI MODIFICATI
 					});
 				}
 			}
 			//char
 			if (request.query.addCharacter != undefined || request.query.editCharacter != undefined) {
+				let characterWindowed = post['character-windowed'] === undefined ? false : true; 
 				if (request.query.addCharacter != undefined) {
-					let characterWindowed = post['character-windowed'] === undefined ? false : true; 
+					
 					characterDatastore.insert({name:post['character-name'], lastlogin:'-', account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}, function(err, newDoc) {
 						response.send(newDoc);
 					});
-				} else if (request.query.editCharacter != undefined) {//TODO
-					characterDatastore.update({_id:request.query.editCharacter},{name:post['character-name']/*TODO*/}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments, upsert) {
+				} else if (request.query.editCharacter != undefined) {
+					characterDatastore.update({_id:request.query.editCharacter},{lastlogin:"-", name:post['character-name'], account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
 						response.send(affectedDocuments);
 					});
 				}
 			}
-			//setting
-			console.log(request.query.editSetting);
-			console.log(post['setting-value-file'])
+			//setting per ora con i file non funziona
 			if (request.query.editSetting != undefined) {
 				settingDatastore.findOne({_id:request.query.editSetting}, function(err, doc) {
-					//response.send(doc);
-					settingDatastore.update({_id:request.query.editSetting}, {key:doc.key, type:doc.type, value:post['setting-value-file']}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments, upsert) {
-						//console.log("array?=" + affectedDocuments[0])
-						//console.log("numAffected=" + numAffected)
-						//for(var property in affectedDocuments) {
-						//	console.log(property + "=" + affectedDocuments[property]);
-						//}
-						//affectedDocuments['_id'] = doc._id;
+					settingDatastore.update({_id:request.query.editSetting}, {key:doc.key, type:doc.type, value:post['setting-value-file']}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
+						settingDatastore.persistence.compactDatafile();
 						response.send(affectedDocuments);
-
-						
 					});
 				});
 			}
 		});
+		compattaTutto();
 	});
 
 	server.listen(port, function () {
 		console.log('Express running in electron and listening on port ' + port + '!');
 	});
+}
+
+function compattaTutto() {
+	accountDatastore.persistence.compactDatafile();
+	characterDatastore.persistence.compactDatafile();
+	settingDatastore.persistence.compactDatafile();
 }
 
 const electron = require('electron');

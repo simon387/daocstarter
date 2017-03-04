@@ -4,35 +4,41 @@ require('datatables.net')().$('#charactersDT').DataTable({
 	"ajax":localhost + '?ajaxCharacter'
 });
 
-function addNewCharacterClicked() {
+function refreshModalCombos() {
 	$.get(localhost + '?getAllAccountsNames', function(array) {
 		$('#add-character-accounts').empty();
+		$('#edit-character-accounts').empty();
 		for (let i = 0; i < array.length; i++) {
 			$('#add-character-accounts').append($("<option>" + array[i] + "</option>"));
+			$('#edit-character-accounts').append($("<option>" + array[i] + "</option>"));
 		}
-	}).fail(function() {
-		alert('fail on addNewCharacterClicked()');
 	});
-	$('#add-character-servers').empty();
 	$.get(localhost + '?getAllServersNames', function(array){
+		$('#add-character-servers').empty();
+		$('#edit-character-servers').empty();
 		for (let i = 0; i < array.length; i++) {
 			$('#add-character-servers').append($("<option>" + array[i] + "</option>"));
+			$('#edit-character-servers').append($("<option>" + array[i] + "</option>"));
 		}
 	});
-	$('#add-character-classes').empty();
 	$.get(localhost + '?getAllClassesNames', function(array){
+		$('#add-character-classes').empty();
+		$('#edit-character-classes').empty();
 		for (let i = 0; i < array.length; i++) {
 			$('#add-character-classes').append($("<option>" + array[i] + "</option>"));
+			$('#edit-character-classes').append($("<option>" + array[i] + "</option>"));
 		}
 	});
-	$('#add-character-resolution').empty();
 	$.get(localhost + '?getAllResolutions', function(array){
+		$('#add-character-resolution').empty();
+		//$('#edit-character-resolution').empty();
 		for (let i = 0; i < array.length; i++) {
 			$('#add-character-resolution').append($("<option>" + array[i] + "</option>"));
+			//$('#edit-character-resolution').append($("<option>" + array[i] + "</option>"));
 		}
 	});
 }
-
+// Add new row
 $("#add-character-form").on("submit", function(event) {
 	event.preventDefault();
 	$.post(localhost + '?addCharacter', $(this).serialize(), function(data) {
@@ -50,4 +56,60 @@ $("#add-character-form").on("submit", function(event) {
 		alert('Unable to Add new character');
 	});
 });
-
+// Remove row
+function removeCharacterRow(id) {
+	if ('undefined' != typeof id) {
+		$.get(localhost + '?removeCharacter=' + id, function() {
+			$('a[data-id="row-' + id + '"]').parent().parent().remove();
+		}).fail(function() {
+			alert('unable to remove row.')
+		});
+	} else {
+		alert('Unknown row id.');
+	}
+}
+// Edit row
+function editCharacterRow(id) {
+	refreshModalCombos();
+	if ('undefined' != typeof id) {
+		$.getJSON(localhost + '?editCharacter=' + id, function(obj) {
+			$('#edit-character-id').val(obj._id);
+			$('#edit-character-name').val(obj.name);
+			$("#edit-character-accounts").val(obj.account);
+			$("#edit-character-servers").val(obj.server);
+			$("#edit-character-classes").val(obj.class);
+			$.get(localhost + '?getAllResolutions', function(array){
+				$('#edit-character-resolution').empty();
+				for (let i = 0; i < array.length; i++) {
+					if (array[i] === obj.resolution) {
+						$('#edit-character-resolution').append($("<option selected>" + array[i] + "</option>"));
+					}
+					$('#edit-character-resolution').append($("<option>" + array[i] + "</option>"));
+				}
+			});
+			$("#edit-character-windowed").prop( "checked", obj.windowed );
+			$('#edit-character-modal').modal('show')
+		}).fail(function() {
+			alert('unable to edit character.')
+		});
+	} else {
+		alert('Unknown character id.');
+	}
+}
+// Save edited row
+$("#edit-character-form").on("submit", function(event) {
+	event.preventDefault();
+	$.post(localhost + '?editCharacter=' + $('#edit-character-id').val(), $(this).serialize(), function(data) {
+		var tr = $('a[data-id="row-' + $('#edit-character-id').val() + '"]').parent().parent();
+		$('td:eq(1)', tr).html(data.name);
+		$('td:eq(2)', tr).html(data.lastlogin);
+		$('td:eq(3)', tr).html(data.account);
+		$('td:eq(4)', tr).html(data.server);
+		$('td:eq(5)', tr).html(data.class);
+		$('td:eq(6)', tr).html(data.resolution);
+		$('td:eq(7)', tr).html(data.windowed + "");
+		$('#edit-character-modal').modal('hide');
+	}).fail(function() {
+		alert('Unable to save data, please try again later.');
+	});
+});
