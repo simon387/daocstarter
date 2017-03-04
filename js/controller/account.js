@@ -11,6 +11,8 @@ require('datatables.net')().$('#accountsDT').DataTable({
 // Save edited row
 $("#edit-account-form").on("submit", function(event) {
 	event.preventDefault();
+	//console.log("this dellaccount")
+	//console.log(this)
 	$.post(localhost + '?editAccount=' + $('#edit-account-id').val(), $(this).serialize(), function(data) {
 		var tr = $('a[data-id="row-' + $('#edit-account-id').val() + '"]').parent().parent();
 		$('td:eq(1)', tr).html(data.name);

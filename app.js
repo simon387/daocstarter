@@ -86,8 +86,8 @@ function initDB() {
 	//db.collection('character').createIndex({name:1,account:1},{unique:true});
 	//settings
 	let settingCollection = db.collection('setting');
-	db.collection('setting').createIndex({key:1},{unique:true});
-	settingCollection.insert([{key:'game.dll.path', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], {w:1}, function(err, result) {});
+	db.collection('setting').createIndex({keyx:1},{unique:true});
+	settingCollection.insert([{keyx:'game.dll.path', typex:'File', valuex:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], {w:1}, function(err, result) {/*console.log('err='+ err + 'result=' + result)*/});
 	//settingCollection.insert([{key:'game.dll.path', type:'File', value:'dll'}], {w:1}, function(err, result) {});
 	startExpress();
 }
@@ -139,10 +139,11 @@ function sendAllSettings(response) {
 			if (settings === '{"aaData":]}') {
 				settings = '{"aaData":[]}';
 			}
-			console.log(settings);
+			//console.log("settings");
+			//console.log(settings);
 			response.send(settings);
 		} else {
-			settings += '["' + item._id + '","' + item.key + '","' + item.value + '","' + "<a data-id='row-" + item._id + "' href='javascript:editSettingRow" + item.type + "(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>" + '"],';
+			settings += '["' + item._id + '","' + item.keyx + '","' + item.valuex + '","' + "<a data-id='row-" + item._id + "' href='javascript:editSettingRow" + item.typex + "(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>" + '"],';
 		}
 	});
 }
@@ -269,7 +270,7 @@ function startExpress() {
 			
 			//console.log(request);
 			if (request.query.editSetting != undefined) {
-				console.log(request.query.editSetting);
+				//console.log(request.query.editSetting);
 				settingCollection.findOne({"_id":request.query.editSetting}, function(err, item) {
 					response.send(item);
 				});
@@ -285,15 +286,15 @@ function startExpress() {
 		request.on('data', function (data) {
 			body += data;
 			if (body.length > 1e6) {
-				console.log("no dai");
+				//console.log("no dai");
 				request.connection.destroy();
 			}
 		});
 
 		request.on('end', function () {
 			let post = require('querystring').parse(body);
-			console.log("post sopra");
-			console.log(post);
+			/*console.log("post sopra");
+			console.log(post);*/
 			//account
 			if (request.query.addAccount != undefined || request.query.editAccount != undefined) {
 				let accountCollection = db.collection('account');
@@ -302,6 +303,8 @@ function startExpress() {
 						response.send(result);
 					});
 				} else if (request.query.editAccount != undefined) {//edit effettiva
+					/*	console.log('post account');
+					console.log(post);*/
 					accountCollection.update({_id:request.query.editAccount},{name:post['account-name'], password:post['account-password']}, function(){
 						accountCollection.findOne({"_id":request.query.editAccount}, function(err, item) {
 							response.send(item);
@@ -332,17 +335,45 @@ function startExpress() {
 			if (request.query.editSetting != undefined) {
 				let settingCollection = db.collection('setting');
 				if (request.query.editSetting != undefined) {
-					console.log("request.query.editSetting");
+					/*console.log("request.query.editSetting");
 					console.log(request.query.editSetting);
-					console.log('post');
+					console.log('post setting');
 					console.log(post);
 					console.log("post['setting-value-file']");
-					console.log(post['setting-value-file']);
-					settingCollection.update({_id:request.query.editSetting},{value:post['setting-value-file']}, function(){
-						settingCollection.findOne({"_id":request.query.editSetting}, function(err, item) {
-							response.send(item);
+					console.log(post['setting-value-file']);*/
+					if (post['setting-value-file'] != undefined) {
+
+						
+						settingCollection.findOne({_id:request.query.editSetting}, function(err, item) {
+							//console.log("err=" + err + " item=" + item[0]);
+							console.log(item._id + " " + item.keyx + " " + item.valuex + " " + item.typex)
+							//in item ho le robe vecchie
+							//nel post ho l'unica cosa nuova
+							settingCollection.remove({"_id":request.query.editSetting});
+
+							settingCollection.insert(
+								[{keyx:item.keyx, valuex:post['setting-value-file'], typex:item.typex}], {w:1}, function(err, result) {
+								console.log("res=" + result._id);
+								response.send({_id:result.id, valuex:post['setting-value-file']});
+								//response.send();
+								//settingCollection.findOne({keyx:item.keyx}, function(err, item) {
+								//	response.send(item)		
+								//});
+							});
+
+
+							//response.send(item);
 						});
-					});
+					
+					/*
+						settingCollection.update({_id:request.query.editSetting}, {valuex:post['setting-value-file']}, function(){
+							settingCollection.findOne({_id:request.query.editSetting}, function(err, item) {
+								console.log("err=" + err + " item=" + item);
+								response.send(item);
+							});
+						});*/
+					
+					}
 				}
 			}
 		});
