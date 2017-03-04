@@ -5,12 +5,12 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 
 ## based on:
 
-+ NodeJS <https://nodejs.org/it/>
++ NodeJS <https://github.com/nodejs/node>
 + Electron <https://github.com/electron/electron>
 + Express <https://github.com/expressjs/express>
 + Datatables.net <https://datatables.net>
 + jQuery <https://github.com/jquery/jquery>
-+ tingodb (as mongodb) <https://github.com/sergeyksv/tingodb>
++ NeDB (as mongodb) <https://github.com/louischatriot/nedb>
 + Bootstrap <https://github.com/twbs/bootstrap>
 + Scrollreveal <https://github.com/jlmakes/scrollreveal>
 + Start Bootstrap - Creative v3.3.7+1 <http://startbootstrap.com/template-overviews/creative>

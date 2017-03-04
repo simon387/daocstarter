@@ -1,190 +1,172 @@
 "use strict";
-const electron = require('electron');
-const app = electron.app;
-let db;
-initDB();
+let accountDatastore;
+let characterDatastore;
+let serverDatastore;
+let realmDatastore;
+let classDatastore;
+let settingDatastore;
 
-function initDB() {
-	let fs = require('fs');
-	if (!fs.existsSync('db')) {
-		fs.mkdir('db');
-	}
-	let tingoDB = require('tingodb')().Db;
-	db = new tingoDB('db', {});
+
+var fs = require('fs');//C:\electron\daocstarter\db
+var filePath = 'C:/electron/daocstarter/db/setting'; 
+fs.unlinkSync(filePath);
+
+initDBandExpress();
+
+function initDBandExpress() {
+	let Datastore = require('nedb')
 	//account
-	db.collection('account').createIndex({name:1},{unique:true});
+	accountDatastore = new Datastore({filename:'db/account', autoload:true});
+	accountDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
 	//server
-	let serverCollection = db.collection('server');
-	db.collection('server').createIndex({name:1},{unique:true});
-	serverCollection.insert([{name:'Ywain1', ip:"107.23.173.143", port:"10622", n:"41"}], {w:1}, function(err, result) {});
-	serverCollection.insert([{name:'Ywain2', ip:"107.23.173.143", port:"10622", n:"49"}], {w:1}, function(err, result) {});
-	serverCollection.insert([{name:'Ywain3', ip:"107.23.173.143", port:"10622", n:"50"}], {w:1}, function(err, result) {});
-	serverCollection.insert([{name:'Ywain4', ip:"107.23.173.143", port:"10622", n:"51"}], {w:1}, function(err, result) {});
-	serverCollection.insert([{name:'Ywain5', ip:"107.23.173.143", port:"10622", n:"52"}], {w:1}, function(err, result) {});
-	serverCollection.insert([{name:'Ywain6', ip:"107.23.173.143", port:"10622", n:"53"}], {w:1}, function(err, result) {});
-	serverCollection.insert([{name:'Ywain7', ip:"107.23.173.143", port:"10622", n:"54"}], {w:1}, function(err, result) {});
-	serverCollection.insert([{name:'Ywain8', ip:"107.23.173.143", port:"10622", n:"55"}], {w:1}, function(err, result) {});
-	serverCollection.insert([{name:'Ywain9', ip:"107.23.173.143", port:"10622", n:"56"}], {w:1}, function(err, result) {});
-	serverCollection.insert([{name:'Ywain10', ip:"107.23.173.143", port:"10622", n:"57"}], {w:1}, function(err, result) {});
+	serverDatastore = new Datastore({filename:'db/server', autoload:true});
+	serverDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
+	serverDatastore.insert([
+		{name:'Ywain1', ip:"107.23.173.143", port:"10622", n:"41"},
+		{name:'Ywain2', ip:"107.23.173.143", port:"10622", n:"49"},
+		{name:'Ywain3', ip:"107.23.173.143", port:"10622", n:"50"},
+		{name:'Ywain4', ip:"107.23.173.143", port:"10622", n:"51"},
+		{name:'Ywain5', ip:"107.23.173.143", port:"10622", n:"52"},
+		{name:'Ywain6', ip:"107.23.173.143", port:"10622", n:"53"},
+		{name:'Ywain7', ip:"107.23.173.143", port:"10622", n:"54"},
+		{name:'Ywain8', ip:"107.23.173.143", port:"10622", n:"55"},
+		{name:'Ywain9', ip:"107.23.173.143", port:"10622", n:"56"},
+		{name:'Ywain10', ip:"107.23.173.143", port:"10622", n:"57"}], function(err) {});
 	//realm
-	let realmCollection = db.collection('realm');
-	db.collection('realm').createIndex({name:1},{unique:true});
-	realmCollection.insert([{name:'Albion', n:1}], {w:1}, function(err, result) {});
-	realmCollection.insert([{name:'Hibernia', n:3}], {w:1}, function(err, result) {});
-	realmCollection.insert([{name:'Midgard', n:2}], {w:1}, function(err, result) {});
+	realmDatastore = new Datastore({filename:'db/realm', autoload:true});
+	realmDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
+	realmDatastore.insert([
+		{name:'Albion', n:1},
+		{name:'Hibernia', n:3},
+		{name:'Midgard', n:2}], function(err) {});
 	//class
-	let classCollection = db.collection('class');
-	db.collection('class').createIndex({name:1},{unique:true});
-	classCollection.insert([{name:'Armsman', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Cabalist', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Cleric', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Friar', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Heretic', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Infiltrator', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Mauler (Alb)', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Mercenary', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Minstrel', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Necromancer', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Paladin', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Reaver', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Scout', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Sorcerer', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Theurg', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Wizard', realm:'Albion'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Animist', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Bainshee', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Bard', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Blademaster', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Champion', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Druid', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Eldritch', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Enchanter', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Hero', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Mauler (Hib)', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Mentalist', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Nightshade', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Ranger', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Valewalker', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Vampiir', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Warden', realm:'Hibernia'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Berserker', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Bonedancer', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Healer', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Hunter', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Mauler (Mid)', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Runemaster', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Savage', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Shadowblade', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Shaman', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Skald', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Spiritmaster', realm:''}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Thane', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Valkyrie', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Warlock', realm:'Midgard'}], {w:1}, function(err, result) {});
-	classCollection.insert([{name:'Warrior', realm:'Midgard'}], {w:1}, function(err, result) {});
+	classDatastore = new Datastore({filename:'db/class', autoload:true});
+	classDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
+	classDatastore.insert([
+		{name:'Armsman', realm:'Albion'},
+		{name:'Cabalist', realm:'Albion'},
+		{name:'Cleric', realm:'Albion'},
+		{name:'Friar', realm:'Albion'},
+		{name:'Heretic', realm:'Albion'},
+		{name:'Infiltrator', realm:'Albion'},
+		{name:'Mauler (Alb)', realm:'Albion'},
+		{name:'Mercenary', realm:'Albion'},
+		{name:'Minstrel', realm:'Albion'},
+		{name:'Necromancer', realm:'Albion'},
+		{name:'Paladin', realm:'Albion'},
+		{name:'Reaver', realm:'Albion'},
+		{name:'Scout', realm:'Albion'},
+		{name:'Sorcerer', realm:'Albion'},
+		{name:'Theurg', realm:'Albion'},
+		{name:'Wizard', realm:'Albion'},
+		{name:'Animist', realm:'Hibernia'},
+		{name:'Bainshee', realm:'Hibernia'},
+		{name:'Bard', realm:'Hibernia'},
+		{name:'Blademaster', realm:'Hibernia'},
+		{name:'Champion', realm:'Hibernia'},
+		{name:'Druid', realm:'Hibernia'},
+		{name:'Eldritch', realm:'Hibernia'},
+		{name:'Enchanter', realm:'Hibernia'},
+		{name:'Hero', realm:'Hibernia'},
+		{name:'Mauler (Hib)', realm:'Hibernia'},
+		{name:'Mentalist', realm:'Hibernia'},
+		{name:'Nightshade', realm:'Hibernia'},
+		{name:'Ranger', realm:'Hibernia'},
+		{name:'Valewalker', realm:'Hibernia'},
+		{name:'Vampiir', realm:'Hibernia'},
+		{name:'Warden', realm:'Hibernia'},
+		{name:'Berserker', realm:'Midgard'},
+		{name:'Bonedancer', realm:'Midgard'},
+		{name:'Healer', realm:'Midgard'},
+		{name:'Hunter', realm:'Midgard'},
+		{name:'Mauler (Mid)', realm:'Midgard'},
+		{name:'Runemaster', realm:'Midgard'},
+		{name:'Savage', realm:'Midgard'},
+		{name:'Shadowblade', realm:'Midgard'},
+		{name:'Shaman', realm:'Midgard'},
+		{name:'Skald', realm:'Midgard'},
+		{name:'Spiritmaster', realm:''},
+		{name:'Thane', realm:'Midgard'},
+		{name:'Valkyrie', realm:'Midgard'},
+		{name:'Warlock', realm:'Midgard'},
+		{name:'Warrior', realm:'Midgard'}], function(err) {});
 	//character
-	//db.collection('character').createIndex({name:1,account:1},{unique:true});
-	//settings
-	let settingCollection = db.collection('setting');
-	db.collection('setting').createIndex({keyx:1},{unique:true});
-	settingCollection.insert([{keyx:'game.dll.path', typex:'File', valuex:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], {w:1}, function(err, result) {/*console.log('err='+ err + 'result=' + result)*/});
-	//settingCollection.insert([{key:'game.dll.path', type:'File', value:'dll'}], {w:1}, function(err, result) {});
+	characterDatastore = new Datastore({filename:'db/character', autoload:true});
+	//setting
+	settingDatastore = new Datastore({filename:'db/setting', autoload:true});
+	settingDatastore.ensureIndex({fieldName:'key', unique:true}, function(err) {});
+	settingDatastore.insert([{_id:'1', key:'game.dll.path', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], function(err) {});
+	settingDatastore.persistence.setAutocompactionInterval(5555);
 	startExpress();
 }
 
-function sendAllAccounts(response) {
-	let accountCollection = db.collection('account');
-	let cursor = accountCollection.find({});
-	let accounts = '{"aaData":[';
-	cursor.each(function(err, item) {
-		if (item == null) {
-			accounts = accounts.slice(0, -1);
-			accounts += ']}';
-			if (accounts === '{"aaData":]}') {
-				accounts ='{"aaData":[]}';
-			}
-			response.send(accounts);
-		} else {
-			accounts += '["' + item._id + '","' + item.name + '","' + item.password + '","' + "<a data-id='row-" + item._id + "' href='javascript:editAccountRow(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeAccountRow(" + item._id + ");' class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
-		}
+//{"aaData":[["39","simone","simon387@hotmail.it","1211",null,"<a data-id=\"row-39\" href=\"javascript:editRow(39);\" class=\"btn btn-md btn-success\">edit<\/a>&nbsp;<a href=\"javascript:removeRow(39);\" class=\"btn btn-default btn-md\" style=\"background-color: #c83a2a;border-color: #b33426; color: #ffffff;\">remove<\/a>"]]}
+function getAllAccounts(response) {
+	accountDatastore.find({}, function(err, docs) {
+		let ret = '{"aaData":[';
+		docs.forEach(function (item) {
+			ret += '["' + item._id + '","' + item.name + '","' + item.password + '","' + "<a data-id='row-" + item._id
+			+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'" + item._id + "\'); class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';;
+		});
+		response.send(correggiRispostaPerDT(ret));
 	});
 }
 
-function sendAllCharacters(response) {
-	let characterCollection = db.collection('character');
-	let cursor = characterCollection.find({});
-	let characters = '{"aaData":[';
-	cursor.each(function(err, item) {
-		if (item == null) {
-			characters = characters.slice(0, -1);
-			characters += ']}';
-			if (characters === '{"aaData":]}') {
-				characters = '{"aaData":[]}';
-			}
-			response.send(characters);
-		} else {
-			characters += '["' + item._id + '","' + item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.class + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id + "' href='javascript:editCharacterRow(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeCharacterRow(" + item._id + ");' class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
-		}
+function getAllCharacters(response) {
+	characterDatastore.find({}, function(err, docs){
+		let ret = '{"aaData":[';
+		docs.forEach(function (item) {
+			ret += '["' + item._id + '","' + item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.class + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
+			+ "' href='javascript:editCharacterRow(\'" + item._id + "\'); class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href='javascript:removeCharacterRow(\'" + item._id + "\'); class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
+		});
+		response.send(correggiRispostaPerDT(ret));
+	});
+}	
+
+function getAllSettings(response) {
+	settingDatastore.find({}, function(err, docs){
+		let ret = '{"aaData":[';
+		docs.forEach(function (item) {
+			ret += '["' + item._id + '","' + item.key + '","' + item.value + '","' + "<a data-id='row-" + item._id
+			+ "' href='javascript:editSettingRow" + item.type + "(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>" + '"],';
+		});
+		response.send(correggiRispostaPerDT(ret));
 	});
 }
 
-function sendAllSettings(response) {
-	let settingCollection = db.collection('setting');
-	let cursor = settingCollection.find({});
-	let settings = '{"aaData":[';
-	cursor.each(function(err, item) {
-		if (item == null) {
-			settings = settings.slice(0, -1);
-			settings += ']}';
-			if (settings === '{"aaData":]}') {
-				settings = '{"aaData":[]}';
-			}
-			//console.log("settings");
-			//console.log(settings);
-			response.send(settings);
-		} else {
-			settings += '["' + item._id + '","' + item.keyx + '","' + item.valuex + '","' + "<a data-id='row-" + item._id + "' href='javascript:editSettingRow" + item.typex + "(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>" + '"],';
-		}
-	});
+function correggiRispostaPerDT(ret) {
+	ret = ret.slice(0, -1);
+	ret += ']}';
+	if (ret === '{"aaData":]}') {
+		ret ='{"aaData":[]}';
+	}
+	return ret;
 }
 
 function getAllAccountsNames(response) {
-	let accountCollection = db.collection('account');
-	let cursor = accountCollection.find({}, {name:1, _id:0});
-	let accountsArray = [];
-	cursor.each(function(err, item) {
-		if (item == null) {
-			return response.send(accountsArray);
-		} else {
-			accountsArray.push(item.name);
-		}
+	accountDatastore.find({}, function(err, docs) {
+		return getAllNamesHelper(response, docs);
 	});
 }
 
 function getAllServersNames(response) {
-	let serverCollection = db.collection('server');
-	let cursor = serverCollection.find({}, {name:1, _id:0});
-	let serversArray = [];
-	cursor.each(function(err, item) {
-		if (item == null) {
-			return response.send(serversArray);
-		} else {
-			serversArray.push(item.name);
-		}
+	serverDatastore.find({}, function(err, docs) {
+		return getAllNamesHelper(response, docs);
 	});
 }
 
 function getAllClassesNames(response) {
-	let classCollection = db.collection('class');
-	let cursor = classCollection.find({}, {name:1, _id:0});
-	let classesArray = [];
-	cursor.each(function(err, item) {
-		if (item == null) {
-			return response.send(classesArray);
-		} else {
-			classesArray.push(item.name);
-		}
+	classDatastore.find({}, function(err, docs) {
+		return getAllNamesHelper(response, docs);
 	});
+}
+
+function getAllNamesHelper(response, docs) {
+	let array = [];
+	docs.forEach(function (doc) {
+		array.push(doc.name);
+	});
+	return response.send(array.sort());
 }
 
 function getAllResolutions(response) {
@@ -208,7 +190,6 @@ function getAllResolutions(response) {
 			ps.dispose();
 		})
 		.catch(function(err){
-			console.log(err);
 			ps.dispose();
 		});
 }
@@ -219,162 +200,115 @@ function startExpress() {
 	let port = 3000;
 
 	server.get('/', function (request, response) {
-		response.setHeader('Content-Type', 'application/json');
-		
+		//response.setHeader('Content-Type', 'application/json');
 		if (request.query.getAllAccountsNames != undefined) {
 			getAllAccountsNames(response);
 		}
-
 		if (request.query.getAllServersNames != undefined) {
 			getAllServersNames(response);
 		}
-
 		if (request.query.getAllClassesNames != undefined) {
 			getAllClassesNames(response);
 		}
-		
 		if (request.query.getAllResolutions != undefined) {
 			getAllResolutions(response);
 		}
-		
+		//account
 		if (request.query.ajaxAccount != undefined || request.query.removeAccount != undefined || request.query.editAccount != undefined) {
-			let accountCollection = db.collection('account');
 			if (request.query.removeAccount != undefined) {
-				accountCollection.remove({"_id":request.query.removeAccount});
+				accountDatastore.remove({_id:request.query.removeAccount}, {multi:false}, function(err, numRemoved) {});
 			}
 			if (request.query.editAccount != undefined) {//per aprire la modal di edit, ritorniamo l'elemento da modificare
-				accountCollection.findOne({"_id":request.query.editAccount}, function(err, item) {
-					response.send(item);
+				accountDatastore.findOne({_id:request.query.editAccount}, function (err, doc) {
+					response.send(doc);
 				});
 			} else {//view normale
-				sendAllAccounts(response);
+				getAllAccounts(response);
 			}
 		}
-
+		//character
 		if (request.query.ajaxCharacter != undefined || request.query.removeCharacter != undefined || request.query.editCharacter != undefined) {
-			let characterCollection = db.collection('character');
 			if (request.query.removeCharacter != undefined) {
-				characterCollection.remove({"_id":request.query.removeCharacter});
+				characterDatastore.remove({_id:request.query.removeCharacter}, {multi:false}, function(err, numRemoved) {});
 			}
 			if (request.query.editCharacter != undefined) {
-				characterCollection.findOne({"_id":request.query.editCharacter}, function(err, item) {
-					response.send(item);
+				characterDatastore.findOne({_id:request.query.editCharacter}, function(err, doc) {
+					response.send(doc);
 				});
 			} else {
-				sendAllCharacters(response);
+				getAllCharacters(response);
 			}
 		}
-
-		if (request.query.ajaxSetting != undefined || request.query.editSetting != undefined) {
-			let settingCollection = db.collection('setting');
-			
-			//console.log(request);
+		//setting
+		if (request.query.ajaxSetting != undefined || request.query.removeSetting != undefined || request.query.editSetting != undefined) {
+			if (request.query.removeSetting != undefined) {
+				//non facciamo cancellare i settings! settingDatastore.remove({_id:request.query.removeSetting}, {multi:false}, function(err, numRemoved) {});
+			}
 			if (request.query.editSetting != undefined) {
-				//console.log(request.query.editSetting);
-				settingCollection.findOne({"_id":request.query.editSetting}, function(err, item) {
-					response.send(item);
+				settingDatastore.findOne({_id:request.query.editSetting}, function(err, doc) {
+					response.send(doc);
 				});
 			} else {
-				sendAllSettings(response);
+				getAllSettings(response);
 			}
 		}
 	});
 
 	server.post('/', function (request, response) {
 		let body = '';
-		response.setHeader('Content-Type', 'application/json');
+		//response.setHeader('Content-Type', 'application/json');
 		request.on('data', function (data) {
 			body += data;
 			if (body.length > 1e6) {
-				//console.log("no dai");
 				request.connection.destroy();
 			}
 		});
 
 		request.on('end', function () {
 			let post = require('querystring').parse(body);
-			/*console.log("post sopra");
-			console.log(post);*/
 			//account
 			if (request.query.addAccount != undefined || request.query.editAccount != undefined) {
-				let accountCollection = db.collection('account');
 				if (request.query.addAccount != undefined) {
-					accountCollection.insert([{name:post['account-name'], password:post['account-password']}], {w:1}, function(err, result) {
-						response.send(result);
+					accountDatastore.insert({name:post['account-name'], password:post['account-password']}, function(err, newDoc) {   // Callback is optional
+						response.send(newDoc);
 					});
 				} else if (request.query.editAccount != undefined) {//edit effettiva
-					/*	console.log('post account');
-					console.log(post);*/
-					accountCollection.update({_id:request.query.editAccount},{name:post['account-name'], password:post['account-password']}, function(){
-						accountCollection.findOne({"_id":request.query.editAccount}, function(err, item) {
-							response.send(item);
-						});
+					accountDatastore.update({_id:request.query.editAccount}, {name:post['account-name'], password:post['account-password']}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments, upsert) {
+						response.send(affectedDocuments);//NOTA CHE RITORNA UN DOC CON SOLO I CMAPI MODIFICATI
 					});
 				}
 			}
-
 			//char
 			if (request.query.addCharacter != undefined || request.query.editCharacter != undefined) {
-				let characterCollection = db.collection('character');
 				if (request.query.addCharacter != undefined) {
-					let characterWindowed = post['character-windowed'] === undefined ? "false" : "true"; 
-					//console.log(post['character-windowed']);
-					characterCollection.insert([{name:post['character-name'], lastlogin:'-', account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}], {w:1}, function(err, result) {
-						response.send(result);
+					let characterWindowed = post['character-windowed'] === undefined ? false : true; 
+					characterDatastore.insert({name:post['character-name'], lastlogin:'-', account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}, function(err, newDoc) {
+						response.send(newDoc);
 					});
 				} else if (request.query.editCharacter != undefined) {//TODO
-					characterCollection.update({_id:request.query.editCharacter},{name:post['character-name'], password:post['character-password']}, function(){
-						characterCollection.findOne({"_id":request.query.editCharacter}, function(err, item) {
-							response.send(item);
-						});
+					characterDatastore.update({_id:request.query.editCharacter},{name:post['character-name']/*TODO*/}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments, upsert) {
+						response.send(affectedDocuments);
 					});
 				}
 			}
-
 			//setting
+			console.log(request.query.editSetting);
+			console.log(post['setting-value-file'])
 			if (request.query.editSetting != undefined) {
-				let settingCollection = db.collection('setting');
-				if (request.query.editSetting != undefined) {
-					/*console.log("request.query.editSetting");
-					console.log(request.query.editSetting);
-					console.log('post setting');
-					console.log(post);
-					console.log("post['setting-value-file']");
-					console.log(post['setting-value-file']);*/
-					if (post['setting-value-file'] != undefined) {
+				settingDatastore.findOne({_id:request.query.editSetting}, function(err, doc) {
+					//response.send(doc);
+					settingDatastore.update({_id:request.query.editSetting}, {key:doc.key, type:doc.type, value:post['setting-value-file']}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments, upsert) {
+						//console.log("array?=" + affectedDocuments[0])
+						//console.log("numAffected=" + numAffected)
+						//for(var property in affectedDocuments) {
+						//	console.log(property + "=" + affectedDocuments[property]);
+						//}
+						//affectedDocuments['_id'] = doc._id;
+						response.send(affectedDocuments);
 
 						
-						settingCollection.findOne({_id:request.query.editSetting}, function(err, item) {
-							//console.log("err=" + err + " item=" + item[0]);
-							console.log(item._id + " " + item.keyx + " " + item.valuex + " " + item.typex)
-							//in item ho le robe vecchie
-							//nel post ho l'unica cosa nuova
-							settingCollection.remove({"_id":request.query.editSetting});
-
-							settingCollection.insert(
-								[{keyx:item.keyx, valuex:post['setting-value-file'], typex:item.typex}], {w:1}, function(err, result) {
-								console.log("res=" + result._id);
-								response.send({_id:result.id, valuex:post['setting-value-file']});
-								//response.send();
-								//settingCollection.findOne({keyx:item.keyx}, function(err, item) {
-								//	response.send(item)		
-								//});
-							});
-
-
-							//response.send(item);
-						});
-					
-					/*
-						settingCollection.update({_id:request.query.editSetting}, {valuex:post['setting-value-file']}, function(){
-							settingCollection.findOne({_id:request.query.editSetting}, function(err, item) {
-								console.log("err=" + err + " item=" + item);
-								response.send(item);
-							});
-						});*/
-					
-					}
-				}
+					});
+				});
 			}
 		});
 	});
@@ -384,7 +318,8 @@ function startExpress() {
 	});
 }
 
-app.on('ready', function() {
+const electron = require('electron');
+electron.app.on('ready', function() {
 	const path = require('path');
 	const url = require('url');
 	const BrowserWindow = electron.BrowserWindow;

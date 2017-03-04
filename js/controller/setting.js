@@ -10,6 +10,8 @@ $("#edit-setting-form-file").on("submit", function(event) {
 	console.log("this del setting?");
 	console.log(this);
 	//console.log(localhost + '?editSetting=' + $('#edit-setting-id-file').val());
+
+	console.log("asd " + $('#edit-setting-id-file').val());
 	$.post(localhost + '?editSetting=' + $('#edit-setting-id-file').val(), $(this).serialize(), function(data) {
 		//!!bug!!!! sicuro edita la prima row di una qualsiasi dt
 		//correggilo anche negrli altri 2 controller!!
@@ -23,17 +25,24 @@ $("#edit-setting-form-file").on("submit", function(event) {
 		console.log(tr);
 		console.log("data");
 		console.log(data);*/
-		i = $('#edit-setting-id-file').val();
-		i++;
-		console.log("data._id=" + data._id)
-		console.log("data.valuex=" + data.valuex)
-		$('td:eq(0)', tr).html(i);
-		$('#edit-setting-id-file').val(i);
-		//$('td:eq(1)', tr).html(data.keyx);
-		$('td:eq(2)', tr).html(data.valuex);
+		//i = $('#edit-setting-id-file').val();
+		//i++;
+		//console.log("data._id=" + data._id)
+		console.log("data.value=" + data.value)
+		//$('td:eq(0)', tr).html(i);
+		//$('#edit-setting-id-file').val(i);
+
+		//aggiornare ad i gli altri riferimenti
+
+
+		//$('td:eq(1)', tr).html(data.key);
+		$('td:eq(2)', tr).html(data.value);
 
 		//TODO : manca aggiornare solo quei due
-		
+		//tr.children().last().children().attr("data-id", "row-" + i);
+		//tr.children().last().children().attr("href", "javascript:editSettingRowFile(" + i + ");");
+
+
 		//$($('a[href="javascript:editSettingRowFile(' + $('#edit-setting-id-file').val() + ');"]')).attr("href", "javascript:editSettingRowFile(" + i + ")" );
 
 		$('#edit-setting-modal-file').modal('hide');
@@ -45,14 +54,11 @@ $("#edit-setting-form-file").on("submit", function(event) {
 // Edit row file
 function editSettingRowFile(id) {
 	if ('undefined' != typeof id) {
-		console.log(id);
 		$.getJSON(localhost + '?editSetting=' + id, function(obj) {
-			console.log(obj);
-			$('#edit-setting-id-file').val(obj._id);
-			//
 			// !!!!!!!  rimuovi00
 			//
-			$('#setting-value-file').val(obj.valuex);
+			$('#edit-setting-id-file').val(obj._id);
+			$('#setting-value-file').val(obj.value);
 			//
 			$('#edit-setting-modal-file').modal('show')
 		}).fail(function() {
