@@ -16,6 +16,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + Start Bootstrap - Creative v3.3.7+1 <http://startbootstrap.com/template-overviews/creative>
 + Font-Awesome <https://github.com/FortAwesome/Font-Awesome>
 + Magnific Popup - v1.1.0 - 2016-02-20 <http://dimsemenov.com/plugins/magnific-popup/>
++ Handle v4.1 <https://technet.microsoft.com/en-us/sysinternals/handle.aspx>
 
 ## developer's installation:
 

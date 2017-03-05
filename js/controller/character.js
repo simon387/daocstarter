@@ -45,11 +45,14 @@ $("#add-character-form").on("submit", function(event) {
 		let tbody = $('#charactersDT').children('tbody');
 		let table = tbody.length ? tbody : $('#charactersDT');
 		table.append('<tr role="row"><td class="sorting_1">' + data._id +
+		'</td><td>' +  
+			"<a href=javascript:playCharacterRow(\'" + data._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a>"
+			+
 		'</td><td>' + data.name + '</td><td>' + data.lastlogin + '</td><td>' + data.account + '</td><td>' + data.server +
 		'</td><td>' + data.class + '</td><td>' + data.resolution + '</td><td>' + data.windowed +
 		'</td><td><a data-id="row-' + data._id + '" href="javascript:editCharacterRow(\'' + data._id +
 		'\');" class="btnX btn-md btn-successX">edit</a>&nbsp;<a href="javascript:removeCharacterRow(\''
-		+ data._id + '\');" class="btnX btn-default btn-md btnX-delete">remove</a></td></tr>');
+		+ data._id + '\');" class="btnX btn-default btn-md btnX-delete">delete</a></td></tr>');
 		$('#charactersDT tbody tr').remove(":contains('No data available in table')");
 		$('#add-character-modal').modal('hide');
 	}).fail(function() {
@@ -101,15 +104,28 @@ $("#edit-character-form").on("submit", function(event) {
 	event.preventDefault();
 	$.post(localhost + '?editCharacter=' + $('#edit-character-id').val(), $(this).serialize(), function(data) {
 		var tr = $('a[data-id="row-' + $('#edit-character-id').val() + '"]').parent().parent();
-		$('td:eq(1)', tr).html(data.name);
-		$('td:eq(2)', tr).html(data.lastlogin);
-		$('td:eq(3)', tr).html(data.account);
-		$('td:eq(4)', tr).html(data.server);
-		$('td:eq(5)', tr).html(data.class);
-		$('td:eq(6)', tr).html(data.resolution);
-		$('td:eq(7)', tr).html(data.windowed + "");
+		$('td:eq(2)', tr).html(data.name);
+		$('td:eq(3)', tr).html(data.lastlogin);
+		$('td:eq(4)', tr).html(data.account);
+		$('td:eq(5)', tr).html(data.server);
+		$('td:eq(6)', tr).html(data.class);
+		$('td:eq(7)', tr).html(data.resolution);
+		$('td:eq(8)', tr).html(data.windowed + "");
 		$('#edit-character-modal').modal('hide');
 	}).fail(function() {
 		alert('Unable to save data, please try again later.');
 	});
 });
+//play
+function playCharacterRow(id) {
+	console.log("click");
+	if ('undefined' != typeof id) {
+		$.get(localhost + '?playCharacter=' + id, function() {
+			//$('a[data-id="row-' + id + '"]').parent().parent().remove();
+		}).fail(function() {
+			console.log('unable to play row.')
+		});
+	} else {
+		console.log('Unknown row id.');
+	}
+}

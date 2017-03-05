@@ -1,10 +1,16 @@
 "use strict";
+const electron = require('electron');
+const {app} = require('electron');
+//packager : http://mylifeforthecode.com/using-electron-packager-to-package-an-electron-app/
 let accountDatastore;
 let characterDatastore;
 let serverDatastore;
 let realmDatastore;
 let classDatastore;
 let settingDatastore;
+//https://electron.atom.io/docs/api/app/#appgetpathname
+const dbPath = app.getPath("userData");
+console.log(app.getPath("userData"));
 
 //require('fs').unlinkSync('C:/electron/daocstarter/db/setting');
 initDBandExpress();
@@ -12,10 +18,10 @@ initDBandExpress();
 function initDBandExpress() {
 	let Datastore = require('nedb')
 	//account
-	accountDatastore = new Datastore({filename:'db/account', autoload:true});
+	accountDatastore = new Datastore({filename:dbPath + '/db/account', autoload:true});
 	accountDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
 	//server
-	serverDatastore = new Datastore({filename:'db/server', autoload:true});
+	serverDatastore = new Datastore({filename:dbPath + '/db/server', autoload:true});
 	serverDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
 	serverDatastore.insert([
 		{name:'Ywain1', ip:"107.23.173.143", port:"10622", n:"41"},
@@ -29,14 +35,14 @@ function initDBandExpress() {
 		{name:'Ywain9', ip:"107.23.173.143", port:"10622", n:"56"},
 		{name:'Ywain10', ip:"107.23.173.143", port:"10622", n:"57"}], function(err) {});
 	//realm
-	realmDatastore = new Datastore({filename:'db/realm', autoload:true});
+	realmDatastore = new Datastore({filename:dbPath + '/db/realm', autoload:true});
 	realmDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
 	realmDatastore.insert([
 		{name:'Albion', n:1},
 		{name:'Hibernia', n:3},
 		{name:'Midgard', n:2}], function(err) {});
 	//class
-	classDatastore = new Datastore({filename:'db/class', autoload:true});
+	classDatastore = new Datastore({filename:dbPath + '/db/class', autoload:true});
 	classDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
 	classDatastore.insert([
 		{name:'Armsman', realm:'Albion'},
@@ -87,9 +93,9 @@ function initDBandExpress() {
 		{name:'Warlock', realm:'Midgard'},
 		{name:'Warrior', realm:'Midgard'}], function(err) {});
 	//character
-	characterDatastore = new Datastore({filename:'db/character', autoload:true});
+	characterDatastore = new Datastore({filename:dbPath + '/db/character', autoload:true});
 	//setting
-	settingDatastore = new Datastore({filename:'db/setting', autoload:true});
+	settingDatastore = new Datastore({filename:dbPath + '/db/setting', autoload:true});
 	settingDatastore.ensureIndex({fieldName:'key', unique:true}, function(err) {});
 	settingDatastore.insert([{_id:'1', key:'game.dll.path', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], function(err) {});
 	//settingDatastore.persistence.setAutocompactionInterval(5555);
@@ -102,7 +108,7 @@ function getAllAccounts(response) {
 		let ret = '{"aaData":[';
 		docs.forEach(function (item) {
 			ret += '["' + item._id + '","' + item.name + '","' + item.password + '","' + "<a data-id='row-" + item._id
-			+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'" + item._id + "\'); class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
+			+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>delete<\/a>" + '"],';
 		});
 		response.send(correggiRispostaPerDT(ret));
 	});
@@ -112,8 +118,10 @@ function getAllCharacters(response) {
 	characterDatastore.find({}, function(err, docs){
 		let ret = '{"aaData":[';
 		docs.forEach(function (item) {
-			ret += '["' + item._id + '","' + item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.class + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
-			+ "' href=javascript:editCharacterRow(\'" + item._id + "\'); class='btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeCharacterRow(\'" + item._id + "\'); class='btnX btn-default btn-md btnX-delete'>remove<\/a>" + '"],';
+			ret += '["' + item._id + '","' +  
+			"<a href=javascript:playCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-primary btn-sm sr-button'>play<\/a>"
+			+ '","' + item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.class + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
+			+ "' href=javascript:editCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>delete<\/a>" + '"],';
 		});
 		response.send(correggiRispostaPerDT(ret));
 	});
@@ -124,7 +132,7 @@ function getAllSettings(response) {
 		let ret = '{"aaData":[';
 		docs.forEach(function (item) {
 			ret += '["' + item._id + '","' + item.key + '","' + item.value + '","' + "<a data-id='row-" + item._id
-			+ "' href='javascript:editSettingRow" + item.type + "(" + item._id + ");' class='btnX btn-md btn-successX'>edit<\/a>" + '"],';
+			+ "' href='javascript:editSettingRow" + item.type + "(" + item._id + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
 		});
 		response.send(correggiRispostaPerDT(ret));
 	});
@@ -197,6 +205,9 @@ function startExpress() {
 
 	server.get('/', function (request, response) {
 		//response.setHeader('Content-Type', 'application/json');
+		if (request.query.playCharacter != undefined) {
+			playCharacter(request.query.playCharacter, response);
+		}
 		if (request.query.getAllAccountsNames != undefined) {
 			getAllAccountsNames(response);
 		}
@@ -263,6 +274,9 @@ function startExpress() {
 
 		request.on('end', function () {
 			let post = require('querystring').parse(body);
+			if (request.query.playCharacter != undefined) {
+				playCharacter(request.query.playCharacter);
+			}
 			//account
 			if (request.query.addAccount != undefined || request.query.editAccount != undefined) {
 				if (request.query.addAccount != undefined) {
@@ -313,18 +327,52 @@ function compattaTutto() {
 	settingDatastore.persistence.compactDatafile();
 }
 
-const electron = require('electron');
+function playCharacter(id, response) {
+	console.log("arrivata richiesta di play id=" + id);
+	//TODO
+	response.send();
+}
+
+//http://www.codeblocq.com/2016/09/Set-Menu-Items-in-Electron/
+const Menu = electron.Menu;
+Menu.getApplicationMenu();
+const menuTemplate = [
+	{
+		label: 'File',
+		submenu: [
+			{
+				label: 'About ...',
+				click: () => {
+					console.log('About Clicked');
+				}
+			}
+		]
+	}
+];
+const menu = Menu.buildFromTemplate(menuTemplate);
+Menu.setApplicationMenu(menu);
+
 electron.app.on('ready', function() {
 	const path = require('path');
 	const url = require('url');
 	const BrowserWindow = electron.BrowserWindow;
-	let mainWindow = new BrowserWindow({width: 1280, height: 720 /*backgroundColor: '#2e2c29'*/});
+	let mainWindow = new BrowserWindow({
+		width:1280,
+		height:720,
+		show:false,
+		title:"DAoC Starter",
+		icon:"img/i.ico"		
+	});
 	//mainWindow.loadURL('https://github.com');
 	mainWindow.loadURL(url.format({
-		pathname: path.join(__dirname, 'html', 'views', 'main.html'),
-		protocol: 'file',
-		slashes: true
+		pathname:path.join(__dirname, 'html', 'views', 'main.html'),
+		protocol:'file',
+		slashes:true
 	}));
+
+	mainWindow.once('ready-to-show', () => {
+		mainWindow.show()
+	})
 	//dev mode automatica
 	//mainWindow.webContents.openDevTools();	
 });
