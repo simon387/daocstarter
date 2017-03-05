@@ -97,7 +97,7 @@ function initDBandExpress() {
 	//setting
 	settingDatastore = new Datastore({filename:dbPath + '/db/setting', autoload:true});
 	settingDatastore.ensureIndex({fieldName:'key', unique:true}, function(err) {});
-	settingDatastore.insert([{_id:'1', key:'game.dll.path', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], function(err) {});
+	settingDatastore.insert([{_id:'1', key:'path.to.game.dll', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], function(err) {});
 	//settingDatastore.persistence.setAutocompactionInterval(5555);
 	startExpress();
 }
@@ -329,7 +329,18 @@ function compattaTutto() {
 
 function playCharacter(id, response) {
 	console.log("arrivata richiesta di play id=" + id);
-	//TODO
+
+	var executablePath = "C:\\Program Files (x86)\\Electronic Arts\\Dark Age of Camelot\\game.dll";
+	var dir = "C:\\Program Files (x86)\\Electronic Arts\\Dark Age of Camelot";
+
+	var spawn = require('child_process').spawn;
+	var prc = spawn(executablePath, ["107.23.173.143", "10622", "serverId", "account_name", "password", "character_name", "2"], {
+		cwd : dir, 
+		setsid: false,
+		detached: true,
+	});
+	console.log('Spawned child pid: ' + prc.pid)
+
 	response.send();
 }
 
@@ -341,7 +352,7 @@ const menuTemplate = [
 		label: 'File',
 		submenu: [
 			{
-				label: 'About ...',
+				label: 'About',
 				click: () => {
 					console.log('About Clicked');
 				}
