@@ -36,7 +36,19 @@ function _editSettingRowFile(id) {
 //form nuova per i file id=1
 function editSettingRowFile(id) {
 	const {dialog} = require('electron').remote;
-	dialog.showOpenDialog({title:"Select game.dll", filters:[{name:"game.dll", extensions:['dll']}], properties:['openFile', 'noResolveAliases']}, function(filePaths) {
+	let title = "Select game.dll";
+	let filters = [{name:"game.dll", extensions:['dll']}];
+	switch (id) {
+		case 1:
+			break;
+		case 2:
+			title = "Select user.dat";
+			filters = [{name:"user.dat", extensions:['dat']}];
+			break;
+		default:
+			return;
+	}
+	dialog.showOpenDialog({title:title, filters:filters, properties:['openFile', 'noResolveAliases']}, function(filePaths) {
 		if (undefined != filePaths) {
 			let plainObject = {'setting-value-file':filePaths[0].replace(/\\/g, "\\\\")};
 			$.post(localhost + '?editSetting=1', plainObject, function(data) {
@@ -48,5 +60,4 @@ function editSettingRowFile(id) {
 			});
 		}
 	});
-	
 }
