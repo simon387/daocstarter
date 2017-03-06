@@ -219,7 +219,9 @@ function startExpress() {
 			getAllClassesNames(response);
 		}
 		if (request.query.getAllResolutions != undefined) {
-			getAllResolutions(response);
+			let vga_info = require("js/vga-info.js");
+			response.send(vga_info.getAllResolutions());
+			//getAllResolutions(response);
 		}
 		//account
 		if (request.query.ajaxAccount != undefined || request.query.removeAccount != undefined || request.query.editAccount != undefined) {
