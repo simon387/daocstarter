@@ -1,109 +1,126 @@
-"use strict";
+const dbPath = app.getPath("userData");
 
-const electron = require('electron');
-const {app} = require('electron');
-const path = require('path');
-const {dialog} = require('electron');
-//packager : http://mylifeforthecode.com/using-electron-packager-to-package-an-electron-app/
 let accountDatastore;
 let characterDatastore;
 let serverDatastore;
 let realmDatastore;
 let classDatastore;
 let settingDatastore;
-//https://electron.atom.io/docs/api/app/#appgetpathname
-const dbPath = app.getPath("userData");//console.log(app.getPath("userData"));
 
+module.exports = {
+	getAccountDatastore: function() {
+		return accountDatastore;
+	},
+	getCharacterDatastore: function() {
+		return characterDatastore;
+	},
+	getServerDatastore: function() {
+		return serverDatastore;
+	},
+	getRealmDatastore: function() {
+		return realmDatastore;
+	},
+	getClassDatastore: function() {
+		return classDatastore;
+	},
+	getSettingDatastore: function() {
+		return settingDatastore;
+	},
+	initDBandExpress: function() {
+		let Datastore = require('nedb')
+		//account
+		accountDatastore = new Datastore({filename:dbPath + '/db/account', autoload:true});
+		accountDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
+		//server
+		serverDatastore = new Datastore({filename:dbPath + '/db/server', autoload:true});
+		serverDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
+		serverDatastore.insert([
+			{name:'Ywain1', ip:"107.23.173.143", port:"10622", n:"41"},
+			{name:'Ywain2', ip:"107.23.173.143", port:"10622", n:"49"},
+			{name:'Ywain3', ip:"107.23.173.143", port:"10622", n:"50"},
+			{name:'Ywain4', ip:"107.23.173.143", port:"10622", n:"51"},
+			{name:'Ywain5', ip:"107.23.173.143", port:"10622", n:"52"},
+			{name:'Ywain6', ip:"107.23.173.143", port:"10622", n:"53"},
+			{name:'Ywain7', ip:"107.23.173.143", port:"10622", n:"54"},
+			{name:'Ywain8', ip:"107.23.173.143", port:"10622", n:"55"},
+			{name:'Ywain9', ip:"107.23.173.143", port:"10622", n:"56"},
+			{name:'Ywain10', ip:"107.23.173.143", port:"10622", n:"57"}], function(err) {});
+		//realm
+		realmDatastore = new Datastore({filename:dbPath + '/db/realm', autoload:true});
+		realmDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
+		realmDatastore.insert([
+			{name:'Albion', n:"1"},
+			{name:'Hibernia', n:"3"},
+			{name:'Midgard', n:"2"}], function(err) {});
+		//class
+		classDatastore = new Datastore({filename:dbPath + '/db/class', autoload:true});
+		classDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
+		classDatastore.insert([
+			{name:'Armsman', realm:'Albion'},
+			{name:'Cabalist', realm:'Albion'},
+			{name:'Cleric', realm:'Albion'},
+			{name:'Friar', realm:'Albion'},
+			{name:'Heretic', realm:'Albion'},
+			{name:'Infiltrator', realm:'Albion'},
+			{name:'Mauler (Alb)', realm:'Albion'},
+			{name:'Mercenary', realm:'Albion'},
+			{name:'Minstrel', realm:'Albion'},
+			{name:'Necromancer', realm:'Albion'},
+			{name:'Paladin', realm:'Albion'},
+			{name:'Reaver', realm:'Albion'},
+			{name:'Scout', realm:'Albion'},
+			{name:'Sorcerer', realm:'Albion'},
+			{name:'Theurg', realm:'Albion'},
+			{name:'Wizard', realm:'Albion'},
+			{name:'Animist', realm:'Hibernia'},
+			{name:'Bainshee', realm:'Hibernia'},
+			{name:'Bard', realm:'Hibernia'},
+			{name:'Blademaster', realm:'Hibernia'},
+			{name:'Champion', realm:'Hibernia'},
+			{name:'Druid', realm:'Hibernia'},
+			{name:'Eldritch', realm:'Hibernia'},
+			{name:'Enchanter', realm:'Hibernia'},
+			{name:'Hero', realm:'Hibernia'},
+			{name:'Mauler (Hib)', realm:'Hibernia'},
+			{name:'Mentalist', realm:'Hibernia'},
+			{name:'Nightshade', realm:'Hibernia'},
+			{name:'Ranger', realm:'Hibernia'},
+			{name:'Valewalker', realm:'Hibernia'},
+			{name:'Vampiir', realm:'Hibernia'},
+			{name:'Warden', realm:'Hibernia'},
+			{name:'Berserker', realm:'Midgard'},
+			{name:'Bonedancer', realm:'Midgard'},
+			{name:'Healer', realm:'Midgard'},
+			{name:'Hunter', realm:'Midgard'},
+			{name:'Mauler (Mid)', realm:'Midgard'},
+			{name:'Runemaster', realm:'Midgard'},
+			{name:'Savage', realm:'Midgard'},
+			{name:'Shadowblade', realm:'Midgard'},
+			{name:'Shaman', realm:'Midgard'},
+			{name:'Skald', realm:'Midgard'},
+			{name:'Spiritmaster', realm:'Midgard'},
+			{name:'Thane', realm:'Midgard'},
+			{name:'Valkyrie', realm:'Midgard'},
+			{name:'Warlock', realm:'Midgard'},
+			{name:'Warrior', realm:'Midgard'}], function(err) {});
+		//character
+		characterDatastore = new Datastore({filename:dbPath + '/db/character', autoload:true});
+		//setting
+		settingDatastore = new Datastore({filename:dbPath + '/db/setting', autoload:true});
+		settingDatastore.ensureIndex({fieldName:'key', unique:true}, function(err) {});
+		settingDatastore.insert([{_id:'1', key:'path.to.game.dll', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], function(err) {});
+		settingDatastore.insert([{_id:'2', key:'path.to.user.dat', type:'File', value:app.getPath("appData").replace(/\\/g, "\\\\") + '\\\\Electronic Arts\\\\Dark Age of Camelot\\\\LotM\\\\user.dat'}], function(err) {});
+		startExpress();
+	}
 
-//require('fs').unlinkSync('C:/electron/daocstarter/db/setting');
-initDBandExpress();
-
-function initDBandExpress() {
-	let Datastore = require('nedb')
-	//account
-	accountDatastore = new Datastore({filename:dbPath + '/db/account', autoload:true});
-	accountDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
-	//server
-	serverDatastore = new Datastore({filename:dbPath + '/db/server', autoload:true});
-	serverDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
-	serverDatastore.insert([
-		{name:'Ywain1', ip:"107.23.173.143", port:"10622", n:"41"},
-		{name:'Ywain2', ip:"107.23.173.143", port:"10622", n:"49"},
-		{name:'Ywain3', ip:"107.23.173.143", port:"10622", n:"50"},
-		{name:'Ywain4', ip:"107.23.173.143", port:"10622", n:"51"},
-		{name:'Ywain5', ip:"107.23.173.143", port:"10622", n:"52"},
-		{name:'Ywain6', ip:"107.23.173.143", port:"10622", n:"53"},
-		{name:'Ywain7', ip:"107.23.173.143", port:"10622", n:"54"},
-		{name:'Ywain8', ip:"107.23.173.143", port:"10622", n:"55"},
-		{name:'Ywain9', ip:"107.23.173.143", port:"10622", n:"56"},
-		{name:'Ywain10', ip:"107.23.173.143", port:"10622", n:"57"}], function(err) {});
-	//realm
-	realmDatastore = new Datastore({filename:dbPath + '/db/realm', autoload:true});
-	realmDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
-	realmDatastore.insert([
-		{name:'Albion', n:"1"},
-		{name:'Hibernia', n:"3"},
-		{name:'Midgard', n:"2"}], function(err) {});
-	//class
-	classDatastore = new Datastore({filename:dbPath + '/db/class', autoload:true});
-	classDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
-	classDatastore.insert([
-		{name:'Armsman', realm:'Albion'},
-		{name:'Cabalist', realm:'Albion'},
-		{name:'Cleric', realm:'Albion'},
-		{name:'Friar', realm:'Albion'},
-		{name:'Heretic', realm:'Albion'},
-		{name:'Infiltrator', realm:'Albion'},
-		{name:'Mauler (Alb)', realm:'Albion'},
-		{name:'Mercenary', realm:'Albion'},
-		{name:'Minstrel', realm:'Albion'},
-		{name:'Necromancer', realm:'Albion'},
-		{name:'Paladin', realm:'Albion'},
-		{name:'Reaver', realm:'Albion'},
-		{name:'Scout', realm:'Albion'},
-		{name:'Sorcerer', realm:'Albion'},
-		{name:'Theurg', realm:'Albion'},
-		{name:'Wizard', realm:'Albion'},
-		{name:'Animist', realm:'Hibernia'},
-		{name:'Bainshee', realm:'Hibernia'},
-		{name:'Bard', realm:'Hibernia'},
-		{name:'Blademaster', realm:'Hibernia'},
-		{name:'Champion', realm:'Hibernia'},
-		{name:'Druid', realm:'Hibernia'},
-		{name:'Eldritch', realm:'Hibernia'},
-		{name:'Enchanter', realm:'Hibernia'},
-		{name:'Hero', realm:'Hibernia'},
-		{name:'Mauler (Hib)', realm:'Hibernia'},
-		{name:'Mentalist', realm:'Hibernia'},
-		{name:'Nightshade', realm:'Hibernia'},
-		{name:'Ranger', realm:'Hibernia'},
-		{name:'Valewalker', realm:'Hibernia'},
-		{name:'Vampiir', realm:'Hibernia'},
-		{name:'Warden', realm:'Hibernia'},
-		{name:'Berserker', realm:'Midgard'},
-		{name:'Bonedancer', realm:'Midgard'},
-		{name:'Healer', realm:'Midgard'},
-		{name:'Hunter', realm:'Midgard'},
-		{name:'Mauler (Mid)', realm:'Midgard'},
-		{name:'Runemaster', realm:'Midgard'},
-		{name:'Savage', realm:'Midgard'},
-		{name:'Shadowblade', realm:'Midgard'},
-		{name:'Shaman', realm:'Midgard'},
-		{name:'Skald', realm:'Midgard'},
-		{name:'Spiritmaster', realm:'Midgard'},
-		{name:'Thane', realm:'Midgard'},
-		{name:'Valkyrie', realm:'Midgard'},
-		{name:'Warlock', realm:'Midgard'},
-		{name:'Warrior', realm:'Midgard'}], function(err) {});
-	//character
-	characterDatastore = new Datastore({filename:dbPath + '/db/character', autoload:true});
-	//setting
-	settingDatastore = new Datastore({filename:dbPath + '/db/setting', autoload:true});
-	settingDatastore.ensureIndex({fieldName:'key', unique:true}, function(err) {});
-	settingDatastore.insert([{_id:'1', key:'path.to.game.dll', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], function(err) {});
-	settingDatastore.insert([{_id:'2', key:'path.to.user.dat', type:'File', value:app.getPath("appData").replace(/\\/g, "\\\\") + '\\\\Electronic Arts\\\\Dark Age of Camelot\\\\LotM\\\\user.dat'}], function(err) {});
-	startExpress();
 }
+
+
+
+
+
+
+
 
 //{"aaData":[["39","simone","simon387@hotmail.it","1211",null,"<a data-id=\"row-39\" href=\"javascript:editRow(39);\" class=\"btn btn-md btn-success\">edit<\/a>&nbsp;<a href=\"javascript:removeRow(39);\" class=\"btn btn-default btn-md\" style=\"background-color: #c83a2a;border-color: #b33426; color: #ffffff;\">remove<\/a>"]]}
 function getAllAccounts(response) {
@@ -435,45 +452,3 @@ function playCharacter(id, response) {
 		});
 	});
 }
-
-//http://www.codeblocq.com/2016/09/Set-Menu-Items-in-Electron/
-const Menu = electron.Menu;
-Menu.getApplicationMenu();
-const menuTemplate = [
-	{
-		label: 'File',
-		submenu: [
-			{
-				label: 'About',
-				click: () => {
-					console.log('About Clicked');
-				}
-			}
-		]
-	}
-];
-const menu = Menu.buildFromTemplate(menuTemplate);
-Menu.setApplicationMenu(menu);
-
-electron.app.on('ready', function() {
-	const url = require('url');
-	const BrowserWindow = electron.BrowserWindow;
-	let mainWindow = new BrowserWindow({
-		width:1280,
-		height:720,
-		show:false,
-		title:"DAoC Starter",
-		icon:"img/i.ico"		
-	});
-	//mainWindow.loadURL('https://github.com');
-	mainWindow.loadURL(url.format({
-		pathname:path.join(__dirname, 'html', 'views', 'main.html'),
-		protocol:'file',
-		slashes:true
-	}));
-	mainWindow.once('ready-to-show', () => {
-		mainWindow.show()
-	});
-	//dev mode automatica
-	//mainWindow.webContents.openDevTools();	
-});
