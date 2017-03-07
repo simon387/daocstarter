@@ -1,4 +1,6 @@
+const {app} = require('electron');
 const dbPath = app.getPath("userData");
+const path = require('path');
 
 let accountDatastore;
 let characterDatastore;
@@ -213,7 +215,7 @@ function startExpress() {
 			getAllClassesNames(response);
 		}
 		if (request.query.getAllResolutions != undefined) {
-			let vga_info = require("./js/vga-info.js");
+			let vga_info = require("./vga-info.js");
 			vga_info.getAllResolutions(response);
 		}
 		//account
