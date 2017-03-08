@@ -1,15 +1,19 @@
 {
   "name": "daocstarter",
+  "productName": "daocstarter",
   "version": "1.0.0",
   "description": "a DAOC starter tool",
   "main": "app.js",
   "scripts": {
+	"package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"daocstarter\"",
     "start": "electron ."
   },
   "author": "simone celia",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^1.4.15"
+    "electron": "^1.6.2",
+    "electron-packager": "^8.5.2",
+    "electron-winstaller": "^2.5.2"
   },
   "repository": {
     "type": "git",

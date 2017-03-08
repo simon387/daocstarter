@@ -121,7 +121,7 @@ module.exports = {//response.send(); con i return?
 										}
 									});
 
-	/*
+	
 									let spawn = require('child_process').spawn;
 									let prc = spawn(gamedll["value"], [server["ip"], server["port"], server["n"], character["account"], account["password"], character["name"], realm["n"]], {
 										cwd:path.dirname(gamedll["value"]), 
@@ -129,7 +129,7 @@ module.exports = {//response.send(); con i return?
 										detached:true,
 									});
 									console.log('Spawned child pid: ' + prc.pid);
-	*/
+	
 
 									//aggiornare timestamp last login
 									response.send();
