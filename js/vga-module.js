@@ -1,6 +1,7 @@
 module.exports = {
 	getAllResolutions: function(response) {
 		if (require('os').platform() != 'win32') {
+			console.log("Per il modulo vga-module funziona solo su windows :(");
 			return;
 		}
 		let shell = require('node-powershell');

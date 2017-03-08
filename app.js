@@ -1,8 +1,8 @@
 "use strict";
 const electron = require('electron');
-require("./js/db-manager.js").initDB();
-require("./js/express-manager.js").startExpress();
-require("./js/menu-manager.js");
+require("./js/db-module.js").init();
+require("./js/express-module.js").start();
+require("./js/menu-module.js");
 
 electron.app.on('ready', function() {
 	const BrowserWindow = electron.BrowserWindow;

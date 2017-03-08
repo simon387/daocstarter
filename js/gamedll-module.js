@@ -1,4 +1,4 @@
-const db_manager = require("./db-manager.js");
+const db = require("./db-module.js");
 const {dialog} = require('electron');
 const path = require('path');
 
@@ -6,15 +6,17 @@ module.exports = {//response.send(); con i return?
 	playCharacter: function (id, response) {
 		console.log("arrivata richiesta di play id=" + id);
 		if (require('os').platform() != 'win32') {
+			console.log("Per il modulo vga-module funziona solo su windows :(");
+			response.send();
 			return;
 		}
-		db_manager.settingDatastore.findOne({_id:"2"}, function(err, doc) {//cerco l'user.dat
+		db.settingDatastore.findOne({_id:"2"}, function(err, doc) {//cerco l'user.dat
 			if (!require('fs').existsSync(doc["value"])) {
 				dialog.showErrorBox("error", "User.dat not found!");
 				return;
 			}
 			let userdat = doc;
-			db_manager.settingDatastore.findOne({_id:"1"}, function(err, doc) {
+			db.settingDatastore.findOne({_id:"1"}, function(err, doc) {
 				console.log("settingDatastore");console.log(doc);
 				if (doc == null) {
 					dialog.showErrorBox("error", "Cannot find setting!")
@@ -25,35 +27,35 @@ module.exports = {//response.send(); con i return?
 					return;
 				}
 				let gamedll = doc;
-				db_manager.caracterDatastore.findOne({_id:id}, function(err, doc) {
+				db.characterDatastore.findOne({_id:id}, function(err, doc) {
 					console.log("characterDatastore");console.log(doc);
 					if (doc == null) {
 						dialog.showErrorBox("error", "Cannot find setting!")
 						return;
 					}
 					let character = doc;
-					db_manager.accountDatastore.findOne({name:character["account"]}, function(err, doc) {
+					db.accountDatastore.findOne({name:character["account"]}, function(err, doc) {
 						console.log("accountDatastore");console.log(doc);
 						if (doc == null) {
 							dialog.showErrorBox("error", "Cannot find account!")
 							return;
 						}
 						let account = doc;
-						db_manager.serverDatastore.findOne({name:character["server"]}, function(err, doc) {
+						db.serverDatastore.findOne({name:character["server"]}, function(err, doc) {
 							console.log("serverDatastore");console.log(doc);
 							if (doc == null) {
 								dialog.showErrorBox("error", "Cannot find server!")
 								return;
 							}
 							let server = doc;
-							db_manager.classDatastore.findOne({name:character["class"]}, function(err, doc) {
+							db.classDatastore.findOne({name:character["class"]}, function(err, doc) {
 								console.log("classDatastore");console.log(doc);
 								if (doc == null) {
 									dialog.showErrorBox("error", "Cannot find class!")
 									return;
 								}
 								let classe = doc;
-								db_manager.realmDatastore.findOne({name:classe["realm"]}, function(err, doc) {
+								db.realmDatastore.findOne({name:classe["realm"]}, function(err, doc) {
 									console.log("realmDatastore");console.log(doc);
 									if (doc == null) {
 										dialog.showErrorBox("error", "Cannot find realm!")
@@ -118,8 +120,6 @@ module.exports = {//response.send(); con i return?
 											//dialog.showErrorBox("error", "you are not running AS ADMIN! you can run only 2 clients at the same time! Run as Admin to avoid this message");
 										}
 									});
-
-
 
 	/*
 									let spawn = require('child_process').spawn;

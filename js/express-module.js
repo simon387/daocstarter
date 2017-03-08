@@ -1,7 +1,7 @@
-const db_manager = require("./db-manager.js");
+const db = require("./db-module.js");
 
 module.exports = {
-	startExpress: function () {
+	start: function () {
 		const express = require('express');
 		const server = express();
 		const port = 3000;
@@ -9,57 +9,57 @@ module.exports = {
 		server.get('/', function (request, response) {
 			//response.setHeader('Content-Type', 'application/json');
 			if (request.query.playCharacter != undefined) {
-				require("./gamedll-manager.js").playCharacter(request.query.playCharacter);
+				require("./gamedll-module.js").playCharacter(request.query.playCharacter, response);
 			}
 			if (request.query.getAllAccountsNames != undefined) {
-				db_manager.getAllAccountsNames(response);
+				db.getAllAccountsNames(response);
 			}
 			if (request.query.getAllServersNames != undefined) {
-				db_manager.getAllServersNames(response);
+				db.getAllServersNames(response);
 			}
 			if (request.query.getAllClassesNames != undefined) {
-				db_manager.getAllClassesNames(response);
+				db.getAllClassesNames(response);
 			}
 			if (request.query.getAllResolutions != undefined) {
-				require("./vga-manager.js").getAllResolutions(response);
+				require("./vga-module.js").getAllResolutions(response);
 			}
 			//account
 			if (request.query.ajaxAccount != undefined || request.query.removeAccount != undefined || request.query.editAccount != undefined) {
 				if (request.query.removeAccount != undefined) {
-					db_manager.accountDatastore.remove({_id:request.query.removeAccount}, {multi:false}, function(err, numRemoved) {});
+					db.accountDatastore.remove({_id:request.query.removeAccount}, {multi:false}, function(err, numRemoved) {});
 				}
 				if (request.query.editAccount != undefined) {//per aprire la modal di edit, ritorniamo l'elemento da modificare
-					db_manager.accountDatastore.findOne({_id:request.query.editAccount}, function (err, doc) {
+					db.accountDatastore.findOne({_id:request.query.editAccount}, function (err, doc) {
 						response.send(doc);
 					});
 				} else {//view normale
-					db_manager.getAllAccounts(response);
+					db.getAllAccounts(response);
 				}
 			}
 			//character
 			if (request.query.ajaxCharacter != undefined || request.query.removeCharacter != undefined || request.query.editCharacter != undefined) {
 				if (request.query.removeCharacter != undefined) {
-					db_manager.characterDatastore.remove({_id:request.query.removeCharacter}, {multi:false}, function(err, numRemoved) {});
+					db.characterDatastore.remove({_id:request.query.removeCharacter}, {multi:false}, function(err, numRemoved) {});
 				}
 				if (request.query.editCharacter != undefined) {
-					db_manager.characterDatastore.findOne({_id:request.query.editCharacter}, function(err, doc) {
+					db.characterDatastore.findOne({_id:request.query.editCharacter}, function(err, doc) {
 						response.send(doc);
 					});
 				} else {
-					db_manager.getAllCharacters(response);
+					db.getAllCharacters(response);
 				}
 			}
 			//setting
 			if (request.query.ajaxSetting != undefined || request.query.removeSetting != undefined || request.query.editSetting != undefined) {
 				if (request.query.removeSetting != undefined) {
-					//non facciamo cancellare i settings! db_manager.getSettingDatastore.remove({_id:request.query.removeSetting}, {multi:false}, function(err, numRemoved) {});
+					//non facciamo cancellare i settings! db.getSettingDatastore.remove({_id:request.query.removeSetting}, {multi:false}, function(err, numRemoved) {});
 				}
 				if (request.query.editSetting != undefined) {
-					db_manager.settingDatastore.findOne({_id:request.query.editSetting}, function(err, doc) {
+					db.settingDatastore.findOne({_id:request.query.editSetting}, function(err, doc) {
 						response.send(doc);
 					});
 				} else {
-					db_manager.getAllSettings(response);
+					db.getAllSettings(response);
 				}
 			}
 		});
@@ -79,11 +79,11 @@ module.exports = {
 				//account
 				if (request.query.addAccount != undefined || request.query.editAccount != undefined) {
 					if (request.query.addAccount != undefined) {
-						db_manager.accountDatastore.insert({name:post['account-name'], password:post['account-password']}, function(err, newDoc) {// Callback is optional
+						db.accountDatastore.insert({name:post['account-name'], password:post['account-password']}, function(err, newDoc) {// Callback is optional
 							response.send(newDoc);
 						});
 					} else if (request.query.editAccount != undefined) {
-						db_manager.accountDatastore.update({_id:request.query.editAccount}, {$set:{name:post['account-name'], password:post['account-password']}}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
+						db.accountDatastore.update({_id:request.query.editAccount}, {$set:{name:post['account-name'], password:post['account-password']}}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
 							response.send(affectedDocuments);
 						});
 					}
@@ -92,18 +92,18 @@ module.exports = {
 				if (request.query.addCharacter != undefined || request.query.editCharacter != undefined) {
 					let characterWindowed = post['character-windowed'] === undefined ? false : true; 
 					if (request.query.addCharacter != undefined) {
-						db_manager.characterDatastore.insert({name:post['character-name'], lastlogin:'-', account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}, function(err, newDoc) {
+						db.characterDatastore.insert({name:post['character-name'], lastlogin:'-', account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}, function(err, newDoc) {
 							response.send(newDoc);
 						});
 					} else if (request.query.editCharacter != undefined) {
-						db_manager.characterDatastore.update({_id:request.query.editCharacter},{$set:{name:post['character-name'], account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
+						db.characterDatastore.update({_id:request.query.editCharacter},{$set:{name:post['character-name'], account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
 							response.send(affectedDocuments);
 						});
 					}
 				}
 				//setting per ora con i file
 				if (request.query.editSetting != undefined) {
-					db_manager.settingDatastore.update({_id:request.query.editSetting}, {$set:{value:post['setting-value-file']}}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
+					db.settingDatastore.update({_id:request.query.editSetting}, {$set:{value:post['setting-value-file']}}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
 						response.send(affectedDocuments);
 					});
 				}

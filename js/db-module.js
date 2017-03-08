@@ -7,7 +7,6 @@ let realmDatastore;
 let classDatastore;
 let settingDatastore;
 
-//exports.accountDatastore = accountDatastore;
 module.exports = {
 	accountDatastore: accountDatastore,
 	characterDatastore: characterDatastore,
@@ -15,7 +14,7 @@ module.exports = {
 	realmDatastore: realmDatastore,
 	classDatastore: classDatastore,
 	settingDatastore: settingDatastore,
-	initDB: function() {
+	init: function() {
 		let Datastore = require('nedb')
 		//account
 		module.exports.accountDatastore = new Datastore({filename:dbPath + 'account', autoload:true});
