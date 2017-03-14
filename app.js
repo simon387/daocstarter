@@ -11,7 +11,7 @@ electron.app.on('ready', function() {
 		height:720,
 		show:false,
 		title:"DAoC Starter",
-		icon:"img/i.ico"		
+		icon:"img/i.ico"
 	});
 	mainWindow.loadURL(require('url').format({
 		pathname:require('path').join(__dirname, 'html', 'views', 'main.html'),
@@ -23,3 +23,5 @@ electron.app.on('ready', function() {
 	});
 	//mainWindow.webContents.openDevTools();//dev mode automatica	
 });
+
+electron.app.on('window-all-closed', electron.app.quit);//altrimenti al quit lascia dei processi appesi-.-

@@ -18,7 +18,6 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + Magnific Popup - v1.1.0 - 2016-02-20 <http://dimsemenov.com/plugins/magnific-popup/>
 + Handle v4.1 <https://technet.microsoft.com/en-us/sysinternals/handle.aspx>
 + npm/ini 1.3.4 <https://github.com/npm/ini>
-+ electron-winstaller
 
 ## developer's installation:
 
@@ -28,3 +27,13 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 ## developer's debug start:
 
 1. npm start
+
+## windows packaging single portable executable
+
+1. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
+2. TODO: usa autoit
+
+## windows installer
+
+1. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
+2. electron-installer-windows --src dist/daocstarter-win32-x64 --dest dist/installers

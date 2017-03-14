@@ -1,5 +1,5 @@
 node_modules/
 db/
 js/controller/character-temp.js
-npm-debug.log.*
-release-builds/
+npm-debug.*
+dist/
