@@ -1,9 +1,22 @@
 #NoTrayIcon
 _Singleton(@ScriptName)
 
+Global Const $VERSION = "1.0.0"
+Global Const $PATH = @AppDataDir & "\daocstarter\" & $VERSION & "\daocstarter-win32-x64"
+If Not(DirCreate($PATH)) Then Exit
+If Not()
+
 ;~ FileInstall(".\ffmpeg.exe",  @TempDir & "\ffmpeg.exe",  0)
 
 ;~ https://www.autoitscript.com/autoit3/docs/functions/ShellExecute.htm
+
+;~ Global Const $VBRSION_FILE = "version"
+;~ Func getVersion()
+;~ 	Local Const $handle = FileOpen($VBRSION_FILE, 0)
+;~ 	Local Const $version = FileReadLine($handle, 1)
+;~ 	FileClose($handle)
+;~ 	return $version
+;~ EndFunc
 
 Func _Singleton($sOccurenceName, $iFlag = 0)
 	Local Const $ERROR_ALREADY_EXISTS = 183

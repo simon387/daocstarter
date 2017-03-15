@@ -31,7 +31,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 ## windows packaging single portable executable
 
 1. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
-2. TODO: usa autoit
+2. compile single.exe.au3 script to exe
 
 ## windows installer
 
