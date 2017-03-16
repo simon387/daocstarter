@@ -1,14 +1,34 @@
 #NoTrayIcon
+#include "Zip.au3"
 _Singleton(@ScriptName)
 
-Global Const $VERSION = "1.0.0"
-Global Const $PATH = @AppDataDir & "\daocstarter\" & $VERSION & "\daocstarter-win32-x64"
-If Not(DirCreate($PATH)) Then Exit
-If Not()
 
-;~ FileInstall(".\ffmpeg.exe",  @TempDir & "\ffmpeg.exe",  0)
+
+Global Const $VERSION = "1.0.0"
+Global Const $PATH = @AppDataDir & "\daocstarter\" & $VERSION; & "\daocstarter-win32-x64"
+If FileExists($PATH) Then
+	giaInstallato()
+Else
+	DirCreate($PATH)
+	$Zip = _Zip_Create($PATH & "\zip.zip")
+	FileInstall(".\ffmpeg.exe",  @TempDir & "\ffmpeg.exe",  0)
+	_Zip_AddFolder($Zip, @ScriptDir & "\dist\daocstarter-win32-x64", 4)
+EndIf
+
+
+
+;~ If Not(DirCreate($PATH)) Then Exit
+;~ If Not()
+;~ ShellExecute($PATH)
+
+;~
 
 ;~ https://www.autoitscript.com/autoit3/docs/functions/ShellExecute.htm
+
+Func giaInstallato()
+	ConsoleWrite("Installation already done" & @CRLF)
+	Exit
+EndFunc
 
 ;~ Global Const $VBRSION_FILE = "version"
 ;~ Func getVersion()
