@@ -3,3 +3,5 @@ db/
 js/controller/character-temp.js
 npm-debug.*
 dist/
+dist.zip
+daocstarter.exe

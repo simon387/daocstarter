@@ -4,7 +4,7 @@ require("./js/db-module.js").init();
 require("./js/express-module.js").start();
 require("./js/menu-module.js");
 
-electron.app.on('ready', function() {
+electron.app.on('ready', () => {
 	const BrowserWindow = electron.BrowserWindow;
 	let mainWindow = new BrowserWindow({
 		width:1280,

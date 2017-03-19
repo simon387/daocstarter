@@ -28,12 +28,13 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 
 1. npm start
 
-## windows packaging single portable executable
+## create windows packaging single portable executable
 
 1. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
-2. compile single.exe.au3 script to exe
+2. node .\zipper.js
+3. compile daocstarter.au3 script to .exe (you can take a look to compiler.bat)
 
-## windows installer
+## create windows installer
 
 1. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
 2. electron-installer-windows --src dist/daocstarter-win32-x64 --dest dist/installers
