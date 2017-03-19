@@ -3,6 +3,7 @@ const electron = require('electron');
 require("./js/db-module.js").init();
 require("./js/express-module.js").start();
 require("./js/menu-module.js");
+require("./js/update-module.js").updateCheck();
 
 electron.app.on('ready', () => {
 	const BrowserWindow = electron.BrowserWindow;

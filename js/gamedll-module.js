@@ -13,52 +13,60 @@ module.exports = {//response.send(); con i return?
 		db.settingDatastore.findOne({_id:"2"}, function(err, doc) {//cerco l'user.dat
 			if (!require('fs').existsSync(doc["value"])) {
 				dialog.showErrorBox("error", "User.dat not found!");
+				response.send();
 				return;
 			}
 			let userdat = doc;
 			db.settingDatastore.findOne({_id:"1"}, function(err, doc) {
 				console.log("settingDatastore");console.log(doc);
 				if (doc == null) {
-					dialog.showErrorBox("error", "Cannot find setting!")
+					dialog.showErrorBox("error", "Cannot find setting!");
+					response.send();
 					return;
 				}
 				if (!require('fs').existsSync(doc["value"])) {
 					dialog.showErrorBox("error", "game.dll not found!");
+					response.send();
 					return;
 				}
 				let gamedll = doc;
 				db.characterDatastore.findOne({_id:id}, function(err, doc) {
 					console.log("characterDatastore");console.log(doc);
 					if (doc == null) {
-						dialog.showErrorBox("error", "Cannot find setting!")
+						dialog.showErrorBox("error", "Cannot find setting!");
+						response.send();
 						return;
 					}
 					let character = doc;
 					db.accountDatastore.findOne({name:character["account"]}, function(err, doc) {
 						console.log("accountDatastore");console.log(doc);
 						if (doc == null) {
-							dialog.showErrorBox("error", "Cannot find account!")
+							dialog.showErrorBox("error", "Cannot find account!");
+							response.send();
 							return;
 						}
 						let account = doc;
 						db.serverDatastore.findOne({name:character["server"]}, function(err, doc) {
 							console.log("serverDatastore");console.log(doc);
 							if (doc == null) {
-								dialog.showErrorBox("error", "Cannot find server!")
+								dialog.showErrorBox("error", "Cannot find server!");
+								response.send();
 								return;
 							}
 							let server = doc;
 							db.classDatastore.findOne({name:character["class"]}, function(err, doc) {
 								console.log("classDatastore");console.log(doc);
 								if (doc == null) {
-									dialog.showErrorBox("error", "Cannot find class!")
+									dialog.showErrorBox("error", "Cannot find class!");
+									response.send();
 									return;
 								}
 								let classe = doc;
 								db.realmDatastore.findOne({name:classe["realm"]}, function(err, doc) {
 									console.log("realmDatastore");console.log(doc);
 									if (doc == null) {
-										dialog.showErrorBox("error", "Cannot find realm!")
+										dialog.showErrorBox("error", "Cannot find realm!");
+										response.send();
 										return;
 									}
 									let realm = doc;
@@ -141,5 +149,4 @@ module.exports = {//response.send(); con i return?
 			});
 		});
 	}
-
 }
