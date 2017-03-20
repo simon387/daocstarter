@@ -1,6 +1,7 @@
 const db = require("./db-module.js");
 const {dialog} = require('electron');
 const path = require('path');
+const fs = require("fs");
 
 module.exports = {//response.send(); con i return?
 	playCharacter: function (id, response) {
@@ -11,7 +12,7 @@ module.exports = {//response.send(); con i return?
 			return;
 		}
 		db.settingDatastore.findOne({_id:"2"}, function(err, doc) {//cerco l'user.dat
-			if (!require('fs').existsSync(doc["value"])) {
+			if (!fs.existsSync(doc["value"])) {
 				dialog.showErrorBox("error", "User.dat not found!");
 				response.send();
 				return;
@@ -24,7 +25,7 @@ module.exports = {//response.send(); con i return?
 					response.send();
 					return;
 				}
-				if (!require('fs').existsSync(doc["value"])) {
+				if (!fs.existsSync(doc["value"])) {
 					dialog.showErrorBox("error", "game.dll not found!");
 					response.send();
 					return;
@@ -82,7 +83,6 @@ module.exports = {//response.send(); con i return?
 									console.log('path.dirname(gamedll["value"])');console.log(path.dirname(gamedll["value"]));
 
 									//settare user.dat // all'inizio ci inserisci questo C:\Users\Simone\AppData\Roaming\Electronic Arts\Dark Age of Camelot
-									let fs = require('fs');
 									let ini = require('ini');
 									let config = ini.parse(fs.readFileSync(userdat["value"], 'utf-8'));
 									let xy = character["resolution"].split("x");
