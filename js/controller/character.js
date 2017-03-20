@@ -1,9 +1,3 @@
-require('datatables.net')().$('#charactersDT').DataTable({
-	"aProcessing":false,
-	"aServerSide":false,
-	"ajax":localhost + '?ajaxCharacter'
-});
-
 function refreshModalCombos() {
 	$.get(localhost + '?getAllAccountsNames', function(array) {
 		$('#add-character-accounts').empty();

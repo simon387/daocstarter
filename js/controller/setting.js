@@ -1,8 +1,3 @@
-require('datatables.net')().$('#settingsDT').DataTable({
-	"aProcessing":false,
-	"aServerSide":false,
-	"ajax":localhost + '?ajaxSetting'
-});
 // Save edited row
 $("#edit-setting-form-file").on("submit", function(event) {
 	event.preventDefault();

@@ -4,7 +4,13 @@ module.exports = {
 	start: function () {
 		const express = require('express');
 		const server = express();
+
 		require('portfinder').getPort(function (err, port) {
+			const {ipcMain} = require('electron')
+			ipcMain.on('asynchronous-get-port', (event, arg) => {
+				event.sender.send('asynchronous-reply-get-port', port)
+			});
+
 			server.get('/', function (request, response) {
 				//response.setHeader('Content-Type', 'application/json');
 				if (request.query.playCharacter != undefined) {

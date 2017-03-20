@@ -25,4 +25,4 @@ electron.app.on('ready', () => {
 	//mainWindow.webContents.openDevTools();//dev mode automatica	
 });
 
-electron.app.on('window-all-closed', electron.app.quit);//altrimenti al quit lascia dei processi appesi-.-
+electron.app.on('window-all-closed', electron.app.quit);//altrimenti al quit lascia i processi appesi-.-
