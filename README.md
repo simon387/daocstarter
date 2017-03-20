@@ -21,6 +21,8 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + node-archiver <https://github.com/archiverjs/node-archiver>
 + portfinder <https://github.com/indexzero/node-portfinder>
 + AutoIt, just for the Windows portable executable <https://www.autoitscript.com/site/autoit/>
++ opn <https://github.com/sindresorhus/opn>
++ compare-versions <https://github.com/omichelsen/compare-versions>
 
 ## developer's installation:
 

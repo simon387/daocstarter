@@ -1,67 +1,37 @@
 module.exports = {
 	updateCheck: function () {
-		//getta www.simonecelia.it/daocstarter/version.html
-		//vedi se è da aggiornare
-		//casomai pop up https://github.com/simon387/daocstarter/releases
-
-		var request = require('request');
-		request({'url':'http://www.simonecelia.it','path':'/daocstarter/version.html',//'url':'http://www.google.it',
-				'proxy':'http://proxy.reply.it'}, function (error, response, body) {
-					console.log(error)
-					console.log(body)
-			if (!error && response.statusCode == 200) {
-				console.log(body);
-			}
-		});
-
-
-/*
 		let http = require('http');
-
 		let options = {
 			host: 'www.simonecelia.it',
 			path: '/daocstarter/version.html'
 		}
 		let request = http.request(options, function (res) {
-			let data = '';
+			let remoteVersion = '';
 			res.on('data', function (chunk) {
-				data += chunk;
+				remoteVersion += chunk;
 			});
 			res.on('end', function () {
-				console.log(data);
-
+				//console.log(remoteVersion);
+				const compareVersions = require('compare-versions');
+				const pjson = require('../package.json');
+				if (compareVersions(pjson.version, remoteVersion) < 0) {
+					const opn = require('opn');
+					const {dialog} = require('electron');
+					let options = {
+						type:"info",
+						title:"Update available!",
+						detail:"Version " + remoteVersion + " is available!\nThe GitHub webpage will be loaded for the download!"
+					}
+					opn('https://github.com/simon387/daocstarter/releases');
+					dialog.showMessageBox(options)//[browserWindow, ]options[, callback]
+					const electron = require('electron');
+					electron.app.quit();
+				}
 			});
 		});
 		request.on('error', function (e) {
 			console.log(e.message);
-			console.log("try behind proxy:")
-
-			let options2 = {
-				host: "proxy.reply.it",
-				port: 8080,
-				path: "www.simonecelia.it/daocstarter/version.html",
-				headers: {
-					Host: "www.simonecelia.it"
-				}
-			};
-			console.log(";(")
-			let request = http.request(options2, function (res) {
-				console.log(";(")
-				let data = '';
-				res.on('data', function (chunk) {
-					data += chunk;
-				});
-				res.on('end', function () {
-					console.log(data);
-
-				});
-			});
-			request.on('error', function (e) {console.log(e.message);});
-
 		});
 		request.end();
-
-
-		*/
 	}
 }

@@ -10,7 +10,7 @@ Global Const $TMP_ZIP_PATH = @TempDir & "\dist.zip"
 ;~ DirRemove($DIST_ZIP_PATH, 1)
 
 If Not FileExists($EXE) Then
-	FileInstall(".\dist.zip", $TMP_ZIP_PATH, 1)
+	FileInstall(".\dist.zip", $TMP_ZIP_PATH, 1);1=overwrite
 	_Zip_UnzipAll($TMP_ZIP_PATH, $DIST_ZIP_PATH & '\', 1);progress bar
 EndIf
 ShellExecute($EXE, "", $WORKINGDIR)

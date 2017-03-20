@@ -3,7 +3,7 @@ const electron = require('electron');
 require("./js/db-module.js").init();
 require("./js/express-module.js").start();
 require("./js/menu-module.js");
-//require("./js/update-module.js").updateCheck();
+require("./js/update-module.js").updateCheck();
 
 electron.app.on('ready', () => {
 	const BrowserWindow = electron.BrowserWindow;
@@ -11,7 +11,7 @@ electron.app.on('ready', () => {
 		width:1280,
 		height:720,
 		show:false,
-		title:"DAoC Starter",
+		title:"DAoC Starter v" + require('./package.json').version,
 		icon:"img/i.ico"
 	});
 	mainWindow.loadURL(require('url').format({

@@ -1,17 +1,17 @@
 {
   "name": "daocstarter",
   "productName": "daocstarter",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "a DAOC starter tool",
   "main": "app.js",
   "homepage": "https://github.com/simon387/daocstarter",
   "scripts": {
     "start": "electron ."
   },
-   "author": {
+  "author": {
     "name": "Simone Celia",
     "email": "simon387@hotmail.it",
-    "url": "http://example.com/"
+    "url": "https://github.com/simon387/"
   },
   "license": "ISC",
   "devDependencies": {
@@ -22,13 +22,15 @@
     "url": "git@github.com:simon387/daocstarter.git"
   },
   "dependencies": {
-    "datatables.net": "*",
-    "datatables.net-dt": "*",
-    "express": "*",
-    "jquery": "*",
+    "archiver": "^1.3.0",
+    "compare-versions": "^3.0.0",
+    "datatables.net": "^1.10.13",
+    "datatables.net-dt": "^1.10.13",
+    "express": "^4.15.2",
+    "jquery": "^3.2.1",
     "nedb": "^1.8.0",
-    "node-powershell": "*",
-    "archiver": "*",
-    "portfinder": "*"
+    "node-powershell": "^3.1.1",
+    "opn": "^4.0.2",
+    "portfinder": "^1.0.13"
   }
 }
