@@ -18,6 +18,9 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + Magnific Popup - v1.1.0 - 2016-02-20 <http://dimsemenov.com/plugins/magnific-popup/>
 + Handle v4.1 <https://technet.microsoft.com/en-us/sysinternals/handle.aspx>
 + npm/ini 1.3.4 <https://github.com/npm/ini>
++ node-archiver <https://github.com/archiverjs/node-archiver>
++ portfinder <https://github.com/indexzero/node-portfinder>
++ AutoIt, just for the Windows portable executable <https://www.autoitscript.com/site/autoit/>
 
 ## developer's installation:
 
@@ -28,13 +31,17 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 
 1. npm start
 
-## creating windows single portable executable
+## creating windows single portable executable (from a Windows machine)
 
 1. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
 2. node .\zipper.js
-3. compile daocstarter.au3 script to .exe (you can take a look to compiler.bat)
+3. install AutoIt or just get the Aut2exe.exe program
+4. compile daocstarter.au3 script to .exe (you can take a look to compiler.bat)
 
 ## creating windows installer
 
-1. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
-2. electron-installer-windows --src dist/daocstarter-win32-x64 --dest dist/installers
+1. npm install electron-packager -g
+2. if not in a Windows environment, install Wine!
+3. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
+4. electron-installer-windows --src dist/daocstarter-win32-x64 --dest dist/installers
+
