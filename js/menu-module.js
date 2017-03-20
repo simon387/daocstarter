@@ -14,21 +14,25 @@ const menuTemplate = [
 			{
 				label: 'Show screenshot directory',
 				click: () => {
-					//TODO
-					shell.showItemInFolder('/home/scelia/Scaricati');
+					shell.showItemInFolder(electron.app.getPath("documents") + "\\Electronic Arts\\Dark Age of Camelot\\.");
 				}
 			},
 			{
 				label: 'Open user setting directory',
 				click: () => {
-					//TODO
-					shell.showItemInFolder('/home/scelia/Scaricati');
+					db.settingDatastore.findOne({_id:"2"}, function(err, doc) {
+						if (!require('fs').existsSync(doc["value"])) {
+							dialog.showErrorBox("error", "User.dat not found!");
+						}
+						let	userdat = doc;
+						shell.showItemInFolder(userdat["value"]);
+					});
 				}
 			},
 			{
 				label: 'Edit user.dat',
 				click: () => {
-					db.settingDatastore.findOne({_id:"2"}, function(err, doc) {//cerco l'user.dat
+					db.settingDatastore.findOne({_id:"2"}, function(err, doc) {
 						if (!require('fs').existsSync(doc["value"])) {
 							dialog.showErrorBox("error", "User.dat not found!");
 						}
