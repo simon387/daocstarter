@@ -27,6 +27,7 @@
     "express": "*",
     "jquery": "*",
     "nedb": "^1.8.0",
-    "node-powershell": "*"
+    "node-powershell": "*",
+    "archiver": "*"
   }
 }
