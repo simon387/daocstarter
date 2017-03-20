@@ -19,18 +19,14 @@ Func _Zip_UnzipAll($hZipFile, $hDestPath, $flag = 1)
 	If _Zip_DllChk() <> 0 Then Return SetError(_Zip_DllChk(), 0, 0);no dll
 	If Not FileExists($hZipFile) Then Return SetError(2, 0, 0) ;no zip file
 	If Not FileExists($hDestPath) Then DirCreate($hDestPath)
-	Local $aArray[1]
-	$oApp = ObjCreate("Shell.Application")
+	Local $aArray[1], $oApp = ObjCreate("Shell.Application")
 	$oApp.Namespace($hDestPath).CopyHere($oApp.Namespace($hZipFile).Items)
 	For $item In $oApp.Namespace($hZipFile).Items
 		_ArrayAdd($aArray, $item)
 	Next
 	While 1
 		If $flag = 1 then _Hide()
-		If FileExists($hDestPath & "\" & $aArray[UBound($aArray) - 1]) Then
-			Return SetError(0, 0, 1)
-			ExitLoop
-		EndIf
+		If FileExists($hDestPath & "\" & $aArray[UBound($aArray) - 1]) Then Return SetError(0, 0, 1)
 		Sleep(500)
 	WEnd
 EndFunc
