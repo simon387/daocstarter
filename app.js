@@ -4,6 +4,7 @@ require("./js/update-module.js").updateCheck();
 require("./js/db-module.js").init();
 require("./js/express-module.js").start();
 require("./js/menu-module.js");
+//require("./js/handle-module.js").test();
 
 electron.app.on('ready', () => {
 	const BrowserWindow = electron.BrowserWindow;

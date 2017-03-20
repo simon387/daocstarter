@@ -23,6 +23,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + AutoIt, just for the Windows portable executable <https://www.autoitscript.com/site/autoit/>
 + opn <https://github.com/sindresorhus/opn>
 + compare-versions <https://github.com/omichelsen/compare-versions>
++ moment <https://github.com/moment/moment>
 
 ## developer's installation:
 

@@ -112,14 +112,14 @@ $("#edit-character-form").on("submit", function(event) {
 });
 //play
 function playCharacterRow(id) {
-	console.log("click");
 	if ('undefined' != typeof id) {
-		$.get(localhost + '?playCharacter=' + id, function() {
-			//$('a[data-id="row-' + id + '"]').parent().parent().remove();
+		$.get(localhost + '?playCharacter=' + id, function(timestamp) {
+			let lastLoginCell = $('a[data-id="row-' + id + '"]').parent().parent().children()[3];
+			lastLoginCell.innerHTML = timestamp;
 		}).fail(function() {
-			console.log('unable to play row.')
+			alert('unable to play row.')
 		});
 	} else {
-		console.log('Unknown row id.');
+		alert('Unknown row id.');
 	}
 }

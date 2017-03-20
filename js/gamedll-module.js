@@ -7,68 +7,59 @@ module.exports = {//response.send(); con i return?
 	playCharacter: function (id, response) {
 		console.log("arrivata richiesta di play id=" + id);
 		if (require('os').platform() != 'win32') {
-			console.log("Per il modulo vga-module funziona solo su windows :(");
-			response.send();
-			return;
+			console.log("Per ora il modulo vga-module funziona solo su windows :(");
+			return response.send();
 		}
 		db.settingDatastore.findOne({_id:"2"}, function(err, doc) {//cerco l'user.dat
 			if (!fs.existsSync(doc["value"])) {
 				dialog.showErrorBox("error", "User.dat not found!");
-				response.send();
-				return;
+				return response.send();
 			}
 			let userdat = doc;
 			db.settingDatastore.findOne({_id:"1"}, function(err, doc) {
 				console.log("settingDatastore");console.log(doc);
 				if (doc == null) {
 					dialog.showErrorBox("error", "Cannot find setting!");
-					response.send();
-					return;
+					return response.send();
 				}
 				if (!fs.existsSync(doc["value"])) {
 					dialog.showErrorBox("error", "game.dll not found!");
-					response.send();
-					return;
+					return response.send();
 				}
 				let gamedll = doc;
 				db.characterDatastore.findOne({_id:id}, function(err, doc) {
 					console.log("characterDatastore");console.log(doc);
 					if (doc == null) {
 						dialog.showErrorBox("error", "Cannot find setting!");
-						response.send();
-						return;
+						return response.send();
 					}
 					let character = doc;
 					db.accountDatastore.findOne({name:character["account"]}, function(err, doc) {
 						console.log("accountDatastore");console.log(doc);
 						if (doc == null) {
 							dialog.showErrorBox("error", "Cannot find account!");
-							response.send();
-							return;
+							return response.send();
 						}
 						let account = doc;
 						db.serverDatastore.findOne({name:character["server"]}, function(err, doc) {
 							console.log("serverDatastore");console.log(doc);
 							if (doc == null) {
 								dialog.showErrorBox("error", "Cannot find server!");
-								response.send();
-								return;
+								return response.send();
 							}
 							let server = doc;
 							db.classDatastore.findOne({name:character["class"]}, function(err, doc) {
 								console.log("classDatastore");console.log(doc);
 								if (doc == null) {
 									dialog.showErrorBox("error", "Cannot find class!");
-									response.send();
-									return;
+									return response.send();
 								}
 								let classe = doc;
 								db.realmDatastore.findOne({name:classe["realm"]}, function(err, doc) {
 									console.log("realmDatastore");console.log(doc);
 									if (doc == null) {
 										dialog.showErrorBox("error", "Cannot find realm!");
-										response.send();
-										return;
+										return response.send();
 									}
 									let realm = doc;
 									console.log(realm);
@@ -92,44 +83,7 @@ module.exports = {//response.send(); con i return?
 									config.main.windowed = windowed;
 									fs.writeFileSync(path.dirname(userdat["value"]) + "\\user.dat", ini.stringify(config, {}));
 									
-									//handle.exe
-									/* traduciti questo da autoit !
-									If IsAdmin() <> 1 Then GUICtrlSetData($Label_, "No admin priv. !")
-									FileInstall("C:\Users\Simone\Google Drive\dev\AUTOIT\DAoC_Starter\handle.exe", @TempDir & "\handle.exe");FileInstall("C:\ZZZ\AUTOIT\DAoC_Starter\Eula.txt", $path & "\Eula.txt")
-									Local $array = ProcessList("game.dll"), $file, $hex
-									If IsArray($array) == 1 Then
-										FileDelete(@TempDir & "\tmp")
-										For $i = 1 To $array[0][0]
-											RunWait(@ComSpec & ' /c "' & @TempDir & '\handle" -a -p ' & $array[$i][1] & ' >> tmp', @TempDir, @SW_HIDE)
-											Local $file = FileOpen(@TempDir & "\tmp", 0)
-											If $file = -1 Then Return
-											While 1
-												$line = FileReadLine($file)
-												If @error = -1 Then ExitLoop
-												If StringInStr($line, "BaseNamedObjects\DAoC") <> 0 Then;mutex delle #istanze e dell'IP_reame
-													$line = StringStripWS($line, 8)
-													$hex = StringSplit($line, ":")
-													ShellExecuteWait(@TempDir & "\handle.exe", "-c " & $hex[1] & " -y -p " & $array[$i][1], @TempDir, Default, @SW_HIDE)
-												EndIf
-											WEnd
-											FileClose($file)
-											FileDelete(@TempDir & "\tmp")
-										Next
-									EndIf
-									*/
-
-									var exec = require('child_process').exec; 
-									exec('NET SESSION', function(err,so,se) {
-										let admin = se.length === 0 ? true : false;
-										if (admin) {
-											//TODO
-										} else {
-											console.log("non sei admin!");
-											//dialog.showErrorBox("error", "you are not running AS ADMIN! you can run only 2 clients at the same time! Run as Admin to avoid this message");
-										}
-									});
-
-	
+									//TODO : handle call
 									let spawn = require('child_process').spawn;
 									let prc = spawn(gamedll["value"], [server["ip"], server["port"], server["n"], character["account"], account["password"], character["name"], realm["n"]], {
 										cwd:path.dirname(gamedll["value"]), 
@@ -138,9 +92,12 @@ module.exports = {//response.send(); con i return?
 									});
 									console.log('Spawned child pid: ' + prc.pid);
 	
-
+									const moment = require('moment');
+									const now = moment(Date.now()).format('DD/MM/YY HH:mm');
 									//aggiornare timestamp last login
-									response.send();
+									db.characterDatastore.update({_id:id}, {$set:{lastlogin:now}} , function(err, numAffected, affectedDocuments) {
+										return response.send(now);
+									});
 								});
 							});
 						});

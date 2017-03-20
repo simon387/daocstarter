@@ -14,6 +14,7 @@ module.exports = {
 	realmDatastore: realmDatastore,
 	classDatastore: classDatastore,
 	settingDatastore: settingDatastore,
+
 	init: function() {
 		let Datastore = require('nedb')
 		//account
@@ -99,6 +100,7 @@ module.exports = {
 		module.exports.settingDatastore.insert([{_id:'1', key:'path.to.game.dll', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], function(err) {});
 		module.exports.settingDatastore.insert([{_id:'2', key:'path.to.user.dat', type:'File', value:app.getPath("appData").replace(/\\/g, "\\\\") + '\\\\Electronic Arts\\\\Dark Age of Camelot\\\\LotM\\\\user.dat'}], function(err) {});
 	},
+	
 	//{"aaData":[["39","simone","simon387@hotmail.it","1211",null,"<a data-id=\"row-39\" href=\"javascript:editRow(39);\" class=\"btn btn-md btn-success\">edit<\/a>&nbsp;<a href=\"javascript:removeRow(39);\" class=\"btn btn-default btn-md\" style=\"background-color: #c83a2a;border-color: #b33426; color: #ffffff;\">remove<\/a>"]]}
 	getAllAccounts: function (response) {
 		module.exports.accountDatastore.find({}, function(err, docs) {
@@ -110,6 +112,7 @@ module.exports = {
 			response.send(correggiRispostaPerDT(ret));
 		});
 	},
+
 	getAllCharacters: function (response) {
 		module.exports.characterDatastore.find({}, function(err, docs){
 			let ret = '{"aaData":[';
@@ -122,6 +125,7 @@ module.exports = {
 			response.send(correggiRispostaPerDT(ret));
 		});
 	},
+
 	getAllSettings: function (response) {
 		module.exports.settingDatastore.find({}, function(err, docs){
 			let ret = '{"aaData":[';
@@ -132,16 +136,19 @@ module.exports = {
 			response.send(correggiRispostaPerDT(ret));
 		});
 	},
+
 	getAllAccountsNames: function (response) {
 		module.exports.accountDatastore.find({}, function(err, docs) {
 			return getAllNamesHelper(response, docs);
 		});
 	},
+
 	getAllServersNames: function (response) {
 		module.exports.serverDatastore.find({}, function(err, docs) {
 			return getAllNamesHelper(response, docs);
 		});
 	},
+	
 	getAllClassesNames: function (response) {
 		module.exports.classDatastore.find({}, function(err, docs) {
 			return getAllNamesHelper(response, docs);
