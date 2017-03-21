@@ -1,6 +1,6 @@
 module.exports = {
-	test: function (flag = true) {
-
+	test: function () {
+		console.log("test?");
 		if (require('os').platform() != 'win32') {
 			return;
 		}
@@ -30,7 +30,27 @@ module.exports = {
 			return ps.invoke();
 		})
 		.then(function(output){
-			console.log(output)
+			console.log("ha finito la scrittura? leggiamo");
+			//ha finito la scrittura? leggiamo
+			var fs = require('fs');
+			var stream = fs.createReadStream("tmpf");
+			var found = false;
+			stream.on('data',function(d){
+				if(!found) found=!!(''+d).match("daoci")
+			});
+			stream.on('error',function(err){
+				console.log(err);
+				console.log(found);
+			});
+			stream.on('close',function(err){
+				console.log(err);
+				console.log(found);
+			});
+
+
+
+
+			//console.log(output)
 			/*let str = output.replace(/[\n\r]/g, '').replace(/ +/g, '');
 			let regexp = /\d+x\d+x\d/g;
 			let match, matches = [];

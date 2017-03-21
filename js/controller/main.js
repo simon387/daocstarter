@@ -30,3 +30,10 @@ ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 		]
 	});
 })
+
+//fa aprire le classi open-in-browser fuori dal main process
+const shell = require('electron').shell;
+$('.open-in-browser').click((event) => {
+	event.preventDefault();
+	shell.openExternal(event.target.href);
+});
