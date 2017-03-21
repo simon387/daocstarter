@@ -1,6 +1,9 @@
+const shell = require('node-powershell');
+const {dialog} = require('electron');
+
 module.exports = {
-	test: function () {
-		console.log("test?");
+	killMutants: function () {
+	
 		if (require('os').platform() != 'win32') {
 			return;
 		}
@@ -9,61 +12,75 @@ module.exports = {
 		exec('NET SESSION', function(err,so,se) {
 			let admin = se.length === 0 ? true : false;
 			if (admin) {
-				//TODO
+				tryToKillMutants();
 			} else {
-				console.log("non sei admin!");
-				//dialog.showErrorBox("error", "you are not running AS ADMIN! you can run only 2 clients at the same time! Run as Admin to avoid this message");
+				dialog.showMessageBox({message:"non sei admin!"});
+				tryToKillMutants();
 			}
 		});
+	}
+}
 
-		/*let spawn = require('child_process').spawn;
-		let prc = spawn("handle\\handle.exe > tmp", ["-a"], {
-			//cwd:path.dirname(), 
-			setsid:false,
-			detached:true,
-		});*/
-
-		let shell = require('node-powershell');
-		let ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
-		ps.addCommand('handle\\handle.exe -a -nobanner > tmp')
-		.then(function() {
-			return ps.invoke();
-		})
-		.then(function(output){
-			console.log("ha finito la scrittura? leggiamo");
-			//ha finito la scrittura? leggiamo
-			var fs = require('fs');
-			var stream = fs.createReadStream("tmpf");
-			var found = false;
-			stream.on('data',function(d){
-				if(!found) found=!!(''+d).match("daoci")
+function tryToKillMutants() {
+	let getProcess = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
+	getProcess.addCommand('Get-Process -name game.dll | select -expand id')
+	.then(function() {
+		return getProcess.invoke();
+	})
+	.then(function(output){
+		let aPID = output.split('\n')
+		if (aPID instanceof Array) {
+			let ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
+			ps.addCommand('handle\\handle.exe -a -nobanner | findstr DAoCi')
+			.then(function() {
+				return ps.invoke();
+			})
+			.then(function(output2){
+				console.log("A" + output2)
+				let aRighe = output2.split('\n')
+				let aHex = [];
+				if (aRighe instanceof Array) {
+					for (let i = 0; i < aRighe.length; i++) {
+						let foo = aRighe[i].split(':');
+						aHex.push(foo[0]);
+					}
+					if (aHex instanceof Array) {
+						killHandles (aPID, aHex);
+					}
+				}
+				ps.dispose();
+			})
+			.catch(function(err){
+				ps.dispose();
 			});
-			stream.on('error',function(err){
-				console.log(err);
-				console.log(found);
-			});
-			stream.on('close',function(err){
-				console.log(err);
-				console.log(found);
-			});
+		}
+		getProcess.dispose();
+	})
+	.catch(function(err){
+		getProcess.dispose();
+	});
+}
 
-
-
-
-			//console.log(output)
-			/*let str = output.replace(/[\n\r]/g, '').replace(/ +/g, '');
-			let regexp = /\d+x\d+x\d/g;
-			let match, matches = [];
-			while ((match = regexp.exec(str)) != null) {
-				matches.push(match[0].slice(0, -2));
-			}*/
-			ps.dispose();
-			//response.send(matches);
-		})
-		.catch(function(err){
-			ps.dispose();
-		});
-
+function killHandles (aPID, aHex) {
+	console.log(aPID)
+	console.log(aHex)
+	for (p = 0; p < aPID.length; p++) {
+		for (h = 0; h < aHex.length; h++) {
+			let getProcess = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
+			if (aHex[h] != '' && aPID[p] != '' ) {
+				dialog.showMessageBox({message:'handle\\handle.exe -c ' + aHex[h] + ' -y -p ' + aPID[p]});
+				getProcess.addCommand('handle\\handle.exe -c ' + aHex[h] + ' -y -p ' + aPID[p])
+				.then(function() {
+					return getProcess.invoke();
+				})
+				.then(function(output){
+					getProcess.dispose();
+				})
+				.catch(function(err){
+					getProcess.dispose();
+				});
+			}
+		}
 	}
 }
 

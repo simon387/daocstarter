@@ -8,6 +8,7 @@ Global Const $WORKINGDIR = $DIST_ZIP_PATH & "\dist\daocstarter-win32-x64"
 Global Const $EXE = $WORKINGDIR & "\daocstarter.exe"
 Global Const $TMP_ZIP_PATH = @TempDir & "\dist.zip"
 ;~ DirRemove($DIST_ZIP_PATH, 1)
+;~ Exit
 If Not FileExists($EXE) Then
 	FileInstall(".\dist.zip", $TMP_ZIP_PATH, 1);1=overwrite
 	_Zip_UnzipAll($TMP_ZIP_PATH, $DIST_ZIP_PATH & '\')
