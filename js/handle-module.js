@@ -28,6 +28,7 @@ function tryToKillMutants() {
 	getProcess.addCommand('Get-Process -name game.dll | select -expand id')
 	.then(function() {
 		dialog.showMessageBox({message:"returning invoke.. "});//si rompe qua l'exe
+		///converti cosi http://stackoverflow.com/questions/42386995/not-able-to-call-powershell-from-nodejs
 		return getProcess.invoke();
 	})
 	.then(function(output){
