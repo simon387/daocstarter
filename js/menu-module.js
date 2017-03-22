@@ -4,6 +4,7 @@ const opn = require('opn');
 const {shell} = require('electron');
 const db = require("./db-module.js");
 const update = require("./update-module.js");
+const {dialog} = require('electron');
 
 Menu.getApplicationMenu();
 
