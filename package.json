@@ -7,7 +7,7 @@
   "homepage": "https://github.com/simon387/daocstarter",
   "scripts": {
     "start": "electron .",
-	"test": "electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\\i.ico --overwrite"
+    "test": "electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\\i.ico --overwrite"
   },
   "author": {
     "name": "Simone Celia",
@@ -28,6 +28,7 @@
     "datatables.net": "^1.10.13",
     "datatables.net-dt": "^1.10.13",
     "express": "^4.15.2",
+    "ini": "^1.3.4",
     "jquery": "^3.2.1",
     "moment": "^2.18.0",
     "nedb": "^1.8.0",

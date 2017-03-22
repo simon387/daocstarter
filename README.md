@@ -37,9 +37,9 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 ## creating windows single portable executable (from a Windows machine)
 
 1. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
-2. node .\zipper.js
-3. install AutoIt or just get the Aut2exe.exe program
-4. compile daocstarter.au3 script to .exe (you can take a look to compiler.bat)
+2. install AutoIt or just get the Aut2exe.exe program
+3. edit autoit-compiler (adjust paths if differents)
+4. node .\autoit-compiler.js (take a look to daocstarter.au3 for more details)
 
 ## creating windows installer
 

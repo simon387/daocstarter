@@ -3,7 +3,7 @@ const {dialog} = require('electron');
 
 module.exports = {
 	killMutants: function () {
-	
+		console.log("killMutants called!");
 		if (require('os').platform() != 'win32') {
 			return;
 		}
@@ -22,29 +22,39 @@ module.exports = {
 }
 
 function tryToKillMutants() {
+	dialog.showMessageBox({message:"tryToKillMutants called "});
 	let getProcess = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
+	dialog.showMessageBox({message:"new shell "});
 	getProcess.addCommand('Get-Process -name game.dll | select -expand id')
 	.then(function() {
+		dialog.showMessageBox({message:"returning invoke.. "});//si rompe qua l'exe
 		return getProcess.invoke();
 	})
 	.then(function(output){
-		let aPID = output.split('\n')
+		dialog.showMessageBox({message:"splitting "});
+		let aPID = output.split('\n');
 		if (aPID instanceof Array) {
+			dialog.showMessageBox({message:"e un array "});
 			let ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
+			dialog.showMessageBox({message:"new shell "});
 			ps.addCommand('handle\\handle.exe -a -nobanner | findstr DAoCi')
 			.then(function() {
+				dialog.showMessageBox({message:"invoke() "});
 				return ps.invoke();
 			})
 			.then(function(output2){
 				console.log("A" + output2)
-				let aRighe = output2.split('\n')
+				dialog.showMessageBox({message:"a "});
+				let aRighe = output2.split('\n');
 				let aHex = [];
 				if (aRighe instanceof Array) {
+					dialog.showMessageBox({message:"is array true "});
 					for (let i = 0; i < aRighe.length; i++) {
 						let foo = aRighe[i].split(':');
 						aHex.push(foo[0]);
 					}
 					if (aHex instanceof Array) {
+						dialog.showMessageBox({message:"calling killhandles "});
 						killHandles (aPID, aHex);
 					}
 				}
@@ -62,13 +72,24 @@ function tryToKillMutants() {
 }
 
 function killHandles (aPID, aHex) {
+	dialog.showMessageBox({message:"killhjandles called "});
+	for (let p = 0; p < aPID.length; p++) {
+		aPID[p] = aPID[p].replace(/[\n\r]/g, '');
+	}
+	for (let h = 0; h < aHex.length; h++) {
+		aHex[h] = aHex[h].replace(/\ +/g, '');
+	}
 	console.log(aPID)
 	console.log(aHex)
+	dialog.showMessageBox({message:"dio cane ? "});
+	dialog.showMessageBox({message:aPID.toString()});
+	dialog.showMessageBox({message:aHex.toString()});
 	for (p = 0; p < aPID.length; p++) {
 		for (h = 0; h < aHex.length; h++) {
 			let getProcess = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
 			if (aHex[h] != '' && aPID[p] != '' ) {
 				dialog.showMessageBox({message:'handle\\handle.exe -c ' + aHex[h] + ' -y -p ' + aPID[p]});
+				console.log('handle\\handle.exe -c ' + aHex[h] + ' -y -p ' + aPID[p]);
 				getProcess.addCommand('handle\\handle.exe -c ' + aHex[h] + ' -y -p ' + aPID[p])
 				.then(function() {
 					return getProcess.invoke();

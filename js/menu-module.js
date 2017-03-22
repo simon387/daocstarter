@@ -43,9 +43,9 @@ const menuTemplate = [
 				}
 			},
 			{
-				label: 'Remove client limiter',
+				label: 'Remove clients limiter',
 				click: () => {
-					//TODO
+					require("./handle-module.js").killMutants();
 				}
 			}
 		]
