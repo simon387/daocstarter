@@ -38,7 +38,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 
 1. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
 2. install AutoIt or just get the Aut2exe.exe program
-3. edit autoit-compiler (adjust paths if differents)
+3. edit autoit-compiler.js (adjust paths if differents)
 4. node .\autoit-compiler.js (take a look to daocstarter.au3 for more details)
 
 ## creating windows installer
