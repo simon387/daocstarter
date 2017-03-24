@@ -1,6 +1,4 @@
 "use strict";
-const shell = require('node-powershell');
-const {dialog} = require('electron');
 
 module.exports = {
 	killMutants: function () {
@@ -13,7 +11,7 @@ module.exports = {
 			if (se.length === 0) {
 				getGameDllPids();
 			} else {
-				dialog.showMessageBox({message:"You are NOT running AS admin! you can run only two DAoC instances!"});
+				require('electron').showMessageBox({message:"You are NOT running AS admin! you can run only two DAoC instances!"});
 			}
 		});
 	}
@@ -54,15 +52,15 @@ function getGameDllHandles(aPID) {
 	});
 	handle_exe.on('close', (code) => {
 		if (code !== 0) {
-			console.log(`getprocess process exited with code ${code}`);
+			console.log(`handle_exe process exited with code ${code}`);
 		}
 		findstr_exe.stdin.end();
 	});
 	findstr_exe.stdout.on('data', (data) => {
-		let aRighe = data.toString().split('\n');
-		if (aRighe instanceof Array) {
-			for (let i = 0; i < aRighe.length; i++) {
-				let hex = aRighe[i].split(':');
+		let dataRows = data.toString().split('\n');
+		if (dataRows instanceof Array) {
+			for (let r = 0; r < dataRows.length; r++) {
+				let hex = dataRows[r].split(':');
 				aHex.push(hex[0].replace(/\ +/g, ''));
 			}
 			if (aHex.length > 0) {
@@ -93,7 +91,7 @@ function killHandles (aPID, aHex) {
 				console.log(`stderr: ${data}`);
 			});
 			handle_exe.on('close', (code) => {
-				console.log(`child process exited with code ${code}`);
+				console.log(`handle_exe process exited with code ${code}`);
 			});
 		}
 	}

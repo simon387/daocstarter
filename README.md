@@ -33,6 +33,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + compare-versions <https://github.com/omichelsen/compare-versions>
 + moment <https://github.com/moment/moment>
 + ps-node <https://github.com/neekey/ps>
++ node-powershell <https://github.com/rannn505/node-powershell>
 
 ## developer's installation:
 
@@ -49,10 +50,10 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 2. edit autoit-compiler.js (adjust paths if differents)
 3. node .\autoit-compiler.js (take a look to daocstarter.au3 for more details)
 
-## creating windows installer
+## creating windows installer (not tested!)
 
 1. npm install electron-packager -g
-2. if not in a Windows environment, install Wine!
-3. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
-4. electron-installer-windows --src dist/daocstarter-win32-x64 --dest dist/installers
-
+2. npm install electron-installer-windows -g
+3. if not in a Windows environment, install Wine!
+4. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
+5. electron-installer-windows --src dist/daocstarter-win32-x64 --dest dist/installers
