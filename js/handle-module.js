@@ -21,6 +21,42 @@ module.exports = {
 	}
 }
 
+function _tryToKillMutants() {
+	var child = exec('Powershell.exe  -executionpolicy ByPass  -File d:\\tmp\\getmember.ps1 -processdir d:\\temp -groupnames "ABC"', 
+	function(err, stdout, stderr){
+		//callback(err)
+		if(err){
+		console.error(err);
+		}else {
+		console.log("should be no issue"); 
+		}
+	});
+
+	child.stdout.on('data', function(data) {
+		// Print out what being printed in the powershell
+		console.log(data);
+	});
+
+	child.stderr.on('data', function(data) {
+		//print error being printed in powershell
+		console.log('stderr: ' + data);
+
+	});
+
+	child.on('close',function(code){
+		// To check the result of powershell exit code
+		console.log("exit code is "+code);
+		if(code==0)
+		{
+			console.log("Powershell run successfully, exit code = 0 ")
+		}else {
+			console.log("ERROR, powershell exited with exit code = "+ code);
+		}
+	});
+
+	child.stdin.end();
+}
+
 function tryToKillMutants() {
 	dialog.showMessageBox({message:"tryToKillMutants called "});
 	let getProcess = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
@@ -68,6 +104,8 @@ function tryToKillMutants() {
 		getProcess.dispose();
 	})
 	.catch(function(err){
+		dialog.showMessageBox({message:"err"});
+		dialog.showMessageBox({message:err});
 		getProcess.dispose();
 	});
 }
