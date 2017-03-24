@@ -7,7 +7,6 @@ const child_process = require('child_process');
 
 module.exports = {//response.send(); con i return?
 	playCharacter: function (id, response) {
-		console.log("arrivata richiesta di play id=" + id);
 		if (require('os').platform() != 'win32') {
 			console.log("Per ora il modulo vga-module funziona solo su windows :(");
 			return response.send();
@@ -19,7 +18,6 @@ module.exports = {//response.send(); con i return?
 			}
 			let userdat = doc;
 			db.settingDatastore.findOne({_id:"1"}, function(err, doc) {
-				console.log("settingDatastore");console.log(doc);
 				if (doc == null) {
 					dialog.showErrorBox("error", "Cannot find setting!");
 					return response.send();
@@ -30,35 +28,30 @@ module.exports = {//response.send(); con i return?
 				}
 				let gamedll = doc;
 				db.characterDatastore.findOne({_id:id}, function(err, doc) {
-					console.log("characterDatastore");console.log(doc);
 					if (doc == null) {
 						dialog.showErrorBox("error", "Cannot find setting!");
 						return response.send();
 					}
 					let character = doc;
 					db.accountDatastore.findOne({name:character["account"]}, function(err, doc) {
-						console.log("accountDatastore");console.log(doc);
 						if (doc == null) {
 							dialog.showErrorBox("error", "Cannot find account!");
 							return response.send();
 						}
 						let account = doc;
 						db.serverDatastore.findOne({name:character["server"]}, function(err, doc) {
-							console.log("serverDatastore");console.log(doc);
 							if (doc == null) {
 								dialog.showErrorBox("error", "Cannot find server!");
 								return response.send();
 							}
 							let server = doc;
 							db.classDatastore.findOne({name:character["class"]}, function(err, doc) {
-								console.log("classDatastore");console.log(doc);
 								if (doc == null) {
 									dialog.showErrorBox("error", "Cannot find class!");
 									return response.send();
 								}
 								let classe = doc;
 								db.realmDatastore.findOne({name:classe["realm"]}, function(err, doc) {
-									console.log("realmDatastore");console.log(doc);
 									if (doc == null) {
 										dialog.showErrorBox("error", "Cannot find realm!");
 										return response.send();

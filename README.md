@@ -17,7 +17,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + Font-Awesome <https://github.com/FortAwesome/Font-Awesome>
 + Magnific Popup - v1.1.0 - 2016-02-20 <http://dimsemenov.com/plugins/magnific-popup/>
 + Handle v4.1 <https://technet.microsoft.com/en-us/sysinternals/handle.aspx>
-+ npm/ini 1.3.4 <https://github.com/npm/ini>
++ npm/ini <https://github.com/npm/ini>
 + node-archiver <https://github.com/archiverjs/node-archiver>
 + portfinder <https://github.com/indexzero/node-portfinder>
 + AutoIt, just for the Windows portable executable <https://www.autoitscript.com/site/autoit/>

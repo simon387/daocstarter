@@ -108,7 +108,7 @@ module.exports = {
 			let ret = '{"aaData":[';
 			docs.forEach(function (item) {
 				ret += '["' + item._id + '","' + item.name + '","' + item.password + '","' + "<a data-id='row-" + item._id
-				+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>delete<\/a>" + '"],';
+				+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>X<\/a>" + '"],';
 			});
 			response.send(correggiRispostaPerDT(ret));
 		});
@@ -121,7 +121,7 @@ module.exports = {
 				ret += '["' + item._id + '","' +  
 				"<a href=javascript:playCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-primary btn-sm sr-button'>play<\/a>"
 				+ '","' + item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.class + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
-				+ "' href=javascript:editCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>delete<\/a>" + '"],';
+				+ "' href=javascript:editCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>X<\/a>" + '"],';
 			});
 			response.send(correggiRispostaPerDT(ret));
 		});
@@ -134,6 +134,16 @@ module.exports = {
 				ret += '["' + item._id + '","' + item.key + '","' + item.value + '","' + "<a data-id='row-" + item._id
 				+ "' href='javascript:editSettingRow" + item.type + "(" + item._id + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
 			});
+			//setting fillers, solo per impaginazione/estetica
+			ret += '["' + 3 + '","' + "-" + '","' + "-" + '","' + "<a data-id='row-" + 0
+				+ "' href='javascript:editSettingRow" + "file" + "(" + 0 + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
+			ret += '["' + 4 + '","' + "-" + '","' + "-" + '","' + "<a data-id='row-" + 0
+				+ "' href='javascript:editSettingRow" + "file" + "(" + 0 + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
+			ret += '["' + 5 + '","' + "-" + '","' + "-" + '","' + "<a data-id='row-" + 0
+				+ "' href='javascript:editSettingRow" + "file" + "(" + 0 + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
+			ret += '["' + 6 + '","' + "-" + '","' + "-" + '","' + "<a data-id='row-" + 0
+				+ "' href='javascript:editSettingRow" + "file" + "(" + 0 + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
+				
 			response.send(correggiRispostaPerDT(ret));
 		});
 	},

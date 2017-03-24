@@ -40,7 +40,7 @@ $("#add-character-form").on("submit", function(event) {
 		let tbody = $('#charactersDT').children('tbody');
 		let table = tbody.length ? tbody : $('#charactersDT');
 		table.append('<tr role="row"><td class="sorting_1">' + data._id +
-		'</td><td>' +  
+		'</td><td>' +
 			"<a href=javascript:playCharacterRow(\'" + data._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a>"
 			+
 		'</td><td>' + data.name + '</td><td>' + data.lastlogin + '</td><td>' + data.account + '</td><td>' + data.server +
