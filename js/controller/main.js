@@ -1,3 +1,4 @@
+"use strict";
 let localhost;
 window.jQuery = window.$ = require('jquery');
 const {ipcRenderer} = require('electron');

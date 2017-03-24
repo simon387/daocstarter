@@ -1,3 +1,4 @@
+"use strict";
 const {app} = require('electron');
 const dbPath = app.getPath("userData") + '/db/';
 let accountDatastore;
@@ -16,7 +17,7 @@ module.exports = {
 	settingDatastore: settingDatastore,
 
 	init: function() {
-		let Datastore = require('nedb')
+		let Datastore = require('nedb');
 		//account
 		module.exports.accountDatastore = new Datastore({filename:dbPath + 'account', autoload:true});
 		module.exports.accountDatastore.ensureIndex({fieldName:'name', unique:true}, function(err) {});
@@ -96,7 +97,7 @@ module.exports = {
 		module.exports.characterDatastore = new Datastore({filename:dbPath + 'character', autoload:true});
 		//setting
 		module.exports.settingDatastore = new Datastore({filename:dbPath + 'setting', autoload:true});
-		module.exports.settingDatastore.ensureIndex({fieldName:'key', unique:true}, function(err) {});
+		//module.exports.settingDatastore.ensureIndex({fieldName:'key', unique:true}, function(err) {});
 		module.exports.settingDatastore.insert([{_id:'1', key:'path.to.game.dll', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], function(err) {});
 		module.exports.settingDatastore.insert([{_id:'2', key:'path.to.user.dat', type:'File', value:app.getPath("appData").replace(/\\/g, "\\\\") + '\\\\Electronic Arts\\\\Dark Age of Camelot\\\\LotM\\\\user.dat'}], function(err) {});
 	},
@@ -157,8 +158,7 @@ module.exports = {
 }
 
 function correggiRispostaPerDT(ret) {
-	ret = ret.slice(0, -1);
-	ret += ']}';
+	ret = ret.slice(0, -1) + ']}';
 	if (ret === '{"aaData":]}') {
 		ret ='{"aaData":[]}';
 	}

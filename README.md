@@ -24,6 +24,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + opn <https://github.com/sindresorhus/opn>
 + compare-versions <https://github.com/omichelsen/compare-versions>
 + moment <https://github.com/moment/moment>
++ ps-node <https://github.com/neekey/ps>
 
 ## developer's installation:
 

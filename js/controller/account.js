@@ -1,3 +1,4 @@
+"use strict";
 // Save edited row
 $("#edit-account-form").on("submit", function(event) {
 	event.preventDefault();

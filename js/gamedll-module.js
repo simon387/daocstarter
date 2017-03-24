@@ -1,7 +1,9 @@
+"use strict";
 const db = require("./db-module.js");
 const {dialog} = require('electron');
 const path = require('path');
 const fs = require("fs");
+const child_process = require('child_process');
 
 module.exports = {//response.send(); con i return?
 	playCharacter: function (id, response) {
@@ -62,16 +64,6 @@ module.exports = {//response.send(); con i return?
 										return response.send();
 									}
 									let realm = doc;
-									console.log(realm);
-									console.log('gamedll["value"]');console.log(gamedll["value"]);
-									console.log('server["ip"]');console.log(server["ip"]);
-									console.log('server["port"]');console.log(server["port"]);
-									console.log('server["n"]');console.log(server["n"]);
-									console.log('character["account"]');console.log(character["account"]);
-									console.log('account["password"]');console.log(account["password"]);
-									console.log('character["name"]');console.log(character["name"]);
-									console.log('realm["n"]');console.log(realm["n"]);
-									console.log('path.dirname(gamedll["value"])');console.log(path.dirname(gamedll["value"]));
 
 									//settare user.dat // all'inizio ci inserisci questo C:\Users\Simone\AppData\Roaming\Electronic Arts\Dark Age of Camelot
 									let ini = require('ini');
@@ -83,8 +75,8 @@ module.exports = {//response.send(); con i return?
 									config.main.windowed = windowed;
 									fs.writeFileSync(path.dirname(userdat["value"]) + "\\user.dat", ini.stringify(config, {}));
 									
-									//TODO : handle call
-									let spawn = require('child_process').spawn;
+
+									let spawn = child_process.spawn;
 									let prc = spawn(gamedll["value"], [server["ip"], server["port"], server["n"], character["account"], account["password"], character["name"], realm["n"]], {
 										cwd:path.dirname(gamedll["value"]), 
 										setsid:false,
@@ -94,9 +86,18 @@ module.exports = {//response.send(); con i return?
 	
 									const moment = require('moment');
 									const now = moment(Date.now()).format('DD/MM/YY HH:mm');
-									//aggiornare timestamp last login
+									
+									//aggiorna timestamp last login
 									db.characterDatastore.update({_id:id}, {$set:{lastlogin:now}} , function(err, numAffected, affectedDocuments) {
 										return response.send(now);
+									});
+
+									//se admin, kill mutants!
+									let exec = require('child_process').exec; 
+									exec('NET SESSION', function(err, so, se) {
+										if (se.length === 0) {
+											require("./handle-module.js").killMutants();
+										}
 									});
 								});
 							});

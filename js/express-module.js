@@ -1,3 +1,4 @@
+"use strict";
 const db = require("./db-module.js");
 
 module.exports = {

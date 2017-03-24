@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = {
 	getAllResolutions: function(response) {
 		if (require('os').platform() != 'win32') {

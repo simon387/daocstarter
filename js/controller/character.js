@@ -1,3 +1,4 @@
+"use strict";
 function refreshModalCombos() {
 	$.get(localhost + '?getAllAccountsNames', function(array) {
 		$('#add-character-accounts').empty();
