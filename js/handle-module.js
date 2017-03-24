@@ -22,39 +22,39 @@ module.exports = {
 }
 
 function _tryToKillMutants() {
-	var child = exec('Powershell.exe  -executionpolicy ByPass  -File d:\\tmp\\getmember.ps1 -processdir d:\\temp -groupnames "ABC"', 
-	function(err, stdout, stderr){
-		//callback(err)
-		if(err){
-		console.error(err);
-		}else {
-		console.log("should be no issue"); 
+	//https://nodejs.org/api/child_process.html#child_process_options_detached
+	let spawn = require('child_process').spawn;
+	const _getprocess = spawn('Get-Process', ['-name', 'game.dll']);
+	const _select = spawn('select', ['-expand', 'id']);
+
+	_getprocess.stdout.on('data', (data) => {
+		_select.stdin.write(data);
+	});
+
+	_getprocess.stderr.on('data', (data) => {
+		console.log(`ps stderr: ${data}`);
+	});
+
+	_getprocess.on('close', (code) => {
+		if (code !== 0) {
+			console.log(`getprocess process exited with code ${code}`);
+		}
+		_select.stdin.end();
+	});
+
+	_select.stdout.on('data', (data) => {
+		console.log(data.toString());
+	});
+
+	_select.stderr.on('data', (data) => {
+		console.log(`_select stderr: ${data}`);
+	});
+
+	_select.on('close', (code) => {
+		if (code !== 0) {
+			console.log(`_select process exited with code ${code}`);
 		}
 	});
-
-	child.stdout.on('data', function(data) {
-		// Print out what being printed in the powershell
-		console.log(data);
-	});
-
-	child.stderr.on('data', function(data) {
-		//print error being printed in powershell
-		console.log('stderr: ' + data);
-
-	});
-
-	child.on('close',function(code){
-		// To check the result of powershell exit code
-		console.log("exit code is "+code);
-		if(code==0)
-		{
-			console.log("Powershell run successfully, exit code = 0 ")
-		}else {
-			console.log("ERROR, powershell exited with exit code = "+ code);
-		}
-	});
-
-	child.stdin.end();
 }
 
 function tryToKillMutants() {
