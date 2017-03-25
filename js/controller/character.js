@@ -85,7 +85,8 @@ function editCharacterRow(id) {
 					$('#edit-character-resolution').append($("<option>" + array[i] + "</option>"));
 				}
 			});
-			$("#edit-character-windowed").prop( "checked", obj.windowed );
+			$("#edit-character-windowed").prop("checked", obj.windowed);
+			$("#edit-character-favourite").prop("checked", obj.favourite);
 			$('#edit-character-modal').modal('show')
 		}).fail(function() {
 			alert('unable to edit character.')

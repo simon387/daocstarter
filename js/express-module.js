@@ -100,12 +100,13 @@ module.exports = {
 					//char
 					if (request.query.addCharacter != undefined || request.query.editCharacter != undefined) {
 						let characterWindowed = post['character-windowed'] === undefined ? false : true; 
+						let characterFavourite = post['character-favourite'] === undefined ? false : true;
 						if (request.query.addCharacter != undefined) {
-							db.characterDatastore.insert({name:post['character-name'], lastlogin:'-', account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}, function(err, newDoc) {
+							db.characterDatastore.insert({name:post['character-name'], lastlogin:'-', account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed, favourite:characterFavourite}, function(err, newDoc) {
 								response.send(newDoc);
 							});
 						} else if (request.query.editCharacter != undefined) {
-							db.characterDatastore.update({_id:request.query.editCharacter},{$set:{name:post['character-name'], account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed}}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
+							db.characterDatastore.update({_id:request.query.editCharacter},{$set:{name:post['character-name'], account:post['character-account'], server:post['character-server'], class:post['character-class'], resolution:post['character-resolution'], windowed:characterWindowed, favourite:characterFavourite}}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
 								response.send(affectedDocuments);
 							});
 						}
