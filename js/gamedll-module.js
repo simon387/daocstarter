@@ -8,7 +8,7 @@ const child_process = require('child_process');
 module.exports = {
 	playCharacter: function (id, response) {
 		if (require('os').platform() != 'win32') {
-			console.log("Per ora il modulo vga-module funziona solo su windows :(");
+			console.log("Per ora il modulo gamedll-module funziona solo su windows :(");
 			return response.send();
 		}
 		db.settingDatastore.findOne({_id:"2"}, function(err, doc) {//cerco l'user.dat

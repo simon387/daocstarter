@@ -18,6 +18,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + Express <https://github.com/expressjs/express>
 + Datatables.net <https://datatables.net>
 + jQuery <https://github.com/jquery/jquery>
++ jQueryUI <https://jqueryui.com>
 + NeDB (as mongodb) <https://github.com/louischatriot/nedb>
 + Bootstrap <https://github.com/twbs/bootstrap>
 + Scrollreveal <https://github.com/jlmakes/scrollreveal>

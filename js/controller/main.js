@@ -40,5 +40,5 @@ $('.open-in-browser').click((event) => {
 });
 
 $(function() {
-	$("#draggable").draggable();
+	$(".draggable").draggable();
 });

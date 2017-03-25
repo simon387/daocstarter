@@ -22,7 +22,7 @@ electron.app.on('ready', () => {
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show()
 	});
-	//mainWindow.webContents.openDevTools();//dev mode automatica
+	mainWindow.webContents.openDevTools();//dev mode automatica
 });
 
 electron.app.on('window-all-closed', electron.app.quit);//altrimenti al quit lascia i processi appesi-.-
