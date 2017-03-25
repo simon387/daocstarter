@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require("fs");
 const child_process = require('child_process');
 
-module.exports = {//response.send(); con i return?
+module.exports = {
 	playCharacter: function (id, response) {
 		if (require('os').platform() != 'win32') {
 			console.log("Per ora il modulo vga-module funziona solo su windows :(");
@@ -67,7 +67,6 @@ module.exports = {//response.send(); con i return?
 									config.main.screen_height = xy[1];
 									config.main.windowed = windowed;
 									fs.writeFileSync(path.dirname(userdat["value"]) + "\\user.dat", ini.stringify(config, {}));
-									
 
 									let spawn = child_process.spawn;
 									let prc = spawn(gamedll["value"], [server["ip"], server["port"], server["n"], character["account"], account["password"], character["name"], realm["n"]], {
@@ -82,15 +81,14 @@ module.exports = {//response.send(); con i return?
 									
 									//aggiorna timestamp last login
 									db.characterDatastore.update({_id:id}, {$set:{lastlogin:now}} , function(err, numAffected, affectedDocuments) {
+										//se admin, kill mutants!
+										let exec = require('child_process').exec; 
+										exec('NET SESSION', function(err, so, se) {
+											if (se.length === 0) {
+												require("./handle-module.js").killMutants();
+											}
+										});
 										return response.send(now);
-									});
-
-									//se admin, kill mutants!
-									let exec = require('child_process').exec; 
-									exec('NET SESSION', function(err, so, se) {
-										if (se.length === 0) {
-											require("./handle-module.js").killMutants();
-										}
 									});
 								});
 							});
@@ -99,5 +97,28 @@ module.exports = {//response.send(); con i return?
 				});
 			});
 		});
+	},
+	killCharacter: function (id, response) {
+		console.log("killCharacter called")
+		let ps = require('ps-node');
+		let aPID = [];
+		ps.lookup({
+			command: 'game.dll',
+			psargs: 'ux'
+		}, function(err, resultList) {
+			if (err) {
+				throw new Error(err);
+			}
+			resultList.forEach(function(process){
+				if (process){
+					aPID.push(process.pid);
+					console.log(process);//TODO
+				}
+			});
+			if (aPID.length > 0) {
+				//getGameDllHandles(aPID);
+			}
+		});
+		return response.send();
 	}
 }

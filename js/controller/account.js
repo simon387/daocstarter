@@ -21,7 +21,7 @@ $("#add-account-form").on("submit", function(event) {
 		table.append('<tr role="row"><td class="sorting_1">' + data._id +
 		'</td><td>' + data.name + '</td><td>' + data.password + '</td><td><a data-id="row-' +
 		data._id + '" href="javascript:editAccountRow(\'' + data._id +
-		'\');" class="btnX btn-md btn-successX">edit</a>&nbsp;<a href="javascript:removeAccountRow(\'' + data._id + '\');" class="btnX btn-default btn-md btnX-delete" >delete</a></td></tr>');
+		'\');" class="btnX btn-md btn-successX">edit</a>&nbsp;<a href="javascript:removeAccountRow(\'' + data._id + '\');" class="btnX btn-default btn-md btnX-delete" >X</a></td></tr>');
 		$('#accountsDT tbody tr').remove(":contains('No data available in table')");
 		$('#add-account-modal').modal('hide');
 	}).fail(function() {

@@ -17,6 +17,9 @@ module.exports = {
 				if (request.query.playCharacter != undefined) {
 					require("./gamedll-module.js").playCharacter(request.query.playCharacter, response);
 				}
+				if (request.query.killCharacter != undefined) {
+					require("./gamedll-module.js").killCharacter(request.query.killCharacter, response);
+				}
 				if (request.query.getAllAccountsNames != undefined) {
 					db.getAllAccountsNames(response);
 				}

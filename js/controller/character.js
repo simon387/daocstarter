@@ -41,13 +41,13 @@ $("#add-character-form").on("submit", function(event) {
 		let table = tbody.length ? tbody : $('#charactersDT');
 		table.append('<tr role="row"><td class="sorting_1">' + data._id +
 		'</td><td>' +
-			"<a href=javascript:playCharacterRow(\'" + data._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a>"
-			+
+		"<a href=javascript:playCharacterRow(\'" + data._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a> " +
+		"<a href=javascript:killCharacterRow(\'" + data._id + "\'); class='btnX btn-primary btn-sm btnX-delete'>qtd<\/a>" +
 		'</td><td>' + data.name + '</td><td>' + data.lastlogin + '</td><td>' + data.account + '</td><td>' + data.server +
 		'</td><td>' + data.class + '</td><td>' + data.resolution + '</td><td>' + data.windowed +
 		'</td><td><a data-id="row-' + data._id + '" href="javascript:editCharacterRow(\'' + data._id +
 		'\');" class="btnX btn-md btn-successX">edit</a>&nbsp;<a href="javascript:removeCharacterRow(\''
-		+ data._id + '\');" class="btnX btn-default btn-md btnX-delete">delete</a></td></tr>');
+		+ data._id + '\');" class="btnX btn-default btn-md btnX-delete">X</a></td></tr>');
 		$('#charactersDT tbody tr').remove(":contains('No data available in table')");
 		$('#add-character-modal').modal('hide');
 	}).fail(function() {
@@ -111,7 +111,7 @@ $("#edit-character-form").on("submit", function(event) {
 		alert('Unable to save data, please try again later.');
 	});
 });
-//play
+// playCharacter
 function playCharacterRow(id) {
 	if ('undefined' != typeof id) {
 		$.get(localhost + '?playCharacter=' + id, function(timestamp) {
@@ -119,6 +119,18 @@ function playCharacterRow(id) {
 			lastLoginCell.innerHTML = timestamp;
 		}).fail(function() {
 			alert('unable to play row.')
+		});
+	} else {
+		alert('Unknown row id.');
+	}
+}
+
+function killCharacterRow(id) {
+	if ('undefined' != typeof id) {
+		$.get(localhost + '?killCharacter=' + id, function() {
+			//
+		}).fail(function() {
+			alert('unable to kill character.')
 		});
 	} else {
 		alert('Unknown row id.');
