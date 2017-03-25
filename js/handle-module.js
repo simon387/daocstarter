@@ -11,7 +11,7 @@ module.exports = {
 			if (se.length === 0) {
 				getGameDllPids();
 			} else {
-				require('electron').showMessageBox({message:"You are NOT running AS admin! you can run only two DAoC instances!"});
+				require('electron').dialog.showMessageBox({message:"You are NOT running AS admin! you can run only two DAoC instances!"});
 			}
 		});
 	}
