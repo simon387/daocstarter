@@ -100,25 +100,36 @@ module.exports = {
 	},
 	killCharacter: function (id, response) {
 		console.log("killCharacter called")
-		let ps = require('ps-node');
-		let aPID = [];
-		ps.lookup({
-			command: 'game.dll',
-			psargs: 'ux'
-		}, function(err, resultList) {
-			if (err) {
-				throw new Error(err);
-			}
-			resultList.forEach(function(process){
-				if (process){
-					aPID.push(process.pid);
-					console.log(process);//TODO
+		db.characterDatastore.findOne({_id:id}, function(err, character) {
+			//character["account"],  character["name"]
+			let ps = require('ps-node');
+			//let aPID = [];
+			ps.lookup({
+				command: 'game.dll',
+				psargs: 'ux'
+			}, function(err, resultList) {
+				if (err) {
+					throw new Error(err);
 				}
+				resultList.forEach(function(process){
+					if (process){
+						console.log(process);//TODO
+						//aPID.push(process.pid);
+						//arguments 3, 5 accountName, char , pid
+						if (arguments[3] == character["account"] && arguments[5] == character["name"]) {
+							ps.kill(pid, function(err) {
+								if (err) {
+									throw new Error (err);
+								}
+							});
+						}
+					}
+				});
+				/*if (aPID.length > 0) {
+					//getGameDllHandles(aPID);
+				}*/
 			});
-			if (aPID.length > 0) {
-				//getGameDllHandles(aPID);
-			}
+			return response.send();
 		});
-		return response.send();
 	}
 }
