@@ -14,12 +14,7 @@ module.exports = {
 
 			server.get('/', function (request, response) {
 				//response.setHeader('Content-Type', 'application/json');
-				if (request.query.playCharacter != undefined) {
-					require("./gamedll-module.js").playCharacter(request.query.playCharacter, response);
-				}
-				if (request.query.killCharacter != undefined) {
-					require("./gamedll-module.js").killCharacter(request.query.killCharacter, response);
-				}
+				
 				if (request.query.getAllAccountsNames != undefined) {
 					db.getAllAccountsNames(response);
 				}
@@ -57,6 +52,19 @@ module.exports = {
 					} else {
 						db.getAllCharacters(response);
 					}
+				}
+				if (request.query.playCharacter != undefined) {
+					require("./gamedll-module.js").playCharacter(request.query.playCharacter, response);
+				}
+				if (request.query.killCharacter != undefined) {
+					require("./gamedll-module.js").killCharacter(request.query.killCharacter, response);
+				}
+				if (request.query.getAllFavouriteCharacters != undefined) {
+					db.characterDatastore.find({favourite:true} , function (err, docs) {
+
+						response.send(docs);
+
+					})
 				}
 				//setting
 				if (request.query.ajaxSetting != undefined || request.query.removeSetting != undefined || request.query.editSetting != undefined) {

@@ -39,6 +39,17 @@ $('.open-in-browser').click((event) => {
 	shell.openExternal(event.target.href);
 });
 
+
+$(function() {
+	$.get(localhost + '?getAllFavouriteCharacters', function(a) {
+		console.log("get finita");
+		console.log(a);
+	});
+	$("<div id='' class='draggable ui-widget-content'><p>Drag me around</p></div>").appendTo("#mini-char-container");
+});
+
+
+
 $(function() {
 	$(".draggable").draggable();
 });
