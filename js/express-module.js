@@ -60,10 +60,14 @@ module.exports = {
 				}
 				if (request.query.getAllFavouriteCharacters != undefined) {
 					db.characterDatastore.find({favourite:true} , function (err, docs) {
-
 						response.send(docs);
-
-					})
+					});
+				}
+				if (request.query.saveFavouriteCoordinate != undefined) {
+					db.characterDatastore.update({_id:request.query.saveFavouriteCoordinate},
+					{$set:{x:request.query.left, y:request.query.top}}, {returnUpdatedDocs:true, multi:false}, function(err, numAffected, affectedDocuments) {
+						response.send();
+					});
 				}
 				//setting
 				if (request.query.ajaxSetting != undefined || request.query.removeSetting != undefined || request.query.editSetting != undefined) {

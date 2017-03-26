@@ -116,16 +116,21 @@ $("#edit-character-form").on("submit", function(event) {
 	});
 });
 // playCharacter
-function playCharacterRow(id) {
-	if ('undefined' != typeof id) {
-		$.get(localhost + '?playCharacter=' + id, function(timestamp) {
-			let lastLoginCell = $('a[data-id="row-' + id + '"]').parent().parent().children()[3];
-			lastLoginCell.innerHTML = timestamp;
-		}).fail(function() {
-			alert('unable to play row.')
-		});
+function playCharacterRow(id, fromFavourite=false) {
+	if (fromFavourite) {
+		//checkka il tuo
+		let a = $('.draggable');
 	} else {
-		alert('Unknown row id.');
+		if ('undefined' != typeof id) {
+			$.get(localhost + '?playCharacter=' + id, function(timestamp) {
+				let lastLoginCell = $('a[data-id="row-' + id + '"]').parent().parent().children()[3];
+				lastLoginCell.innerHTML = timestamp;
+			}).fail(function() {
+				alert('unable to play row.')
+			});
+		} else {
+			alert('Unknown row id.');
+		}
 	}
 }
 

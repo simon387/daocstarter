@@ -92,6 +92,7 @@
 .draggable {
 	width: 150px;
 	height: 100px;
+	position: absolute;
 	/*border: 1px solid;*/
 	/*z-index:9001;*/
 }

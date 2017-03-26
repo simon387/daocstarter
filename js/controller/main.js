@@ -50,26 +50,30 @@ let renderFavourites = function() {
 			if (item.y === undefined) {
 				item.y = 440;
 			}
-			$("<div id='" + item._id + "' class='draggable ui-widget-content draggable"
+			$("<div id='" + item._id + "' class='draggable ui-widget-content"
 			+ '' + "' style='left:" + item.x + "px; top:" + item.y + "px;'>"
 			+ "<table class='table-draggable'>"
-			+ "<tr><td>" + item.name + "</td><td><input type='checkbox' class='' id='" + item._id + "' value='false'></td></tr>"
+			+ "<tr><td>" + item.name + "</td><td><input type='checkbox' id='" + item._id + "' value='false'></td></tr>"
 			+ "<tr>"
-			+ "<td><a href=javascript:playCharacterRow(\'" + item._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a></td>"
-			+ "<td><a href=javascript:killCharacterRow(\'" + item._id + "\'); class='btnX btn-primary btn-sm btnX-delete'>qtd<\/a></td>"
+			+ "<td><a href=javascript:playCharacterRow(\'" + item._id + "\',true); class='btnX btn-primary btn-sm sr-button'>play<\/a></td>"
+			+ "<td><a href=javascript:killCharacterRow(\'" + item._id + "\',true); class='btnX btn-primary btn-sm btnX-delete'>qtd<\/a></td>"
 			+ "</tr></table></div>")
 			.appendTo("#mini-char-container");
-		}); 
+		});
 		$(function() {
 			$(".draggable").draggable({
-				stop: function() {
-				//updateCounterStatus( $stop_counter, counts[ 2 ] );
-				}
+				stop: function(o) {
+					$.get(localhost + '?saveFavouriteCoordinate=' + o.target.id
+					+'&left=' + o.target.offsetLeft
+					+'&top=' + o.target.offsetTop , function () {
+						//console.log("ok");
+					});
+				},
+				containment: "#mini-char-container",
+				cursor: "move", cursorAt: { top: 56, left: 56 }
 			});
 		});
 	});
 };
 
 $(renderFavourites);
-
-
