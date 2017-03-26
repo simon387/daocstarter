@@ -14,7 +14,6 @@ module.exports = {
 
 			server.get('/', function (request, response) {
 				//response.setHeader('Content-Type', 'application/json');
-				
 				if (request.query.getAllAccountsNames != undefined) {
 					db.getAllAccountsNames(response);
 				}

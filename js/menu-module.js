@@ -4,8 +4,8 @@ const Menu = electron.Menu;
 const opn = require('opn');
 const {shell} = require('electron');
 const db = require("./db-module.js");
-const update = require("./update-module.js");
 const {dialog} = require('electron');
+const path = require('path');
 
 Menu.getApplicationMenu();
 
@@ -47,6 +47,52 @@ const menuTemplate = [
 				label: 'Remove clients limiter',
 				click: () => {
 					require("./handle-module.js").killMutants();
+				}
+			},
+			{
+				label: 'Patch client',
+				click: () => {
+					db.settingDatastore.findOne({_id:"1"}, function(err, gamedll) {
+						if (!require('fs').existsSync(gamedll["value"])) {
+							dialog.showErrorBox("error", "camelot.exe not found!");
+						} else {
+							let exec = require('child_process').exec;
+							let cmd = 'camelot.exe';
+							let child = exec(
+								cmd, {
+									cwd: path.dirname(gamedll["value"]),
+									setsid:false,
+									detached:true,
+								},
+								function(error, stdout, stderr) {
+									if (error === null) {
+										console.log('success');
+									} else {
+										console.log('error');
+									}
+								}
+							);
+						}
+					});
+				}
+			}
+		]
+	},
+	{
+		label: 'View',
+		submenu: [
+			{
+				label: 'Reset favourites positions',
+				click: () => {
+					db.characterDatastore.update({favourite:true},
+					{$set:{x:40,y:440}}, {returnUpdatedDocs:true,multi:true},
+					function(err, numAffected, affectedDocuments){
+						if (numAffected > 0) {
+							const BrowserWindow = require('electron').BrowserWindow;
+							let win = BrowserWindow.getFocusedWindow();
+							win.reload();
+						}
+					});
 				}
 			}
 		]

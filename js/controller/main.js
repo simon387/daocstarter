@@ -61,9 +61,15 @@ let renderFavourites = function() {
 			.appendTo("#mini-char-container");
 		}); 
 		$(function() {
-			$(".draggable").draggable();
+			$(".draggable").draggable({
+				stop: function() {
+				//updateCounterStatus( $stop_counter, counts[ 2 ] );
+				}
+			});
 		});
 	});
 };
 
 $(renderFavourites);
+
+
