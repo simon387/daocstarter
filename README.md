@@ -3,6 +3,12 @@
 A Dark Age of Camelot client starter <http://darkageofcamelot.com>  
 100% HTML+CSS+JS platform independent Desktop application.
 
+## features
+
++ advanced characters, accounts, and settings management
++ allow to log any number of accounts on the same machine
++ quickest login/logout system
+
 ## quick infos
 
 + On Windows, when you need to log in more then 2 DAoC's accounts, you need to run the daocstarter.exe as admin

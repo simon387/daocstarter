@@ -91,9 +91,23 @@
 
 .draggable {
 	width: 150px;
-	height: 150px;
+	height: 100px;
+	/*border: 1px solid;*/
+	/*z-index:9001;*/
+}
+
+.table-draggable {
+	width: 150px;
+	height: 100px;
 	padding: 0.5em;
-	z-index: 9999;
+	/*z-index: 9999;*/
+	/*border: 1px solid;*/
+}
+
+.Animist {
+	background-image: url('../img/classes/animist.jpg');
+	/*background-repeat: no-repeat;
+	background-size: cover;*/
 }
 /*
 #characters {

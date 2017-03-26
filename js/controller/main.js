@@ -39,17 +39,31 @@ $('.open-in-browser').click((event) => {
 	shell.openExternal(event.target.href);
 });
 
-
-$(function() {
-	$.get(localhost + '?getAllFavouriteCharacters', function(a) {
-		console.log("get finita");
-		console.log(a);
+let renderFavourites = function() {
+	$.get(localhost + '?getAllFavouriteCharacters', function(favourites) {
+		$('.draggable').remove();
+		favourites.forEach(function (item) {
+			console.log(item);
+			if (item.x === undefined) {
+				item.x = 40;
+			}
+			if (item.y === undefined) {
+				item.y = 440;
+			}
+			$("<div id='" + item._id + "' class='draggable ui-widget-content draggable"
+			+ '' + "' style='left:" + item.x + "px; top:" + item.y + "px;'>"
+			+ "<table class='table-draggable'>"
+			+ "<tr><td>" + item.name + "</td><td><input type='checkbox' class='' id='" + item._id + "' value='false'></td></tr>"
+			+ "<tr>"
+			+ "<td><a href=javascript:playCharacterRow(\'" + item._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a></td>"
+			+ "<td><a href=javascript:killCharacterRow(\'" + item._id + "\'); class='btnX btn-primary btn-sm btnX-delete'>qtd<\/a></td>"
+			+ "</tr></table></div>")
+			.appendTo("#mini-char-container");
+		}); 
+		$(function() {
+			$(".draggable").draggable();
+		});
 	});
-	$("<div id='' class='draggable ui-widget-content'><p>Drag me around</p></div>").appendTo("#mini-char-container");
-});
+};
 
-
-
-$(function() {
-	$(".draggable").draggable();
-});
+$(renderFavourites);

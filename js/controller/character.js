@@ -49,6 +49,7 @@ $("#add-character-form").on("submit", function(event) {
 		'\');" class="btnX btn-md btn-successX">edit</a>&nbsp;<a href="javascript:removeCharacterRow(\''
 		+ data._id + '\');" class="btnX btn-default btn-md btnX-delete">X</a></td></tr>');
 		$('#charactersDT tbody tr').remove(":contains('No data available in table')");
+		$(renderFavourites);
 		$('#add-character-modal').modal('hide');
 	}).fail(function() {
 		alert('Unable to Add new character');
@@ -59,6 +60,7 @@ function removeCharacterRow(id) {
 	if ('undefined' != typeof id) {
 		$.get(localhost + '?removeCharacter=' + id, function() {
 			$('a[data-id="row-' + id + '"]').parent().parent().remove();
+			$(renderFavourites);
 		}).fail(function() {
 			alert('unable to remove row.')
 		});
@@ -108,6 +110,7 @@ $("#edit-character-form").on("submit", function(event) {
 		$('td:eq(7)', tr).html(data.resolution);
 		$('td:eq(8)', tr).html(data.windowed + "");
 		$('#edit-character-modal').modal('hide');
+		$(renderFavourites);
 	}).fail(function() {
 		alert('Unable to save data, please try again later.');
 	});
