@@ -42,6 +42,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + moment <https://github.com/moment/moment>
 + ps-node <https://github.com/neekey/ps>
 + node-powershell <https://github.com/rannn505/node-powershell>
++ and more!...
 
 ## developer's installation:
 
