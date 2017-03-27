@@ -53,7 +53,7 @@ let renderFavourites = function() {
 			$("<div id='" + item._id + "' class='draggable ui-widget-content"
 			+ '' + "' style='left:" + item.x + "px; top:" + item.y + "px;'>"
 			+ "<table class='table-draggable'>"
-			+ "<tr><td>" + item.name + "</td><td><input type='checkbox' id='" + item._id + "' value='false'></td></tr>"
+			+ "<tr><td>" + item.name + "</td><td><input type='checkbox' id='" + item._id + "' class='fav-checkbox' value='false'></td></tr>"
 			+ "<tr>"
 			+ "<td><a href=javascript:playCharacterRow(\'" + item._id + "\',true); class='btnX btn-primary btn-sm sr-button'>play<\/a></td>"
 			+ "<td><a href=javascript:killCharacterRow(\'" + item._id + "\',true); class='btnX btn-primary btn-sm btnX-delete'>qtd<\/a></td>"

@@ -118,8 +118,13 @@ $("#edit-character-form").on("submit", function(event) {
 // playCharacter
 function playCharacterRow(id, fromFavourite=false) {
 	if (fromFavourite) {
-		//checkka il tuo
-		let a = $('.draggable');
+		//$('#'+ id + '-checkbox').prop('checked', true);
+		let a = $('.fav-checkbox');
+		console.log(a)
+
+		//crea un array di id così formato:
+		// il tuo id + tutti quelli checkati + togli i duplicati
+
 	} else {
 		if ('undefined' != typeof id) {
 			$.get(localhost + '?playCharacter=' + id, function(timestamp) {
