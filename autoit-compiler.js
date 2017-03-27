@@ -16,7 +16,7 @@ try {
 	fs.unlinkSync(exe);
 	console.log('successfully deleted ' + exe);
 } catch(error) {
-	console.log("...")
+	console.log(error + "...");
 }
 
 let ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});

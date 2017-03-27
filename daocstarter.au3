@@ -2,7 +2,7 @@
 #include <Misc.au3>
 #include <array.au3>
 _Singleton(@ScriptName)
-Global Const $VERSION = StringReplace(StringReplace(FileReadLine("package.json", 4), '  "version": "', ""), '",', '')
+Global Const $VERSION = "1.0.1";StringReplace(StringReplace(FileReadLine("package.json", 4), '  "version": "', ""), '",', '')
 Global Const $DIST_ZIP_PATH = @AppDataDir & "\daocstarter\" & $VERSION; & "\daocstarter-win32-x64"
 Global Const $WORKINGDIR = $DIST_ZIP_PATH & "\dist\daocstarter-win32-x64"
 Global Const $EXE = $WORKINGDIR & "\daocstarter.exe"
