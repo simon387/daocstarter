@@ -8,6 +8,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + advanced characters, accounts, and settings management
 + allow to log any number of accounts on the same machine
 + quickest login/logout system
++ autoupdate system
 
 ## quick infos
 

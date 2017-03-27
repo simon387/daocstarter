@@ -10,10 +10,14 @@ const autoitcmd = '& "C:\\Program Files (x86)\\AutoIt3\\Aut2Exe\\Aut2exe.exe" /i
 const fs = require('fs');
 const exe = "daocstarter.exe"
 
-fs.unlinkSync(distzip);
-console.log('successfully deleted ' + distzip);
-fs.unlinkSync(exe);
-console.log('successfully deleted ' + exe);
+try {
+	fs.unlinkSync(distzip);
+	console.log('successfully deleted ' + distzip);
+	fs.unlinkSync(exe);
+	console.log('successfully deleted ' + exe);
+} catch(error) {
+	console.log("...")
+}
 
 let ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
 ps.addCommand(packagercmd)

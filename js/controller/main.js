@@ -43,7 +43,7 @@ let renderFavourites = function() {
 	$.get(localhost + '?getAllFavouriteCharacters', function(favourites) {
 		$('.draggable').remove();
 		favourites.forEach(function (item) {
-			console.log(item);
+			//console.log(item);
 			if (item.x === undefined) {
 				item.x = 40;
 			}
@@ -69,8 +69,8 @@ let renderFavourites = function() {
 						//console.log("ok");
 					});
 				},
-				containment: "#mini-char-container",
-				cursor: "move", cursorAt: { top: 56, left: 56 }
+				containment: "#mini-char-container"//,
+				//cursor: "move", cursorAt: { top: 56, left: 56 }
 			});
 		});
 	});

@@ -116,30 +116,50 @@ $("#edit-character-form").on("submit", function(event) {
 	});
 });
 // playCharacter
-function playCharacterRow(id, fromFavourite=false) {
+function playCharacterRow(id, fromFavourite = false) {
+	playCharHelper(id);
 	if (fromFavourite) {
-		//$('#'+ id + '-checkbox').prop('checked', true);
-		let a = $('.fav-checkbox');
-		console.log(a)
-
-		//crea un array di id così formato:
-		// il tuo id + tutti quelli checkati + togli i duplicati
-
-	} else {
-		if ('undefined' != typeof id) {
-			$.get(localhost + '?playCharacter=' + id, function(timestamp) {
-				let lastLoginCell = $('a[data-id="row-' + id + '"]').parent().parent().children()[3];
-				lastLoginCell.innerHTML = timestamp;
-			}).fail(function() {
-				alert('unable to play row.')
-			});
-		} else {
-			alert('Unknown row id.');
+		let checkedboxArray = $('.fav-checkbox:checked');
+		if (checkedboxArray.length > 0) {
+			for (let i = 0; i < checkedboxArray.length; i++) {
+				if (id != checkedboxArray[i].id) {
+					playCharHelper(checkedboxArray[i].id);
+				}
+			}
 		}
 	}
 }
 
-function killCharacterRow(id) {
+function playCharHelper(id) {
+	if ('undefined' != typeof id) {
+		$.get(localhost + '?playCharacter=' + id, function(timestamp) {
+			let lastLoginCell = $('a[data-id="row-' + id + '"]').parent().parent().children()[3];
+			if (undefined != lastLoginCell) {
+				lastLoginCell.innerHTML = timestamp;
+			}
+		}).fail(function() {
+			alert('unable to play row.')
+		});
+	} else {
+		alert('Unknown row id.');
+	}
+}
+
+function killCharacterRow(id, fromFavourite = false) {
+	killCharacterHeler(id);
+	if (fromFavourite) {
+		let checkedboxArray = $('.fav-checkbox:checked');
+		if (checkedboxArray.length > 0) {
+			for (let i = 0; i < checkedboxArray.length; i++) {
+				if (id != checkedboxArray[i].id) {
+					killCharacterHeler(checkedboxArray[i].id);
+				}
+			}
+		}
+	}
+}
+
+function killCharacterHeler(id) {
 	if ('undefined' != typeof id) {
 		$.get(localhost + '?killCharacter=' + id, function() {
 			//

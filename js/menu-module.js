@@ -6,6 +6,7 @@ const {shell} = require('electron');
 const db = require("./db-module.js");
 const {dialog} = require('electron');
 const path = require('path');
+const BrowserWindow = require('electron').BrowserWindow;
 
 Menu.getApplicationMenu();
 
@@ -75,6 +76,13 @@ const menuTemplate = [
 						}
 					});
 				}
+			},
+			{
+				label: 'Open Develop Tools',
+				click: () => {
+					let win = BrowserWindow.getFocusedWindow();
+					win.toggleDevTools();
+				}
 			}
 		]
 	},
@@ -88,7 +96,6 @@ const menuTemplate = [
 					{$set:{x:40,y:440}}, {returnUpdatedDocs:true,multi:true},
 					function(err, numAffected, affectedDocuments){
 						if (numAffected > 0) {
-							const BrowserWindow = require('electron').BrowserWindow;
 							let win = BrowserWindow.getFocusedWindow();
 							win.reload();
 						}
