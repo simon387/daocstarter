@@ -1,4 +1,5 @@
 "use strict";
+
 function refreshModalCombos() {
 	$.get(localhost + '?getAllAccountsNames', function(array) {
 		$('#add-character-accounts').empty();
@@ -89,6 +90,7 @@ function editCharacterRow(id) {
 			});
 			$("#edit-character-windowed").prop("checked", obj.windowed);
 			$("#edit-character-favourite").prop("checked", obj.favourite);
+			$("#edit-character-title").val(obj.title);
 			$('#edit-character-modal').modal('show')
 		}).fail(function() {
 			alert('unable to edit character.')

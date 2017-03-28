@@ -16,7 +16,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "electron": "^1.6.2"
+    "electron": "^1.6.4"
   },
   "repository": {
     "type": "git",

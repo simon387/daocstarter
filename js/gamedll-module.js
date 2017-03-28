@@ -90,6 +90,9 @@ module.exports = {
 										});
 										return response.send(now);
 									});
+
+									//da prc.pid fai partire l'exe che aggiorna//TODO
+									console.log(character['title']);
 								});
 							});
 						});
