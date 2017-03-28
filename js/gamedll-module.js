@@ -100,7 +100,7 @@ module.exports = {
 			});
 		});
 	},
-	killCharacter: function (id, response) {
+	killCharacter: function (id, response) {//appunto performance:https://github.com/sindresorhus/tasklist
 		console.log("killCharacter called")
 		db.characterDatastore.findOne({_id:id}, function(err, character) {
 			let ps = require('ps-node');
