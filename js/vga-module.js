@@ -16,7 +16,7 @@ module.exports = {
 			let str = output.replace(/[\n\r]/g, '').replace(/ +/g, '');
 			let regexp = /\d+x\d+x\d/g;
 			let match;
-			matches = new Set();
+			let matches = new Set();
 			while ((match = regexp.exec(str)) != null) {
 				matches.add(match[0].slice(0, -2));
 			}

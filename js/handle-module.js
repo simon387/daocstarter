@@ -6,14 +6,7 @@ module.exports = {
 		if (require('os').platform() != 'win32') {
 			return;
 		}
-		var exec = require('child_process').exec; 
-		exec('NET SESSION', function(err, so, se) {
-			if (se.length === 0) {
-				getGameDllPids();
-			} else {
-				require('electron').dialog.showMessageBox({message:"You are NOT running AS admin! you can run only two DAoC instances!"});
-			}
-		});
+		getGameDllPids();
 	}
 }
 

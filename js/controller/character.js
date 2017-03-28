@@ -27,10 +27,10 @@ function refreshModalCombos() {
 	});
 	$.get(localhost + '?getAllResolutions', function(array){
 		$('#add-character-resolution').empty();
-		//$('#edit-character-resolution').empty();
+		$('#edit-character-resolution').empty();
 		for (let i = 0; i < array.length; i++) {
 			$('#add-character-resolution').append($("<option>" + array[i] + "</option>"));
-			//$('#edit-character-resolution').append($("<option>" + array[i] + "</option>"));
+			$('#edit-character-resolution').append($("<option>" + array[i] + "</option>"));
 		}
 	});
 }
@@ -82,11 +82,9 @@ function editCharacterRow(id) {
 			$.get(localhost + '?getAllResolutions', function(array){
 				$('#edit-character-resolution').empty();
 				for (let i = 0; i < array.length; i++) {
-					if (array[i] === obj.resolution) {
-						$('#edit-character-resolution').append($("<option selected>" + array[i] + "</option>"));
-					}
 					$('#edit-character-resolution').append($("<option>" + array[i] + "</option>"));
 				}
+				$('#edit-character-resolution').val(obj.resolution);
 			});
 			$("#edit-character-windowed").prop("checked", obj.windowed);
 			$("#edit-character-favourite").prop("checked", obj.favourite);

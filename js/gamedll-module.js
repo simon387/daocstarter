@@ -70,9 +70,9 @@ module.exports = {
 
 									let spawn = child_process.spawn;
 									let prc = spawn(gamedll["value"], [server["ip"], server["port"], server["n"], character["account"], account["password"], character["name"], realm["n"]], {
-										cwd:path.dirname(gamedll["value"]), 
+										cwd:path.dirname(gamedll["value"]),
 										setsid:false,
-										detached:true,
+										detached:true
 									});
 									console.log('Spawned child pid: ' + prc.pid);
 	
@@ -81,18 +81,17 @@ module.exports = {
 									
 									//aggiorna timestamp last login
 									db.characterDatastore.update({_id:id}, {$set:{lastlogin:now}} , function(err, numAffected, affectedDocuments) {
-										//se admin, kill mutants!
-										let exec = require('child_process').exec; 
-										exec('NET SESSION', function(err, so, se) {
-											if (se.length === 0) {
-												require("./handle-module.js").killMutants();
-											}
-										});
+										require("./handle-module.js").killMutants();
 										return response.send(now);
 									});
 
-									//da prc.pid fai partire l'exe che aggiorna//TODO
-									console.log(character['title']);
+									//da prc.pid fai partire l'exe che aggiorna
+									const os = require('os');
+									if (undefined != character['title'] && "" != character['title'] && prc.pid > 0) {
+										let exec = require('child_process').exec; 
+										exec(os.tmpdir() + "\\titlerenamer.exe " + prc.pid + " " + character['title'], function(err, so, se) {
+										});
+									}
 								});
 							});
 						});
