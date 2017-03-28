@@ -15,12 +15,13 @@ module.exports = {
 		.then(function(output){
 			let str = output.replace(/[\n\r]/g, '').replace(/ +/g, '');
 			let regexp = /\d+x\d+x\d/g;
-			let match, matches = [];
+			let match;
+			matches = new Set();
 			while ((match = regexp.exec(str)) != null) {
-				matches.push(match[0].slice(0, -2));
+				matches.add(match[0].slice(0, -2));
 			}
 			ps.dispose();
-			response.send(matches);
+			response.send(Array.from(matches));
 		})
 		.catch(function(err){
 			ps.dispose();

@@ -107,7 +107,7 @@ module.exports = {
 		module.exports.accountDatastore.find({}, function(err, docs) {
 			let ret = '{"aaData":[';
 			docs.forEach(function (item) {
-				ret += '["' + item._id + '","' + item.name + '","' + item.password + '","' + "<a data-id='row-" + item._id
+				ret += '["' + item._id + '","' + item.name + '","' + item.password.replace(/./g, '*') + '","' + "<a data-id='row-" + item._id
 				+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>X<\/a>" + '"],';
 			});
 			response.send(correggiRispostaPerDT(ret));

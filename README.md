@@ -57,7 +57,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 
 1. install AutoIt or just get the Aut2exe.exe program
 2. edit autoit-compiler.js (adjust paths if differents)
-3. node .\autoit-compiler.js (take a look to daocstarter.au3 for more details)
+3. node .\autoit-compiler.js
 
 ## creating windows installer (not tested!)
 
