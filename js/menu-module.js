@@ -26,7 +26,7 @@ const menuTemplate = [
 				click: () => {
 					db.settingDatastore.findOne({_id:"2"}, function(err, doc) {
 						if (!require('fs').existsSync(doc["value"])) {
-							dialog.showErrorBox("error", "User.dat not found!");
+							dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
 						}
 						let	userdat = doc;
 						shell.showItemInFolder(userdat["value"]);
@@ -38,7 +38,7 @@ const menuTemplate = [
 				click: () => {
 					db.settingDatastore.findOne({_id:"2"}, function(err, doc) {
 						if (!require('fs').existsSync(doc["value"])) {
-							dialog.showErrorBox("error", "User.dat not found!");
+							dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
 						}
 						let	userdat = doc;
 						shell.openItem(userdat["value"]);

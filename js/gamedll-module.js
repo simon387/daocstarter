@@ -14,7 +14,7 @@ module.exports = {
 		}
 		db.settingDatastore.findOne({_id:"2"}, function(err, doc) {//cerco l'user.dat
 			if (!fs.existsSync(doc["value"])) {
-				dialog.showErrorBox("error", "User.dat not found!\n Please Edit the location from Setting section!");
+				dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
 				return response.send();
 			}
 			let userdat = doc;
@@ -24,7 +24,7 @@ module.exports = {
 					return response.send();
 				}
 				if (!fs.existsSync(doc["value"])) {
-					dialog.showErrorBox("error", "game.dll not found!\n Please Edit the location from Setting section!");
+					dialog.showErrorBox("error", "game.dll not found!\nPlease edit the location from Setting section!");
 					return response.send();
 				}
 				let gamedll = doc;
