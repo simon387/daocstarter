@@ -134,7 +134,7 @@ function playCharHelper(id) {
 	if ('undefined' != typeof id) {
 		$.get(localhost + '?playCharacter=' + id, function(timestamp) {
 			let lastLoginCell = $('a[data-id="row-' + id + '"]').parent().parent().children()[3];
-			if (undefined != lastLoginCell) {
+			if (undefined != lastLoginCell && timestamp != "") {
 				lastLoginCell.innerHTML = timestamp;
 			}
 		}).fail(function() {

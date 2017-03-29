@@ -1,4 +1,5 @@
 "use strict";
+
 const {app} = require('electron');
 const dbPath = app.getPath("userData") + '/db/';
 let accountDatastore;

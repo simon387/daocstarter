@@ -13,7 +13,6 @@ module.exports = {
 				remoteVersion += chunk;
 			});
 			res.on('end', function () {
-				//console.log(remoteVersion);
 				const compareVersions = require('compare-versions');
 				const pjson = require('../package.json');
 				if (compareVersions(pjson.version, remoteVersion) < 0) {

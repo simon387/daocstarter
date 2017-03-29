@@ -1,4 +1,5 @@
 "use strict";
+
 const electron = require('electron');
 require("./js/update-module.js").updateCheck();
 require("./js/db-module.js").init();

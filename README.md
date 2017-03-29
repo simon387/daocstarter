@@ -3,7 +3,7 @@
 A Dark Age of Camelot client starter <http://darkageofcamelot.com>  
 100% HTML+CSS+JS platform independent Desktop application.
 
-## features
+## main features
 
 + advanced characters, accounts, and settings management
 + allow to log any number of accounts on the same machine
@@ -66,3 +66,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 3. if not in a Windows environment, install Wine!
 4. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
 5. electron-installer-windows --src dist/daocstarter-win32-x64 --dest dist/installers
+
+## more dev details
+
++ source code of titlerenamer.exe is inside autoit-compiler.js

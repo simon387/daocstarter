@@ -1,4 +1,5 @@
 "use strict";
+
 const db = require("./db-module.js");
 const {dialog} = require('electron');
 const path = require('path');
@@ -8,7 +9,7 @@ const child_process = require('child_process');
 module.exports = {
 	playCharacter: function (id, response) {
 		if (require('os').platform() != 'win32') {
-			console.log("Per ora il modulo gamedll-module funziona solo su windows :(");
+			//console.log("Per ora il modulo gamedll-module funziona solo su windows :(");
 			return response.send();
 		}
 		db.settingDatastore.findOne({_id:"2"}, function(err, doc) {//cerco l'user.dat
@@ -79,7 +80,7 @@ module.exports = {
 									const moment = require('moment');
 									const now = moment(Date.now()).format('DD/MM/YY HH:mm');
 									
-									//aggiorna timestamp last login
+									//aggiorna timestamp last login e killa i mutants
 									db.characterDatastore.update({_id:id}, {$set:{lastlogin:now}} , function(err, numAffected, affectedDocuments) {
 										require("./handle-module.js").killMutants();
 										return response.send(now);

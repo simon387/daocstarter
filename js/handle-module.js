@@ -75,7 +75,6 @@ function killHandles (aPID, aHex) {
 	for (let p = 0; p < aPID.length; p++) {
 		for (let h = 0; h < aHex.length; h++) {
 			let spawn = require('child_process').spawn;
-			//let handle_exe = spawn('handle\\handle.exe', ['-c', aHex[h], '-y', '-p', aPID[p]]);
 			let handle_exe = spawn('resources\\app\\handle\\handle.exe', ['-c', aHex[h], '-y', '-p', aPID[p]]);
 			handle_exe.stdout.on('data', (data) => {
 				console.log(`stdout: ${data}`);

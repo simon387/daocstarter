@@ -1,4 +1,5 @@
 "use strict";
+
 let localhost;
 window.jQuery = window.$ = require('jquery');
 const {ipcRenderer} = require('electron');
@@ -11,7 +12,10 @@ ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 	datatable().$('#charactersDT').DataTable({
 		"aProcessing":false,
 		"aServerSide":false,
-		"ajax":localhost + '?ajaxCharacter'
+		"ajax":localhost + '?ajaxCharacter',
+		columnDefs: [
+			{"width": "1%", "targets": 0 }
+		]
 	});
 
 	datatable().$('#settingsDT').DataTable({
@@ -23,12 +27,7 @@ ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 	datatable().$('#accountsDT').DataTable({
 		"aProcessing":false,
 		"aServerSide":false,
-		"ajax":localhost + '?ajaxAccount',
-		columnDefs: [
-			{
-				
-			}
-		]
+		"ajax":localhost + '?ajaxAccount'
 	});
 })
 

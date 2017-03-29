@@ -1,4 +1,5 @@
 "use strict";
+
 // Save edited row
 $("#edit-setting-form-file").on("submit", function(event) {
 	event.preventDefault();
@@ -16,10 +17,8 @@ function _editSettingRowFile(id) {
 	//se id > 1 va bene!!
 	if ('undefined' != typeof id) {
 		$.getJSON(localhost + '?editSetting=' + id, function(obj) {
-			
 			$('#edit-setting-id-file').val(obj._id);
 			//$('#setting-value-file').val(obj.value);  !!!!!!!  rimuovi00 se è file selector
-			
 			$('#edit-setting-modal-file').modal('show')
 		}).fail(function() {
 			alert('Unable to edit setting.')

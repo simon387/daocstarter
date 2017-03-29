@@ -3,7 +3,7 @@
 module.exports = {
 	getAllResolutions: function(response) {
 		if (require('os').platform() != 'win32') {
-			console.log("Per ora il modulo vga-module funziona solo su windows :(");
+			//console.log("Per ora il modulo vga-module funziona solo su windows");
 			return response.send(["4096×2160"]);
 		}
 		let shell = require('node-powershell');

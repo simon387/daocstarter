@@ -1,4 +1,5 @@
 "use strict";
+
 const electron = require('electron');
 const Menu = electron.Menu;
 const opn = require('opn');
@@ -55,7 +56,7 @@ const menuTemplate = [
 				click: () => {
 					db.settingDatastore.findOne({_id:"1"}, function(err, gamedll) {
 						if (!require('fs').existsSync(gamedll["value"])) {
-							dialog.showErrorBox("error", "camelot.exe not found!");
+							dialog.showErrorBox("error", "camelot.exe not found!\nGo to settings and select the right game.dll");
 						} else {
 							let exec = require('child_process').exec;
 							let cmd = 'camelot.exe';
@@ -76,13 +77,6 @@ const menuTemplate = [
 						}
 					});
 				}
-			},
-			{
-				label: 'Open Develop Tools',
-				click: () => {
-					let win = BrowserWindow.getFocusedWindow();
-					win.toggleDevTools();
-				}
 			}
 		]
 	},
@@ -100,6 +94,13 @@ const menuTemplate = [
 							win.reload();
 						}
 					});
+				}
+			},
+			{
+				label: 'Toggle Develop Tools',
+				click: () => {
+					let win = BrowserWindow.getFocusedWindow();
+					win.toggleDevTools();
 				}
 			}
 		]
