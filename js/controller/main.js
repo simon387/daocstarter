@@ -18,16 +18,19 @@ ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 		]
 	});
 
+	datatable().$('#accountsDT').DataTable({
+		"aProcessing":false,
+		"aServerSide":false,
+		"ajax":localhost + '?ajaxAccount',
+		columnDefs: [
+			{"width": "1%", "targets": 0 }
+		]
+	});
+
 	datatable().$('#settingsDT').DataTable({
 		"aProcessing":false,
 		"aServerSide":false,
 		"ajax":localhost + '?ajaxSetting'
-	});
-
-	datatable().$('#accountsDT').DataTable({
-		"aProcessing":false,
-		"aServerSide":false,
-		"ajax":localhost + '?ajaxAccount'
 	});
 })
 
@@ -45,8 +48,6 @@ let renderFavourites = function() {
 			//console.log(item);
 			if (item.x === undefined) {
 				item.x = 40;
-			}
-			if (item.y === undefined) {
 				item.y = 440;
 			}
 			$("<div id='" + item._id + "' class='draggable ui-widget-content"
