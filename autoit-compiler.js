@@ -31,7 +31,7 @@ let buffer = new Buffer(
 	'Global Const $EXE = $WORKINGDIR & "\\daocstarter.exe"\r\n' +
 	'Global Const $TMP_ZIP_PATH = @TempDir & "\\dist.zip"\r\n' +
 	'Global Const $TMP_TITLE_RENAMER = @TempDir & "\\titlerenamer.exe"\r\n' +
-	'FileInstall(".\\titlerenamer.exe", $TMP_TITLE_RENAMER, 1)\r\n' +
+	'FileInstall(".\\titlerenamer\\titlerenamer.exe", $TMP_TITLE_RENAMER, 1)\r\n' +
 	';~ DirRemove($DIST_ZIP_PATH, 1)\r\n' +
 	'If Not FileExists($EXE) Then\r\n' +
 	'\tFileInstall(".\\dist.zip", $TMP_ZIP_PATH, 1);1=overwrite\r\n' +
