@@ -45,7 +45,6 @@ let renderFavourites = function() {
 	$.get(localhost + '?getAllFavouriteCharacters', function(favourites) {
 		$('.draggable').remove();
 		favourites.forEach(function (item) {
-			//console.log(item);
 			if (item.x === undefined) {
 				item.x = 40;
 				item.y = 440;
