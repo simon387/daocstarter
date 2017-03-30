@@ -7,7 +7,7 @@ $("#edit-account-form").on("submit", function(event) {
 		var tr = $('a[data-id="row-' + $('#edit-account-id').val() + '"]').parent().parent();
 		//var tr = $('a[href="javascript:editAccountRow(' + $('#edit-account-id').val() + ');"]').parent().parent();
 		$('td:eq(1)', tr).html(data.name);
-		$('td:eq(2)', tr).html(data.password);
+		$('td:eq(2)', tr).html(data.password.replace(/./g, '*'));
 		$('#edit-account-modal').modal('hide');
 	}).fail(function() {
 		alert('Unable to save data, please try again later.');
@@ -20,7 +20,7 @@ $("#add-account-form").on("submit", function(event) {
 		let tbody = $('#accountsDT').children('tbody');
 		let table = tbody.length ? tbody : $('#accountsDT');
 		table.append('<tr role="row"><td class="sorting_1">' + data._id +
-		'</td><td>' + data.name + '</td><td>' + data.password + '</td><td><a data-id="row-' +
+		'</td><td>' + data.name + '</td><td>' + data.password.replace(/./g, '*') + '</td><td><a data-id="row-' +
 		data._id + '" href="javascript:editAccountRow(\'' + data._id +
 		'\');" class="btnX btn-md btn-successX">edit</a>&nbsp;<a href="javascript:removeAccountRow(\'' + data._id + '\');" class="btnX btn-default btn-md btnX-delete" >X</a></td></tr>');
 		$('#accountsDT tbody tr').remove(":contains('No data available in table')");

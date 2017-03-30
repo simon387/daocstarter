@@ -1,13 +1,17 @@
 "use strict";
 
+let addAccountsNamesToCombo = function(accountName) {
+	//$('div[id$=-character-accounts]').append($("<option>" + accountName + "</option>"));
+	$('#edit-character-accounts').append($("<option>" + accountName + "</option>"));
+	$('#add-character-accounts').append($("<option>" + accountName + "</option>"));
+}
+
 function refreshModalCombos() {
-	$.get(localhost + '?getAllAccountsNames', function(array) {
-		$('#add-character-accounts').empty();
+	$.get(localhost + '?getAllAccountsNames', function(allAccountsNames) {
+		//$('div[id$=-character-accounts]').empty();
 		$('#edit-character-accounts').empty();
-		for (let i = 0; i < array.length; i++) {
-			$('#add-character-accounts').append($("<option>" + array[i] + "</option>"));
-			$('#edit-character-accounts').append($("<option>" + array[i] + "</option>"));
-		}
+		$('#add-character-accounts').empty();
+		allAccountsNames.map(addAccountsNamesToCombo);
 	});
 	$.get(localhost + '?getAllServersNames', function(array){
 		$('#add-character-servers').empty();
