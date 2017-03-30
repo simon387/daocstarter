@@ -8,8 +8,7 @@ const child_process = require('child_process');
 
 module.exports = {
 	playCharacter: function (id, response) {
-		if (require('os').platform() != 'win32') {
-			//console.log("Per ora il modulo gamedll-module funziona solo su windows :(");
+		if (require('os').platform() != 'win32') {//console.log("Per ora il modulo gamedll-module funziona solo su windows :(");
 			return response.send();
 		}
 		db.settingDatastore.findOne({_id:"2"}, function(err, doc) {//cerco l'user.dat
@@ -58,7 +57,6 @@ module.exports = {
 										return response.send();
 									}
 									let realm = doc;
-
 									//settare user.dat // all'inizio ci inserisci questo C:\Users\Simone\AppData\Roaming\Electronic Arts\Dark Age of Camelot
 									let ini = require('ini');
 									let config = ini.parse(fs.readFileSync(userdat["value"], 'utf-8'));
@@ -68,7 +66,6 @@ module.exports = {
 									config.main.screen_height = xy[1];
 									config.main.windowed = windowed;
 									fs.writeFileSync(path.dirname(userdat["value"]) + "\\user.dat", ini.stringify(config, {}));
-
 									let spawn = child_process.spawn;
 									let prc = spawn(gamedll["value"], [server["ip"], server["port"], server["n"], character["account"], account["password"], character["name"], realm["n"]], {
 										cwd:path.dirname(gamedll["value"]),
@@ -76,22 +73,18 @@ module.exports = {
 										detached:true
 									});
 									console.log('Spawned child pid: ' + prc.pid);
-	
 									const moment = require('moment');
 									const now = moment(Date.now()).format('DD/MM/YY HH:mm');
-									
 									//aggiorna timestamp last login e killa i mutants
 									db.characterDatastore.update({_id:id}, {$set:{lastlogin:now}} , function(err, numAffected, affectedDocuments) {
 										require("./handle-module.js").killMutants();
 										return response.send(now);
 									});
-
 									//da prc.pid fai partire l'exe che aggiorna
 									const os = require('os');
 									if (undefined != character['title'] && "" != character['title'] && prc.pid > 0) {
 										let exec = require('child_process').exec; 
-										exec(os.tmpdir() + "\\titlerenamer.exe " + prc.pid + " " + character['title'], function(err, so, se) {
-										});
+										exec(os.tmpdir() + "\\titlerenamer.exe " + prc.pid + " " + character['title'], function(err, so, se) {});
 									}
 								});
 							});
@@ -101,7 +94,7 @@ module.exports = {
 			});
 		});
 	},
-	killCharacter: function (id, response) {//appunto performance:https://github.com/sindresorhus/tasklist
+	killCharacter: function (id, response) {
 		console.log("killCharacter called")
 		db.characterDatastore.findOne({_id:id}, function(err, character) {
 			let ps = require('ps-node');
@@ -113,14 +106,8 @@ module.exports = {
 					throw new Error(err);
 				}
 				resultList.forEach(function(process){
-					if (process){
-						if (process.arguments[3] == character["account"] && process.arguments[5] == character["name"]) {
-							ps.kill(process.pid, function(err) {
-								if (err) {
-									throw new Error (err);
-								}
-							});
-						}
+					if (process && process.arguments[3] == character["account"] && process.arguments[5] == character["name"]) {
+						ps.kill(process.pid);//se metti la callback fa laggare tutto//appunto performance:https://github.com/sindresorhus/tasklist
 					}
 				});
 			});

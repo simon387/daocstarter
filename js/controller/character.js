@@ -1,41 +1,37 @@
 "use strict";
 
-let addAccountsNamesToCombo = function(accountName) {
-	//$('div[id$=-character-accounts]').append($("<option>" + accountName + "</option>"));
-	$('#edit-character-accounts').append($("<option>" + accountName + "</option>"));
-	$('#add-character-accounts').append($("<option>" + accountName + "</option>"));
-}
-
 function refreshModalCombos() {
 	$.get(localhost + '?getAllAccountsNames', function(allAccountsNames) {
-		//$('div[id$=-character-accounts]').empty();
 		$('#edit-character-accounts').empty();
 		$('#add-character-accounts').empty();
-		allAccountsNames.map(addAccountsNamesToCombo);
+		allAccountsNames.map(function(accountName) {
+			$('#edit-character-accounts').append($("<option>" + accountName + "</option>"));
+			$('#add-character-accounts').append($("<option>" + accountName + "</option>"));
+		});
 	});
 	$.get(localhost + '?getAllServersNames', function(array){
 		$('#add-character-servers').empty();
 		$('#edit-character-servers').empty();
-		for (let i = 0; i < array.length; i++) {
-			$('#add-character-servers').append($("<option>" + array[i] + "</option>"));
-			$('#edit-character-servers').append($("<option>" + array[i] + "</option>"));
-		}
+		array.map(function(item) {
+			$('#add-character-servers').append($("<option>" + item + "</option>"));
+			$('#edit-character-servers').append($("<option>" + item + "</option>"));
+		});
 	});
 	$.get(localhost + '?getAllClassesNames', function(array){
 		$('#add-character-classes').empty();
 		$('#edit-character-classes').empty();
-		for (let i = 0; i < array.length; i++) {
-			$('#add-character-classes').append($("<option>" + array[i] + "</option>"));
-			$('#edit-character-classes').append($("<option>" + array[i] + "</option>"));
-		}
+		array.map(function(item) {
+			$('#add-character-classes').append($("<option>" + item + "</option>"));
+			$('#edit-character-classes').append($("<option>" + item + "</option>"));
+		});
 	});
 	$.get(localhost + '?getAllResolutions', function(array){
 		$('#add-character-resolution').empty();
 		$('#edit-character-resolution').empty();
-		for (let i = 0; i < array.length; i++) {
-			$('#add-character-resolution').append($("<option>" + array[i] + "</option>"));
-			$('#edit-character-resolution').append($("<option>" + array[i] + "</option>"));
-		}
+		array.map(function(item) {
+			$('#add-character-resolution').append($("<option>" + item + "</option>"));
+			$('#edit-character-resolution').append($("<option>" + item + "</option>"));
+		});
 	});
 }
 // Add new row

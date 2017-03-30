@@ -113,7 +113,7 @@ fs.open(daocstarterau3, 'w', function(err, fd) {
 	});
 });
 
-/* sorgente di titlerenamer.exe
+/* sorgente di titlerenamer.exe ShellExecute(@TempDir)
 #NoTrayIcon
 WinSetTitle(_WinGetByPID($CmdLine[1]), "", $CmdLine[2])
 Func _WinGetByPID($iPID, $iArray = 1) ; 0 Will Return 1 Base Array & 1 Will Return The First Window.

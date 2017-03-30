@@ -9,8 +9,8 @@ require("./js/menu-module.js");
 electron.app.on('ready', () => {
 	const BrowserWindow = electron.BrowserWindow;
 	let mainWindow = new BrowserWindow({
-		width:1280,
-		height:720,
+		width:1400,
+		height:809,
 		show:false,
 		resizable:false,
 		title:"DAoC Starter v" + require('./package.json').version,
