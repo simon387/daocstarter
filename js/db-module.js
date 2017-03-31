@@ -182,5 +182,6 @@ function getAllNamesHelper(response, docs) {
 	docs.forEach(function (doc) {
 		array.push(doc.name);
 	});
+	//return response.send(JSON.stringify(array.sort()));
 	return response.send(array.sort());
 }

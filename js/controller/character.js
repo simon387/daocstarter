@@ -1,22 +1,32 @@
 "use strict";
 
 function refreshModalCombos() {
-	$.get(localhost + '?getAllAccountsNames', function(allAccountsNames) {
-		$('#edit-character-accounts').empty();
-		$('#add-character-accounts').empty();
-		allAccountsNames.map(function(accountName) {
-			$('#edit-character-accounts').append($("<option>" + accountName + "</option>"));
-			$('#add-character-accounts').append($("<option>" + accountName + "</option>"));
+	fetch(localhost + '?getAllAccountsNames'/*, {method: 'GET'}*/)
+	.then(response => {
+		return response.json();
+	})
+	.then(allAccountsNames => {
+		document.querySelectorAll('.character-account-dropdown').forEach(el => {
+			el.innerHTML = "";
+			allAccountsNames.map(accountName => {
+				el.innerHTML += "<option>" + accountName + "</option>";
+			});
 		});
 	});
-	$.get(localhost + '?getAllServersNames', function(array){
-		$('#add-character-servers').empty();
-		$('#edit-character-servers').empty();
-		array.map(function(item) {
-			$('#add-character-servers').append($("<option>" + item + "</option>"));
-			$('#edit-character-servers').append($("<option>" + item + "</option>"));
+
+	fetch(localhost + '?getAllServersNames')
+	.then(response => {
+		return response.json();
+	})
+	.then(allServersNames => {
+		document.querySelectorAll('.character-servers-dropdown').forEach(el => {
+			el.innerHTML = "";
+			allServersNames.map(serverName => {
+				el.innerHTML += "<option>" + serverName + "</option>";
+			});
 		});
 	});
+
 	$.get(localhost + '?getAllClassesNames', function(array){
 		$('#add-character-classes').empty();
 		$('#edit-character-classes').empty();
