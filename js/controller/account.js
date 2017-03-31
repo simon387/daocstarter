@@ -31,7 +31,7 @@ $("#add-account-form").on("submit", function(event) {
 });
 // Edit row
 function editAccountRow(id) {
-	if ('undefined' != typeof id) {
+	if (undefined != typeof id) {
 		$.getJSON(localhost + '?editAccount=' + id, function(obj) {
 			$('#edit-account-id').val(obj._id);
 			$('#account-name').val(obj.name);
@@ -46,7 +46,7 @@ function editAccountRow(id) {
 }
 // Remove row
 function removeAccountRow(id) {
-	if ('undefined' != typeof id) {
+	if (undefined != typeof id) {
 		$.get(localhost + '?removeAccount=' + id, function() {
 			$('a[data-id="row-' + id + '"]').parent().parent().remove();
 		}).fail(function() {

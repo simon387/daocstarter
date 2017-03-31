@@ -1,48 +1,25 @@
 "use strict";
 
+const refreshComboByFetchAndSelector = (query, selector) => {
+	fetch(localhost + query)
+	.then(response => {
+		return response.json();
+	})
+	.then(array => {
+		document.querySelectorAll(selector).forEach(el => {
+			el.innerHTML = '';
+			array.map(item => {
+				el.innerHTML += '<option>' + item + '</option>';
+			});
+		});
+	});
+}
+
 function refreshModalCombos() {
-	fetch(localhost + '?getAllAccountsNames'/*, {method: 'GET'}*/)
-	.then(response => {
-		return response.json();
-	})
-	.then(allAccountsNames => {
-		document.querySelectorAll('.character-account-dropdown').forEach(el => {
-			el.innerHTML = "";
-			allAccountsNames.map(accountName => {
-				el.innerHTML += "<option>" + accountName + "</option>";
-			});
-		});
-	});
-
-	fetch(localhost + '?getAllServersNames')
-	.then(response => {
-		return response.json();
-	})
-	.then(allServersNames => {
-		document.querySelectorAll('.character-servers-dropdown').forEach(el => {
-			el.innerHTML = "";
-			allServersNames.map(serverName => {
-				el.innerHTML += "<option>" + serverName + "</option>";
-			});
-		});
-	});
-
-	$.get(localhost + '?getAllClassesNames', function(array){
-		$('#add-character-classes').empty();
-		$('#edit-character-classes').empty();
-		array.map(function(item) {
-			$('#add-character-classes').append($("<option>" + item + "</option>"));
-			$('#edit-character-classes').append($("<option>" + item + "</option>"));
-		});
-	});
-	$.get(localhost + '?getAllResolutions', function(array){
-		$('#add-character-resolution').empty();
-		$('#edit-character-resolution').empty();
-		array.map(function(item) {
-			$('#add-character-resolution').append($("<option>" + item + "</option>"));
-			$('#edit-character-resolution').append($("<option>" + item + "</option>"));
-		});
-	});
+	refreshComboByFetchAndSelector('?getAllAccountsNames', '.character-account-dropdown');
+	refreshComboByFetchAndSelector('?getAllServersNames', '.character-servers-dropdown');
+	refreshComboByFetchAndSelector('?getAllClassesNames', '.character-classes-dropdown');
+	refreshComboByFetchAndSelector('?getAllResolutions', '.character-resolution-dropdown');
 }
 // Add new row
 $("#add-character-form").on("submit", function(event) {
@@ -68,7 +45,7 @@ $("#add-character-form").on("submit", function(event) {
 });
 // Remove row
 function removeCharacterRow(id) {
-	if ('undefined' != typeof id) {
+	if (undefined != typeof id) {
 		$.get(localhost + '?removeCharacter=' + id, function() {
 			$('a[data-id="row-' + id + '"]').parent().parent().remove();
 			$(renderFavourites);
@@ -82,7 +59,7 @@ function removeCharacterRow(id) {
 // Edit row
 function editCharacterRow(id) {
 	refreshModalCombos();
-	if ('undefined' != typeof id) {
+	if (undefined != typeof id) {
 		$.getJSON(localhost + '?editCharacter=' + id, function(obj) {
 			$('#edit-character-id').val(obj._id);
 			$('#edit-character-name').val(obj.name);
@@ -130,18 +107,16 @@ function playCharacterRow(id, fromFavourite = false) {
 	playCharHelper(id);
 	if (fromFavourite) {
 		let checkedboxArray = $('.fav-checkbox:checked');
-		if (checkedboxArray.length > 0) {
-			for (let i = 0; i < checkedboxArray.length; i++) {
-				if (id != checkedboxArray[i].id) {
-					playCharHelper(checkedboxArray[i].id);
-				}
+		for (let i = 0; i < checkedboxArray.length; i++) {
+			if (id != checkedboxArray[i].id) {
+				playCharHelper(checkedboxArray[i].id);
 			}
 		}
 	}
 }
 
 function playCharHelper(id) {
-	if ('undefined' != typeof id) {
+	if (undefined != typeof id) {
 		$.get(localhost + '?playCharacter=' + id, function(timestamp) {
 			let lastLoginCell = $('a[data-id="row-' + id + '"]').parent().parent().children()[3];
 			if (undefined != lastLoginCell && timestamp != "") {
@@ -156,23 +131,20 @@ function playCharHelper(id) {
 }
 
 function killCharacterRow(id, fromFavourite = false) {
-	killCharacterHeler(id);
+	killCharacterHelper(id);
 	if (fromFavourite) {
 		let checkedboxArray = $('.fav-checkbox:checked');
-		if (checkedboxArray.length > 0) {
-			for (let i = 0; i < checkedboxArray.length; i++) {
-				if (id != checkedboxArray[i].id) {
-					killCharacterHeler(checkedboxArray[i].id);
-				}
+		for (let i = 0; i < checkedboxArray.length; i++) {
+			if (id != checkedboxArray[i].id) {
+				killCharacterHelper(checkedboxArray[i].id);
 			}
 		}
 	}
 }
 
-function killCharacterHeler(id) {
-	if ('undefined' != typeof id) {
+function killCharacterHelper(id) {
+	if (undefined != typeof id) {
 		$.get(localhost + '?killCharacter=' + id, function() {
-			//
 		}).fail(function() {
 			alert('unable to kill character.')
 		});
