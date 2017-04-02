@@ -14,7 +14,6 @@ module.exports = {
 			});
 
 			server.get('/', function (request, response) {
-				//response.setHeader('Content-Type', 'application/json');
 				if (request.query.getAllAccountsNames != undefined) {
 					db.getAllAccountsNames(response);
 				}
@@ -71,17 +70,13 @@ module.exports = {
 					});
 				}
 				//setting
-				if (request.query.ajaxSetting != undefined || request.query.removeSetting != undefined || request.query.editSetting != undefined) {
-					if (request.query.removeSetting != undefined) {
-						//non facciamo cancellare i settings! db.getSettingDatastore.remove({_id:request.query.removeSetting}, {multi:false}, function(err, numRemoved) {});
-					}
-					if (request.query.editSetting != undefined) {
-						db.settingDatastore.findOne({_id:request.query.editSetting}, function(err, doc) {
-							response.send(doc);
-						});
-					} else {
-						db.getAllSettings(response);
-					}
+				if (request.query.ajaxSetting != undefined) {
+					db.getAllSettings(response);
+				}
+				if (request.query.editSetting != undefined) {
+					db.settingDatastore.findOne({_id:request.query.editSetting}, function(err, doc) {
+						response.send(doc);
+					});
 				}
 			});
 
@@ -111,8 +106,8 @@ module.exports = {
 					}
 					//char
 					if (request.query.addCharacter != undefined || request.query.editCharacter != undefined) {
-						let characterWindowed = post['character-windowed'] === undefined ? false : true; 
-						let characterFavourite = post['character-favourite'] === undefined ? false : true;
+						const characterWindowed = post['character-windowed'] === undefined ? false : true; 
+						const characterFavourite = post['character-favourite'] === undefined ? false : true;
 						if (request.query.addCharacter != undefined) {
 							db.characterDatastore.insert(
 								{

@@ -8,7 +8,7 @@ require("./js/menu-module.js");
 
 electron.app.on('ready', () => {
 	const BrowserWindow = electron.BrowserWindow;
-	let mainWindow = new BrowserWindow({
+	const mainWindow = new BrowserWindow({
 		width:1400,
 		height:809,
 		show:false,
@@ -22,7 +22,7 @@ electron.app.on('ready', () => {
 		slashes:true
 	}));
 	mainWindow.once('ready-to-show', () => {
-		mainWindow.show()
+		mainWindow.show();
 	});
 	//mainWindow.webContents.openDevTools();//dev mode automatica
 });
