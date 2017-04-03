@@ -1,6 +1,6 @@
 "use strict";
 
-const refreshComboByFetchAndSelector = (query, selector) => {
+const refreshComboByFetchAndSelector = (query, selector, sel = '') => {
 	fetch(localhost + query)
 	.then(response => {
 		return response.json();
@@ -9,17 +9,21 @@ const refreshComboByFetchAndSelector = (query, selector) => {
 		document.querySelectorAll(selector).forEach(el => {
 			el.innerHTML = '';
 			array.map(item => {
-				el.innerHTML += '<option>' + item + '</option>';
+				if (sel != '' && item==sel) {
+					el.innerHTML += '<option value="' + item + '" selected=true>' + item + '</option>';
+				} else {
+					el.innerHTML += '<option value="' + item + '">' + item + '</option>';
+				}
 			});
 		});
 	});
 }
 
 function refreshModalCombos() {
-	refreshComboByFetchAndSelector('?getAllAccountsNames', '.character-account-dropdown');
-	refreshComboByFetchAndSelector('?getAllServersNames', '.character-servers-dropdown');
-	refreshComboByFetchAndSelector('?getAllClassesNames', '.character-classes-dropdown');
-	refreshComboByFetchAndSelector('?getAllResolutions', '.character-resolution-dropdown');
+	refreshComboByFetchAndSelector('?getAllAccountsNames', '.character-account-dropdown', "");
+	refreshComboByFetchAndSelector('?getAllServersNames', '.character-servers-dropdown', "");
+	refreshComboByFetchAndSelector('?getAllClassesNames', '.character-classes-dropdown', "");
+	refreshComboByFetchAndSelector('?getAllResolutions', '.character-resolution-dropdown', "");
 }
 // Add new row
 $("#add-character-form").on("submit", function(event) {
@@ -32,7 +36,7 @@ $("#add-character-form").on("submit", function(event) {
 		"<a href=javascript:playCharacterRow(\'" + data._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a> " +
 		"<a href=javascript:killCharacterRow(\'" + data._id + "\'); class='btnX btn-primary btn-sm btnX-delete'>qtd<\/a>" +
 		'</td><td>' + data.name + '</td><td>' + data.lastlogin + '</td><td>' + data.account + '</td><td>' + data.server +
-		'</td><td>' + data.class + '</td><td>' + data.resolution + '</td><td>' + data.windowed +
+		'</td><td>' + data.classe + '</td><td>' + data.resolution + '</td><td>' + data.windowed +
 		'</td><td><a data-id="row-' + data._id + '" href="javascript:editCharacterRow(\'' + data._id +
 		'\');" class="btnX btn-md btn-successX">edit</a>&nbsp;<a href="javascript:removeCharacterRow(\''
 		+ data._id + '\');" class="btnX btn-default btn-md btnX-delete">X</a></td></tr>');
@@ -58,31 +62,34 @@ function removeCharacterRow(id) {
 }
 // Edit row
 function editCharacterRow(id) {
-	refreshModalCombos();
+	
 	if (undefined != typeof id) {
 		$.getJSON(localhost + '?editCharacter=' + id, function(obj) {
 			$('#edit-character-id').val(obj._id);
 			$('#edit-character-name').val(obj.name);
-			$("#edit-character-accounts").val(obj.account);
-			$("#edit-character-servers").val(obj.server);
-			$("#edit-character-classes").val(obj.class);
-			$.get(localhost + '?getAllResolutions', function(array){
+			refreshComboByFetchAndSelector('?getAllAccountsNames', '.character-account-dropdown', obj.account);
+			refreshComboByFetchAndSelector('?getAllServersNames', '.character-servers-dropdown', obj.server);
+			refreshComboByFetchAndSelector('?getAllClassesNames', '.character-classes-dropdown', obj.classe);
+			refreshComboByFetchAndSelector('?getAllResolutions', '.character-resolution-dropdown', obj.resolution);
+			/*$.get(localhost + '?getAllResolutions', function(array){
 				$('#edit-character-resolution').empty();
 				for (let i = 0; i < array.length; i++) {
 					$('#edit-character-resolution').append($("<option>" + array[i] + "</option>"));
 				}
 				$('#edit-character-resolution').val(obj.resolution);
-			});
+			});*/
 			$("#edit-character-windowed").prop("checked", obj.windowed);
 			$("#edit-character-favourite").prop("checked", obj.favourite);
 			$("#edit-character-title").val(obj.title);
-			$('#edit-character-modal').modal('show')
+			$('#edit-character-modal').modal('show');
 		}).fail(function() {
 			alert('unable to edit character.')
 		});
 	} else {
 		alert('Unknown character id.');
 	}
+
+	
 }
 // Save edited row
 $("#edit-character-form").on("submit", function(event) {
@@ -93,7 +100,7 @@ $("#edit-character-form").on("submit", function(event) {
 		$('td:eq(3)', tr).html(data.lastlogin);
 		$('td:eq(4)', tr).html(data.account);
 		$('td:eq(5)', tr).html(data.server);
-		$('td:eq(6)', tr).html(data.class);
+		$('td:eq(6)', tr).html(data.classe);
 		$('td:eq(7)', tr).html(data.resolution);
 		$('td:eq(8)', tr).html(data.windowed + "");
 		$('#edit-character-modal').modal('hide');

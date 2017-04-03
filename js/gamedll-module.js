@@ -42,7 +42,7 @@ module.exports = {
 								return response.send();
 							}
 							let server = doc;
-							db.classDatastore.findOne({name:character["class"]}, function(err, doc) {
+							db.classDatastore.findOne({name:character["classe"]}, function(err, doc) {
 								if (doc == null) {
 									dialog.showErrorBox("error", "Cannot find class!");
 									return response.send();

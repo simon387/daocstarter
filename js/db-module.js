@@ -122,7 +122,7 @@ module.exports = {
 				ret += '["' + item._id + '","'
 				+ "<a href=javascript:playCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-primary btn-sm sr-button'>play<\/a>" + ' '
 				+ "<a href=javascript:killCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-primary btn-md btnX-delete'>qtd<\/a>" + '","'
-				+ item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.class + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
+				+ item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.classe + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
 				+ "' href=javascript:editCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>X<\/a>" + '"],';
 			});
 			response.send(correggiRispostaPerDT(ret));
