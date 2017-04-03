@@ -8,10 +8,53 @@ const db = require("./db-module.js");
 const {dialog} = require('electron');
 const path = require('path');
 const BrowserWindow = require('electron').BrowserWindow;
+const handle = require("./handle-module.js");
+const gamedll = require("./gamedll-module.js");
+const fs = require('fs');
+const child_process = require('child_process');
 
 Menu.getApplicationMenu();
 
 const menuTemplate = [
+	{
+		label: 'Client',
+		submenu: [
+			{
+				label: 'Remove clients limiter',
+				click: () => {
+					handle.killMutants();
+				}
+			},
+			{
+				label: 'Patch client',
+				click: () => {
+					db.settingDatastore.findOne({_id:"1"}, (err, gamedll) => {
+						if (fs.existsSync(gamedll["value"])) {
+							const exec = child_process.exec;
+							const cmd = 'camelot.exe';
+							const child = exec(
+								cmd, {
+									cwd: path.dirname(gamedll["value"]),
+									setsid:false,
+									detached:true,
+								},
+								(error, stdout, stderr) => {}
+							);
+						}
+						else {
+							dialog.showErrorBox("error", "camelot.exe not found!\nGo to settings and select the right game.dll");
+						}
+					});
+				}
+			},
+			{
+				label: 'Kill all clients',
+				click: () => {
+					gamedll.killAllClients();
+				}
+			}
+		]
+	},
 	{
 		label: 'Tools',
 		submenu: [
@@ -24,56 +67,25 @@ const menuTemplate = [
 			{
 				label: 'Open user setting directory',
 				click: () => {
-					db.settingDatastore.findOne({_id:"2"}, function(err, doc) {
-						if (!require('fs').existsSync(doc["value"])) {
+					db.settingDatastore.findOne({_id:"2"}, (err, userdat) => {
+						if (fs.existsSync(userdat["value"])) {
+							shell.showItemInFolder(userdat["value"]);
+						}
+						else {
 							dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
 						}
-						let	userdat = doc;
-						shell.showItemInFolder(userdat["value"]);
 					});
 				}
 			},
 			{
 				label: 'Edit user.dat',
 				click: () => {
-					db.settingDatastore.findOne({_id:"2"}, function(err, doc) {
-						if (!require('fs').existsSync(doc["value"])) {
-							dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
+					db.settingDatastore.findOne({_id:"2"}, (err, userdat) => {
+						if (fs.existsSync(userdat["value"])) {
+							shell.openItem(userdat["value"]);
 						}
-						let	userdat = doc;
-						shell.openItem(userdat["value"]);
-					});
-				}
-			},
-			{
-				label: 'Remove clients limiter',
-				click: () => {
-					require("./handle-module.js").killMutants();
-				}
-			},
-			{
-				label: 'Patch client',
-				click: () => {
-					db.settingDatastore.findOne({_id:"1"}, function(err, gamedll) {
-						if (!require('fs').existsSync(gamedll["value"])) {
-							dialog.showErrorBox("error", "camelot.exe not found!\nGo to settings and select the right game.dll");
-						} else {
-							let exec = require('child_process').exec;
-							let cmd = 'camelot.exe';
-							let child = exec(
-								cmd, {
-									cwd: path.dirname(gamedll["value"]),
-									setsid:false,
-									detached:true,
-								},
-								function(error, stdout, stderr) {
-									if (error === null) {
-										console.log('success');
-									} else {
-										console.log('error');
-									}
-								}
-							);
+						else {
+							dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
 						}
 					});
 				}
@@ -86,11 +98,10 @@ const menuTemplate = [
 			{
 				label: 'Reset favourites positions',
 				click: () => {
-					db.characterDatastore.update({favourite:true},
-					{$set:{x:40,y:440}}, {returnUpdatedDocs:true,multi:true},
-					function(err, numAffected, affectedDocuments){
+					db.characterDatastore.update({favourite:true}, {$set:{x:40, y:440}}, {returnUpdatedDocs:true, multi:true},
+					(err, numAffected, affectedDocuments) => {
 						if (numAffected > 0) {
-							let win = BrowserWindow.getFocusedWindow();
+							const win = BrowserWindow.getFocusedWindow();
 							win.reload();
 						}
 					});
@@ -99,7 +110,7 @@ const menuTemplate = [
 			{
 				label: 'Toggle Develop Tools',
 				click: () => {
-					let win = BrowserWindow.getFocusedWindow();
+					const win = BrowserWindow.getFocusedWindow();
 					win.toggleDevTools();
 				}
 			}
@@ -118,5 +129,4 @@ const menuTemplate = [
 	}
 ];
 
-const menu = Menu.buildFromTemplate(menuTemplate);
-Menu.setApplicationMenu(menu);
+Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));

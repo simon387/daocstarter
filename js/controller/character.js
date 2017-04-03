@@ -28,7 +28,7 @@ function refreshModalCombos() {
 // Add new row
 $("#add-character-form").on("submit", function(event) {
 	event.preventDefault();
-	$.post(localhost + '?addCharacter', $(this).serialize(), function(data) {
+	$.post(localhost + '?addCharacter', $(this).serialize(), data => {
 		let tbody = $('#charactersDT').children('tbody');
 		let table = tbody.length ? tbody : $('#charactersDT');
 		table.append('<tr role="row"><td class="sorting_1">' + data._id +
@@ -62,7 +62,6 @@ function removeCharacterRow(id) {
 }
 // Edit row
 function editCharacterRow(id) {
-	
 	if (undefined != typeof id) {
 		$.getJSON(localhost + '?editCharacter=' + id, function(obj) {
 			$('#edit-character-id').val(obj._id);
@@ -71,13 +70,6 @@ function editCharacterRow(id) {
 			refreshComboByFetchAndSelector('?getAllServersNames', '.character-servers-dropdown', obj.server);
 			refreshComboByFetchAndSelector('?getAllClassesNames', '.character-classes-dropdown', obj.classe);
 			refreshComboByFetchAndSelector('?getAllResolutions', '.character-resolution-dropdown', obj.resolution);
-			/*$.get(localhost + '?getAllResolutions', function(array){
-				$('#edit-character-resolution').empty();
-				for (let i = 0; i < array.length; i++) {
-					$('#edit-character-resolution').append($("<option>" + array[i] + "</option>"));
-				}
-				$('#edit-character-resolution').val(obj.resolution);
-			});*/
 			$("#edit-character-windowed").prop("checked", obj.windowed);
 			$("#edit-character-favourite").prop("checked", obj.favourite);
 			$("#edit-character-title").val(obj.title);
@@ -88,8 +80,6 @@ function editCharacterRow(id) {
 	} else {
 		alert('Unknown character id.');
 	}
-
-	
 }
 // Save edited row
 $("#edit-character-form").on("submit", function(event) {
@@ -151,8 +141,8 @@ function killCharacterRow(id, fromFavourite = false) {
 
 function killCharacterHelper(id) {
 	if (undefined != typeof id) {
-		$.get(localhost + '?killCharacter=' + id, function() {
-		}).fail(function() {
+		$.get(localhost + '?killCharacter=' + id, () => {
+		}).fail(() => {
 			alert('unable to kill character.')
 		});
 	} else {
