@@ -17,7 +17,6 @@ module.exports = {
 	realmDatastore: realmDatastore,
 	classDatastore: classDatastore,
 	settingDatastore: settingDatastore,
-
 	init: () => {
 		//account
 		module.exports.accountDatastore = new Datastore({filename:dbPath + 'account', autoload:true});
@@ -107,7 +106,7 @@ module.exports = {
 	getAllAccounts: (response) => {
 		module.exports.accountDatastore.find({}, (err, docs) => {
 			let ret = '{"aaData":[';
-			docs.forEach((item) => {
+			docs.forEach(item => {
 				ret += '["' + item._id + '","' + "<a href=javascript:playAccountRow(\'" + item._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a>" + '","' + item.name + '","' + item.password.replace(/./g, '*') + '","' + "<a data-id='row-" + item._id
 				+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>X<\/a>" + '"],';
 			});
@@ -118,7 +117,7 @@ module.exports = {
 	getAllCharacters: (response) => {
 		module.exports.characterDatastore.find({}, (err, docs) => {
 			let ret = '{"aaData":[';
-			docs.forEach((item) => {
+			docs.forEach(item => {
 				ret += '["' + item._id + '","'
 				+ "<a href=javascript:playCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-primary btn-sm sr-button'>play<\/a>" + ' '
 				+ "<a href=javascript:killCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-primary btn-md btnX-delete'>qtd<\/a>" + '","'
@@ -132,7 +131,7 @@ module.exports = {
 	getAllSettings: (response) => {
 		module.exports.settingDatastore.find({}, (err, docs) =>{
 			let ret = '{"aaData":[';
-			docs.forEach((item) => {
+			docs.forEach(item => {
 				ret += '["' + item._id + '","' + item.key + '","' + item.value + '","' + "<a data-id='row-" + item._id
 				+ "' href='javascript:editSettingRow" + item.type + "(" + item._id + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
 			});
@@ -157,13 +156,13 @@ module.exports = {
 	},
 
 	getAllServersNames: (response) => {
-		module.exports.serverDatastore.find({},(err, docs) => {
+		module.exports.serverDatastore.find({}, (err, docs) => {
 			return getAllNamesHelper(response, docs);
 		});
 	},
 	
 	getAllClassesNames: (response) => {
-		module.exports.classDatastore.find({},(err, docs) => {
+		module.exports.classDatastore.find({}, (err, docs) => {
 			return getAllNamesHelper(response, docs);
 		});
 	}
@@ -179,7 +178,7 @@ function correggiRispostaPerDT(ret) {
 
 function getAllNamesHelper(response, docs) {
 	let array = [];
-	docs.forEach((doc) => {
+	docs.forEach(doc => {
 		array.push(doc.name);
 	});
 	//return response.send(JSON.stringify(array.sort()));

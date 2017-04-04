@@ -9,6 +9,7 @@ const ini = require('ini');
 const moment = require('moment');
 const os = require('os');
 const ps = require('ps-node');
+const handle = require("./handle-module.js");
 
 module.exports = {
 	playCharacter: (id, response) => {
@@ -60,18 +61,17 @@ module.exports = {
 		const now = moment(Date.now()).format('DD/MM/YY HH:mm');
 		//aggiorna timestamp last login e killa i mutants
 		db.characterDatastore.update({_id:id}, {$set:{lastlogin:now}}, (err, numAffected, affectedDocuments) => {
-			require("./handle-module.js").killMutants();
+			handle.killMutants();
 			return response.send(now);
 		});
 		if (undefined != character['title'] && "" != character['title'] && prc.pid > 0) {
-			const exec = child_process.exec;//occhio che non hai testato senza required
+			const exec = child_process.exec;
 			exec(os.tmpdir() + "\\titlerenamer.exe " + prc.pid + ' "' + character['title'] + '"', (err, so, se) => {});
 		}
 		});});});});});});
 	});
 	},
 	killCharacter: (id, response) => {
-		console.log("killCharacter called")
 		db.characterDatastore.findOne({_id:id}, (err, character) => {
 			ps.lookup({
 				command: 'game.dll',
@@ -103,8 +103,8 @@ module.exports = {
 		});
 	},
 	playAccount: (id, response) => {
-		dialog.showMessageBox({title:"info", message:"Still working on it!"});
-		//TODO
+		//dialog.showMessageBox({title:"info", message:"Still working on it!"});
+		
 		return response.send();
 	}
 }

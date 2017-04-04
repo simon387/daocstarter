@@ -45,7 +45,7 @@ let renderFavourites = () => {
 	$.get(localhost + '?getAllFavouriteCharacters', favourites => {
 		$('.draggable').remove();
 		favourites.forEach(item => {
-			if (item.x === undefined) {
+			if (undefined === item.x) {
 				item.x = 40;
 				item.y = 440;
 			}
@@ -60,7 +60,7 @@ let renderFavourites = () => {
 		});
 		$(() => {
 			$(".draggable").draggable({
-				stop: function(o) {
+				stop: (o) => {
 					$.get(localhost + '?saveFavouriteCoordinate=' + o.target.id
 					+'&left=' + o.target.offsetLeft
 					+'&top=' + o.target.offsetTop, () => {/*console.log("ok");*/});

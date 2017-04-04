@@ -1,13 +1,13 @@
 "use strict";
 
 // Save edited row
-$("#edit-setting-form-file").on("submit", function(event) {
+$("#edit-setting-form-file").on("submit", (event) => {
 	event.preventDefault();
-	$.post(localhost + '?editSetting=' + $('#edit-setting-id-file').val(), $(this).serialize(), function(data) {
+	$.post(localhost + '?editSetting=' + $('#edit-setting-id-file').val(), $(this).serialize(), (data) => {
 		const tr = $('a[href="javascript:editSettingRowFile(' + $('#edit-setting-id-file').val() + ');"]').parent().parent();
 		$('td:eq(2)', tr).html(data.value);
 		$('#edit-setting-modal-file').modal('hide');
-	}).fail(function() {
+	}).fail(() => {
 		alert('Unable to save data, please try again later.');
 	});
 });
@@ -27,13 +27,13 @@ function editSettingRowFile(id) {
 		default:
 			return;
 	}
-	dialog.showOpenDialog({title:title, filters:filters, properties:['openFile', 'noResolveAliases']}, function(filePaths) {
+	dialog.showOpenDialog({title:title, filters:filters, properties:['openFile', 'noResolveAliases']}, (filePaths) => {
 		if (undefined != filePaths) {
 			const plainObject = {'setting-value-file':filePaths[0].replace(/\\/g, "\\\\")};
-			$.post(localhost + '?editSetting=' + id, plainObject, function(data) {
+			$.post(localhost + '?editSetting=' + id, plainObject, (data) => {
 				const tr = $('a[href="javascript:editSettingRowFile(' + id + ');"]').parent().parent();
 				$('td:eq(2)', tr).html(filePaths[0]);
-			}).fail(function() {
+			}).fail(() => {
 				alert('Unable to save data, please try again later.');
 			});
 		}

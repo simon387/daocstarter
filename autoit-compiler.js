@@ -3,29 +3,22 @@
 const shell = require('node-powershell');
 const distzip = 'dist.zip';
 const archiver = require('archiver');
+const fs = require('fs');
+const packagejson = require('./package.json');
 const archive = archiver('zip', {
 	zlib: { level: 0 } // Sets the compression level.
 });
 const packagercmd = 'electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\\i.ico --overwrite';
 const autoitcmd = '& "C:\\Program Files (x86)\\AutoIt3\\Aut2Exe\\Aut2exe.exe" /in "C:\\electron\\daocstarter\\daocstarter.au3" /icon img\\i.ico /comp 4'
-const fs = require('fs');
-const exe = "daocstarter.exe"
 const daocstarterau3 = "daocstarter.au3";
-
-try {
-	fs.unlinkSync(daocstarterau3);
-	console.log('successfully deleted ' + daocstarterau3);
-} catch(error) {
-	console.log(error + "...");
-}
-
-let buffer = new Buffer(
+const exe = "daocstarter.exe"
+const buffer = new Buffer (
 	'#RequireAdmin\r\n' +
 	'#NoTrayIcon\r\n' +
 	'#include <Misc.au3>\r\n' +
 	'#include <array.au3>\r\n' +
 	'_Singleton(@ScriptName)\r\n' +
-	'Global Const $VERSION = "' + require('./package.json').version + '"\r\n' +
+	'Global Const $VERSION = "' + packagejson.version + '"\r\n' +
 	'Global Const $DIST_ZIP_PATH = @AppDataDir & "\\daocstarter\\" & $VERSION; & "\\daocstarter-win32-x64"\r\n' +
 	'Global Const $WORKINGDIR = $DIST_ZIP_PATH & "\\dist\\daocstarter-win32-x64"\r\n' +
 	'Global Const $EXE = $WORKINGDIR & "\\daocstarter.exe"\r\n' +
@@ -53,14 +46,21 @@ let buffer = new Buffer(
 	'EndFunc\r\n'
 );
 
-fs.open(daocstarterau3, 'w', function(err, fd) {
+try {
+	fs.unlinkSync(daocstarterau3);
+	console.log('successfully deleted ' + daocstarterau3);
+} catch(error) {
+	console.log(error + "...");
+}
+fs.open(daocstarterau3, 'w', (err, fd) => {
 	if (err) {
 		throw 'error opening file: ' + err;
 	}
-
-	fs.write(fd, buffer, 0, buffer.length, null, function(err) {
-		if (err) throw 'error writing file: ' + err;
-		fs.close(fd, function() {
+	fs.write(fd, buffer, 0, buffer.length, null, (err) => {
+		if (err) {
+			throw 'error writing file: ' + err;
+		}
+		fs.close(fd, () => {
 			console.log('file written');
 			try {
 				fs.unlinkSync(distzip);
@@ -70,45 +70,43 @@ fs.open(daocstarterau3, 'w', function(err, fd) {
 			} catch(error) {
 				console.log(error + "...");
 			}
-
-			let ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
+			const ps = new shell({executionPolicy: 'Bypass', debugMsg:false, noProfile:true});
 			ps.addCommand(packagercmd)
-			.then(function() {
+			.then(() => {
 				ps.invoke();
 			})
-			.then(function(output){
+			.then((output) => {
 				return ps.dispose();
 			})
-			.then(function() {
+			.then(() => {
 				console.log('successfully executed ' + packagercmd);
-				let fileOutput = fs.createWriteStream(distzip);
-				fileOutput.on('close', function () {
+				const fileOutput = fs.createWriteStream(distzip);
+				fileOutput.on('close', () => {
 					console.log(archive.pointer() + ' total bytes; archiver has been finalized and the output file descriptor has closed.');
-					let powershell = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
+					const powershell = new shell({executionPolicy: 'Bypass', debugMsg:false, noProfile:true});
 					powershell.addCommand(autoitcmd)
-					.then(function() {
+					.then(() => {
 						powershell.invoke();
 					})
-					.then(function(output){
+					.then(output => {
 						powershell.dispose();
 						console.log("writing " + exe + "...");
 					})
-					.catch(function(err){
+					.catch(err => {
 						console.log(err);
 						powershell.dispose();
 					});
 				});
 				archive.pipe(fileOutput);
 				archive.glob("dist/daocstarter-win32-x64/**");
-				archive.on('error', function(err){
+				archive.on('error', err => {
 					throw err;
 				});
 				archive.finalize();
 			})
-			.catch(function(err){
+			.catch(err => {
 				ps.dispose();
 			});
-			//
 		})
 	});
 });

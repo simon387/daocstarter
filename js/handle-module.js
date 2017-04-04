@@ -1,9 +1,13 @@
 "use strict";
 
+const ps = require('ps-node');
+const os = require('os');
+const child_process = require('child_process');
+
 module.exports = {
 	killMutants: function () {
 		console.log("killMutants called!");
-		if (require('os').platform() != 'win32') {
+		if (os.platform() != 'win32') {
 			return;
 		}
 		getGameDllPids();
@@ -11,16 +15,15 @@ module.exports = {
 }
 
 function getGameDllPids() {
-	let ps = require('ps-node');
 	let aPID = [];
 	ps.lookup({
 		command: 'game.dll',
 		psargs: 'ux'
-	}, function(err, resultList) {
+	}, (err, resultList) => {
 		if (err) {
 			throw new Error(err);
 		}
-		resultList.forEach(function(process){
+		resultList.forEach(process => {
 			if (process){
 				aPID.push(process.pid);
 			}
@@ -32,11 +35,11 @@ function getGameDllPids() {
 }
 
 function getGameDllHandles(aPID) {
+	const spawn = child_process.spawn;
 	let aHex = [];
-	let spawn = require('child_process').spawn;
 	//const handle_exe = spawn('handle\\handle.exe', ['-a', '-nobanner']);
-	let handle_exe = spawn('resources\\app\\handle\\handle.exe', ['-a', '-nobanner']);
-	let findstr_exe = spawn('findstr', ['DAoCi']);
+	const handle_exe = spawn('resources\\app\\handle\\handle.exe', ['-a', '-nobanner']);
+	const findstr_exe = spawn('findstr', ['DAoCi']);
 	handle_exe.stdout.on('data', (data) => {
 		findstr_exe.stdin.write(data);
 	});
@@ -50,7 +53,7 @@ function getGameDllHandles(aPID) {
 		findstr_exe.stdin.end();
 	});
 	findstr_exe.stdout.on('data', (data) => {
-		let dataRows = data.toString().split('\n');
+		const dataRows = data.toString().split('\n');
 		if (dataRows instanceof Array) {
 			for (let r = 0; r < dataRows.length; r++) {
 				let hex = dataRows[r].split(':');
@@ -74,8 +77,8 @@ function getGameDllHandles(aPID) {
 function killHandles (aPID, aHex) {
 	for (let p = 0; p < aPID.length; p++) {
 		for (let h = 0; h < aHex.length; h++) {
-			let spawn = require('child_process').spawn;
-			let handle_exe = spawn('resources\\app\\handle\\handle.exe', ['-c', aHex[h], '-y', '-p', aPID[p]]);
+			const spawn = child_process.spawn;
+			const handle_exe = spawn('resources\\app\\handle\\handle.exe', ['-c', aHex[h], '-y', '-p', aPID[p]]);
 			handle_exe.stdout.on('data', (data) => {
 				console.log(`stdout: ${data}`);
 			});
