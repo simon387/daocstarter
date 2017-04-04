@@ -1,36 +1,37 @@
 "use strict";
 
+const electron = require('electron');
+const http = require('http');
+const compareVersions = require('compare-versions');
+const pjson = require('../package.json');
+const opn = require('opn');
+const {dialog} = require('electron');
+
 module.exports = {
-	updateCheck: function () {
-		let http = require('http');
-		let options = {
+	updateCheck: () => {
+		const opts = {
 			host: 'www.simonecelia.it',
 			path: '/daocstarter/version.html'
 		}
-		let request = http.request(options, function (res) {
+		let request = http.request(opts, (res) => {
 			let remoteVersion = '';
-			res.on('data', function (chunk) {
+			res.on('data', (chunk) => {
 				remoteVersion += chunk;
 			});
-			res.on('end', function () {
-				const compareVersions = require('compare-versions');
-				const pjson = require('../package.json');
+			res.on('end', () => {
 				if (compareVersions(pjson.version, remoteVersion) < 0) {
-					const opn = require('opn');
-					const {dialog} = require('electron');
-					let options = {
+					const options = {
 						type:"info",
 						title:"Update available!",
 						detail:"Version " + remoteVersion + " is available!\nThe GitHub webpage will be loaded for the download!"
 					}
 					opn('https://github.com/simon387/daocstarter/releases');
 					dialog.showMessageBox(options)//[browserWindow, ]options[, callback]
-					const electron = require('electron');
 					electron.app.quit();
 				}
 			});
 		});
-		request.on('error', function (e) {
+		request.on('error', (e) => {
 			console.log(e.message);
 		});
 		request.end();

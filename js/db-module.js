@@ -2,6 +2,7 @@
 
 const {app} = require('electron');
 const dbPath = app.getPath("userData") + '/db/';
+const Datastore = require('nedb');
 let accountDatastore;
 let characterDatastore;
 let serverDatastore;
@@ -18,7 +19,6 @@ module.exports = {
 	settingDatastore: settingDatastore,
 
 	init: () => {
-		let Datastore = require('nedb');
 		//account
 		module.exports.accountDatastore = new Datastore({filename:dbPath + 'account', autoload:true});
 		module.exports.accountDatastore.ensureIndex({fieldName:'name', unique:true}, (err) => {});

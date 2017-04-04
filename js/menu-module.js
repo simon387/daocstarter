@@ -12,6 +12,7 @@ const handle = require("./handle-module.js");
 const gamedll = require("./gamedll-module.js");
 const fs = require('fs');
 const child_process = require('child_process');
+const {app} = require('electron');
 
 Menu.getApplicationMenu();
 
@@ -59,13 +60,13 @@ const menuTemplate = [
 		label: 'Tools',
 		submenu: [
 			{
-				label: 'Show screenshot directory',
+				label: 'Show DAoC screenshot directory',
 				click: () => {
 					shell.showItemInFolder(electron.app.getPath("documents") + "\\Electronic Arts\\Dark Age of Camelot\\.");
 				}
 			},
 			{
-				label: 'Open user setting directory',
+				label: 'Open DAoC user setting directory',
 				click: () => {
 					db.settingDatastore.findOne({_id:"2"}, (err, userdat) => {
 						if (fs.existsSync(userdat["value"])) {
@@ -88,6 +89,12 @@ const menuTemplate = [
 							dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
 						}
 					});
+				}
+			},
+			{
+				label: 'Open DAoCStarter user setting directory',
+				click: () => {
+					shell.openItem(app.getPath("userData"));
 				}
 			}
 		]
