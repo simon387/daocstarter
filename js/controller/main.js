@@ -41,7 +41,7 @@ $('.open-in-browser').click((event) => {
 	shell.openExternal(event.target.href);
 });
 
-let renderFavourites = () => {
+const renderFavourites = () => {
 	$.get(localhost + '?getAllFavouriteCharacters', favourites => {
 		$('.draggable').remove();
 		favourites.forEach(item => {
@@ -70,5 +70,24 @@ let renderFavourites = () => {
 		});
 	});
 };
+
+const refreshComboByFetchAndSelector = (query, selector, sel = '') => {
+	fetch(localhost + query)
+	.then(response => {
+		return response.json();
+	})
+	.then(array => {
+		document.querySelectorAll(selector).forEach(el => {
+			el.innerHTML = '';
+			array.map(item => {
+				if (sel != '' && item == sel) {
+					el.innerHTML += '<option value="' + item + '" selected=true>' + item + '</option>';
+				} else {
+					el.innerHTML += '<option value="' + item + '">' + item + '</option>';
+				}
+			});
+		});
+	});
+}
 
 $(renderFavourites);

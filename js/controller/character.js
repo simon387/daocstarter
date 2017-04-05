@@ -1,24 +1,5 @@
 "use strict";
 
-const refreshComboByFetchAndSelector = (query, selector, sel = '') => {
-	fetch(localhost + query)
-	.then(response => {
-		return response.json();
-	})
-	.then(array => {
-		document.querySelectorAll(selector).forEach(el => {
-			el.innerHTML = '';
-			array.map(item => {
-				if (sel != '' && item==sel) {
-					el.innerHTML += '<option value="' + item + '" selected=true>' + item + '</option>';
-				} else {
-					el.innerHTML += '<option value="' + item + '">' + item + '</option>';
-				}
-			});
-		});
-	});
-}
-
 function refreshModalCombos() {
 	refreshComboByFetchAndSelector('?getAllAccountsNames', '.character-account-dropdown', "");
 	refreshComboByFetchAndSelector('?getAllServersNames', '.character-servers-dropdown', "");
@@ -82,7 +63,7 @@ function editCharacterRow(id) {
 	}
 }
 // Save edited row
-$("#edit-character-form").on("submit", (event) => {
+$("#edit-character-form").on("submit", function(event) {
 	event.preventDefault();
 	$.post(localhost + '?editCharacter=' + $('#edit-character-id').val(), $(this).serialize(), (data) => {
 		var tr = $('a[data-id="row-' + $('#edit-character-id').val() + '"]').parent().parent();

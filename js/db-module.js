@@ -102,13 +102,15 @@ module.exports = {
 		module.exports.settingDatastore.insert([{_id:'2', key:'path.to.user.dat', type:'File', value:app.getPath("appData").replace(/\\/g, "\\\\") + '\\\\Electronic Arts\\\\Dark Age of Camelot\\\\LotM\\\\user.dat'}], (err) => {});
 	},
 	
-	//{"aaData":[["39","simone","simon387@hotmail.it","1211",null,"<a data-id=\"row-39\" href=\"javascript:editRow(39);\" class=\"btn btn-md btn-success\">edit<\/a>&nbsp;<a href=\"javascript:removeRow(39);\" class=\"btn btn-default btn-md\" style=\"background-color: #c83a2a;border-color: #b33426; color: #ffffff;\">remove<\/a>"]]}
 	getAllAccounts: (response) => {
 		module.exports.accountDatastore.find({}, (err, docs) => {
 			let ret = '{"aaData":[';
 			docs.forEach(item => {
-				ret += '["' + item._id + '","' + "<a href=javascript:playAccountRow(\'" + item._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a>" + '","' + item.name + '","' + item.password.replace(/./g, '*') + '","' + "<a data-id='row-" + item._id
-				+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>X<\/a>" + '"],';
+				ret += '["' + item._id + '","' + "<a href=javascript:playAccountRow(\'" + item._id
+				+ "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a>" + '","' + item.name + '","'
+				+ item.password.replace(/./g, '*') + '","' + item.server + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
+				+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'"
+				+ item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>X<\/a>" + '"],';
 			});
 			response.send(correggiRispostaPerDT(ret));
 		});

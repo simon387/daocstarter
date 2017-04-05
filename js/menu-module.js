@@ -18,6 +18,17 @@ Menu.getApplicationMenu();
 
 const menuTemplate = [
 	{
+		label: 'File',
+		submenu: [
+			{
+				label: 'Exit',
+				click: () => {
+					electron.app.quit();
+				}
+			}
+		]
+	},
+	{
 		label: 'Client',
 		submenu: [
 			{
@@ -126,6 +137,12 @@ const menuTemplate = [
 	{
 		label: '?',
 		submenu: [
+			{
+				label: 'Report a BUG',
+				click: () => {
+					opn('https://github.com/simon387/daocstarter/issues');
+				}
+			},
 			{
 				label: 'About DAoC Starter',
 				click: () => {

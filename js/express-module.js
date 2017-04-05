@@ -3,18 +3,20 @@
 const db = require("./db-module.js");
 const gamedll = require("./gamedll-module.js");
 const {ipcMain} = require('electron');
+const portfinder = require('portfinder');
+const express = require('express');
+const vga_module = require("./vga-module.js");
+const querystring = require('querystring');
 
 module.exports = {
 	start: () => {
-		const express = require('express');
 		const server = express();
-
-		require('portfinder').getPort( (err, port) => {
+		portfinder.getPort( (err, port) => {
 			ipcMain.on('asynchronous-get-port', (event, arg) => {
 				event.sender.send('asynchronous-reply-get-port', port)
 			});
-
-			server.get('/', function (request, response) {
+			//
+			server.get('/', (request, response) => {
 				if (request.query.getAllAccountsNames != undefined) {
 					db.getAllAccountsNames(response);
 				}
@@ -25,7 +27,7 @@ module.exports = {
 					db.getAllClassesNames(response);
 				}
 				if (request.query.getAllResolutions != undefined) {
-					require("./vga-module.js").getAllResolutions(response);
+					vga_module.getAllResolutions(response);
 				}
 				//account
 				if (request.query.ajaxAccount != undefined || request.query.removeAccount != undefined || request.query.editAccount != undefined) {
@@ -86,35 +88,48 @@ module.exports = {
 
 			server.post('/', (request, response) => {
 				let body = '';
-				//response.setHeader('Content-Type', 'application/json');
 				request.on('data', (data) => {
 					body += data;
 					if (body.length > 1e6) {
 						request.connection.destroy();
 					}
 				});
-
+				//
 				request.on('end', function () {
-					let post = require('querystring').parse(body);
+					const post = querystring.parse(body);
 					//account
 					if (request.query.addAccount != undefined || request.query.editAccount != undefined) {
+						const accountWindowed = post['account-windowed'] === undefined ? false : true;
 						if (request.query.addAccount != undefined) {
-							db.accountDatastore.insert({name:post['account-name'], password:post['account-password']}, (err, newDoc) => {// Callback is optional
+							db.accountDatastore.insert({
+									name:post['account-name'],
+									password:post['account-password'],
+									server:post['account-server'],
+									resolution:post['account-resolution'],
+									windowed:accountWindowed,
+									title:post['account-title']
+								}, (err, newDoc) => {// Callback is optional
 								response.send(newDoc);
 							});
 						} else if (request.query.editAccount != undefined) {
-							db.accountDatastore.update({_id:request.query.editAccount}, {$set:{name:post['account-name'], password:post['account-password']}}, {returnUpdatedDocs:true, multi:false}, (err, numAffected, affectedDocuments) => {
+							db.accountDatastore.update({_id:request.query.editAccount}, {$set:{
+									name:post['account-name'],
+									password:post['account-password'],
+									server:post['account-server'],
+									resolution:post['account-resolution'],
+									windowed:accountWindowed,
+									title:post['account-title']}
+								}, {returnUpdatedDocs:true, multi:false}, (err, numAffected, affectedDocuments) => {
 								response.send(affectedDocuments);
 							});
 						}
 					}
 					//char
 					if (request.query.addCharacter != undefined || request.query.editCharacter != undefined) {
-						const characterWindowed = post['character-windowed'] === undefined ? false : true; 
+						const characterWindowed = post['character-windowed'] === undefined ? false : true;
 						const characterFavourite = post['character-favourite'] === undefined ? false : true;
 						if (request.query.addCharacter != undefined) {
-							db.characterDatastore.insert(
-								{
+							db.characterDatastore.insert({
 									name:post['character-name'],
 									lastlogin:'-',
 									account:post['character-account'],

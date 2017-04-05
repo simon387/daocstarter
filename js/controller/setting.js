@@ -1,7 +1,7 @@
 "use strict";
 
 // Save edited row
-$("#edit-setting-form-file").on("submit", (event) => {
+$("#edit-setting-form-file").on("submit", function(event) {
 	event.preventDefault();
 	$.post(localhost + '?editSetting=' + $('#edit-setting-id-file').val(), $(this).serialize(), (data) => {
 		const tr = $('a[href="javascript:editSettingRowFile(' + $('#edit-setting-id-file').val() + ');"]').parent().parent();

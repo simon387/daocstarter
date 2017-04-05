@@ -103,8 +103,47 @@ module.exports = {
 		});
 	},
 	playAccount: (id, response) => {
-		//dialog.showMessageBox({title:"info", message:"Still working on it!"});
+		db.settingDatastore.findOne({_id:"2"}, (err, userdat) => {
+		if (!fs.existsSync(userdat["value"])) {
+			dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");return response.send();
+		}
+		db.settingDatastore.findOne({_id:"1"}, (err, gamedll) => {
+		if (null == gamedll) {
+			dialog.showErrorBox("error", "Cannot find setting!");return response.send();
+		}
+		if (!fs.existsSync(gamedll["value"])) {
+			dialog.showErrorBox("error", "game.dll not found!\nPlease edit the location from Setting section!");return response.send();
+		}
 		
-		return response.send();
+		db.accountDatastore.findOne({_id:id}, (err, account) => {
+		if (null == account) {
+			dialog.showErrorBox("error", "Cannot find account!");return response.send();
+		}
+		db.serverDatastore.findOne({name:account["server"]}, (err, server) => {
+		if (null == server) {
+			dialog.showErrorBox("error", "Cannot find server!");return response.send();
+		}
+
+		let config = ini.parse(fs.readFileSync(userdat["value"], 'utf-8'));
+		const xy = account["resolution"].split("x");
+		const windowed = account["windowed"] ? 1 : 0;
+		config.main.screen_width = xy[0];
+		config.main.screen_height = xy[1];
+		config.main.windowed = windowed;
+		fs.writeFileSync(path.dirname(userdat["value"]) + "\\user.dat", ini.stringify(config, {}));
+		const spawn = child_process.spawn;
+		const prc = spawn(gamedll["value"], [server["ip"], server["port"], server["n"], account["name"], account["password"]], {
+			cwd:path.dirname(gamedll["value"]),
+			setsid:false,
+			detached:true
+		});
+		console.log('Spawned child pid: ' + prc.pid);
+
+		if (undefined != account['title'] && "" != account['title'] && prc.pid > 0) {
+			const exec = child_process.exec;
+			exec(os.tmpdir() + "\\titlerenamer.exe " + prc.pid + ' "' + account['title'] + '"', (err, so, se) => {});
+		}
+		});});});
+	});
 	}
 }
