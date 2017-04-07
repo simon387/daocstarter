@@ -107,7 +107,9 @@ module.exports = {
 			let ret = '{"aaData":[';
 			docs.forEach(item => {
 				ret += '["' + item._id + '","' + "<a href=javascript:playAccountRow(\'" + item._id
-				+ "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a>" + '","' + item.name + '","'
+				+ "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a>" + ' '
+				+ "<a href=javascript:killAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-primary btn-md btnX-delete'>qtd<\/a>"
+				+ '","' + item.name + '","'
 				+ item.password.replace(/./g, '*') + '","' + item.server + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
 				+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'"
 				+ item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>X<\/a>" + '"],';

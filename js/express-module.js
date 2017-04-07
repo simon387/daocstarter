@@ -45,6 +45,9 @@ module.exports = {
 				if (request.query.playAccount != undefined) {
 					gamedll.playAccount(request.query.playAccount, response);
 				}
+				if (request.query.killAccount != undefined) {
+					gamedll.killAccount(request.query.killAccount, response);
+				}
 				//character
 				if (request.query.ajaxCharacter != undefined || request.query.removeCharacter != undefined || request.query.editCharacter != undefined) {
 					if (request.query.removeCharacter != undefined) {

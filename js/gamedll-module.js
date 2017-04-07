@@ -102,6 +102,24 @@ module.exports = {
 			});
 		});
 	},
+	killAccount: (id, response) => {
+		db.accountDatastore.findOne({_id:id}, (err, account) => {
+			ps.lookup({
+				command: 'game.dll',
+				psargs: 'ux'
+			}, (err, resultList) => {
+				if (err) {
+					throw new Error(err);
+				}
+				resultList.forEach(process => {
+					if (process && process.arguments[3] == account["name"]) {
+						ps.kill(process.pid);//se metti la callback fa laggare tutto//appunto performance:https://github.com/sindresorhus/tasklist
+					}
+				});
+			});
+			return response.send();
+		});
+	},
 	playAccount: (id, response) => {
 		db.settingDatastore.findOne({_id:"2"}, (err, userdat) => {
 		if (!fs.existsSync(userdat["value"])) {

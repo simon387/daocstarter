@@ -27,7 +27,8 @@ $("#add-account-form").on("submit", function(event) {
 		let tbody = $('#accountsDT').children('tbody');
 		let table = tbody.length ? tbody : $('#accountsDT');
 		table.append('<tr role="row"><td class="sorting_1">' + data._id + ''
-		+ "</td><td><a href=javascript:playAccountRow(\'" + data._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a></td><td>" + ''
+		+ "</td><td><a href=javascript:playAccountRow(\'" + data._id + "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a>" + ' '
+		+ "<a href=javascript:killAccountRow(\'" + data._id + "\'); class='btnX btn-primary btn-sm btnX-delete'>qtd<\/a></td><td>"
 		+ data.name + '</td><td>' + data.password.replace(/./g, '*') + '</td>'
 		+ '<td>' + data.server + '</td>' + '<td>' + data.resolution + '</td>' + '<td>' + data.windowed + '</td>'
 		+ '<td><a data-id="row-'
@@ -76,6 +77,17 @@ function playAccountRow(id) {
 		fetch(localhost + '?playAccount=' + id)
 		.then(response => {
 			//return response.json();
+		})
+		.then(() => {
+		});
+	}
+}
+
+function killAccountRow(id) {
+	if (undefined != typeof id) {
+		fetch(localhost + '?killAccount=' + id)
+		.then(response => {
+
 		})
 		.then(() => {
 		});
