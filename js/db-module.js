@@ -160,13 +160,13 @@ module.exports = {
 	},
 
 	getAllServersNames: (response) => {
-		module.exports.serverDatastore.find({}, (err, docs) => {
+		module.exports.serverDatastore.find({}).sort({n: 1}).exec((err, docs) => {
 			return getAllNamesHelper(response, docs);
 		});
 	},
 	
 	getAllClassesNames: (response) => {
-		module.exports.classDatastore.find({}, (err, docs) => {
+		module.exports.classDatastore.find({}).sort({name: 1}).exec((err, docs) => {
 			return getAllNamesHelper(response, docs);
 		});
 	}
@@ -185,6 +185,5 @@ function getAllNamesHelper(response, docs) {
 	docs.forEach(doc => {
 		array.push(doc.name);
 	});
-	//return response.send(JSON.stringify(array.sort()));
-	return response.send(array.sort());
+	return response.send(array);
 }

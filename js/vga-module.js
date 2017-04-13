@@ -10,17 +10,21 @@ module.exports = {
 			return response.send(["4096×2160"]);
 		}
 		let ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
-		ps.addCommand('Get-WMIObject -query "SELECT * FROM CIM_VideoControllerResolution" | Select Caption')
+		ps.addCommand('get-wmiobject -query "' +
+		'select HorizontalResolution, VerticalResolution ' +
+		'from CIM_VideoControllerResolution" | ' +
+		'Sort-Object HorizontalResolution, VerticalResolution -descending | ' +
+		'select HorizontalResolution, VerticalResolution')
 		.then(() => {
 			return ps.invoke();
 		})
 		.then(output => {
-			let str = output.replace(/[\n\r]/g, '').replace(/ +/g, '');
-			let regexp = /\d+x\d+x\d/g;
+			let str = output.replace(/[\n\r]/g, '').replace(/\ +/g, 'x');
+			let regexp = /\d+x+\d+/g;
 			let match;
 			let matches = new Set();
 			while ((match = regexp.exec(str)) != null) {
-				matches.add(match[0].slice(0, -2));
+				matches.add(match[0]);
 			}
 			ps.dispose();
 			response.send(Array.from(matches));
