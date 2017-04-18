@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const {app} = require('electron');
 const dbPath = app.getPath("userData") + '/db/';
@@ -19,171 +19,128 @@ module.exports = {
 	settingDatastore: settingDatastore,
 	init: () => {
 		//account
-		module.exports.accountDatastore = new Datastore({filename:dbPath + 'account', autoload:true});
-		module.exports.accountDatastore.ensureIndex({fieldName:'name', unique:true}, (err) => {});
+		module.exports.accountDatastore = new Datastore({filename:dbPath + 'account', autoload: true});
+		module.exports.accountDatastore.ensureIndex({fieldName: 'name', unique: true}, err => {});
 		//server
-		module.exports.serverDatastore = new Datastore({filename:dbPath + 'server', autoload:true});
-		module.exports.serverDatastore.ensureIndex({fieldName:'name', unique:true}, (err) => {});
+		module.exports.serverDatastore = new Datastore({filename:dbPath + 'server', autoload: true});
+		module.exports.serverDatastore.ensureIndex({fieldName: 'name', unique: true}, err => {});
+		const ywain = 'Ywain';
+		const ip = '107.23.173.143';
+		const port = '10622';
+		const albion = 'Albion';
+		const hibernia = 'Hibernia';
+		const midgard = 'Midgard';
 		module.exports.serverDatastore.insert([
-			{name:'Ywain1', ip:"107.23.173.143", port:"10622", n:"41"},
-			{name:'Ywain2', ip:"107.23.173.143", port:"10622", n:"49"},
-			{name:'Ywain3', ip:"107.23.173.143", port:"10622", n:"50"},
-			{name:'Ywain4', ip:"107.23.173.143", port:"10622", n:"51"},
-			{name:'Ywain5', ip:"107.23.173.143", port:"10622", n:"52"},
-			{name:'Ywain6', ip:"107.23.173.143", port:"10622", n:"53"},
-			{name:'Ywain7', ip:"107.23.173.143", port:"10622", n:"54"},
-			{name:'Ywain8', ip:"107.23.173.143", port:"10622", n:"55"},
-			{name:'Ywain9', ip:"107.23.173.143", port:"10622", n:"56"},
-			{name:'Ywain10', ip:"107.23.173.143", port:"10622", n:"57"}], (err) => {});
+			{name: ywain + '1', ip: ip, port: port, n: '41'},
+			{name: ywain + '2', ip: ip, port: port, n: '49'},
+			{name: ywain + '3', ip: ip, port: port, n: '50'},
+			{name: ywain + '4', ip: ip, port: port, n: '51'},
+			{name: ywain + '5', ip: ip, port: port, n: '52'},
+			{name: ywain + '6', ip: ip, port: port, n: '53'},
+			{name: ywain + '7', ip: ip, port: port, n: '54'},
+			{name: ywain + '8', ip: ip, port: port, n: '55'},
+			{name: ywain + '9', ip: ip, port: port, n: '56'},
+			{name: ywain + '10', ip: ip, port: port, n: '57'}], err => {});
 		//realm
-		module.exports.realmDatastore = new Datastore({filename:dbPath + 'realm', autoload:true});
-		module.exports.realmDatastore.ensureIndex({fieldName:'name', unique:true}, (err) => {});
+		module.exports.realmDatastore = new Datastore({filename: dbPath + 'realm', autoload: true});
+		module.exports.realmDatastore.ensureIndex({fieldName: 'name', unique:true}, err => {});
 		module.exports.realmDatastore.insert([
-			{name:'Albion', n:"1"},
-			{name:'Hibernia', n:"3"},
-			{name:'Midgard', n:"2"}], (err) => {});
+			{name: albion, n: '1'},
+			{name: hibernia, n: '3'},
+			{name: midgard, n: '2'}], err => {});
 		//class
-		module.exports.classDatastore = new Datastore({filename:dbPath + 'class', autoload:true});
-		module.exports.classDatastore.ensureIndex({fieldName:'name', unique:true}, (err) => {});
+		module.exports.classDatastore = new Datastore({filename: dbPath + 'class', autoload: true});
+		module.exports.classDatastore.ensureIndex({fieldName: 'name', unique: true}, err => {});
 		module.exports.classDatastore.insert([
-			{name:'Armsman', realm:'Albion'},
-			{name:'Cabalist', realm:'Albion'},
-			{name:'Cleric', realm:'Albion'},
-			{name:'Friar', realm:'Albion'},
-			{name:'Heretic', realm:'Albion'},
-			{name:'Infiltrator', realm:'Albion'},
-			{name:'Mauler (Alb)', realm:'Albion'},
-			{name:'Mercenary', realm:'Albion'},
-			{name:'Minstrel', realm:'Albion'},
-			{name:'Necromancer', realm:'Albion'},
-			{name:'Paladin', realm:'Albion'},
-			{name:'Reaver', realm:'Albion'},
-			{name:'Scout', realm:'Albion'},
-			{name:'Sorcerer', realm:'Albion'},
-			{name:'Theurg', realm:'Albion'},
-			{name:'Wizard', realm:'Albion'},
-			{name:'Animist', realm:'Hibernia'},
-			{name:'Bainshee', realm:'Hibernia'},
-			{name:'Bard', realm:'Hibernia'},
-			{name:'Blademaster', realm:'Hibernia'},
-			{name:'Champion', realm:'Hibernia'},
-			{name:'Druid', realm:'Hibernia'},
-			{name:'Eldritch', realm:'Hibernia'},
-			{name:'Enchanter', realm:'Hibernia'},
-			{name:'Hero', realm:'Hibernia'},
-			{name:'Mauler (Hib)', realm:'Hibernia'},
-			{name:'Mentalist', realm:'Hibernia'},
-			{name:'Nightshade', realm:'Hibernia'},
-			{name:'Ranger', realm:'Hibernia'},
-			{name:'Valewalker', realm:'Hibernia'},
-			{name:'Vampiir', realm:'Hibernia'},
-			{name:'Warden', realm:'Hibernia'},
-			{name:'Berserker', realm:'Midgard'},
-			{name:'Bonedancer', realm:'Midgard'},
-			{name:'Healer', realm:'Midgard'},
-			{name:'Hunter', realm:'Midgard'},
-			{name:'Mauler (Mid)', realm:'Midgard'},
-			{name:'Runemaster', realm:'Midgard'},
-			{name:'Savage', realm:'Midgard'},
-			{name:'Shadowblade', realm:'Midgard'},
-			{name:'Shaman', realm:'Midgard'},
-			{name:'Skald', realm:'Midgard'},
-			{name:'Spiritmaster', realm:'Midgard'},
-			{name:'Thane', realm:'Midgard'},
-			{name:'Valkyrie', realm:'Midgard'},
-			{name:'Warlock', realm:'Midgard'},
-			{name:'Warrior', realm:'Midgard'}], (err) => {});
+			{name: 'Armsman', realm: albion},
+			{name: 'Cabalist', realm: albion},
+			{name: 'Cleric', realm: albion},
+			{name: 'Friar', realm: albion},
+			{name: 'Heretic', realm: albion},
+			{name: 'Infiltrator', realm: albion},
+			{name: 'Mauler (Alb) ', realm:albion},
+			{name: 'Mercenary', realm: albion},
+			{name: 'Minstrel', realm: albion},
+			{name: 'Necromancer', realm: albion},
+			{name: 'Paladin', realm: albion},
+			{name: 'Reaver', realm: albion},
+			{name: 'Scout', realm: albion},
+			{name: 'Sorcerer', realm: albion},
+			{name: 'Theurg', realm: albion},
+			{name: 'Wizard', realm: albion},
+			{name: 'Animist', realm: hibernia},
+			{name: 'Bainshee', realm: hibernia},
+			{name: 'Bard', realm: hibernia},
+			{name: 'Blademaster', realm: hibernia},
+			{name: 'Champion', realm: hibernia},
+			{name: 'Druid', realm: hibernia},
+			{name: 'Eldritch', realm: hibernia},
+			{name: 'Enchanter', realm: hibernia},
+			{name: 'Hero', realm: hibernia},
+			{name: 'Mauler (Hib) ', realm:hibernia},
+			{name: 'Mentalist', realm: hibernia},
+			{name: 'Nightshade', realm: hibernia},
+			{name: 'Ranger', realm: hibernia},
+			{name: 'Valewalker', realm: hibernia},
+			{name: 'Vampiir', realm: hibernia},
+			{name: 'Warden', realm: hibernia},
+			{name: 'Berserker', realm: midgard},
+			{name: 'Bonedancer', realm: midgard},
+			{name: 'Healer', realm: midgard},
+			{name: 'Hunter', realm: midgard},
+			{name: 'Mauler (Mid) ', realm:midgard},
+			{name: 'Runemaster', realm: midgard},
+			{name: 'Savage', realm: midgard},
+			{name: 'Shadowblade', realm: midgard},
+			{name: 'Shaman', realm: midgard},
+			{name: 'Skald', realm: midgard},
+			{name: 'Spiritmaster', realm: midgard},
+			{name: 'Thane', realm: midgard},
+			{name: 'Valkyrie', realm: midgard},
+			{name: 'Warlock', realm: midgard},
+			{name: 'Warrior', realm: midgard}], err => {});
 		//character
-		module.exports.characterDatastore = new Datastore({filename:dbPath + 'character', autoload:true});
+		module.exports.characterDatastore = new Datastore({filename: dbPath + 'character', autoload: true});
+		//team
+		module.exports.teamDatastore = new Datastore({filename: dbPath + 'team', autoload: true});
 		//setting
-		module.exports.settingDatastore = new Datastore({filename:dbPath + 'setting', autoload:true});
-		module.exports.settingDatastore.ensureIndex({fieldName:'key', unique:true}, (err) => {});
-		module.exports.settingDatastore.insert([{_id:'1', key:'path.to.game.dll', type:'File', value:'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}], (err) => {});
-		module.exports.settingDatastore.insert([{_id:'2', key:'path.to.user.dat', type:'File', value:app.getPath("appData").replace(/\\/g, "\\\\") + '\\\\Electronic Arts\\\\Dark Age of Camelot\\\\LotM\\\\user.dat'}], (err) => {});
-	},
-	
-	getAllAccounts: (response) => {
-		module.exports.accountDatastore.find({}, (err, docs) => {
-			let ret = '{"aaData":[';
-			docs.forEach(item => {
-				ret += '["' + item._id + '","' + "<a href=javascript:playAccountRow(\'" + item._id
-				+ "\'); class='btnX btn-primary btn-sm sr-button'>play<\/a>" + ' '
-				+ "<a href=javascript:killAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-primary btn-md btnX-delete'>qtd<\/a>"
-				+ '","' + item.name + '","'
-				+ item.password.replace(/./g, '*') + '","' + item.server + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
-				+ "' href=javascript:editAccountRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeAccountRow(\'"
-				+ item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>X<\/a>" + '"],';
-			});
-			response.send(correggiRispostaPerDT(ret));
-		});
-	},
-
-	getAllCharacters: (response) => {
-		module.exports.characterDatastore.find({}, (err, docs) => {
-			let ret = '{"aaData":[';
-			docs.forEach(item => {
-				ret += '["' + item._id + '","'
-				+ "<a href=javascript:playCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-primary btn-sm sr-button'>play<\/a>" + ' '
-				+ "<a href=javascript:killCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-primary btn-md btnX-delete'>qtd<\/a>" + '","'
-				+ item.name + '","' + item.lastlogin + '","' + item.account + '","' + item.server + '","' + item.classe + '","' + item.resolution + '","' + item.windowed + '","' + "<a data-id='row-" + item._id
-				+ "' href=javascript:editCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-md btn-successX'>edit<\/a>&nbsp;<a href=javascript:removeCharacterRow(\'" + item._id + "\'); class='sr-button btnX btn-default btn-md btnX-delete'>X<\/a>" + '"],';
-			});
-			response.send(correggiRispostaPerDT(ret));
-		});
-	},
-
-	getAllSettings: (response) => {
-		module.exports.settingDatastore.find({}, (err, docs) =>{
-			let ret = '{"aaData":[';
-			docs.forEach(item => {
-				ret += '["' + item._id + '","' + item.key + '","' + item.value + '","' + "<a data-id='row-" + item._id
-				+ "' href='javascript:editSettingRow" + item.type + "(" + item._id + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
-			});
-			//setting fillers, solo per impaginazione/estetica
-			ret += '["' + 3 + '","' + "-" + '","' + "-" + '","' + "<a data-id='row-" + 0
-				+ "' href='javascript:editSettingRow" + "file" + "(" + 0 + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
-			ret += '["' + 4 + '","' + "-" + '","' + "-" + '","' + "<a data-id='row-" + 0
-				+ "' href='javascript:editSettingRow" + "file" + "(" + 0 + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
-			ret += '["' + 5 + '","' + "-" + '","' + "-" + '","' + "<a data-id='row-" + 0
-				+ "' href='javascript:editSettingRow" + "file" + "(" + 0 + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
-			ret += '["' + 6 + '","' + "-" + '","' + "-" + '","' + "<a data-id='row-" + 0
-				+ "' href='javascript:editSettingRow" + "file" + "(" + 0 + ");' class='sr-button btnX btn-md btn-successX'>edit<\/a>" + '"],';
-				
-			response.send(correggiRispostaPerDT(ret));
-		});
-	},
-
-	getAllAccountsNames: (response) => {
-		module.exports.accountDatastore.find({}, (err, docs) => {
-			return getAllNamesHelper(response, docs);
-		});
-	},
-
-	getAllServersNames: (response) => {
-		module.exports.serverDatastore.find({}).sort({n: 1}).exec((err, docs) => {
-			return getAllNamesHelper(response, docs);
-		});
-	},
-	
-	getAllClassesNames: (response) => {
-		module.exports.classDatastore.find({}).sort({name: 1}).exec((err, docs) => {
-			return getAllNamesHelper(response, docs);
-		});
+		module.exports.settingDatastore = new Datastore({filename: dbPath + 'setting', autoload: true});
+		module.exports.settingDatastore.ensureIndex({fieldName: 'key', unique: true}, err => {});
+		module.exports.settingDatastore.insert({
+			_id: '6',
+			key: 'setting.items.per.page',
+			type: 'numero',
+			value: 10}, err => {}
+		);
+		module.exports.settingDatastore.insert({
+			_id: '5',
+			key: 'account.items.per.page',
+			type: 'numero',
+			value: 10}, err => {}
+		);
+		module.exports.settingDatastore.insert({
+			_id: '4',
+			key: 'team.items.per.page',
+			type: 'numero',
+			value: 10}, err => {}
+		);
+		module.exports.settingDatastore.insert({
+			_id: '3',
+			key: 'character.items.per.page',
+			type: 'numero',
+			value: 10}, err => {}
+		);
+		module.exports.settingDatastore.insert({
+			_id: '2',
+			key: 'path.to.user.dat',
+			type: 'File',
+			value: app.getPath('appData').replace(/\\/g, '\\\\') + '\\\\Electronic Arts\\\\Dark Age of Camelot\\\\LotM\\\\user.dat'}, err => {}
+		);
+		module.exports.settingDatastore.insert({
+			_id: '1',
+			key: 'path.to.game.dll',
+			type: 'File',
+			value: 'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}, err => {}
+		);
 	}
-}
-
-function correggiRispostaPerDT(ret) {
-	ret = ret.slice(0, -1) + ']}';
-	if (ret === '{"aaData":]}') {
-		ret ='{"aaData":[]}';
-	}
-	return ret;
-}
-
-function getAllNamesHelper(response, docs) {
-	let array = [];
-	docs.forEach(doc => {
-		array.push(doc.name);
-	});
-	return response.send(array);
 }

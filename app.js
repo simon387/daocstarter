@@ -1,25 +1,28 @@
-"use strict";
+'use strict';
 
 const electron = require('electron');
-require("./js/update-module.js").updateCheck();
-require("./js/db-module.js").init();
-require("./js/express-module.js").start();
-require("./js/menu-module.js");
+const packageJSON = require('./package.json');
+const path = require('path');
+require('./js/update-module.js').updateCheck();
+require('./js/db-module.js').init();
+require('./js/ipc-module');
+require('./js/express-module.js');
+require('./js/menu-module.js');
 
 electron.app.on('ready', () => {
 	const BrowserWindow = electron.BrowserWindow;
 	const mainWindow = new BrowserWindow({
-		width:1400,
-		height:809,
-		show:false,
-		resizable:false,
-		title:"DAoC Starter v" + require('./package.json').version,
-		icon:"img/i.ico"
+		width: 1400,
+		height: 809,
+		show: false,
+		resizable: true,
+		title: 'DAoC Starter v' + packageJSON.version,
+		icon: 'img/i.ico'
 	});
 	mainWindow.loadURL(require('url').format({
-		pathname:require('path').join(__dirname, 'html', 'views', 'main.html'),
-		protocol:'file',
-		slashes:true
+		pathname: path.join(__dirname, 'html', 'views', 'main.html'),
+		protocol: 'file',
+		slashes: true
 	}));
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show();

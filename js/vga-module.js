@@ -1,12 +1,11 @@
-"use strict";
+'use strict';
 
 const os = require('os');
 const shell = require('node-powershell');
 
 module.exports = {
-	getAllResolutions: (response) => {
+	getAllResolutions: response => {
 		if (os.platform() != 'win32') {
-			//console.log("Per ora il modulo vga-module funziona solo su windows");
 			return response.send(["4096×2160"]);
 		}
 		let ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});

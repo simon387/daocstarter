@@ -1,15 +1,15 @@
-"use strict";
+'use strict';
 
 const electron = require('electron');
 const Menu = electron.Menu;
 const opn = require('opn');
 const {shell} = require('electron');
-const db = require("./db-module.js");
+const db = require('./db-module.js');
 const {dialog} = require('electron');
 const path = require('path');
 const BrowserWindow = require('electron').BrowserWindow;
-const handle = require("./handle-module.js");
-const gamedll = require("./gamedll-module.js");
+const handle = require('./handle-module.js');
+const gamedll = require('./gamedll-module.js');
 const fs = require('fs');
 const child_process = require('child_process');
 const {app} = require('electron');
@@ -18,13 +18,35 @@ Menu.getApplicationMenu();
 
 const menuTemplate = [
 	{
-		label: 'File',
+		label: 'Window',
 		submenu: [
 			{
-				label: 'Exit',
-				click: () => {
-					electron.app.quit();
-				}
+				role: 'minimize'
+			},
+			{
+				role: 'quit'
+			}
+		]
+	},
+	{
+		label: 'Edit',
+		submenu: [
+			{
+				role: 'selectall'
+			},
+			{
+				role: 'cut',
+
+			},
+			{
+				role: 'copy',
+			},
+			{
+				role: 'paste',
+
+			},
+			{
+				role: 'delete'
 			}
 		]
 	},
@@ -40,15 +62,15 @@ const menuTemplate = [
 			{
 				label: 'Patch client',
 				click: () => {
-					db.settingDatastore.findOne({_id:"1"}, (err, gamedll) => {
+					db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
 						if (fs.existsSync(gamedll["value"])) {
 							const exec = child_process.exec;
 							const cmd = 'camelot.exe';
 							const child = exec(
 								cmd, {
 									cwd: path.dirname(gamedll["value"]),
-									setsid:false,
-									detached:true,
+									setsid: false,
+									detached: true,
 								},
 								(error, stdout, stderr) => {}
 							);
@@ -79,7 +101,7 @@ const menuTemplate = [
 			{
 				label: 'Open DAoC user setting directory',
 				click: () => {
-					db.settingDatastore.findOne({_id:"2"}, (err, userdat) => {
+					db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
 						if (fs.existsSync(userdat["value"])) {
 							shell.showItemInFolder(userdat["value"]);
 						}
@@ -92,7 +114,7 @@ const menuTemplate = [
 			{
 				label: 'Edit user.dat',
 				click: () => {
-					db.settingDatastore.findOne({_id:"2"}, (err, userdat) => {
+					db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
 						if (fs.existsSync(userdat["value"])) {
 							shell.openItem(userdat["value"]);
 						}
@@ -101,6 +123,9 @@ const menuTemplate = [
 						}
 					});
 				}
+			},
+			{
+				type: 'separator'
 			},
 			{
 				label: 'Open DAoCStarter user setting directory',
@@ -114,9 +139,33 @@ const menuTemplate = [
 		label: 'View',
 		submenu: [
 			{
+				role: 'zoomin'
+			},
+			{
+				role: 'zoomout'
+			},
+			{
+				role: 'resetzoom'
+			},
+			{
+				role: 'togglefullscreen'
+			},
+			{
+				type: 'separator'
+			},
+			{
+				role: 'reload'
+			},
+			{
+				role: 'forcereload'
+			},
+			{
+				type: 'separator'
+			},
+			{
 				label: 'Reset favourites positions',
 				click: () => {
-					db.characterDatastore.update({favourite:true}, {$set:{x:40, y:440}}, {returnUpdatedDocs:true, multi:true},
+					db.characterDatastore.update({favourite: true}, {$set:{x: 40, y: 440}}, {returnUpdatedDocs: true, multi: true},
 					(err, numAffected, affectedDocuments) => {
 						if (numAffected > 0) {
 							const win = BrowserWindow.getFocusedWindow();
@@ -126,11 +175,10 @@ const menuTemplate = [
 				}
 			},
 			{
-				label: 'Toggle Develop Tools',
-				click: () => {
-					const win = BrowserWindow.getFocusedWindow();
-					win.toggleDevTools();
-				}
+				type: 'separator'
+			},
+			{
+				role: 'toggledevtools'
 			}
 		]
 	},
