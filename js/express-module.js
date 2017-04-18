@@ -13,10 +13,6 @@ const classeController = require('./controller/classe.js');
 const characterController = require('./controller/character.js');
 const settingController = require('./controller/setting.js');
 
-module.exports = {
-	start: () => {}
-}
-
 const server = express();
 portfinder.getPort((err, port) => {
 	ipcMain.on('asynchronous-get-port', (event, arg) => {
@@ -73,17 +69,6 @@ portfinder.getPort((err, port) => {
 		}
 		if (request.query.killCharacter != undefined) {
 			gamedll.killCharacter(request.query.killCharacter, response);
-		}
-		if (request.query.getAllFavouriteCharacters != undefined) {
-			db.characterDatastore.find({favourite: true} , (err, docs) => {
-				response.send(docs);
-			});
-		}
-		if (request.query.saveFavouriteCoordinate != undefined) {
-			db.characterDatastore.update({_id: request.query.saveFavouriteCoordinate},
-			{$set: {x: request.query.left, y: request.query.top}}, {returnUpdatedDocs: true, multi: false}, (err, numAffected, affectedDocuments) => {
-				response.send();
-			});
 		}
 		//setting
 		if (request.query.ajaxSetting != undefined) {

@@ -4,11 +4,6 @@ const {ipcMain} = require('electron');
 const db = require('./db-module.js');
 const accountController = require('./controller/account.js');
 
-
-module.exports = {
-	start: () => {}
-}
-
 ipcMain.on('asynchronous-get-character-per-page', (event, item) => {
 	db.settingDatastore.findOne({key: item}, (err, doc) => {
 		event.sender.send('asynchronous-reply-get-character-per-page', doc.value);
@@ -41,8 +36,18 @@ ipcMain.on('asynchronous-set-items-per-page', (event, key, value) => {
 		(err, numAffected, affectedDocuments) => {
 	});
 });
-/*
-ipcMain.on('getAllAccountsNames', (event, arg) => {
-	accountController.getAllAccountsNames(response);
+
+ipcMain.on('getAllFavouriteCharacters', event => {
+	db.characterDatastore.find({favourite: true} , (err, docs) => {
+		event.sender.send('getAllFavouriteCharacters-reply', docs);
+	});
 });
-*/
+
+ipcMain.on('saveFavouriteCoordinate', (event, id, left, top) => {
+	db.characterDatastore.update(
+		{_id: id},
+		{$set: {x: left, y: top}},
+		{returnUpdatedDocs: true, multi: false},
+		(err, numAffected, affectedDocuments) => {
+	});
+});

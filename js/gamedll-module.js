@@ -44,29 +44,35 @@ module.exports = {
 		if (null == realm) {
 			dialog.showErrorBox('error', "Cannot find realm!");return response.send();
 		}
-		let config = ini.parse(fs.readFileSync(userdat["value"], 'utf-8'));
-		const xy = character["resolution"].split("x");
-		const windowed = character["windowed"] ? 1 : 0;
-		config.main.screen_width = xy[0];
-		config.main.screen_height = xy[1];
-		config.main.windowed = windowed;
-		fs.writeFileSync(path.dirname(userdat["value"]) + "\\user.dat", ini.stringify(config, {}));
-		const spawn = child_process.spawn;
-		const prc = spawn(gamedll["value"], [server["ip"], server["port"], server["n"], character["account"], account["password"], character["name"], realm["n"]], {
-			cwd: path.dirname(gamedll["value"]),
-			setsid: false,
-			detached: true
-		});
-		console.log('Spawned child pid: ' + prc.pid);
-		const now = moment(Date.now()).format('DD/MM/YY HH:mm');
-		//aggiorna timestamp last login e killa i mutants
-		db.characterDatastore.update({_id: id}, {$set: {lastlogin: now}}, (err, numAffected, affectedDocuments) => {
-			handle.killMutants();
-			return response.send(now);
-		});
-		if (undefined != character['title'] && '' != character['title'] && prc.pid > 0) {
-			const exec = child_process.exec;
-			exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + character['title'] + '"', (err, so, se) => {});
+
+		if (accountAlreadyLoggedIn(account['name'])) {
+			dialog.showErrorBox('error', 'The account is already logged in!');return response.send();
+		}
+		else {
+			let config = ini.parse(fs.readFileSync(userdat["value"], 'utf-8'));
+			const xy = character['resolution'].split('x');
+			const windowed = character["windowed"] ? 1 : 0;
+			config.main.screen_width = xy[0];
+			config.main.screen_height = xy[1];
+			config.main.windowed = windowed;
+			fs.writeFileSync(path.dirname(userdat["value"]) + "\\user.dat", ini.stringify(config, {}));
+			const spawn = child_process.spawn;
+			const prc = spawn(gamedll["value"], [server["ip"], server["port"], server["n"], character["account"], account["password"], character["name"], realm["n"]], {
+				cwd: path.dirname(gamedll["value"]),
+				setsid: false,
+				detached: true
+			});
+			console.log('Spawned child pid: ' + prc.pid);
+			const now = moment(Date.now()).format('DD/MM/YY HH:mm');
+			//aggiorna timestamp last login e killa i mutants
+			db.characterDatastore.update({_id: id}, {$set: {lastlogin: now}}, (err, numAffected, affectedDocuments) => {
+				handle.killMutants();
+				return response.send(now);
+			});
+			if (undefined != character['title'] && '' != character['title'] && prc.pid > 0) {
+				const exec = child_process.exec;
+				exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + character['title'] + '"', (err, so, se) => {});
+			}
 		}
 		});});});});});});
 	});
@@ -89,6 +95,7 @@ module.exports = {
 			return response.send();
 		});
 	},
+
 	killAllClients: () => {
 		ps.lookup({
 			command: 'game.dll',
@@ -102,6 +109,7 @@ module.exports = {
 			});
 		});
 	},
+
 	killAccount: (id, response) => {
 		db.accountDatastore.findOne({_id: id}, (err, account) => {
 			ps.lookup({
@@ -120,6 +128,7 @@ module.exports = {
 			return response.send();
 		});
 	},
+
 	playAccount: (id, response) => {
 		db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
 		if (!fs.existsSync(userdat['value'])) {
@@ -150,18 +159,39 @@ module.exports = {
 		config.main.windowed = windowed;
 		fs.writeFileSync(path.dirname(userdat['value']) + '\\user.dat', ini.stringify(config, {}));
 		const spawn = child_process.spawn;
-		const prc = spawn(gamedll['value'], [server['ip'], server['port'], server['n'], account['name'], account['password']], {
-			cwd:path.dirname(gamedll['value']),
-			setsid: false,
-			detached: true
-		});
-		console.log('Spawned child pid: ' + prc.pid);
-
-		if (undefined != account['title'] && '' != account['title'] && prc.pid > 0) {
-			const exec = child_process.exec;
-			exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + account['title'] + '"', (err, so, se) => {});
+		if (accountAlreadyLoggedIn(account['name'])) {
+			dialog.showErrorBox('error', 'The account is already logged in!');return response.send();
+		}
+		else {
+			const prc = spawn(gamedll['value'], [server['ip'], server['port'], server['n'], account['name'], account['password']], {
+				cwd:path.dirname(gamedll['value']),
+				setsid: false,
+				detached: true
+			});
+			console.log('Spawned child pid: ' + prc.pid);
+			if (undefined != account['title'] && '' != account['title'] && prc.pid > 0) {
+				const exec = child_process.exec;
+				exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + account['title'] + '"', (err, so, se) => {});
+			}
 		}
 		});});});
 	});
 	}
+}
+
+function accountAlreadyLoggedIn(accountName) {
+	ps.lookup({
+		command: 'game.dll',
+		psargs: 'ux'
+	}, (err, resultList) => {
+		if (err) {
+			throw new Error(err);
+		}
+		resultList.forEach(process => {
+			if (process && process.arguments[3] == accountName) {
+				return true;
+			}
+		});
+	});
+	return false;
 }
