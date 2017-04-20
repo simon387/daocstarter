@@ -108,12 +108,12 @@ $('.open-in-browser').click((event) => {
 
 const playButton = (entity, id) => {
 	return '<a href=javascript:play' + entity + "Row(\'" + id +
-	"\'); " + playCSS + '>play<\/a>';
+	"\',true); " + playCSS + '>play<\/a>';
 }
 
 const qtdButton = (entity, id) => {
 	return '<a href=javascript:kill' + entity + "Row(\'" + id +
-	"\'); " + cancCSS + '>qtd<\/a>';
+	"\',true); " + cancCSS + '>qtd<\/a>';
 }
 
 const renderFavourites = () => {

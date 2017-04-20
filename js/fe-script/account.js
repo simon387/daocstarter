@@ -57,17 +57,9 @@ function removeAccountRow(id) {
 }
 
 function playAccountRow(id) {
-	if (undefined != typeof id) {
-		fetch(localhost + '?playAccount=' + id)
-		.then(response => {})
-		.then(() => {});
-	}
+	ipcRenderer.send('playAccount', id);
 }
 
 function killAccountRow(id) {
-	if (undefined != typeof id) {
-		fetch(localhost + '?killAccount=' + id)
-		.then(response => {})
-		.then(() => {});
-	}
+	ipcRenderer.send('killAccount', id);
 }

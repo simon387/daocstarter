@@ -12,51 +12,71 @@ const ps = require('ps-node');
 const handle = require("./handle-module.js");
 
 module.exports = {
-	playCharacter: (id, response) => {
+	playCharacter: id => {
 		db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
 		if (!fs.existsSync(userdat['value'])) {
-			dialog.showErrorBox('error', "User.dat not found!\nPlease edit the location from Setting section!");return response.send();
+			return dialog.showErrorBox('error', "User.dat not found!\nPlease edit the location from Setting section!");
 		}
 		db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
-		if (null == gamedll) {
-			dialog.showErrorBox('error', "Cannot find setting!");return response.send();
-		}
-		if (!fs.existsSync(gamedll['value'])) {
-			dialog.showErrorBox('error', "game.dll not found!\nPlease edit the location from Setting section!");return response.send();
+		if (null == gamedll || !fs.existsSync(gamedll['value'])) {
+			return dialog.showErrorBox('error', "game.dll not found!\nPlease edit the location from Setting section!");
 		}
 		db.characterDatastore.findOne({_id: id}, (err, character) => {
 		if (null == character) {
-			dialog.showErrorBox('error', "Cannot find setting!");return response.send();
+			return dialog.showErrorBox('error', "Cannot find setting!");
 		}
 		db.accountDatastore.findOne({name: character["account"]}, (err, account) => {
 		if (null == account) {
-			dialog.showErrorBox('error', "Cannot find account!");return response.send();
+			return dialog.showErrorBox('error', "Cannot find account!");
 		}
 		db.serverDatastore.findOne({name: character["server"]}, (err, server) => {
 		if (null == server) {
-			dialog.showErrorBox('error', "Cannot find server!");return response.send();
+			return dialog.showErrorBox('error', "Cannot find server!");
 		}
 		db.classDatastore.findOne({name: character["classe"]}, (err, classe) => {
 		if (null == classe) {
-			dialog.showErrorBox('error', "Cannot find class!");return response.send();
+			return dialog.showErrorBox('error', "Cannot find class!");
 		}
 		db.realmDatastore.findOne({name: classe["realm"]}, (err, realm) => {
 		if (null == realm) {
-			dialog.showErrorBox('error', "Cannot find realm!");return response.send();
+			return dialog.showErrorBox('error', "Cannot find realm!");
 		}
+		let config = ini.parse(fs.readFileSync(userdat["value"], 'utf-8'));
+		const xy = character['resolution'].split('x');
+		const windowed = character["windowed"] ? 1 : 0;
+		config.main.screen_width = xy[0];
+		config.main.screen_height = xy[1];
+		config.main.windowed = windowed;
+		fs.writeFileSync(path.dirname(userdat["value"]) + "\\user.dat", ini.stringify(config, {}));
+		const spawn = child_process.spawn;
 
-		if (accountAlreadyLoggedIn(account['name'])) {
-			dialog.showErrorBox('error', 'The account is already logged in!');return response.send();
+
+	ps.lookup({
+		command: 'game.dll',
+		psargs: 'ux'
+	}, (err, resultList) => {
+		if (err) {
+			throw new Error(err);
 		}
-		else {
-			let config = ini.parse(fs.readFileSync(userdat["value"], 'utf-8'));
-			const xy = character['resolution'].split('x');
-			const windowed = character["windowed"] ? 1 : 0;
-			config.main.screen_width = xy[0];
-			config.main.screen_height = xy[1];
-			config.main.windowed = windowed;
-			fs.writeFileSync(path.dirname(userdat["value"]) + "\\user.dat", ini.stringify(config, {}));
-			const spawn = child_process.spawn;
+		let flag = false;
+		let c = 0;
+		let max = resultList.length;
+		console.log("c=" + c)
+		console.log("max=" + max)
+		resultList.forEach(process => {
+			if (process && process.arguments[3] == character["account"]) {
+				flag = true;
+			}
+			c++;
+		});
+		while(c < max) {
+
+		}
+		if(flag){
+			console.log('GIA LOGGATO!!!!!!!!!!!!!!')
+		}
+		if (false == flag) {
+			//play
 			const prc = spawn(gamedll["value"], [server["ip"], server["port"], server["n"], character["account"], account["password"], character["name"], realm["n"]], {
 				cwd: path.dirname(gamedll["value"]),
 				setsid: false,
@@ -67,17 +87,31 @@ module.exports = {
 			//aggiorna timestamp last login e killa i mutants
 			db.characterDatastore.update({_id: id}, {$set: {lastlogin: now}}, (err, numAffected, affectedDocuments) => {
 				handle.killMutants();
-				return response.send(now);
 			});
 			if (undefined != character['title'] && '' != character['title'] && prc.pid > 0) {
 				const exec = child_process.exec;
 				exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + character['title'] + '"', (err, so, se) => {});
 			}
+			
 		}
+	});
+
+
+
+
+
+
+
+
+
+
+
 		});});});});});});
 	});
 	},
-	killCharacter: (id, response) => {
+
+
+	killCharacter: id => {
 		db.characterDatastore.findOne({_id: id}, (err, character) => {
 			ps.lookup({
 				command: 'game.dll',
@@ -92,7 +126,7 @@ module.exports = {
 					}
 				});
 			});
-			return response.send();
+			
 		});
 	},
 
@@ -110,7 +144,7 @@ module.exports = {
 		});
 	},
 
-	killAccount: (id, response) => {
+	killAccount: id => {
 		db.accountDatastore.findOne({_id: id}, (err, account) => {
 			ps.lookup({
 				command: 'game.dll',
@@ -125,30 +159,26 @@ module.exports = {
 					}
 				});
 			});
-			return response.send();
+			
 		});
 	},
 
-	playAccount: (id, response) => {
+	playAccount: id => {
 		db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
 		if (!fs.existsSync(userdat['value'])) {
-			dialog.showErrorBox('error', "User.dat not found!\nPlease edit the location from Setting section!");return response.send();
+			return dialog.showErrorBox('error', "User.dat not found!\nPlease edit the location from Setting section!");
 		}
 		db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
-		if (null == gamedll) {
-			dialog.showErrorBox('error', "Cannot find setting!");return response.send();
+		if (null == gamedll || !fs.existsSync(gamedll['value'])) {
+			return dialog.showErrorBox('error', "game.dll not found!\nPlease edit the location from Setting section!");
 		}
-		if (!fs.existsSync(gamedll['value'])) {
-			dialog.showErrorBox('error', "game.dll not found!\nPlease edit the location from Setting section!");return response.send();
-		}
-		
 		db.accountDatastore.findOne({_id: id}, (err, account) => {
 		if (null == account) {
-			dialog.showErrorBox('error', "Cannot find account!");return response.send();
+			return dialog.showErrorBox('error', "Cannot find account!");
 		}
 		db.serverDatastore.findOne({name:account["server"]}, (err, server) => {
 		if (null == server) {
-			dialog.showErrorBox('error', "Cannot find server!");return response.send();
+			return dialog.showErrorBox('error', "Cannot find server!");
 		}
 
 		let config = ini.parse(fs.readFileSync(userdat['value'], 'utf-8'));
@@ -159,26 +189,21 @@ module.exports = {
 		config.main.windowed = windowed;
 		fs.writeFileSync(path.dirname(userdat['value']) + '\\user.dat', ini.stringify(config, {}));
 		const spawn = child_process.spawn;
-		if (accountAlreadyLoggedIn(account['name'])) {
-			dialog.showErrorBox('error', 'The account is already logged in!');return response.send();
-		}
-		else {
-			const prc = spawn(gamedll['value'], [server['ip'], server['port'], server['n'], account['name'], account['password']], {
-				cwd:path.dirname(gamedll['value']),
-				setsid: false,
-				detached: true
-			});
-			console.log('Spawned child pid: ' + prc.pid);
-			if (undefined != account['title'] && '' != account['title'] && prc.pid > 0) {
-				const exec = child_process.exec;
-				exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + account['title'] + '"', (err, so, se) => {});
-			}
+		const prc = spawn(gamedll['value'], [server['ip'], server['port'], server['n'], account['name'], account['password']], {
+			cwd:path.dirname(gamedll['value']),
+			setsid: false,
+			detached: true
+		});
+		console.log('Spawned child pid: ' + prc.pid);
+		if (undefined != account['title'] && '' != account['title'] && prc.pid > 0) {
+			const exec = child_process.exec;
+			exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + account['title'] + '"', (err, so, se) => {});
 		}
 		});});});
 	});
 	}
 }
-
+//kek
 function accountAlreadyLoggedIn(accountName) {
 	ps.lookup({
 		command: 'game.dll',
@@ -187,11 +212,22 @@ function accountAlreadyLoggedIn(accountName) {
 		if (err) {
 			throw new Error(err);
 		}
+		let flag = false;
+		let c = 0;
+		let max = resultList.length;
+		console.log("c=" + c)
+		console.log("max=" + max)
 		resultList.forEach(process => {
 			if (process && process.arguments[3] == accountName) {
-				return true;
+				flag = true;
 			}
+			c++;
 		});
+		while(c < max) {
+
+		}
+		if (false == flag) {
+			//play
+		}
 	});
-	return false;
 }

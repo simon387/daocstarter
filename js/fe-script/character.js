@@ -64,48 +64,29 @@ $("#edit-character-form").on("submit", function(event) {
 });
 // playCharacter
 function playCharacterRow(id, fromFavourite = false) {
-	playCharHelper(id);
+	ipcRenderer.on('playCharacter-reply', event => {
+		characterDataTable.ajax.reload();
+	});
+	ipcRenderer.send('playCharacter', id);
 	if (fromFavourite) {
 		let checkedboxArray = $('.fav-checkbox:checked');
 		for (let i = 0; i < checkedboxArray.length; i++) {
 			if (id != checkedboxArray[i].id) {
-				playCharHelper(checkedboxArray[i].id);
+				ipcRenderer.send('playCharacter', checkedboxArray[i].id);
 			}
-		}
-	}
-}
-
-function playCharHelper(id) {
-	if (undefined != typeof id) {
-		$.get(localhost + '?playCharacter=' + id, (timestamp) => {
-			characterDataTable.ajax.reload();
-		}).fail(() => {
-			alert('unable to play row.')
-		});
-	} else {
-		alert('Unknown row id.');
+		}//TODO FAI UNA SOLA CHIAMATA A PLAYCHARACTER PASSANDO GLI ID DEI CHAR
+		//FAI UN FOR NEL IPC-MODULE FILTRANDO VIA GLI ACCOUNT UGUALI
 	}
 }
 
 function killCharacterRow(id, fromFavourite = false) {
-	killCharacterHelper(id);
+	ipcRenderer.send('killCharacter', id);
 	if (fromFavourite) {
 		let checkedboxArray = $('.fav-checkbox:checked');
 		for (let i = 0; i < checkedboxArray.length; i++) {
 			if (id != checkedboxArray[i].id) {
-				killCharacterHelper(checkedboxArray[i].id);
+				ipcRenderer.send('killCharacter', checkedboxArray[i].id);
 			}
 		}
-	}
-}
-
-function killCharacterHelper(id) {
-	if (undefined != typeof id) {
-		$.get(localhost + '?killCharacter=' + id, () => {
-		}).fail(() => {
-			alert('unable to kill character.')
-		});
-	} else {
-		alert('Unknown row id.');
 	}
 }

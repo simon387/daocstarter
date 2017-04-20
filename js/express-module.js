@@ -45,12 +45,6 @@ portfinder.getPort((err, port) => {
 				accountController.getAllAccounts(response);
 			}
 		}
-		if (request.query.playAccount != undefined) {
-			gamedll.playAccount(request.query.playAccount, response);
-		}
-		if (request.query.killAccount != undefined) {
-			gamedll.killAccount(request.query.killAccount, response);
-		}
 		//character
 		if (request.query.ajaxCharacter != undefined || request.query.removeCharacter != undefined || request.query.editCharacter != undefined) {
 			if (request.query.removeCharacter != undefined) {
@@ -63,12 +57,6 @@ portfinder.getPort((err, port) => {
 			} else {
 				characterController.getAllCharacters(response);
 			}
-		}
-		if (request.query.playCharacter != undefined) {
-			gamedll.playCharacter(request.query.playCharacter, response);
-		}
-		if (request.query.killCharacter != undefined) {
-			gamedll.killCharacter(request.query.killCharacter, response);
 		}
 		//setting
 		if (request.query.ajaxSetting != undefined) {

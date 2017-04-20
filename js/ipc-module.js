@@ -3,6 +3,7 @@
 const {ipcMain} = require('electron');
 const db = require('./db-module.js');
 const accountController = require('./controller/account.js');
+const gamedll = require('./gamedll-module.js');
 
 ipcMain.on('asynchronous-get-character-per-page', (event, item) => {
 	db.settingDatastore.findOne({key: item}, (err, doc) => {
@@ -50,4 +51,20 @@ ipcMain.on('saveFavouriteCoordinate', (event, id, left, top) => {
 		{returnUpdatedDocs: true, multi: false},
 		(err, numAffected, affectedDocuments) => {
 	});
+});
+
+ipcMain.on('playCharacter', (event, id) => {
+	gamedll.playCharacter(id);
+});
+
+ipcMain.on('killCharacter', (event, id) => {
+	gamedll.killCharacter(id);
+});
+
+ipcMain.on('playAccount', (event, id) => {
+	gamedll.playAccount(id);
+});
+
+ipcMain.on('killAccount', (event, id) => {
+	gamedll.killAccount(id);
 });
