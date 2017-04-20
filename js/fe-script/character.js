@@ -67,16 +67,15 @@ function playCharacterRow(id, fromFavourite = false) {
 	ipcRenderer.on('playCharacter-reply', event => {
 		characterDataTable.ajax.reload();
 	});
-	ipcRenderer.send('playCharacter', id);
+	let set = new Set();
+	set.add(id);
 	if (fromFavourite) {
 		let checkedboxArray = $('.fav-checkbox:checked');
 		for (let i = 0; i < checkedboxArray.length; i++) {
-			if (id != checkedboxArray[i].id) {
-				ipcRenderer.send('playCharacter', checkedboxArray[i].id);
-			}
-		}//TODO FAI UNA SOLA CHIAMATA A PLAYCHARACTER PASSANDO GLI ID DEI CHAR
-		//FAI UN FOR NEL IPC-MODULE FILTRANDO VIA GLI ACCOUNT UGUALI
+			set.add( checkedboxArray[i].id);
+		}
 	}
+	ipcRenderer.send('playCharacter', Array.from(set));
 }
 
 function killCharacterRow(id, fromFavourite = false) {

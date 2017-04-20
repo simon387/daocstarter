@@ -4,6 +4,7 @@ const {ipcMain} = require('electron');
 const db = require('./db-module.js');
 const accountController = require('./controller/account.js');
 const gamedll = require('./gamedll-module.js');
+const {dialog} = require('electron');
 
 ipcMain.on('asynchronous-get-character-per-page', (event, item) => {
 	db.settingDatastore.findOne({key: item}, (err, doc) => {
@@ -39,7 +40,7 @@ ipcMain.on('asynchronous-set-items-per-page', (event, key, value) => {
 });
 
 ipcMain.on('getAllFavouriteCharacters', event => {
-	db.characterDatastore.find({favourite: true} , (err, docs) => {
+	db.characterDatastore.find({favourite: true}, (err, docs) => {
 		event.sender.send('getAllFavouriteCharacters-reply', docs);
 	});
 });
@@ -53,8 +54,23 @@ ipcMain.on('saveFavouriteCoordinate', (event, id, left, top) => {
 	});
 });
 
-ipcMain.on('playCharacter', (event, id) => {
-	gamedll.playCharacter(id);
+ipcMain.on('playCharacter', (event, charArrayID) => {
+	let accountSet = new Set();
+	let accountArray;
+	db.characterDatastore.find({_id: {$in: charArrayID}}, (err, characters) => {
+		for (let character of characters) {
+			accountSet.add(character.account);
+		}
+		accountArray = Array.from(accountSet);
+		if (accountArray.length == charArrayID.length) {
+			for (let id of charArrayID) {
+				gamedll.playCharacter(id);
+			}
+		}
+		else {
+			dialog.showErrorBox('Error', "You can't play characters from same account!");
+		}
+	});
 });
 
 ipcMain.on('killCharacter', (event, id) => {
