@@ -31,6 +31,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><!-- Collect the nav links, forms, and other content for toggling -->
 				<ul class="nav navbar-nav navbar-right">
 					<li><a class="page-scroll" href="#characters">Characters</a></li>
+					<li><a class="page-scroll" href="#teams">Teams</a></li>
 					<li><a class="page-scroll" href="#accounts">Accounts</a></li>
 					<li><a class="page-scroll" href="#settings">Settings</a></li>
 					<li><a class="page-scroll" href="#contacts">Contacts</a></li>
@@ -204,6 +205,89 @@
 									<input type="text" class="form-control" id="add-character-title" name="character-title" placeholder="Customize Client Title, blank for default">
 								</div>
 							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- TEAMS -->
+	<section id="teams">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 text-center">
+					<h2 class="section-heading">Teams Management</h2>
+					<hr class="primary"><!--light =bianca-->
+				</div>
+			</div>
+			<button type="button" class="btnX btn-primary btn-sm btn-crea-a-dx sr-button" data-toggle="modal" data-target="#add-team-modal" onclick="refreshModalCombos()"><b>Add new Team</b></button>
+			<div class="row">
+				<div class="col-md-12 marginT20">
+					<div class="table-responsive demo-x content">
+						<table id="teamsDT" class="display" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Run</th>
+									<th>Name</th>
+
+
+
+									<th class="edit-button-in-row">Edit</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="edit-team-modal" tabindex="-1" role="dialog" aria-labelledby="edit-team-modal-label">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="form-horizontal" id="edit-team-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="edit-team-modal-label">Edit selected team</h4>
+						</div>
+						<div class="modal-body">
+							<input type="hidden" id="edit-team-id" value="" class="hidden">
+							<div class="form-group">
+								<label for="edit-team-name" class="col-sm-2 control-label">Name</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="edit-team-name" name="team-name" placeholder="teamteamteam Name" required>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="add-team-modal" tabindex="-1" role="dialog" aria-labelledby="add-team-modal-label">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form class="form-horizontal" id="add-team-form">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="add-team-modal-label">Add new team</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="add-team-name" class="col-sm-2 control-label">Name</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="add-team-name" name="team-name" placeholder="teamteamteam Name" required>
+								</div>
+							</div>
+
+
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
