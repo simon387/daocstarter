@@ -3,6 +3,8 @@
 A Dark Age of Camelot client starter <http://darkageofcamelot.com>  
 100% HTML+CSS+JS platform independent Desktop application.
 
+![alt tag](http://www.simonecelia.it/github/img/screen.png)
+
 ## main features
 
 + advanced characters, accounts, and settings management
