@@ -381,20 +381,20 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="edit-setting-modal-file" tabindex="-1" role="dialog" aria-labelledby="edit-setting-modal-label">
+		<div class="modal fade" id="edit-setting-modal-number" tabindex="-1" role="dialog" aria-labelledby="edit-setting-modal-label-number">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<form class="form-horizontal" id="edit-setting-form-file">
+					<form class="form-horizontal" id="edit-setting-form-number">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="edit-setting-modal-label">Edit selected setting</h4>
+							<h4 class="modal-title" id="edit-setting-modal-label-number">Edit selected setting</h4>
 						</div>
 						<div class="modal-body">
-							<input type="hidden" id="edit-setting-id-file" value="" class="hidden">
+							<input type="hidden" id="edit-setting-id-number" value="" class="hidden">
 							<div class="form-group">
-								<label for="setting-value-file" class="col-sm-2 control-label">Value</label>
+								<label for="setting-value-number" class="col-sm-2 control-label">Value</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="setting-value-file" name="setting-value-file" required>
+									<input type="number" min='0' max='10000' class="form-control" id="setting-value-number" name="setting-value-number" required>
 								</div>
 							</div>
 						</div>

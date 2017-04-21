@@ -57,21 +57,25 @@ ipcMain.on('saveFavouriteCoordinate', (event, id, left, top) => {
 ipcMain.on('playCharacter', (event, charArrayID) => {
 	let accountSet = new Set();
 	let accountArray;
-	db.characterDatastore.find({_id: {$in: charArrayID}}, (err, characters) => {
-		for (let character of characters) {
-			accountSet.add(character.account);
-		}
-		accountArray = Array.from(accountSet);
-		if (accountArray.length == charArrayID.length) {
-			for (let id of charArrayID) {
-				gamedll.playCharacter(id);
+	db.settingDatastore.findOne({key: 'default.login.delay.milli'}, (err, setting) => {
+		db.characterDatastore.find({_id: {$in: charArrayID}}, async (err, characters) => {
+			for (let character of characters) {
+				accountSet.add(character.account);
 			}
-		}
-		else {
-			dialog.showErrorBox('Error', "You can't play characters from same account!");
-		}
+			accountArray = Array.from(accountSet);
+			if (accountArray.length == charArrayID.length) {
+				for (let id of charArrayID) {
+					gamedll.playCharacter(id);
+					await sleep(setting.value);
+				}
+			}
+			else {
+				dialog.showErrorBox('Error', "You can't play characters from same account!");
+			}
+		});
 	});
 });
+
 
 ipcMain.on('killCharacter', (event, id) => {
 	gamedll.killCharacter(id);
@@ -85,3 +89,33 @@ ipcMain.on('killAccount', (event, id) => {
 	gamedll.killAccount(id);
 });
 
+ipcMain.on('editSettingNumber', (event, id) => {
+	db.settingDatastore.findOne({_id: id}, (err, setting) => {
+		event.sender.send('editSettingNumber-reply', setting, id);
+	});
+});
+
+ipcMain.on('saveSettingNumber', (event, id, value) => {
+	db.settingDatastore.update(
+		{_id: id},
+		{$set: {value: value}},
+		{returnUpdatedDocs: true, multi: false},
+		(err, numAffected, affectedDocuments) => {
+			event.sender.send('saveSettingNumber-reply');
+	});
+});
+
+//event.sender.send('asynchronous-reply-get-account-per-page', doc.value);
+/*
+function sleep(milliseconds) {
+	var start = new Date().getTime();
+	for (var i = 0; i < 1e7; i++) {
+		if ((new Date().getTime() - start) > milliseconds){
+			break;
+		}
+	}
+}*/
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}

@@ -1,18 +1,5 @@
 'use strict';
 
-const {dialog} = require('electron').remote;
-
-// Save edited row
-$("#edit-setting-form-file").on("submit", function(event) {
-	event.preventDefault();
-	$.post(localhost + '?editSetting=' + $('#edit-setting-id-file').val(), $(this).serialize(), (data) => {
-		settingDataTable.ajax.reload();
-		$('#edit-setting-modal-file').modal('hide');
-	}).fail(() => {
-		alert('Unable to save data, please try again later.');
-	});
-});
-
 //form nuova per i file id=1
 function editSettingRowFile(id) {
 	let title = 'Select game.dll';
@@ -40,3 +27,26 @@ function editSettingRowFile(id) {
 		}
 	});
 }
+
+//edit selected row
+function editSettingRowNumero(id) {
+	ipcRenderer.send('editSettingNumber', id + '');
+}
+ipcRenderer.on('editSettingNumber-reply', (event, setting, id) => {
+	document.getElementById('edit-setting-id-number').value = id;
+	document.getElementById('setting-value-number').value = setting.value;
+	$('#edit-setting-modal-number').modal('show');
+});
+
+// Save edited row
+$('#edit-setting-modal-number').on('submit', event => {
+	event.preventDefault();
+	ipcRenderer.send('saveSettingNumber',
+	document.getElementById('edit-setting-id-number').value,
+	document.getElementById('setting-value-number').value
+	);
+});
+ipcRenderer.on('saveSettingNumber-reply', event => {
+	settingDataTable.ajax.reload();
+	$('#edit-setting-modal-number').modal('hide');
+});

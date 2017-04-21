@@ -84,6 +84,12 @@ module.exports = {
 											const exec = child_process.exec;
 											exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
 										}
+										else {
+											if (undefined != account.title && '' != account.title && prc.pid > 0) {
+												const exec = child_process.exec;
+												exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
+											}
+										}
 									}
 								});
 							});

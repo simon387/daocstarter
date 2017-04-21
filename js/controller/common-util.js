@@ -47,21 +47,28 @@ module.exports = {
 	},
 
 	moveFavourites: (size) => {
-		const win = BrowserWindow.getFocusedWindow();
 		db.characterDatastore.update({$and: [{favourite: true}, {x: {$gt: size[0] - 150}} ]}, {$set: {x: size[0] - 150}},
 		{returnUpdatedDocs: true, multi: true},
 		(err, numAffected, affectedDocuments) => {
 			if (numAffected > 0) {
-				win.webContents.send('getAllFavouriteCharacters-reply', affectedDocuments);
+				refreshFavourites();
 			}
 			db.characterDatastore.update({$and: [{favourite: true}, {y: {$gt: size[1] - 150}} ]}, {$set: {y: size[1] - 150}},
 			{returnUpdatedDocs: true, multi: true},
 			(err, numAffected, affectedDocuments) => {
 				if (numAffected > 0) {
-					win.webContents.send('getAllFavouriteCharacters-reply', affectedDocuments);
+					refreshFavourites();
 				}
 			});
 		});
 	}
 }
 
+const refreshFavourites = () => {
+	const win = BrowserWindow.getFocusedWindow();
+	db.characterDatastore.find({favourite: true},
+	{returnUpdatedDocs: true, multi: true},
+	(err, doc) => {
+		win.webContents.send('getAllFavouriteCharacters-reply', doc);
+	});
+}

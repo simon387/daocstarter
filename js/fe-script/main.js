@@ -7,6 +7,7 @@ const datatable = require('datatables.net');
 const remote = require('electron').remote;
 const playCSS = "class='btnX btn-primary btn-sm sr-button'";
 const cancCSS = "class='sr-button btnX btn-primary btn-md btnX-delete'";
+const {dialog} = require('electron').remote;
 
 let characterDataTable;
 let accountDataTable;
@@ -119,7 +120,6 @@ const qtdButton = (entity, id) => {
 const renderFavourites = () => {
 	ipcRenderer.send('getAllFavouriteCharacters', '');
 	ipcRenderer.on('getAllFavouriteCharacters-reply', (event, favourites) => {
-		console.log('rendering')
 		$('.draggable').remove();
 		favourites.forEach(item => {
 			if (undefined === item.x) {

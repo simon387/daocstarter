@@ -107,27 +107,33 @@ module.exports = {
 		module.exports.settingDatastore = new Datastore({filename: dbPath + 'setting', autoload: true});
 		module.exports.settingDatastore.ensureIndex({fieldName: 'key', unique: true}, err => {});
 		module.exports.settingDatastore.insert({
+			_id: '7',
+			key: 'default.login.delay.milli',
+			type: 'Numero',
+			value: 2000}, err => {}
+		);
+		module.exports.settingDatastore.insert({
 			_id: '6',
 			key: 'setting.items.per.page',
-			type: 'numero',
+			type: 'Numero',
 			value: 10}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '5',
 			key: 'account.items.per.page',
-			type: 'numero',
+			type: 'Numero',
 			value: 10}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '4',
 			key: 'team.items.per.page',
-			type: 'numero',
+			type: 'Numero',
 			value: 10}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '3',
 			key: 'character.items.per.page',
-			type: 'numero',
+			type: 'Numero',
 			value: 10}, err => {}
 		);
 		module.exports.settingDatastore.insert({
