@@ -1,5 +1,9 @@
 'use strict';
 
+const BrowserWindow = require('electron').BrowserWindow;
+const {ipcMain} = require('electron');
+const db = require('../db-module.js');
+
 const playCSS = "class='btnX btn-primary btn-sm sr-button'";
 const cancCSS = "class='sr-button btnX btn-primary btn-md btnX-delete'";
 const editCSS = "class='sr-button btnX btn-md btn-successX'";
@@ -40,5 +44,24 @@ module.exports = {
 	deleteButton: (entity, id) => {
 		return '<a href=javascript:remove' + entity + "Row(\'" + id +
 		"\'); " + cancCSS + '>X<\/a>';
+	},
+
+	moveFavourites: (size) => {
+		const win = BrowserWindow.getFocusedWindow();
+		db.characterDatastore.update({$and: [{favourite: true}, {x: {$gt: size[0] - 150}} ]}, {$set: {x: size[0] - 150}},
+		{returnUpdatedDocs: true, multi: true},
+		(err, numAffected, affectedDocuments) => {
+			if (numAffected > 0) {
+				win.webContents.send('getAllFavouriteCharacters-reply', affectedDocuments);
+			}
+			db.characterDatastore.update({$and: [{favourite: true}, {y: {$gt: size[1] - 150}} ]}, {$set: {y: size[1] - 150}},
+			{returnUpdatedDocs: true, multi: true},
+			(err, numAffected, affectedDocuments) => {
+				if (numAffected > 0) {
+					win.webContents.send('getAllFavouriteCharacters-reply', affectedDocuments);
+				}
+			});
+		});
 	}
 }
+

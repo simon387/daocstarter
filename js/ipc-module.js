@@ -84,3 +84,4 @@ ipcMain.on('playAccount', (event, id) => {
 ipcMain.on('killAccount', (event, id) => {
 	gamedll.killAccount(id);
 });
+

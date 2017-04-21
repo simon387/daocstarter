@@ -119,6 +119,7 @@ const qtdButton = (entity, id) => {
 const renderFavourites = () => {
 	ipcRenderer.send('getAllFavouriteCharacters', '');
 	ipcRenderer.on('getAllFavouriteCharacters-reply', (event, favourites) => {
+		console.log('rendering')
 		$('.draggable').remove();
 		favourites.forEach(item => {
 			if (undefined === item.x) {
