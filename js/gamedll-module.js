@@ -43,10 +43,11 @@ module.exports = {
 								}
 								let config = ini.parse(fs.readFileSync(userdat.value, 'utf-8'));
 								const xy = character.resolution.split('x');
-								const windowed = character.windowed ? 1 : 0;
 								config.main.screen_width = xy[0];
 								config.main.screen_height = xy[1];
-								config.main.windowed = windowed;
+								config.main.windowed = character.windowed ? 1 : 0;
+								config.fullscreen_windowed = character.fullscreen_windowed ? 1 : 0;
+								config.keyboard.forward_breaks_runlock = character.forward_breaks_runlock ? 1 : 0;
 								fs.writeFileSync(path.dirname(userdat.value) + "\\user.dat", ini.stringify(config, {}));
 								const spawn = child_process.spawn;
 								ps.lookup({

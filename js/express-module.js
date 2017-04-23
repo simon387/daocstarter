@@ -111,31 +111,37 @@ portfinder.getPort((err, port) => {
 			if (request.query.addCharacter != undefined || request.query.editCharacter != undefined) {
 				const characterWindowed = post['character-windowed'] === undefined ? false : true;
 				const characterFavourite = post['character-favourite'] === undefined ? false : true;
+				const fullscreen_windowed = post['character-fullscreen_windowed'] === undefined ? false : true;
+				const forward_breaks_runlock = post['character-forwardbreaksrunlock'] === undefined ? false : true;
 				if (request.query.addCharacter != undefined) {
 					db.characterDatastore.insert({
-							name:post['character-name'],
-							lastlogin:'-',
-							account:post['character-account'],
-							server:post['character-server'],
-							classe:post['character-class'],
-							resolution:post['character-resolution'],
-							windowed:characterWindowed,
-							favourite:characterFavourite,
-							title:post['character-title']
+							name: post['character-name'],
+							lastlogin: '-',
+							account: post['character-account'],
+							server: post['character-server'],
+							classe: post['character-class'],
+							resolution: post['character-resolution'],
+							windowed: characterWindowed,
+							favourite: characterFavourite,
+							title: post['character-title'],
+							fullscreen_windowed: fullscreen_windowed,
+							forward_breaks_runlock: forward_breaks_runlock
 						}, (err, newDoc) => {
 						response.send(newDoc);
 					});
 				} else if (request.query.editCharacter != undefined) {
 					db.characterDatastore.update({_id: request.query.editCharacter},{
 						$set:{
-							name:post['character-name'],
-							account:post['character-account'],
-							server:post['character-server'],
-							classe:post['character-class'],
-							resolution:post['character-resolution'],
-							windowed:characterWindowed,
-							favourite:characterFavourite,
-							title:post['character-title']
+							name: post['character-name'],
+							account: post['character-account'],
+							server: post['character-server'],
+							classe: post['character-class'],
+							resolution: post['character-resolution'],
+							windowed: characterWindowed,
+							favourite: characterFavourite,
+							title: post['character-title'],
+							fullscreen_windowed: fullscreen_windowed,
+							forward_breaks_runlock: forward_breaks_runlock
 						}
 					},
 					{returnUpdatedDocs: true, multi: false}, (err, numAffected, affectedDocuments) => {

@@ -1,67 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<!--title>DAoC Starter</title-->
 	<!-- Bootstrap Core CSS -->
-	<link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href='../../vendor/bootstrap/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
 	<!-- Custom Fonts       -->
-	<link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='../../vendor/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
 	<link href='../../vendor/googleapis/1.css' rel='stylesheet' type='text/css'>
 	<link href='../../vendor/googleapis/2.css' rel='stylesheet' type='text/css'>
 	<!-- Plugin CSS         -->
-	<link href="../../vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+	<link href='../../vendor/magnific-popup/magnific-popup.css' rel='stylesheet' type='text/css'>
 	<!-- Theme CSS          -->
-	<link href="../../vendor/creative/css/creative.min.css" rel="stylesheet" type="text/css">
+	<link href='../../vendor/creative/css/creative.min.css' rel='stylesheet' type='text/css'>
 	<!-- Datatable CSS      -->
-	<link href="../../vendor/datatables/1.10.10/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
-	<link href="../../css/custom.css" rel="stylesheet" type="text/css">
+	<link href='../../vendor/datatables/1.10.10/css/jquery.dataTables.css' rel='stylesheet' type='text/css'>
+	<link href='../../css/custom.css' rel='stylesheet' type='text/css'>
 </head>
-<body id="page-top">
-	<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header"><!-- Brand and toggle get grouped for better mobile display -->
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+<body id='page-top'>
+	<nav id='mainNav' class='navbar navbar-default navbar-fixed-top'>
+		<div class='container-fluid'>
+			<div class='navbar-header'><!-- Brand and toggle get grouped for better mobile display -->
+				<button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#bs-example-navbar-collapse-1'>
+					<span class='sr-only'>Toggle navigation</span> Menu <i class='fa fa-bars'></i>
 				</button>
-				<a class="navbar-brand page-scroll" href="#page-top">DAoC Starter</a>
+				<a class='navbar-brand page-scroll' href='#page-top'>DAoC Starter</a>
 			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><!-- Collect the nav links, forms, and other content for toggling -->
-				<ul class="nav navbar-nav navbar-right">
-					<li><a class="page-scroll" href="#characters">Characters</a></li>
-					<li><a class="page-scroll" href="#teams">Teams</a></li>
-					<li><a class="page-scroll" href="#accounts">Accounts</a></li>
-					<li><a class="page-scroll" href="#settings">Settings</a></li>
-					<li><a class="page-scroll" href="#contacts">Contacts</a></li>
+			<div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'><!-- Collect the nav links, forms, and other content for toggling -->
+				<ul class='nav navbar-nav navbar-right'>
+					<li><a class='page-scroll' href='#characters'>Characters</a></li>
+					<li><a class='page-scroll' href='#teams'>Teams</a></li>
+					<li><a class='page-scroll' href='#accounts'>Accounts</a></li>
+					<li><a class='page-scroll' href='#settings'>Settings</a></li>
+					<li><a class='page-scroll' href='#contacts'>Contacts</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	<header id="mini-char-container">
-		<div class="header-content">
-			<div class="header-content-inner">
-				<h1 id="homeHeading">Your Toons Under Control</h1>
+	<header id='mini-char-container'>
+		<div class='header-content'>
+			<div class='header-content-inner'>
+				<h1 id='homeHeading'>Your Toons Under Control</h1>
 				<hr>
 				<p>DAoC Starter can help you manage better your DAoC's accounts and characters</p>
 			</div>
 		</div>
 	</header>	
-<!-- CHARACTERS class="bg-primary" ad id=character, da lo sfondo arancione-->
-	<section id="characters">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 text-center">
-					<h2 class="section-heading">Characters Management</h2>
-					<hr class="primary"><!--light =bianca-->
+<!-- CHARACTERS class='bg-primary' ad id=character, da lo sfondo arancione-->
+	<section id='characters'>
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-lg-8 col-lg-offset-2 text-center'>
+					<h2 class='section-heading'>Characters Management</h2>
+					<hr class='primary'><!--light =bianca-->
 				</div>
 			</div>
-			<button type="button" class="btnX btn-primary btn-sm btn-crea-a-dx sr-button" data-toggle="modal" data-target="#add-character-modal" onclick="refreshModalCombos()"><b>Add new Chararacter</b></button>
-			<div class="row">
-				<div class="col-md-12 marginT20">
-					<div class="table-responsive demo-x content">
-						<table id="charactersDT" class="display" cellspacing="0" width="100%">
+			<button type='button' class='btnX btn-primary btn-sm btn-crea-a-dx sr-button' data-toggle='modal' data-target='#add-character-modal' onclick='refreshModalCombos()'><b>Add new Chararacter</b></button>
+			<div class='row'>
+				<div class='col-md-12 marginT20'>
+					<div class='table-responsive demo-x content'>
+						<table id='charactersDT' class='display' cellspacing='0' width='100%'>
 							<thead>
 								<tr>
 									<th>#</th>
@@ -73,7 +73,7 @@
 									<th>Class</th>
 									<th>Resolution</th>
 									<th>Windowed</th>
-									<th class="edit-button-in-row">Edit</th>
+									<th class='edit-button-in-row'>Edit</th>
 								</tr>
 							</thead>
 						</table>
@@ -81,134 +81,164 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="edit-character-modal" tabindex="-1" role="dialog" aria-labelledby="edit-character-modal-label">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<form class="form-horizontal" id="edit-character-form">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="edit-character-modal-label">Edit selected character</h4>
+		<div class='modal fade' id='edit-character-modal' tabindex='-1' role='dialog' aria-labelledby='edit-character-modal-label'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='edit-character-form'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='edit-character-modal-label'>Edit selected character</h4>
 						</div>
-						<div class="modal-body">
-							<input type="hidden" id="edit-character-id" value="" class="hidden">
-							<div class="form-group">
-								<label for="edit-character-name" class="col-sm-2 control-label">Name</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="edit-character-name" name="character-name" placeholder="Character Name" required>
+						<div class='modal-body'>
+							<input type='hidden' id='edit-character-id' value='' class='hidden'>
+							<div class='form-group'>
+								<label for='edit-character-name' class='col-sm-2 control-label'>Name</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='edit-character-name' name='character-name' placeholder='Character Name' required>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-character-accounts" class="col-sm-2 control-label">Account</label>
-								<div class="col-sm-10">
-									<select class="form-control character-account-dropdown" id="edit-character-accounts" name="character-account"></select>
+							<div class='form-group'>
+								<label for='edit-character-accounts' class='col-sm-2 control-label'>Account</label>
+								<div class='col-sm-10'>
+									<select class='form-control character-account-dropdown' id='edit-character-accounts' name='character-account'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-character-servers" class="col-sm-2 control-label">Server</label>
-								<div class="col-sm-10">
-									<select class="form-control character-servers-dropdown" id="edit-character-servers" name="character-server"></select>
+							<div class='form-group'>
+								<label for='edit-character-servers' class='col-sm-2 control-label'>Server</label>
+								<div class='col-sm-10'>
+									<select class='form-control character-servers-dropdown' id='edit-character-servers' name='character-server'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-character-classes" class="col-sm-2 control-label">Class</label>
-								<div class="col-sm-10">
-									<select class="form-control character-classes-dropdown" id="edit-character-classes" name="character-class"></select>
+							<div class='form-group'>
+								<label for='edit-character-classes' class='col-sm-2 control-label'>Class</label>
+								<div class='col-sm-10'>
+									<select class='form-control character-classes-dropdown' id='edit-character-classes' name='character-class'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-character-resolution" class="col-sm-2 control-label">Resolution</label>
-								<div class="col-sm-10">
-									<select class="form-control character-resolution-dropdown" id="edit-character-resolution" name="character-resolution"></select>
+							<div class='form-group'>
+								<label for='edit-character-resolution' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-10'>
+									<select class='form-control character-resolution-dropdown' id='edit-character-resolution' name='character-resolution'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-character-windowed" class="col-sm-2 control-label">Windowed</label>
-								<div class="col-sm-10">
-									<input type="checkbox" class="form-control" id="edit-character-windowed" name="character-windowed">
+							<div class='form-group'>
+								<label for='edit-character-windowed' class='col-sm-2 control-label'>Windowed</label>
+								<div class='col-sm-10'>
+									<input type='checkbox' class='form-control' id='edit-character-windowed' name='character-windowed'>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-character-favourite" class="col-sm-2 control-label">Favourite</label>
-								<div class="col-sm-10">
-									<input type="checkbox" class="form-control" id="edit-character-favourite" name="character-favourite">
+							<div class='form-group'>
+								<label for='edit-character-favourite' class='col-sm-2 control-label'>Favourite</label>
+								<div class='col-sm-10'>
+									<input type='checkbox' class='form-control' id='edit-character-favourite' name='character-favourite'>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-character-title" class="col-sm-2 control-label">Win Title</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="edit-character-title" name="character-title" placeholder="Client Title, blank for default (can be inherited from account)">
+							<div class='form-group'>
+								<label for='edit-character-title' class='col-sm-2 control-label'>Win Title</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='edit-character-title' name='character-title' placeholder='Client Title, blank for default (can be inherited from account)'>
+								</div>
+							</div>
+							<div id='advanced-div-char-edit' class='nonmostrare'>
+								<div class='form-group'>
+									<label for='edit-character-fullscreen_windowed' class='col-sm-4 control-label'>Fullscreen_windowed</label>
+									<div class='col-sm-8'>
+										<input type='checkbox' class='form-control' id='edit-character-fullscreen_windowed' name='character-fullscreen_windowed'>
+									</div>
+								</div>
+								<div class='form-group'>
+									<label for='edit-character-forwardbreaksrunlock' class='col-sm-4 control-label'>ForwardBreaksRunlock</label>
+									<div class='col-sm-8'>
+										<input type='checkbox' class='form-control' id='edit-character-forwardbreaksrunlock' name='character-forwardbreaksrunlock'>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' id='advanced-button-char-edit'>Advanced</button>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="add-character-modal" tabindex="-1" role="dialog" aria-labelledby="add-character-modal-label">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<form class="form-horizontal" id="add-character-form">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="add-character-modal-label">Add new character</h4>
+		<div class='modal fade' id='add-character-modal' tabindex='-1' role='dialog' aria-labelledby='add-character-modal-label'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='add-character-form'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='add-character-modal-label'>Add new character</h4>
 						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label for="add-character-name" class="col-sm-2 control-label">Name</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="add-character-name" name="character-name" placeholder="Character Name" required>
+						<div class='modal-body'>
+							<div class='form-group'>
+								<label for='add-character-name' class='col-sm-2 control-label'>Name</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='add-character-name' name='character-name' placeholder='Character Name' required>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-character-accounts" class="col-sm-2 control-label">Account</label>
-								<div class="col-sm-10">
-									<select class="form-control character-account-dropdown" id="add-character-accounts" name="character-account"></select>
+							<div class='form-group'>
+								<label for='add-character-accounts' class='col-sm-2 control-label'>Account</label>
+								<div class='col-sm-10'>
+									<select class='form-control character-account-dropdown' id='add-character-accounts' name='character-account'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-character-servers" class="col-sm-2 control-label">Server</label>
-								<div class="col-sm-10">
-									<select class="form-control character-servers-dropdown" id="add-character-servers" name="character-server"></select>
+							<div class='form-group'>
+								<label for='add-character-servers' class='col-sm-2 control-label'>Server</label>
+								<div class='col-sm-10'>
+									<select class='form-control character-servers-dropdown' id='add-character-servers' name='character-server'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-character-classes" class="col-sm-2 control-label">Class</label>
-								<div class="col-sm-10">
-									<select class="form-control character-classes-dropdown" id="add-character-classes" name="character-class"></select>
+							<div class='form-group'>
+								<label for='add-character-classes' class='col-sm-2 control-label'>Class</label>
+								<div class='col-sm-10'>
+									<select class='form-control character-classes-dropdown' id='add-character-classes' name='character-class'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-character-resolution" class="col-sm-2 control-label">Resolution</label>
-								<div class="col-sm-10">
-									<select class="form-control character-resolution-dropdown" id="add-character-resolution" name="character-resolution"></select>
+							<div class='form-group'>
+								<label for='add-character-resolution' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-10'>
+									<select class='form-control character-resolution-dropdown' id='add-character-resolution' name='character-resolution'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-character-windowed" class="col-sm-2 control-label">Windowed</label>
-								<div class="col-sm-10">
-									<input type="checkbox" class="form-control" id="add-character-windowed" name="character-windowed">
+							<div class='form-group'>
+								<label for='add-character-windowed' class='col-sm-2 control-label'>Windowed</label>
+								<div class='col-sm-10'>
+									<input type='checkbox' class='form-control' id='add-character-windowed' name='character-windowed'>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-character-favourite" class="col-sm-2 control-label">Favourite</label>
-								<div class="col-sm-10">
-									<input type="checkbox" class="form-control" id="add-character-favourite" name="character-favourite" checked>
+							<div class='form-group'>
+								<label for='add-character-favourite' class='col-sm-2 control-label'>Favourite</label>
+								<div class='col-sm-10'>
+									<input type='checkbox' class='form-control' id='add-character-favourite' name='character-favourite' checked>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-character-title" class="col-sm-2 control-label">Win Title</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="add-character-title" name="character-title" placeholder="Client Title, blank for default (can be inherited from account)">
+							<div class='form-group'>
+								<label for='add-character-title' class='col-sm-2 control-label'>Win Title</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='add-character-title' name='character-title' placeholder='Client Title, blank for default (can be inherited from account)'>
+								</div>
+							</div>
+							<div id='advanced-div-char-add' class='nonmostrare'>
+								<div class='form-group'>
+									<label for='add-character-fullscreen_windowed' class='col-sm-4 control-label'>Fullscreen_windowed</label>
+									<div class='col-sm-8'>
+										<input type='checkbox' class='form-control' id='add-character-fullscreen_windowed' name='character-fullscreen_windowed'>
+									</div>
+								</div>
+								<div class='form-group'>
+									<label for='add-character-forwardbreaksrunlock' class='col-sm-4 control-label'>ForwardBreaksRunlock</label>
+									<div class='col-sm-8'>
+										<input type='checkbox' class='form-control' id='add-character-forwardbreaksrunlock' name='character-forwardbreaksrunlock'>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' id='advanced-button-char-add'>Advanced</button>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
 						</div>
 					</form>
 				</div>
@@ -216,19 +246,19 @@
 		</div>
 	</section>
 <!-- TEAMS -->
-	<section id="teams">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 text-center">
-					<h2 class="section-heading">Teams Management</h2>
-					<hr class="primary"><!--light =bianca-->
+	<section id='teams'>
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-lg-8 col-lg-offset-2 text-center'>
+					<h2 class='section-heading'>Teams Management</h2>
+					<hr class='primary'><!--light =bianca-->
 				</div>
 			</div>
-			<button type="button" class="btnX btn-primary btn-sm btn-crea-a-dx sr-button" data-toggle="modal" data-target="#add-team-modal" onclick="refreshModalCombos()"><b>Add new Team</b></button>
-			<div class="row">
-				<div class="col-md-12 marginT20">
-					<div class="table-responsive demo-x content">
-						<table id="teamsDT" class="display" cellspacing="0" width="100%">
+			<button type='button' class='btnX btn-primary btn-sm btn-crea-a-dx sr-button' data-toggle='modal' data-target='#add-team-modal'><b>Add new Team</b></button>
+			<div class='row'>
+				<div class='col-md-12 marginT20'>
+					<div class='table-responsive demo-x content'>
+						<table id='teamsDT' class='display' cellspacing='0' width='100%'>
 							<thead>
 								<tr>
 									<th>#</th>
@@ -237,7 +267,7 @@
 
 
 
-									<th class="edit-button-in-row">Edit</th>
+									<th class='edit-button-in-row'>Edit</th>
 								</tr>
 							</thead>
 						</table>
@@ -245,53 +275,53 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="edit-team-modal" tabindex="-1" role="dialog" aria-labelledby="edit-team-modal-label">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<form class="form-horizontal" id="edit-team-form">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="edit-team-modal-label">Edit selected team</h4>
+		<div class='modal fade' id='edit-team-modal' tabindex='-1' role='dialog' aria-labelledby='edit-team-modal-label'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='edit-team-form'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='edit-team-modal-label'>Edit selected team</h4>
 						</div>
-						<div class="modal-body">
-							<input type="hidden" id="edit-team-id" value="" class="hidden">
-							<div class="form-group">
-								<label for="edit-team-name" class="col-sm-2 control-label">Name</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="edit-team-name" name="team-name" placeholder="teamteamteam Name" required>
+						<div class='modal-body'>
+							<input type='hidden' id='edit-team-id' value='' class='hidden'>
+							<div class='form-group'>
+								<label for='edit-team-name' class='col-sm-2 control-label'>Name</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='edit-team-name' name='team-name' placeholder='teamteamteam Name' required>
 								</div>
 							</div>
 
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="add-team-modal" tabindex="-1" role="dialog" aria-labelledby="add-team-modal-label">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<form class="form-horizontal" id="add-team-form">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="add-team-modal-label">Add new team</h4>
+		<div class='modal fade' id='add-team-modal' tabindex='-1' role='dialog' aria-labelledby='add-team-modal-label'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='add-team-form'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='add-team-modal-label'>Add new team</h4>
 						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label for="add-team-name" class="col-sm-2 control-label">Name</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="add-team-name" name="team-name" placeholder="teamteamteam Name" required>
+						<div class='modal-body'>
+							<div class='form-group'>
+								<label for='add-team-name' class='col-sm-2 control-label'>Name</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='add-team-name' name='team-name' placeholder='teamteamteam Name' required>
 								</div>
 							</div>
 
 
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
 						</div>
 					</form>
 				</div>
@@ -299,19 +329,19 @@
 		</div>
 	</section>
 <!-- ACCOUNTS -->
-	<section id="accounts" >
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 text-center">
-					<h2 class="section-heading">Accounts Management</h2>
-					<hr class="primary">
+	<section id='accounts' >
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-lg-8 col-lg-offset-2 text-center'>
+					<h2 class='section-heading'>Accounts Management</h2>
+					<hr class='primary'>
 				</div>
 			</div>
-			<button type="button" class="btnX btn-primary btn-sm btn-crea-a-dx sr-button" onclick="refreshAccountModalCombos()" data-toggle="modal" data-target="#add-account-modal"><b>Add new Account</b></button>
-			<div class="row">
-				<div class="col-md-12 marginT20">
-					<div class="table-responsive demo-x content">
-						<table id="accountsDT" class="display" cellspacing="0" width="100%">
+			<button type='button' class='btnX btn-primary btn-sm btn-crea-a-dx sr-button' onclick='refreshAccountModalCombos()' data-toggle='modal' data-target='#add-account-modal'><b>Add new Account</b></button>
+			<div class='row'>
+				<div class='col-md-12 marginT20'>
+					<div class='table-responsive demo-x content'>
+						<table id='accountsDT' class='display' cellspacing='0' width='100%'>
 							<thead>
 								<tr>
 									<th>#</th>
@@ -321,7 +351,7 @@
 									<th>Server</th>
 									<th>Resolution</th>
 									<th>Windowed</th>
-									<th class="edit-button-in-row">Edit</th>
+									<th class='edit-button-in-row'>Edit</th>
 								</tr>
 							</thead>
 						</table>
@@ -329,110 +359,110 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="edit-account-modal" tabindex="-1" role="dialog" aria-labelledby="edit-account-modal-label">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<form class="form-horizontal" id="edit-account-form">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="edit-account-modal-label">Edit selected account</h4>
+		<div class='modal fade' id='edit-account-modal' tabindex='-1' role='dialog' aria-labelledby='edit-account-modal-label'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='edit-account-form'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='edit-account-modal-label'>Edit selected account</h4>
 						</div>
-						<div class="modal-body">
-							<input type="hidden" id="edit-account-id" value="" class="hidden">
-							<div class="form-group">
-								<label for="account-name" class="col-sm-2 control-label">Name</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="account-name" name="account-name" placeholder="Account Name" required>
+						<div class='modal-body'>
+							<input type='hidden' id='edit-account-id' value='' class='hidden'>
+							<div class='form-group'>
+								<label for='account-name' class='col-sm-2 control-label'>Name</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='account-name' name='account-name' placeholder='Account Name' required>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="account-password" class="col-sm-2 control-label">Password</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="account-password" name="account-password" placeholder="Account Password" required>
+							<div class='form-group'>
+								<label for='account-password' class='col-sm-2 control-label'>Password</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='account-password' name='account-password' placeholder='Account Password' required>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-account-servers" class="col-sm-2 control-label">Server</label>
-								<div class="col-sm-10">
-									<select class="form-control account-servers-dropdown" id="edit-account-servers" name="account-server"></select>
+							<div class='form-group'>
+								<label for='edit-account-servers' class='col-sm-2 control-label'>Server</label>
+								<div class='col-sm-10'>
+									<select class='form-control account-servers-dropdown' id='edit-account-servers' name='account-server'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-account-resolution" class="col-sm-2 control-label">Resolution</label>
-								<div class="col-sm-10">
-									<select class="form-control account-resolution-dropdown" id="edit-account-resolution" name="account-resolution"></select>
+							<div class='form-group'>
+								<label for='edit-account-resolution' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-10'>
+									<select class='form-control account-resolution-dropdown' id='edit-account-resolution' name='account-resolution'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-account-windowed" class="col-sm-2 control-label">Windowed</label>
-								<div class="col-sm-10">
-									<input type="checkbox" class="form-control" id="edit-account-windowed" name="account-windowed">
+							<div class='form-group'>
+								<label for='edit-account-windowed' class='col-sm-2 control-label'>Windowed</label>
+								<div class='col-sm-10'>
+									<input type='checkbox' class='form-control' id='edit-account-windowed' name='account-windowed'>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="edit-account-title" class="col-sm-2 control-label">Win Title</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="edit-account-title" name="account-title" placeholder="Client Title, blank for default">
+							<div class='form-group'>
+								<label for='edit-account-title' class='col-sm-2 control-label'>Win Title</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='edit-account-title' name='account-title' placeholder='Client Title, blank for default'>
 								</div>
 							</div>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="add-account-modal" tabindex="-1" role="dialog" aria-labelledby="add-account-modal-label">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<form class="form-horizontal" id="add-account-form">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="add-account-modal-label">Add new account</h4>
+		<div class='modal fade' id='add-account-modal' tabindex='-1' role='dialog' aria-labelledby='add-account-modal-label'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='add-account-form'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='add-account-modal-label'>Add new account</h4>
 						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label for="add-account-name" class="col-sm-2 control-label">Name</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="add-account-name" name="account-name" placeholder="Account Name" required>
+						<div class='modal-body'>
+							<div class='form-group'>
+								<label for='add-account-name' class='col-sm-2 control-label'>Name</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='add-account-name' name='account-name' placeholder='Account Name' required>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-account-password" class="col-sm-2 control-label">Password</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="add-account-password" name="account-password" placeholder="Account Password" required>
+							<div class='form-group'>
+								<label for='add-account-password' class='col-sm-2 control-label'>Password</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='add-account-password' name='account-password' placeholder='Account Password' required>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-account-servers" class="col-sm-2 control-label">Server</label>
-								<div class="col-sm-10">
-									<select class="form-control account-servers-dropdown" id="add-account-servers" name="account-server"></select>
+							<div class='form-group'>
+								<label for='add-account-servers' class='col-sm-2 control-label'>Server</label>
+								<div class='col-sm-10'>
+									<select class='form-control account-servers-dropdown' id='add-account-servers' name='account-server'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-account-resolution" class="col-sm-2 control-label">Resolution</label>
-								<div class="col-sm-10">
-									<select class="form-control account-resolution-dropdown" id="add-account-resolution" name="account-resolution"></select>
+							<div class='form-group'>
+								<label for='add-account-resolution' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-10'>
+									<select class='form-control account-resolution-dropdown' id='add-account-resolution' name='account-resolution'></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-account-windowed" class="col-sm-2 control-label">Windowed</label>
-								<div class="col-sm-10">
-									<input type="checkbox" class="form-control" id="add-account-windowed" name="account-windowed">
+							<div class='form-group'>
+								<label for='add-account-windowed' class='col-sm-2 control-label'>Windowed</label>
+								<div class='col-sm-10'>
+									<input type='checkbox' class='form-control' id='add-account-windowed' name='account-windowed'>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="add-account-title" class="col-sm-2 control-label">Win Title</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="add-account-title" name="account-title" placeholder="Client Title, blank for default">
+							<div class='form-group'>
+								<label for='add-account-title' class='col-sm-2 control-label'>Win Title</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='add-account-title' name='account-title' placeholder='Client Title, blank for default'>
 								</div>
 							</div>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
 						</div>
 					</form>
 				</div>
@@ -440,24 +470,24 @@
 		</div>
 	</section>
 <!-- SETTINGS -->
-	<section class="no-padding " id="settings"><!-- bg-primary-->
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 text-center">
-					<h2 class="section-heading">Settings</h2>
-					<hr class="primary">
+	<section class='no-padding ' id='settings'><!-- bg-primary-->
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-lg-8 col-lg-offset-2 text-center'>
+					<h2 class='section-heading'>Settings</h2>
+					<hr class='primary'>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12 marginT20">
-					<div class="table-responsive demo-x content">
-						<table id="settingsDT" class="display" cellspacing="0" width="100%">
+			<div class='row'>
+				<div class='col-md-12 marginT20'>
+					<div class='table-responsive demo-x content'>
+						<table id='settingsDT' class='display' cellspacing='0' width='100%'>
 							<thead>
 								<tr>
 									<th>#</th>
 									<th>key</th>
 									<th>Value</th>
-									<th class="edit-button-in-row">Edit</th>
+									<th class='edit-button-in-row'>Edit</th>
 								</tr>
 							</thead>
 						</table>
@@ -465,26 +495,26 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="edit-setting-modal-number" tabindex="-1" role="dialog" aria-labelledby="edit-setting-modal-label-number">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<form class="form-horizontal" id="edit-setting-form-number">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="edit-setting-modal-label-number">Edit selected setting</h4>
+		<div class='modal fade' id='edit-setting-modal-number' tabindex='-1' role='dialog' aria-labelledby='edit-setting-modal-label-number'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='edit-setting-form-number'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='edit-setting-modal-label-number'>Edit selected setting</h4>
 						</div>
-						<div class="modal-body">
-							<input type="hidden" id="edit-setting-id-number" value="" class="hidden">
-							<div class="form-group">
-								<label for="setting-value-number" class="col-sm-2 control-label">Value</label>
-								<div class="col-sm-10">
-									<input type="number" min='0' max='10000' class="form-control" id="setting-value-number" name="setting-value-number" required>
+						<div class='modal-body'>
+							<input type='hidden' id='edit-setting-id-number' value='' class='hidden'>
+							<div class='form-group'>
+								<label for='setting-value-number' class='col-sm-2 control-label'>Value</label>
+								<div class='col-sm-10'>
+									<input type='number' min='0' max='10000' class='form-control' id='setting-value-number' name='setting-value-number' required>
 								</div>
 							</div>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btnX btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btnX btn-primary btn-sm">Save changes</button>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
 						</div>
 					</form>
 				</div>
@@ -492,26 +522,26 @@
 		</div>
 	</section>
 <!-- CONTACTS -->
-	<section id="contacts">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 text-center">
-					<h2 class="section-heading">Let's Get In Touch!</h2>
-					<hr class="primary">
+	<section id='contacts'>
+		<div class='container'>
+			<div class='row'>
+				<div class='col-lg-8 col-lg-offset-2 text-center'>
+					<h2 class='section-heading'>Let's Get In Touch!</h2>
+					<hr class='primary'>
 					<br>
 					<p>Any problems or idea? Feel free to write a mail!</p>
 					<br>
 				</div>
-				<div class="col-lg-12 text-center">
-					<i class="fa fa-envelope-o fa-3x sr-contact"></i>
-					<p><a href="mailto:simon387@hotmail.it">simon387@hotmail.it</a></p>
+				<div class='col-lg-12 text-center'>
+					<i class='fa fa-envelope-o fa-3x sr-contact'></i>
+					<p><a href='mailto:simon387@hotmail.it'>simon387@hotmail.it</a></p>
 				</div>
-				<div class="col-lg-12 text-center">
+				<div class='col-lg-12 text-center'>
 					<p>or</p>
-					<img src="../../img/octocat.png" id="gatto">
-					<p><a href="https://github.com/simon387/daocstarter/issues" class="open-in-browser">report a bug!</a></p>
+					<img src='../../img/octocat.png' id='gatto'>
+					<p><a href='https://github.com/simon387/daocstarter/issues' class='open-in-browser'>report a bug!</a></p>
 				</div>
-				<div class="col-lg-8 col-lg-offset-2 text-center">
+				<div class='col-lg-8 col-lg-offset-2 text-center'>
 					<br>
 					<br>
 					<p>This software is 100% free!</p>
@@ -519,18 +549,18 @@
 			</div>
 		</div>
 	</section>
-	<script src="../../js/fe-script/main.js"></script>
-	<script src="../../js/fe-script/account.js"></script>
-	<script src="../../js/fe-script/character.js"></script>
-	<script src="../../js/fe-script/setting.js"></script>
+	<script src='../../js/fe-script/main.js'></script>
+	<script src='../../js/fe-script/account.js'></script>
+	<script src='../../js/fe-script/character.js'></script>
+	<script src='../../js/fe-script/setting.js'></script>
 	<!-- Bootstrap Core JavaScript -->
-	<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src='../../vendor/bootstrap/js/bootstrap.min.js'></script>
 	<!-- Plugin JavaScript -->
-	<script src="../../vendor/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script src="../../vendor/jquery-ui.min.js"></script>
-	<script src="../../vendor/scrollreveal/scrollreveal.min.js"></script>
-	<script src="../../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+	<script src='../../vendor/jquery-easing/1.3/jquery.easing.min.js'></script>
+	<script src='../../vendor/jquery-ui.min.js'></script>
+	<script src='../../vendor/scrollreveal/scrollreveal.min.js'></script>
+	<script src='../../vendor/magnific-popup/jquery.magnific-popup.min.js'></script>
 	<!-- Theme JavaScript -->
-	<script src="../../vendor/creative/creative.min.js"></script>
+	<script src='../../vendor/creative/creative.min.js'></script>
 </body>
 </html>

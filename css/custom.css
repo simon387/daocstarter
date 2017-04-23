@@ -104,3 +104,8 @@
 .fav-details {
 	font-size: xx-small;
 }
+
+.nonmostrare {
+	display: none;
+}
+
