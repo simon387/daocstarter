@@ -254,7 +254,7 @@
 					<hr class='primary'><!--light =bianca-->
 				</div>
 			</div>
-			<button type='button' class='btnX btn-primary btn-sm btn-crea-a-dx sr-button' data-toggle='modal' data-target='#add-team-modal'><b>Add new Team</b></button>
+			<button type='button' class='btnX btn-primary btn-sm btn-crea-a-dx sr-button' data-toggle='modal' data-target='#add-team-modal' onclick='refreshTeamModalCombos()'><b>Add new Team</b></button>
 			<div class='row'>
 				<div class='col-md-12 marginT20'>
 					<div class='table-responsive demo-x content'>
@@ -275,7 +275,7 @@
 				</div>
 			</div>
 		</div>
-		<div class='modal fade' id='edit-team-modal' tabindex='-1' role='dialog' aria-labelledby='edit-team-modal-label'>
+		<!--div class='modal fade' id='edit-team-modal' tabindex='-1' role='dialog' aria-labelledby='edit-team-modal-label'>
 			<div class='modal-dialog' role='document'>
 				<div class='modal-content'>
 					<form class='form-horizontal' id='edit-team-form'>
@@ -300,7 +300,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div-->
 		<div class='modal fade' id='add-team-modal' tabindex='-1' role='dialog' aria-labelledby='add-team-modal-label'>
 			<div class='modal-dialog' role='document'>
 				<div class='modal-content'>
@@ -313,10 +313,23 @@
 							<div class='form-group'>
 								<label for='add-team-name' class='col-sm-2 control-label'>Name</label>
 								<div class='col-sm-10'>
-									<input type='text' class='form-control' id='add-team-name' name='team-name' placeholder='teamteamteam Name' required>
+									<input type='text' class='form-control' id='add-team-name' name='team-name' placeholder='Team Name' required>
 								</div>
 							</div>
 
+							<div class='form-group'>
+								<label for='add-team-servers' class='col-sm-2 control-label'>Server</label>
+								<div class='col-sm-10'>
+									<select class='form-control team-servers-dropdown' id='add-team-servers' name='team-server'></select>
+								</div>
+							</div>
+
+							<div class='form-group'>
+								<label for='add-team-characters' class='col-sm-2 control-label'>Character 1</label>
+								<div class='col-sm-10'>
+									<select class='form-control team-characters-dropdown' id='add-team-characters' name='team-characters'></select>
+								</div>
+							</div>
 
 						</div>
 						<div class='modal-footer'>
@@ -552,6 +565,7 @@
 	<script src='../../js/fe-script/main.js'></script>
 	<script src='../../js/fe-script/account.js'></script>
 	<script src='../../js/fe-script/character.js'></script>
+	<script src='../../js/fe-script/team.js'></script>
 	<script src='../../js/fe-script/setting.js'></script>
 	<!-- Bootstrap Core JavaScript -->
 	<script src='../../vendor/bootstrap/js/bootstrap.min.js'></script>
