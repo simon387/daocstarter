@@ -302,7 +302,7 @@
 			</div>
 		</div-->
 		<div class='modal fade' id='add-team-modal' tabindex='-1' role='dialog' aria-labelledby='add-team-modal-label'>
-			<div class='modal-dialog' role='document'>
+			<div class='modal-dialog-team' role='document'>
 				<div class='modal-content'>
 					<form class='form-horizontal' id='add-team-form'>
 						<div class='modal-header'>
@@ -312,25 +312,154 @@
 						<div class='modal-body'>
 							<div class='form-group'>
 								<label for='add-team-name' class='col-sm-2 control-label'>Name</label>
-								<div class='col-sm-10'>
+								<div class='col-sm-2'>
 									<input type='text' class='form-control' id='add-team-name' name='team-name' placeholder='Team Name' required>
 								</div>
 							</div>
-
 							<div class='form-group'>
-								<label for='add-team-servers' class='col-sm-2 control-label'>Server</label>
-								<div class='col-sm-10'>
-									<select class='form-control team-servers-dropdown' id='add-team-servers' name='team-server'></select>
+								<label for='add-team-characters0' class='col-sm-2 control-label'>Character 1</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-characters-dropdown' id='add-team-characters0' name='team-characters0'></select>
+								</div>
+								<label for='add-team-resolution0' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-resolution-dropdown' id='add-team-resolution0' name='team-resolution0'></select>
+								</div>
+								<label for='add-team-windowed0' class='col-sm-1 control-label'>Windowed</label>
+								<div class='col-sm-1'>
+									<input type='checkbox' class='form-control' id='add-team-windowed0' name='team-windowed0'>
+								</div>
+								<label for='add-team-deelay0' class='col-sm-1 control-label'>Deelay</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control team-deelay' id='add-team-deelay0' name='add-team-deelay0' required>
 								</div>
 							</div>
-
 							<div class='form-group'>
-								<label for='add-team-characters' class='col-sm-2 control-label'>Character 1</label>
-								<div class='col-sm-10'>
-									<select class='form-control team-characters-dropdown' id='add-team-characters' name='team-characters'></select>
+								<label for='add-team-characters1' class='col-sm-2 control-label'>Character 2</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-characters-dropdown' id='add-team-characters1' name='team-characters1'></select>
+								</div>
+								<label for='add-team-resolution1' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-resolution-dropdown' id='add-team-resolution1' name='team-resolution1'></select>
+								</div>
+								<label for='add-team-windowed1' class='col-sm-1 control-label'>Windowed</label>
+								<div class='col-sm-1'>
+									<input type='checkbox' class='form-control' id='add-team-windowed1' name='team-windowed1'>
+								</div>
+								<label for='add-team-deelay1' class='col-sm-1 control-label'>Deelay</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control team-deelay' id='add-team-deelay1' name='add-team-deelay1' required>
 								</div>
 							</div>
-
+							<div class='form-group'>
+								<label for='add-team-characters2' class='col-sm-2 control-label'>Character 3</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-characters-dropdown' id='add-team-characters2' name='team-characters2'></select>
+								</div>
+								<label for='add-team-resolution2' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-resolution-dropdown' id='add-team-resolution2' name='team-resolution2'></select>
+								</div>
+								<label for='add-team-windowed2' class='col-sm-1 control-label'>Windowed</label>
+								<div class='col-sm-1'>
+									<input type='checkbox' class='form-control' id='add-team-windowed2' name='team-windowed2'>
+								</div>
+								<label for='add-team-deelay2' class='col-sm-1 control-label'>Deelay</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control team-deelay' id='add-team-deelay2' name='add-team-deelay2' required>
+								</div>
+							</div>
+							<div class='form-group'>
+								<label for='add-team-characters3' class='col-sm-2 control-label'>Character 4</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-characters-dropdown' id='add-team-characters3' name='team-characters3'></select>
+								</div>
+								<label for='add-team-resolution3' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-resolution-dropdown' id='add-team-resolution3' name='team-resolution3'></select>
+								</div>
+								<label for='add-team-windowed3' class='col-sm-1 control-label'>Windowed</label>
+								<div class='col-sm-1'>
+									<input type='checkbox' class='form-control' id='add-team-windowed3' name='team-windowed3'>
+								</div>
+								<label for='add-team-deelay3' class='col-sm-1 control-label'>Deelay</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control team-deelay' id='add-team-deelay3' name='add-team-deelay3' required>
+								</div>
+							</div>
+							<div class='form-group'>
+								<label for='add-team-characters4' class='col-sm-2 control-label'>Character 5</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-characters-dropdown' id='add-team-characters4' name='team-characters4'></select>
+								</div>
+								<label for='add-team-resolution4' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-resolution-dropdown' id='add-team-resolution4' name='team-resolution4'></select>
+								</div>
+								<label for='add-team-windowed4' class='col-sm-1 control-label'>Windowed</label>
+								<div class='col-sm-1'>
+									<input type='checkbox' class='form-control' id='add-team-windowed4' name='team-windowed4'>
+								</div>
+								<label for='add-team-deelay4' class='col-sm-1 control-label'>Deelay</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control team-deelay' id='add-team-deelay4' name='add-team-deelay4' required>
+								</div>
+							</div>
+							<div class='form-group'>
+								<label for='add-team-characters5' class='col-sm-2 control-label'>Character 6</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-characters-dropdown' id='add-team-characters5' name='team-characters5'></select>
+								</div>
+								<label for='add-team-resolution5' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-resolution-dropdown' id='add-team-resolution5' name='team-resolution5'></select>
+								</div>
+								<label for='add-team-windowed5' class='col-sm-1 control-label'>Windowed</label>
+								<div class='col-sm-1'>
+									<input type='checkbox' class='form-control' id='add-team-windowed5' name='team-windowed5'>
+								</div>
+								<label for='add-team-deelay5' class='col-sm-1 control-label'>Deelay</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control team-deelay' id='add-team-deelay5' name='add-team-deelay5' required>
+								</div>
+							</div>
+							<div class='form-group'>
+								<label for='add-team-characters6' class='col-sm-2 control-label'>Character 7</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-characters-dropdown' id='add-team-characters6' name='team-characters6'></select>
+								</div>
+								<label for='add-team-resolution6' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-resolution-dropdown' id='add-team-resolution6' name='team-resolution6'></select>
+								</div>
+								<label for='add-team-windowed6' class='col-sm-1 control-label'>Windowed</label>
+								<div class='col-sm-1'>
+									<input type='checkbox' class='form-control' id='add-team-windowed6' name='team-windowed6'>
+								</div>
+								<label for='add-team-deelay6' class='col-sm-1 control-label'>Deelay</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control team-deelay' id='add-team-deelay6' name='add-team-deelay6' required>
+								</div>
+							</div>
+							<div class='form-group'>
+								<label for='add-team-characters7' class='col-sm-2 control-label'>Character 8</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-characters-dropdown' id='add-team-characters7' name='team-characters7'></select>
+								</div>
+								<label for='add-team-resolution7' class='col-sm-2 control-label'>Resolution</label>
+								<div class='col-sm-2'>
+									<select class='form-control team-resolution-dropdown' id='add-team-resolution7' name='team-resolution7'></select>
+								</div>
+								<label for='add-team-windowed7' class='col-sm-1 control-label'>Windowed</label>
+								<div class='col-sm-1'>
+									<input type='checkbox' class='form-control' id='add-team-windowed7' name='team-windowed7'>
+								</div>
+								<label for='add-team-deelay7' class='col-sm-1 control-label'>Deelay</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control team-deelay' id='add-team-deelay7' name='add-team-deelay7' required>
+								</div>
+							</div>
 						</div>
 						<div class='modal-footer'>
 							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>

@@ -27,7 +27,7 @@ function removeCharacterRow(id) {
 		characterDataTable.ajax.reload();
 		$(renderFavourites);
 	}).fail(() => {
-		alert('Unable to remove row.')
+		alert('Unable to remove row.');
 	});
 }
 // Edit row
@@ -46,7 +46,7 @@ function editCharacterRow(id) {
 		$('#edit-character-forwardbreaksrunlock').prop('checked', obj.forward_breaks_runlock);
 		$('#edit-character-modal').modal('show');
 	}).fail(() => {
-		alert('Unable to edit character.')
+		alert('Unable to edit character.');
 	});
 }
 // Save edited row
