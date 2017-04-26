@@ -12,6 +12,7 @@ const serverController = require('./controller/server.js');
 const classeController = require('./controller/classe.js');
 const characterController = require('./controller/character.js');
 const settingController = require('./controller/setting.js');
+const teamController = require('./controller/team.js');
 
 const server = express();
 portfinder.getPort((err, port) => {
@@ -66,6 +67,10 @@ portfinder.getPort((err, port) => {
 			db.settingDatastore.findOne({key: request.query.editSetting}, (err, doc) => {
 				response.send(doc);
 			});
+		}
+		//team
+		if (request.query.ajaxTeam != undefined) {
+			teamController.getAllTeams(response);
 		}
 	});
 
@@ -148,6 +153,17 @@ portfinder.getPort((err, port) => {
 						response.send(affectedDocuments);
 					});
 				}
+			}
+			//team
+			if (request.query.addTeam != undefined) {
+				db.teamDatastore.insert({
+					name: post['team-name']
+
+
+					
+				}, (err, newDoc) => {
+					response.send(newDoc);
+				});
 			}
 			//setting per ora con i file
 			if (request.query.editSetting != undefined) {

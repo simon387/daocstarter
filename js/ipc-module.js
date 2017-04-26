@@ -119,3 +119,9 @@ function sleep(milliseconds) {
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+ipcMain.on('get-all-chars', event => {
+	db.characterDatastore.find({}, (err, docs) => {
+		event.sender.send('get-all-chars-reply', docs);
+	});
+});

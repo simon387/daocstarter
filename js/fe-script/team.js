@@ -13,9 +13,25 @@ document.querySelectorAll('.team-deelay').forEach(el => {
 //'.team-characters-dropdown'
 
 const populateTeamChars = () => {
-	ipcRender.send('get-all-chars');
+	ipcRenderer.send('get-all-chars');
 }
 
-ipcRender.on('get-all-chars-reply', (event, array) => {
-
+ipcRenderer.on('get-all-chars-reply', (event, array) => {
+	document.querySelectorAll('.team-characters-dropdown').forEach(el => {
+		el.innerHTML = '<option value="' + 0 + '" selected=true>' + '' + '</option>';
+		array.map(item => {
+			el.innerHTML += '<option value="' + item.name + '">' + item.name + '</option>';
+		});
+	});
 });
+
+// Add new row
+document.getElementById("add-team-form").onsubmit = function(event) {
+	event.preventDefault();
+	$.post(localhost + '?addTeam', $(this).serialize(), team => {
+		teamDataTable.ajax.reload();
+		$('#add-team-modal').modal('hide');
+	}).fail(() => {
+		alert('Unable to Add new team');
+	});
+};
