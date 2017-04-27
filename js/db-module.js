@@ -103,7 +103,8 @@ module.exports = {
 		module.exports.characterDatastore = new Datastore({filename: dbPath + 'character', autoload: true});
 		//team
 		module.exports.teamDatastore = new Datastore({filename: dbPath + 'team', autoload: true});
-		//setting
+		module.exports.teamDatastore.ensureIndex({fieldName: 'name', unique: true}, err => {});
+		//setting 
 		module.exports.settingDatastore = new Datastore({filename: dbPath + 'setting', autoload: true});
 		module.exports.settingDatastore.ensureIndex({fieldName: 'key', unique: true}, err => {});
 		module.exports.settingDatastore.insert({

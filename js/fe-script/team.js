@@ -10,14 +10,12 @@ document.querySelectorAll('.team-deelay').forEach(el => {
 	el.value = 2000;
 });
 
-//'.team-characters-dropdown'
-
 const populateTeamChars = () => {
 	ipcRenderer.send('get-all-chars');
 }
 
 ipcRenderer.on('get-all-chars-reply', (event, array) => {
-	document.querySelectorAll('.team-characters-dropdown').forEach(el => {
+	document.querySelectorAll('.team-character-dropdown').forEach(el => {
 		el.innerHTML = '<option value="' + 0 + '" selected=true>' + ' ' + '</option>';
 		array.map(item => {
 			el.innerHTML += '<option value="' + item.name + '">' + item.name + '</option>';
