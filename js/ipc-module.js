@@ -125,3 +125,18 @@ ipcMain.on('get-all-chars', event => {
 		event.sender.send('get-all-chars-reply', docs);
 	});
 });
+
+ipcMain.on('remove-team', (event, id) => {
+	db.teamDatastore.remove({_id: id}, {multi: false}, (err, numRemoved) => {
+		event.sender.send('remove-team-reply');
+	});
+});
+
+ipcMain.on('playTeamRow', (event, id) => {
+	//TODO
+});
+
+ipcMain.on('killTeamRow', (event, id) => {
+	//TODO
+});
+

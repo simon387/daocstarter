@@ -155,15 +155,66 @@ portfinder.getPort((err, port) => {
 				}
 			}
 			//team
-			if (request.query.addTeam != undefined) {
-				db.teamDatastore.insert({
-					name: post['team-name']
+			if (request.query.addTeam != undefined || request.query.editTeam != undefined) {
+				if (request.query.addTeam != undefined) {
+					const teamWindowed0 = post['team-windowed0'] === undefined ? false : true;
+					const teamWindowed1 = post['team-windowed1'] === undefined ? false : true;
+					const teamWindowed2 = post['team-windowed2'] === undefined ? false : true;
+					const teamWindowed3 = post['team-windowed3'] === undefined ? false : true;
+					const teamWindowed4 = post['team-windowed4'] === undefined ? false : true;
+					const teamWindowed5 = post['team-windowed5'] === undefined ? false : true;
+					const teamWindowed6 = post['team-windowed6'] === undefined ? false : true;
+					const teamWindowed7 = post['team-windowed7'] === undefined ? false : true;
+					const teamChar0 = post['team-character0'] === undefined ? ' ' : post['team-character0'];
+					const teamChar1 = post['team-character1'] === undefined ? ' ' : post['team-character1'];
+					const teamChar2 = post['team-character2'] === undefined ? ' ' : post['team-character2'];
+					const teamChar3 = post['team-character3'] === undefined ? ' ' : post['team-character3'];
+					const teamChar4 = post['team-character4'] === undefined ? ' ' : post['team-character4'];
+					const teamChar5 = post['team-character5'] === undefined ? ' ' : post['team-character5'];
+					const teamChar6 = post['team-character6'] === undefined ? ' ' : post['team-character6'];
+					const teamChar7 = post['team-character7'] === undefined ? ' ' : post['team-character7'];
+					db.teamDatastore.insert({
+						name: post['team-name'],
+						char0: teamChar0,
+						res0: post['team-resolution0'],
+						win0: teamWindowed0,
+						deelay0: post['team-deelay0'],
+						char1: teamChar1,
+						res1: post['team-resolution1'],
+						win1: teamWindowed1,
+						deelay1: post['team-deelay1'],
+						char2: teamChar2,
+						res2: post['team-resolution2'],
+						win2: teamWindowed2,
+						deelay2: post['team-deelay2'],
+						char3: teamChar3,
+						res3: post['team-resolution3'],
+						win3: teamWindowed3,
+						deelay3: post['team-deelay3'],
+						char4: teamChar4,
+						res4: post['team-resolution4'],
+						win4: teamWindowed4,
+						deelay4: post['team-deelay4'],
+						char5: teamChar5,
+						res5: post['team-resolution5'],
+						win5: teamWindowed5,
+						deelay5: post['team-deelay5'],
+						char6: teamChar6,
+						res6: post['team-resolution6'],
+						win6: teamWindowed6,
+						deelay6: post['team-deelay6'],
+						char7: teamChar7,
+						res7: post['team-resolution7'],
+						win7: teamWindowed7,
+						deelay7: post['team-deelay7']
+						//speriamo di non aggiungere più nulla
+					}, (err, newDoc) => {
+						response.send(newDoc);
+					});
+				}
+				else if (request.query.editTeam != undefined) {
 
-
-					
-				}, (err, newDoc) => {
-					response.send(newDoc);
-				});
+				}
 			}
 			//setting per ora con i file
 			if (request.query.editSetting != undefined) {
