@@ -44,6 +44,11 @@ function editCharacterRow(id) {
 		$('#edit-character-title').val(obj.title);
 		$('#edit-character-fullscreen_windowed').prop('checked', obj.fullscreen_windowed);
 		$('#edit-character-forwardbreaksrunlock').prop('checked', obj.forward_breaks_runlock);
+		$('#edit-character-borderless').prop('checked', obj.borderless);
+		$('#edit-character-width').val(obj.width);
+		$('#edit-character-height').val(obj.height);
+		$('#edit-character-position-x').val(obj.positionX);
+		$('#edit-character-position-y').val(obj.positionY);
 		$('#edit-character-modal').modal('show');
 	}).fail(() => {
 		alert('Unable to edit character.');

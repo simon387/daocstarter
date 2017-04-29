@@ -91,6 +91,30 @@ module.exports = {
 												exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
 											}
 										}
+										//gestione borderless
+										if (true === character.borderless) {
+											let width = character.width;
+											let height = character.height;
+											let positionX = character.positionX;
+											let positionY = character.positionY;
+											if (undefined == width || width < 800) {
+												width = xy[0];
+											}
+											if (undefined == height || height < 600) {
+												height = xy[1];
+											}
+											if (positionX == undefined) {
+												positionX = 0;
+											}
+											if (positionY == undefined) {
+												positionY = 0;
+											}
+
+											const exec = child_process.exec;
+											exec(os.tmpdir() + '\\borderless.exe' + prc.pid + ' ' +
+												width + ' ' + height + ' ' + positionX + ' ' + positionY,
+												(err, so, se) => {});
+										}
 									}
 								});
 							});

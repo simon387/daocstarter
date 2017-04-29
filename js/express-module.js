@@ -118,6 +118,7 @@ portfinder.getPort((err, port) => {
 				const characterFavourite = post['character-favourite'] === undefined ? false : true;
 				const fullscreen_windowed = post['character-fullscreen_windowed'] === undefined ? false : true;
 				const forward_breaks_runlock = post['character-forwardbreaksrunlock'] === undefined ? false : true;
+				const borderless = post['character-borderless'] === undefined ? false : true;
 				if (request.query.addCharacter != undefined) {
 					db.characterDatastore.insert({
 							name: post['character-name'],
@@ -130,7 +131,12 @@ portfinder.getPort((err, port) => {
 							favourite: characterFavourite,
 							title: post['character-title'],
 							fullscreen_windowed: fullscreen_windowed,
-							forward_breaks_runlock: forward_breaks_runlock
+							forward_breaks_runlock: forward_breaks_runlock,
+							borderless: borderless,
+							width: post['character-width'],
+							height: post['character-height'],
+							positionX: post['character-position-x'],
+							positionY: post['character-position-y']
 						}, (err, newDoc) => {
 						response.send(newDoc);
 					});
@@ -146,7 +152,12 @@ portfinder.getPort((err, port) => {
 							favourite: characterFavourite,
 							title: post['character-title'],
 							fullscreen_windowed: fullscreen_windowed,
-							forward_breaks_runlock: forward_breaks_runlock
+							forward_breaks_runlock: forward_breaks_runlock,
+							borderless: borderless,
+							width: post['character-width'],
+							height: post['character-height'],
+							positionX: post['character-position-x'],
+							positionY: post['character-position-y']
 						}
 					},
 					{returnUpdatedDocs: true, multi: false}, (err, numAffected, affectedDocuments) => {
