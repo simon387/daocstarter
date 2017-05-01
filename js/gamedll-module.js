@@ -111,7 +111,7 @@ module.exports = {
 											}
 
 											const exec = child_process.exec;
-											exec(os.tmpdir() + '\\borderless.exe' + prc.pid + ' ' +
+											exec(os.tmpdir() + '\\borderless.exe ' + prc.pid + ' ' +
 												width + ' ' + height + ' ' + positionX + ' ' + positionY,
 												(err, so, se) => {});
 										}

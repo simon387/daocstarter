@@ -328,30 +328,8 @@
 			</div>
 		</div>
 		<!--div class='modal fade' id='edit-team-modal' tabindex='-1' role='dialog' aria-labelledby='edit-team-modal-label'>
-			<div class='modal-dialog' role='document'>
-				<div class='modal-content'>
-					<form class='form-horizontal' id='edit-team-form'>
-						<div class='modal-header'>
-							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
-							<h4 class='modal-title' id='edit-team-modal-label'>Edit selected team</h4>
-						</div>
-						<div class='modal-body'>
-							<input type='hidden' id='edit-team-id' value='' class='hidden'>
-							<div class='form-group'>
-								<label for='edit-team-name' class='col-sm-2 control-label'>Name</label>
-								<div class='col-sm-10'>
-									<input type='text' class='form-control' id='edit-team-name' name='team-name' placeholder='teamteamteam Name' required>
-								</div>
-							</div>
 
-						</div>
-						<div class='modal-footer'>
-							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
-							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
-						</div>
-					</form>
-				</div>
-			</div>
+
 		</div-->
 		<div class='modal fade' id='add-team-modal' tabindex='-1' role='dialog' aria-labelledby='add-team-modal-label'>
 			<div class='modal-dialog-team' role='document'>
@@ -368,12 +346,13 @@
 									<input type='text' class='form-control' id='add-team-name' name='team-name' placeholder='Team Name' required>
 								</div>
 							</div>
+							<hr>
 							<div class='form-group'>
 								<label for='add-team-character0' class='col-sm-2 control-label'>Character 1</label>
 								<div class='col-sm-2'>
 									<select class='form-control team-character-dropdown' id='add-team-character0' name='team-character0'></select>
 								</div>
-								<label for='add-team-resolution0' class='col-sm-2 control-label'>Resolution</label>
+								<label for='add-team-resolution0' class='col-sm-1 control-label'>Resolution</label>
 								<div class='col-sm-2'>
 									<select class='form-control team-resolution-dropdown' id='add-team-resolution0' name='team-resolution0'></select>
 								</div>
@@ -381,17 +360,40 @@
 								<div class='col-sm-1'>
 									<input type='checkbox' class='form-control' id='add-team-windowed0' name='team-windowed0'>
 								</div>
-								<label for='add-team-deelay0' class='col-sm-1 control-label'>Deelay</label>
+								<label for='add-team-borderless0' class='col-sm-1 control-label'>Borderless</label>
+								<div class='col-sm-1'>
+									<input type='checkbox' class='form-control' id='add-team-borderless0' name='team-borderless0'>
+								</div>
+							</div>
+							<div class='form-group'>
+								<label for='add-team-deelay0' class='col-sm-3 control-label'>Deelay</label>
 								<div class='col-sm-1'>
 									<input type='number' min='0' max='10000' class='form-control team-deelay' id='add-team-deelay0' name='team-deelay0' required>
 								</div>
+								<label for='add-team-width0' class='col-sm-1 control-label'>Width</label>
+								<div class='col-sm-1'>
+									<input type='number' min='800' max='10000' class='form-control' id='add-team-width0' name='team-width0'>
+								</div>
+								<label for='add-team-height0' class='col-sm-1 control-label'>Height</label>
+								<div class='col-sm-1'>
+									<input type='number' min='600' max='10000' class='form-control' id='add-team-height0' name='team-height0'>
+								</div>
+								<label for='add-team-position-x0' class='col-sm-1 control-label'>X POS</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control' id='add-team-position-x0' name='team-position-x0'>
+								</div>
+								<label for='add-team-position-y0' class='col-sm-1 control-label'>Y POS</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control' id='add-team-position-y0' name='team-position-y0'>
+								</div>
 							</div>
+							<hr>
 							<div class='form-group'>
 								<label for='add-team-character1' class='col-sm-2 control-label'>Character 2</label>
 								<div class='col-sm-2'>
 									<select class='form-control team-character-dropdown' id='add-team-character1' name='team-character1'></select>
 								</div>
-								<label for='add-team-resolution1' class='col-sm-2 control-label'>Resolution</label>
+								<label for='add-team-resolution1' class='col-sm-1 control-label'>Resolution</label>
 								<div class='col-sm-2'>
 									<select class='form-control team-resolution-dropdown' id='add-team-resolution1' name='team-resolution1'></select>
 								</div>
@@ -399,11 +401,34 @@
 								<div class='col-sm-1'>
 									<input type='checkbox' class='form-control' id='add-team-windowed1' name='team-windowed1'>
 								</div>
-								<label for='add-team-deelay1' class='col-sm-1 control-label'>Deelay</label>
+								<label for='add-team-borderless1' class='col-sm-1 control-label'>Borderless</label>
+								<div class='col-sm-1'>
+									<input type='checkbox' class='form-control' id='add-team-borderless1' name='team-borderless1'>
+								</div>
+							</div>
+							<div class='form-group'>
+								<label for='add-team-deelay1' class='col-sm-3 control-label'>Deelay</label>
 								<div class='col-sm-1'>
 									<input type='number' min='0' max='10000' class='form-control team-deelay' id='add-team-deelay1' name='team-deelay1' required>
 								</div>
+								<label for='add-team-width1' class='col-sm-1 control-label'>Width</label>
+								<div class='col-sm-1'>
+									<input type='number' min='800' max='10000' class='form-control' id='add-team-width1' name='team-width1'>
+								</div>
+								<label for='add-team-height1' class='col-sm-1 control-label'>Height</label>
+								<div class='col-sm-1'>
+									<input type='number' min='600' max='10000' class='form-control' id='add-team-height1' name='team-height1'>
+								</div>
+								<label for='add-team-position-x1' class='col-sm-1 control-label'>X POS</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control' id='add-team-position-x1' name='team-position-x1'>
+								</div>
+								<label for='add-team-position-y1' class='col-sm-1 control-label'>Y POS</label>
+								<div class='col-sm-1'>
+									<input type='number' min='0' max='10000' class='form-control' id='add-team-position-y1' name='team-position-y1'>
+								</div>
 							</div>
+							<hr>
 							<div class='form-group'>
 								<label for='add-team-character2' class='col-sm-2 control-label'>Character 3</label>
 								<div class='col-sm-2'>
