@@ -92,7 +92,7 @@ ipcRenderer.on('-reply', event => {
 const getTeamRow = (n, action = 'add') => {
 	return '' +
 	"<div id='generatedTeamRow" + n + "'><hr><div class='form-group'>" +
-	"<label for='" + action + "-team-character'" + n + " class='col-sm-2 control-label odd'>Character " + n + "</label>" +
+	"<label for='" + action + "-team-character'" + n + " class='col-sm-2 control-label'>Character " + n + "</label>" +
 	"<div class='col-sm-2'>" +
 	"<select class='form-control team-character-dropdown' id='" + action + "-team-character" + n + "' name='team-character" + n + "'></select>" +
 	"</div>" +
