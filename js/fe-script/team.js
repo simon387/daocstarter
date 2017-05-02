@@ -34,6 +34,9 @@ const populateMainDiv = () => {
 }
 
 document.getElementById('add-team-add').onclick = () => {
+	if (numeroTeamRow >= 7) {
+		return;
+	}
 	document.getElementById('team-container').insertAdjacentHTML('beforeend', getTeamRow(++numeroTeamRow));
 	//populateTeamChars();
 	refreshComboByFetchAndSelector('?getAllResolutions', '#add-team-resolution' + numeroTeamRow, '');

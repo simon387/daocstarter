@@ -184,40 +184,82 @@ portfinder.getPort((err, port) => {
 					const teamChar5 = post['team-character5'] === undefined ? ' ' : post['team-character5'];
 					const teamChar6 = post['team-character6'] === undefined ? ' ' : post['team-character6'];
 					const teamChar7 = post['team-character7'] === undefined ? ' ' : post['team-character7'];
+					const borderless0 = post['team-borderless0'] === undefined ? false : true;
+					const borderless1 = post['team-borderless1'] === undefined ? false : true;
+					const borderless2 = post['team-borderless2'] === undefined ? false : true;
+					const borderless3 = post['team-borderless3'] === undefined ? false : true;
+					const borderless4 = post['team-borderless4'] === undefined ? false : true;
+					const borderless5 = post['team-borderless5'] === undefined ? false : true;
+					const borderless6 = post['team-borderless6'] === undefined ? false : true;
+					const borderless7 = post['team-borderless7'] === undefined ? false : true;
 					db.teamDatastore.insert({
 						name: post['team-name'],
 						char0: teamChar0,
 						res0: post['team-resolution0'],
 						win0: teamWindowed0,
 						deelay0: post['team-deelay0'],
+						borderless0 :borderless0,
+						
 						char1: teamChar1,
 						res1: post['team-resolution1'],
 						win1: teamWindowed1,
 						deelay1: post['team-deelay1'],
+						borderless1 :borderless1,
+
 						char2: teamChar2,
 						res2: post['team-resolution2'],
 						win2: teamWindowed2,
 						deelay2: post['team-deelay2'],
+						borderless2 :borderless2,
+
 						char3: teamChar3,
 						res3: post['team-resolution3'],
 						win3: teamWindowed3,
 						deelay3: post['team-deelay3'],
+						borderless3 :borderless3,
+
 						char4: teamChar4,
 						res4: post['team-resolution4'],
 						win4: teamWindowed4,
 						deelay4: post['team-deelay4'],
+						borderless4 :borderless4,
+
 						char5: teamChar5,
 						res5: post['team-resolution5'],
 						win5: teamWindowed5,
 						deelay5: post['team-deelay5'],
+						borderless5 :borderless5,
+
 						char6: teamChar6,
 						res6: post['team-resolution6'],
 						win6: teamWindowed6,
 						deelay6: post['team-deelay6'],
+						borderless6 :borderless6,
+
 						char7: teamChar7,
 						res7: post['team-resolution7'],
 						win7: teamWindowed7,
-						deelay7: post['team-deelay7']
+						deelay7: post['team-deelay7'],
+						borderless7 :borderless7,
+
+						width0: post['team-width0'],
+						height0: post['team-height0'],
+						positionx0: post['team-position-x0'],
+						positiony0: post['team-position-y0'],
+						width1: post['team-width1'],
+						height1: post['team-height1'],
+						positionx1: post['team-position-x1'],
+						positiony1: post['team-position-y1']
+						/*
+width1: post['team-width1'],
+height1: post['team-height1'],
+teampositionx1: post['team-position-x1'],
+teampositiony1: post['team-position-y1'],
+
+
+						*/
+
+
 						//speriamo di non aggiungere più nulla
 					}, (err, newDoc) => {
 						response.send(newDoc);
