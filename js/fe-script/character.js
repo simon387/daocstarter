@@ -39,12 +39,12 @@ function editCharacterRow(id) {
 		refreshComboByFetchAndSelector('?getAllServersNames', '.character-servers-dropdown', obj.server);
 		refreshComboByFetchAndSelector('?getAllClassesNames', '.character-classes-dropdown', obj.classe);
 		refreshComboByFetchAndSelector('?getAllResolutions', '.character-resolution-dropdown', obj.resolution);
-		$('#edit-character-windowed').prop('checked', obj.windowed);
-		$('#edit-character-favourite').prop('checked', obj.favourite);
+		$('#edit-character-windowed').prop('checked', obj.windowed === undefined ? false: obj.windowed);
+		$('#edit-character-favourite').prop('checked', obj.favourite === undefined ? false: obj.favourite);
 		$('#edit-character-title').val(obj.title);
-		$('#edit-character-fullscreen_windowed').prop('checked', obj.fullscreen_windowed);
-		$('#edit-character-forwardbreaksrunlock').prop('checked', obj.forward_breaks_runlock);
-		$('#edit-character-borderless').prop('checked', obj.borderless);
+		$('#edit-character-fullscreen_windowed').prop('checked', obj.fullscreen_windowed === undefined ? false: obj.fullscreen_windowed);
+		$('#edit-character-forwardbreaksrunlock').prop('checked', obj.forward_breaks_runlock === undefined ? false: obj.forward_breaks_runlock);
+		$('#edit-character-borderless').prop('checked', obj.borderless === undefined ? false: obj.borderless);
 		$('#edit-character-width').val(obj.width);
 		$('#edit-character-height').val(obj.height);
 		$('#edit-character-position-x').val(obj.positionX);

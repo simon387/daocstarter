@@ -97,16 +97,16 @@ module.exports = {
 											let height = character.height;
 											let positionX = character.positionX;
 											let positionY = character.positionY;
-											if (undefined == width || width < 800) {
+											if (undefined === width || width < 800) {
 												width = xy[0];
 											}
-											if (undefined == height || height < 600) {
+											if (undefined === height || height < 600) {
 												height = xy[1];
 											}
-											if (positionX == undefined) {
+											if (positionX === undefined || positionX === '') {
 												positionX = 0;
 											}
-											if (positionY == undefined) {
+											if (positionY === undefined || positionY === '') {
 												positionY = 0;
 											}
 
