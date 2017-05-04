@@ -38,6 +38,15 @@ ipcRenderer.on('editSettingNumber-reply', (event, setting, id) => {
 	$('#edit-setting-modal-number').modal('show');
 });
 
+function editSettingRowStringa(id) {
+	ipcRenderer.send('editSettingStringa', id + '');
+}
+ipcRenderer.on('editSettingStringa-reply', (event, setting, id) => {
+	document.getElementById('edit-setting-id-stringa').value = id;
+	document.getElementById('setting-value-stringa').value = setting.value;
+	$('#edit-setting-modal-stringa').modal('show');
+});
+
 // Save edited row
 $('#edit-setting-modal-number').on('submit', event => {
 	event.preventDefault();
@@ -49,6 +58,18 @@ $('#edit-setting-modal-number').on('submit', event => {
 ipcRenderer.on('saveSettingNumber-reply', event => {
 	settingDataTable.ajax.reload();
 	$('#edit-setting-modal-number').modal('hide');
+});
+
+$('#edit-setting-modal-stringa').on('submit', event => {
+	event.preventDefault();
+	ipcRenderer.send('saveSettingStringa',
+	document.getElementById('edit-setting-id-stringa').value,
+	document.getElementById('setting-value-stringa').value
+	);
+});
+ipcRenderer.on('saveSettingStringa-reply', event => {
+	settingDataTable.ajax.reload();
+	$('#edit-setting-modal-stringa').modal('hide');
 });
 
 // playCharacter

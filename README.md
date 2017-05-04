@@ -38,7 +38,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + npm/ini <https://github.com/npm/ini>
 + node-archiver <https://github.com/archiverjs/node-archiver>
 + portfinder <https://github.com/indexzero/node-portfinder>
-+ AutoIt, just for the Windows portable executable <https://www.autoitscript.com/site/autoit/>
++ AutoIt <https://www.autoitscript.com/site/autoit/>
 + opn <https://github.com/sindresorhus/opn>
 + compare-versions <https://github.com/omichelsen/compare-versions>
 + moment <https://github.com/moment/moment>
@@ -71,4 +71,4 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 
 ## more dev details
 
-+ source code of titlerenamer.exe is inside autoit-compiler.js
++ all the autoit source code is inside autoit-compiler.js

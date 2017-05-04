@@ -113,7 +113,7 @@ fs.open(daocstarterau3, 'w', (err, fd) => {
 	});
 });
 
-/* sorgente di titlerenamer.exe ShellExecute(@TempDir)
+/* titlerenamer.exe source code
 #NoTrayIcon
 WinSetTitle(_WinGetByPID($CmdLine[1]), "", $CmdLine[2])
 Func _WinGetByPID($iPID, $iArray = 1) ; 0 Will Return 1 Base Array & 1 Will Return The First Window.
@@ -137,7 +137,7 @@ Func _WinGetByPID($iPID, $iArray = 1) ; 0 Will Return 1 Base Array & 1 Will Retu
 EndFunc
 */
 
-/* sorgente di borderless.exe
+/* borderless.exe source code
 #NoTrayIcon
 #include <WinAPI.au3>
 #include <WindowsConstants.au3>

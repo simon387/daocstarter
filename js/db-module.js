@@ -108,6 +108,13 @@ module.exports = {
 		module.exports.settingDatastore = new Datastore({filename: dbPath + 'setting', autoload: true});
 		module.exports.settingDatastore.ensureIndex({fieldName: 'key', unique: true}, err => {});
 		module.exports.settingDatastore.insert({
+			_id: '8',
+			key: 'custom.resolutions.comma.separated',
+			type: 'Stringa',
+			value: '1920x1080,800x600'
+		}, err => {}
+		);
+		module.exports.settingDatastore.insert({
 			_id: '7',
 			key: 'default.login.delay.milli',
 			type: 'Numero',

@@ -21,7 +21,7 @@ const menuTemplate = [
 		label: 'Window',
 		submenu: [
 			{
-				role: 'minimize'
+				role: 'maximize'
 			},
 			{
 				role: 'quit'

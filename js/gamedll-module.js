@@ -42,9 +42,16 @@ module.exports = {
 									return dialog.showErrorBox('Error', "Cannot find realm!");
 								}
 								let config = ini.parse(fs.readFileSync(userdat.value, 'utf-8'));
-								const xy = character.resolution.split('x');
-								config.main.screen_width = xy[0];
-								config.main.screen_height = xy[1];
+								let xy;
+								try {
+									xy = character.resolution.split('x');
+									config.main.screen_width = xy[0];
+									config.main.screen_height = xy[1];
+								}
+								catch (e) {
+									console.log(e);
+									dialog.showErrorBox('Error', e.toString());
+								}
 								config.main.windowed = character.windowed ? 1 : 0;
 								config.fullscreen_windowed = character.fullscreen_windowed ? 1 : 0;
 								config.keyboard.forward_breaks_runlock = character.forward_breaks_runlock ? 1 : 0;
@@ -97,11 +104,18 @@ module.exports = {
 											let height = character.height;
 											let positionX = character.positionX;
 											let positionY = character.positionY;
-											if (undefined === width || width < 800) {
-												width = xy[0];
+											try {
+												if (undefined === width || width < 800) {
+													width = xy[0];
+												}
+												if (undefined === height || height < 600) {
+													height = xy[1];
+												}
 											}
-											if (undefined === height || height < 600) {
-												height = xy[1];
+											catch (e) {
+												console.log(e);
+												width = 800;
+												height = 600;
 											}
 											if (positionX === undefined || positionX === '') {
 												positionX = 0;
@@ -197,10 +211,17 @@ module.exports = {
 						return dialog.showErrorBox('Error', "Cannot find server!");
 					}
 					let config = ini.parse(fs.readFileSync(userdat.value, 'utf-8'));
-					const xy = account.resolution.split('x');
+					let xy;
+					try {
+						xy = account.resolution.split('x');
+						config.main.screen_width = xy[0];
+						config.main.screen_height = xy[1];
+					}
+					catch (e) {
+						console.log(e);
+						dialog.showErrorBox('Error', e.toString());
+					}
 					const windowed = account.windowed ? 1 : 0;
-					config.main.screen_width = xy[0];
-					config.main.screen_height = xy[1];
 					config.main.windowed = windowed;
 					fs.writeFileSync(path.dirname(userdat.value) + '\\user.dat', ini.stringify(config, {}));
 					const spawn = child_process.spawn;

@@ -5,7 +5,7 @@ const util = require('./common-util.js');
 
 module.exports = {
 	getAllSettings: response => {
-		db.settingDatastore.find({_id: {$in: ['1', '2', '7']}}, (err, docs) => {
+		db.settingDatastore.find({_id: {$in: ['1', '2', '7', '8']}}, (err, docs) => {
 			let ret = '{"aaData":[';
 			docs.forEach(setting => {
 				ret += '["' + setting._id + '","' +

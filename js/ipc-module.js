@@ -95,6 +95,12 @@ ipcMain.on('editSettingNumber', (event, id) => {
 	});
 });
 
+ipcMain.on('editSettingStringa', (event, id) => {
+	db.settingDatastore.findOne({_id: id}, (err, setting) => {
+		event.sender.send('editSettingStringa-reply', setting, id);
+	});
+});
+
 ipcMain.on('saveSettingNumber', (event, id, value) => {
 	db.settingDatastore.update(
 		{_id: id},
@@ -102,6 +108,16 @@ ipcMain.on('saveSettingNumber', (event, id, value) => {
 		{returnUpdatedDocs: true, multi: false},
 		(err, numAffected, affectedDocuments) => {
 			event.sender.send('saveSettingNumber-reply');
+	});
+});
+
+ipcMain.on('saveSettingStringa', (event, id, value) => {
+	db.settingDatastore.update(
+		{_id: id},
+		{$set: {value: value}},
+		{returnUpdatedDocs: true, multi: false},
+		(err, numAffected, affectedDocuments) => {
+			event.sender.send('saveSettingStringa-reply');
 	});
 });
 

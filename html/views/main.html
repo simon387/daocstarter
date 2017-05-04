@@ -118,7 +118,7 @@
 							<div class='form-group'>
 								<label for='edit-character-resolution' class='col-sm-2 control-label'>Resolution</label>
 								<div class='col-sm-10'>
-									<select class='form-control character-resolution-dropdown' id='edit-character-resolution' name='character-resolution'></select>
+									<select class='form-control character-resolution-dropdown' id='edit-character-resolution' name='character-resolution' required></select>
 								</div>
 							</div>
 							<div class='form-group'>
@@ -225,7 +225,7 @@
 							<div class='form-group'>
 								<label for='add-character-resolution' class='col-sm-2 control-label'>Resolution</label>
 								<div class='col-sm-10'>
-									<select class='form-control character-resolution-dropdown' id='add-character-resolution' name='character-resolution'></select>
+									<select class='form-control character-resolution-dropdown' id='add-character-resolution' name='character-resolution' required></select>
 								</div>
 							</div>
 							<div class='form-group'>
@@ -422,7 +422,7 @@
 							<div class='form-group'>
 								<label for='edit-account-resolution' class='col-sm-2 control-label'>Resolution</label>
 								<div class='col-sm-10'>
-									<select class='form-control account-resolution-dropdown' id='edit-account-resolution' name='account-resolution'></select>
+									<select class='form-control account-resolution-dropdown' id='edit-account-resolution' name='account-resolution' required></select>
 								</div>
 							</div>
 							<div class='form-group'>
@@ -476,7 +476,7 @@
 							<div class='form-group'>
 								<label for='add-account-resolution' class='col-sm-2 control-label'>Resolution</label>
 								<div class='col-sm-10'>
-									<select class='form-control account-resolution-dropdown' id='add-account-resolution' name='account-resolution'></select>
+									<select class='form-control account-resolution-dropdown' id='add-account-resolution' name='account-resolution' required></select>
 								</div>
 							</div>
 							<div class='form-group'>
@@ -541,6 +541,31 @@
 								<label for='setting-value-number' class='col-sm-2 control-label'>Value</label>
 								<div class='col-sm-10'>
 									<input type='number' min='0' max='10000' class='form-control' id='setting-value-number' name='setting-value-number' required>
+								</div>
+							</div>
+						</div>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class='modal fade' id='edit-setting-modal-stringa' tabindex='-1' role='dialog' aria-labelledby='edit-setting-modal-label-stringa'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='edit-setting-form-stringa'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='edit-setting-modal-label-stringa'>Edit selected setting</h4>
+						</div>
+						<div class='modal-body'>
+							<input type='hidden' id='edit-setting-id-stringa' value='' class='hidden'>
+							<div class='form-group'>
+								<label for='setting-value-stringa' class='col-sm-2 control-label'>Value</label>
+								<div class='col-sm-10'>
+									<input type='text' class='form-control' id='setting-value-stringa' name='setting-value-stringa' required>
 								</div>
 							</div>
 						</div>

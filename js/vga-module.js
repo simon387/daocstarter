@@ -2,6 +2,7 @@
 
 const os = require('os');
 const shell = require('node-powershell');
+const db = require('./db-module.js');
 
 module.exports = {
 	getAllResolutions: response => {
@@ -26,7 +27,20 @@ module.exports = {
 				matches.add(match[0]);
 			}
 			ps.dispose();
-			response.send(Array.from(matches));
+			if (0 == matches.length) {
+				db.settingDatastore.findOne({key: 'custom.resolutions.comma.separated'}, (err, doc) => {
+					const array = doc.value.split(',');
+					if (array.length != 0) {
+						response.send(array)
+					}
+					else {
+						response.send(['1920x1200', '800x600']);
+					}
+				});
+			}
+			else {
+				response.send(Array.from(matches));
+			}
 		})
 		.catch(err => {
 			ps.dispose();
