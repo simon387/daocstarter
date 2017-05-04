@@ -7,6 +7,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 ![alt tag](http://www.simonecelia.it/github/img/screen1.png)
 ![alt tag](http://www.simonecelia.it/github/img/screen2.png)
 ![alt tag](http://www.simonecelia.it/github/img/screen3.png)
+![alt tag](http://www.simonecelia.it/github/img/screen4.png)
 
 ## main features
 
