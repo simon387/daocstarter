@@ -21,6 +21,14 @@ module.exports = {
 					return ps.invoke();
 				})
 				.then(output => {
+					if ('' == output) {
+						if (array.length != 0) {
+							return response.send(array);
+						}
+						else {
+							return response.send(['1920x1200', '800x600']);
+						}
+					}
 					let str = output.replace(/[\n\r]/g, '').replace(/\ +/g, 'x');
 					let regexp = /\d+x+\d+/g;
 					let match;
@@ -31,24 +39,24 @@ module.exports = {
 					ps.dispose();
 					if (0 == matches.length) {
 						if (array.length != 0) {
-							response.send(array);
+							return response.send(array);
 						}
 						else {
-							response.send(['1920x1200', '800x600']);
+							return response.send(['1920x1200', '800x600']);
 						}
 					}
 					else {
-						response.send(Array.from(matches));
+						return response.send(Array.from(matches));
 					}
 				})
 				.catch(err => {
 					ps.dispose();
-					response.send(array);
+					return response.send(array);
 				});
 			}
 			catch(e) {
 				console.log(e);
-				response.send(array);
+				return response.send(array);
 			}
 		});
 	}
