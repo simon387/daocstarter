@@ -14,7 +14,7 @@ module.exports = {
 				ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
 					ps.addCommand('get-wmiobject -query "' +
 				'select HorizontalResolution, VerticalResolution ' +
-				'from CIM_VideoControllerResolution" | ' +
+				'from CIM_VideoControllerResolution where HorizontalResolution > 799" | ' +
 				'Sort-Object HorizontalResolution, VerticalResolution -descending | ' +
 				'select HorizontalResolution, VerticalResolution')
 				.then(() => {

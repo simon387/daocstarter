@@ -124,7 +124,7 @@ const renderFavourites = () => {
 		favourites.forEach(item => {
 			if (undefined === item.x) {
 				item.x = 40;
-				item.y = 440;
+				item.y = 220;
 			}
 			$("<div id='" + item._id + "' class='draggable ui-widget-content' " +
 			"style='left:" + item.x + 'px; top:' + item.y + "px;'>" +

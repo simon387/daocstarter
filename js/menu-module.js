@@ -165,7 +165,7 @@ const menuTemplate = [
 			{
 				label: 'Reset favourites positions',
 				click: () => {
-					db.characterDatastore.update({favourite: true}, {$set:{x: 40, y: 440}}, {returnUpdatedDocs: true, multi: true},
+					db.characterDatastore.update({favourite: true}, {$set:{x: 40, y: 220}}, {returnUpdatedDocs: true, multi: true},
 					(err, numAffected, affectedDocuments) => {
 						if (numAffected > 0) {
 							const win = BrowserWindow.getFocusedWindow();

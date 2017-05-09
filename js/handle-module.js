@@ -9,9 +9,6 @@ let handle_Path = 'resources\\app\\handle\\handle.exe';
 module.exports = {
 	killMutants: function () {
 		console.log("killMutants called!");
-		if (os.platform() != 'win32') {
-			return;
-		}
 		if (!fs.existsSync(handle_Path)) {
 			handle_Path = 'handle\\handle.exe';
 		}
@@ -30,6 +27,7 @@ function getGameDllPids() {
 		}
 		resultList.forEach(process => {
 			if (process){
+				console.log("_PUSHATO UN PROCESSO")
 				aPID.push(process.pid);
 			}
 		});
@@ -43,7 +41,7 @@ function getGameDllHandles(aPID) {
 	const spawn = child_process.spawn;
 	let aHex = [];
 	const handle_exe= spawn(handle_Path, ['-a', '-nobanner']);
-	const findstr_exe = spawn('findstr', ['DAoCi']);
+	const findstr_exe = spawn('findstr', ['DAoC']);//i
 	handle_exe.stdout.on('data', (data) => {
 		findstr_exe.stdin.write(data);
 	});
@@ -58,6 +56,7 @@ function getGameDllHandles(aPID) {
 	});
 	findstr_exe.stdout.on('data', (data) => {
 		const dataRows = data.toString().split('\n');
+		console.log("dataRows", dataRows)
 		if (dataRows instanceof Array) {
 			for (let r = 0; r < dataRows.length; r++) {
 				let hex = dataRows[r].split(':');
