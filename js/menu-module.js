@@ -132,6 +132,15 @@ const menuTemplate = [
 				click: () => {
 					shell.openItem(app.getPath("userData"));
 				}
+			},
+			{
+				type: 'separator'
+			},
+			{
+				label: 'Run Gamma Tool',
+				click: () => {
+					
+				}
 			}
 		]
 	},
