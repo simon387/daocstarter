@@ -13,6 +13,7 @@ const gamedll = require('./gamedll-module.js');
 const fs = require('fs');
 const child_process = require('child_process');
 const {app} = require('electron');
+const os = require('os');
 
 Menu.getApplicationMenu();
 
@@ -137,9 +138,10 @@ const menuTemplate = [
 				type: 'separator'
 			},
 			{
-				label: 'Run Gamma Tool',
+				label: 'Run CALGamma Tool',
 				click: () => {
-					
+					const exec = child_process.exec;
+					exec(os.tmpdir() + '\\CALGamma.exe', (err, so, se) => {});
 				}
 			}
 		]
