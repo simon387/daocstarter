@@ -156,3 +156,8 @@ ipcMain.on('killTeamRow', (event, id) => {
 	//TODO
 });
 
+ipcMain.on('editTeam', (event, id) => {
+	db.teamDatastore.findOne({_id: id}, (err, team) => {
+		event.sender.send('editTeam-reply', team, id);
+	});
+});

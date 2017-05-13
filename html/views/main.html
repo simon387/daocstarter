@@ -31,7 +31,7 @@
 			<div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'><!-- Collect the nav links, forms, and other content for toggling -->
 				<ul class='nav navbar-nav navbar-right'>
 					<li><a class='page-scroll' href='#characters'>Characters</a></li>
-					<!--li><a class='page-scroll' href='#teams'>Teams</a></li-->
+					<li><a class='page-scroll' href='#teams'>Teams</a></li>
 					<li><a class='page-scroll' href='#accounts'>Accounts</a></li>
 					<li><a class='page-scroll' href='#settings'>Settings</a></li>
 					<li><a class='page-scroll' href='#contacts'>Contacts</a></li>
@@ -298,7 +298,7 @@
 		</div>
 	</section>
 <!-- TEAMS -->
-	<!--section id='teams'>
+	<section id='teams'>
 		<div class='container-fluid'>
 			<div class='row'>
 				<div class='col-lg-8 col-lg-offset-2 text-center'>
@@ -326,12 +326,36 @@
 					</div>
 				</div>
 			</div>
-		</div-->
-		<!--div class='modal fade' id='edit-team-modal' tabindex='-1' role='dialog' aria-labelledby='edit-team-modal-label'>
-
-
-		</div-->
-		<!--div class='modal fade' id='add-team-modal' tabindex='-1' role='dialog' aria-labelledby='add-team-modal-label'>
+		</div>
+		<div class='modal fade' id='edit-team-modal' tabindex='-1' role='dialog' aria-labelledby='edit-team-modal-label'>
+			<div class='modal-dialog-team' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='edit-team-form'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='edit-team-modal-label'>Edit Team</h4>
+						</div>
+						<div class='modal-body'>
+							<div class='form-group'>
+								<label for='add-team-name' class='col-sm-2 control-label'>Name</label>
+								<div class='col-sm-2'>
+									<input type='text' class='form-control' id='edit-team-name' name='team-name' placeholder='Team Name' required>
+								</div>
+							</div>
+							<div id='team-edit-container'>
+							</div>
+						</div>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' id='edit-team-remove'>Remove Character</button>
+							<button type='button' class='btnX btn-default' id='edit-team-add'>Add Character</button>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class='modal fade' id='add-team-modal' tabindex='-1' role='dialog' aria-labelledby='add-team-modal-label'>
 			<div class='modal-dialog-team' role='document'>
 				<div class='modal-content'>
 					<form class='form-horizontal' id='add-team-form'>
@@ -346,7 +370,7 @@
 									<input type='text' class='form-control' id='add-team-name' name='team-name' placeholder='Team Name' required>
 								</div>
 							</div>
-							<div id='team-container'>
+							<div id='team-add-container'>
 							</div>
 						</div>
 						<div class='modal-footer'>
@@ -359,7 +383,7 @@
 				</div>
 			</div>
 		</div>
-	</section-->
+	</section>
 <!-- ACCOUNTS -->
 	<section id='accounts' >
 		<div class='container-fluid'>
@@ -609,7 +633,7 @@
 	<script src='../../js/fe-script/main.js'></script>
 	<script src='../../js/fe-script/account.js'></script>
 	<script src='../../js/fe-script/character.js'></script>
-	<!--script src='../../js/fe-script/team.js'></script-->
+	<script src='../../js/fe-script/team.js'></script>
 	<script src='../../js/fe-script/setting.js'></script>
 	<!-- Bootstrap Core JavaScript -->
 	<script src='../../vendor/bootstrap/js/bootstrap.min.js'></script>

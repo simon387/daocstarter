@@ -167,33 +167,34 @@ portfinder.getPort((err, port) => {
 			}
 			//team
 			if (request.query.addTeam != undefined || request.query.editTeam != undefined) {
-				if (request.query.addTeam != undefined) {
-					const teamWindowed0 = post['team-windowed0'] === undefined ? false : true;
-					const teamWindowed1 = post['team-windowed1'] === undefined ? false : true;
-					const teamWindowed2 = post['team-windowed2'] === undefined ? false : true;
-					const teamWindowed3 = post['team-windowed3'] === undefined ? false : true;
-					const teamWindowed4 = post['team-windowed4'] === undefined ? false : true;
-					const teamWindowed5 = post['team-windowed5'] === undefined ? false : true;
-					const teamWindowed6 = post['team-windowed6'] === undefined ? false : true;
-					const teamWindowed7 = post['team-windowed7'] === undefined ? false : true;
-					const teamChar0 = post['team-character0'] === undefined ? ' ' : post['team-character0'];
-					const teamChar1 = post['team-character1'] === undefined ? ' ' : post['team-character1'];
-					const teamChar2 = post['team-character2'] === undefined ? ' ' : post['team-character2'];
-					const teamChar3 = post['team-character3'] === undefined ? ' ' : post['team-character3'];
-					const teamChar4 = post['team-character4'] === undefined ? ' ' : post['team-character4'];
-					const teamChar5 = post['team-character5'] === undefined ? ' ' : post['team-character5'];
-					const teamChar6 = post['team-character6'] === undefined ? ' ' : post['team-character6'];
-					const teamChar7 = post['team-character7'] === undefined ? ' ' : post['team-character7'];
-					const borderless0 = post['team-borderless0'] === undefined ? false : true;
-					const borderless1 = post['team-borderless1'] === undefined ? false : true;
-					const borderless2 = post['team-borderless2'] === undefined ? false : true;
-					const borderless3 = post['team-borderless3'] === undefined ? false : true;
-					const borderless4 = post['team-borderless4'] === undefined ? false : true;
-					const borderless5 = post['team-borderless5'] === undefined ? false : true;
-					const borderless6 = post['team-borderless6'] === undefined ? false : true;
-					const borderless7 = post['team-borderless7'] === undefined ? false : true;
+				const teamWindowed0 = post['team-windowed0'] === undefined ? false : true;
+				const teamWindowed1 = post['team-windowed1'] === undefined ? false : true;
+				const teamWindowed2 = post['team-windowed2'] === undefined ? false : true;
+				const teamWindowed3 = post['team-windowed3'] === undefined ? false : true;
+				const teamWindowed4 = post['team-windowed4'] === undefined ? false : true;
+				const teamWindowed5 = post['team-windowed5'] === undefined ? false : true;
+				const teamWindowed6 = post['team-windowed6'] === undefined ? false : true;
+				const teamWindowed7 = post['team-windowed7'] === undefined ? false : true;
+				const teamChar0 = post['team-character0'] === undefined ? ' ' : post['team-character0'];
+				const teamChar1 = post['team-character1'] === undefined ? ' ' : post['team-character1'];
+				const teamChar2 = post['team-character2'] === undefined ? ' ' : post['team-character2'];
+				const teamChar3 = post['team-character3'] === undefined ? ' ' : post['team-character3'];
+				const teamChar4 = post['team-character4'] === undefined ? ' ' : post['team-character4'];
+				const teamChar5 = post['team-character5'] === undefined ? ' ' : post['team-character5'];
+				const teamChar6 = post['team-character6'] === undefined ? ' ' : post['team-character6'];
+				const teamChar7 = post['team-character7'] === undefined ? ' ' : post['team-character7'];
+				const borderless0 = post['team-borderless0'] === undefined ? false : true;
+				const borderless1 = post['team-borderless1'] === undefined ? false : true;
+				const borderless2 = post['team-borderless2'] === undefined ? false : true;
+				const borderless3 = post['team-borderless3'] === undefined ? false : true;
+				const borderless4 = post['team-borderless4'] === undefined ? false : true;
+				const borderless5 = post['team-borderless5'] === undefined ? false : true;
+				const borderless6 = post['team-borderless6'] === undefined ? false : true;
+				const borderless7 = post['team-borderless7'] === undefined ? false : true;
+				if (request.query.addTeam != undefined) {// TO CHANGE; THIS IS SO BAD
 					db.teamDatastore.insert({
 						name: post['team-name'],
+						
 						char0: teamChar0,
 						res0: post['team-resolution0'],
 						win0: teamWindowed0,
@@ -246,10 +247,41 @@ portfinder.getPort((err, port) => {
 						height0: post['team-height0'],
 						positionx0: post['team-position-x0'],
 						positiony0: post['team-position-y0'],
+
 						width1: post['team-width1'],
 						height1: post['team-height1'],
 						positionx1: post['team-position-x1'],
-						positiony1: post['team-position-y1']
+						positiony1: post['team-position-y1'],
+
+						width2: post['team-width2'],
+						height2: post['team-height2'],
+						positionx2: post['team-position-x2'],
+						positiony2: post['team-position-y2'],
+
+						width3: post['team-width3'],
+						height3: post['team-height3'],
+						positionx3: post['team-position-x3'],
+						positiony3: post['team-position-y3'],
+
+						width4: post['team-width4'],
+						height4: post['team-height4'],
+						positionx4: post['team-position-x4'],
+						positiony4: post['team-position-y4'],
+
+						width5: post['team-width5'],
+						height5: post['team-height5'],
+						positionx5: post['team-position-x5'],
+						positiony5: post['team-position-y5'],
+
+						width6: post['team-width6'],
+						height6: post['team-height6'],
+						positionx6: post['team-position-x6'],
+						positiony6: post['team-position-y6'],
+
+						width7: post['team-width7'],
+						height7: post['team-height7'],
+						positionx7: post['team-position-x7'],
+						positiony7: post['team-position-y7']
 						/*
 width1: post['team-width1'],
 height1: post['team-height1'],
@@ -266,7 +298,103 @@ teampositiony1: post['team-position-y1'],
 					});
 				}
 				else if (request.query.editTeam != undefined) {
+					db.teamDatastore.update({_id: request.query.editTeam},{
+						$set:{
+							
+							name: post['team-name'],
+						
+						char0: teamChar0,
+						res0: post['team-resolution0'],
+						win0: teamWindowed0,
+						deelay0: post['team-deelay0'],
+						borderless0 :borderless0,
+						
+						char1: teamChar1,
+						res1: post['team-resolution1'],
+						win1: teamWindowed1,
+						deelay1: post['team-deelay1'],
+						borderless1 :borderless1,
 
+						char2: teamChar2,
+						res2: post['team-resolution2'],
+						win2: teamWindowed2,
+						deelay2: post['team-deelay2'],
+						borderless2 :borderless2,
+
+						char3: teamChar3,
+						res3: post['team-resolution3'],
+						win3: teamWindowed3,
+						deelay3: post['team-deelay3'],
+						borderless3 :borderless3,
+
+						char4: teamChar4,
+						res4: post['team-resolution4'],
+						win4: teamWindowed4,
+						deelay4: post['team-deelay4'],
+						borderless4 :borderless4,
+
+						char5: teamChar5,
+						res5: post['team-resolution5'],
+						win5: teamWindowed5,
+						deelay5: post['team-deelay5'],
+						borderless5 :borderless5,
+
+						char6: teamChar6,
+						res6: post['team-resolution6'],
+						win6: teamWindowed6,
+						deelay6: post['team-deelay6'],
+						borderless6 :borderless6,
+
+						char7: teamChar7,
+						res7: post['team-resolution7'],
+						win7: teamWindowed7,
+						deelay7: post['team-deelay7'],
+						borderless7 :borderless7,
+
+						width0: post['team-width0'],
+						height0: post['team-height0'],
+						positionx0: post['team-position-x0'],
+						positiony0: post['team-position-y0'],
+
+						width1: post['team-width1'],
+						height1: post['team-height1'],
+						positionx1: post['team-position-x1'],
+						positiony1: post['team-position-y1'],
+
+						width2: post['team-width2'],
+						height2: post['team-height2'],
+						positionx2: post['team-position-x2'],
+						positiony2: post['team-position-y2'],
+
+						width3: post['team-width3'],
+						height3: post['team-height3'],
+						positionx3: post['team-position-x3'],
+						positiony3: post['team-position-y3'],
+
+						width4: post['team-width4'],
+						height4: post['team-height4'],
+						positionx4: post['team-position-x4'],
+						positiony4: post['team-position-y4'],
+
+						width5: post['team-width5'],
+						height5: post['team-height5'],
+						positionx5: post['team-position-x5'],
+						positiony5: post['team-position-y5'],
+
+						width6: post['team-width6'],
+						height6: post['team-height6'],
+						positionx6: post['team-position-x6'],
+						positiony6: post['team-position-y6'],
+
+						width7: post['team-width7'],
+						height7: post['team-height7'],
+						positionx7: post['team-position-x7'],
+						positiony7: post['team-position-y7']
+						}
+					},
+					{returnUpdatedDocs: true, multi: false}, (err, numAffected, affectedDocuments) => {
+						response.send(affectedDocuments);
+					});
 				}
 			}
 			//setting per ora con i file

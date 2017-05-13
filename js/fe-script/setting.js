@@ -72,32 +72,3 @@ ipcRenderer.on('saveSettingStringa-reply', event => {
 	$('#edit-setting-modal-stringa').modal('hide');
 });
 
-// playCharacter
-function playTeamRow(id, fromFavourite = false) {
-	/*
-	let set = new Set();
-	set.add(id);
-	if (fromFavourite) {
-		let checkedboxArray = $('.fav-checkbox:checked');
-		for (let i = 0; i < checkedboxArray.length; i++) {
-			set.add( checkedboxArray[i].id);
-		}
-	}*/
-	ipcRenderer.send('playTeamRow', id);
-}
-
-
-function killTeamRow(id, fromFavourite = false) {
-	/*
-	ipcRenderer.send('killCharacter', id);
-	if (fromFavourite) {
-		let checkedboxArray = $('.fav-checkbox:checked');
-		for (let i = 0; i < checkedboxArray.length; i++) {
-			if (id != checkedboxArray[i].id) {
-				ipcRenderer.send('killCharacter', checkedboxArray[i].id);
-			}
-		}
-	}
-	*/
-	ipcRenderer.send('killTeamRow', id);
-}

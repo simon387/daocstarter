@@ -29,15 +29,15 @@ ipcRenderer.on('get-all-chars-reply', (event, array) => {
 let numeroTeamRow = 0;
 const populateMainDiv = () => {
 	numeroTeamRow = 0;
-	document.getElementById('team-container').innerHTML = '';
-	document.getElementById('team-container').insertAdjacentHTML('beforeend', getTeamRow(numeroTeamRow)); 
+	document.getElementById('team-add-container').innerHTML = '';
+	document.getElementById('team-add-container').insertAdjacentHTML('beforeend', getTeamRow(numeroTeamRow)); 
 }
 
 document.getElementById('add-team-add').onclick = () => {
 	if (numeroTeamRow >= 7) {
 		return;
 	}
-	document.getElementById('team-container').insertAdjacentHTML('beforeend', getTeamRow(++numeroTeamRow));
+	document.getElementById('team-add-container').insertAdjacentHTML('beforeend', getTeamRow(++numeroTeamRow));
 	//populateTeamChars();
 	refreshComboByFetchAndSelector('?getAllResolutions', '#add-team-resolution' + numeroTeamRow, '');
 
@@ -74,6 +74,44 @@ function removeTeamRow(id) {
 
 ipcRenderer.on('remove-team-reply', event => {
 	teamDataTable.ajax.reload();
+});
+
+// Edit row
+function editTeamRow(id) {
+	ipcRenderer.send('editTeam', id + '');
+}
+ipcRenderer.on('editTeam-reply', (event, team, id) => {
+	document.getElementById('edit-team-form').value = team._id;
+	document.getElementById('edit-team-name').value = team.name;
+	console.log(team)
+	document.getElementById('team-edit-container').innerHTML = '';
+	if (team.res0 != undefined) {
+		document.getElementById('team-edit-container').insertAdjacentHTML('beforeend', getTeamRow(0, 'edit'));
+		
+		//char7: teamChar7,      team-character0
+
+		//res7: post['team-resolution7'],
+
+		//win7: teamWindowed7,
+		//document.getElementById('team-windowed0').value = team.win0 === null ? ;
+		$('#edit-team-windowed0').prop('checked', team.win0 === undefined ? false: obj.windowed);
+
+		//deelay7: post['team-deelay7'],
+		document.getElementById('team-deelay0').value = team.deelay0;
+		//borderless7 :borderless7,        team-borderless0
+		document.getElementById('team-borderless0').value = team.borderless0;
+		//width0: post['team-width0'],
+		docuemnt.getElementById('team-width0').value = team.width0;
+		//height0: post['team-height0'],
+		docuemnt.getElementById('team-height0').value = team.height0;
+		//positionx0: post['team-position-x0'],
+		docuemnt.getElementById('team-position-x0').value = team.positionx0;
+		//positiony0: post['team-position-y0'],
+		docuemnt.getElementById('team-position-y0').value = team.positiony0;
+	}
+	//document.getElementById('setting-value-number').value = setting.value;
+	
+	$('#edit-team-modal').modal('show');
 });
 
 // Save edited row
@@ -132,4 +170,34 @@ const getTeamRow = (n, action = 'add') => {
 	"<div class='col-sm-1'>" +
 	"<input type='number' min='0' max='10000' class='form-control' id='" + action + "-team-position-y" + n + "' name='team-position-y" + n + "'>" +
 	"</div></div></div>"
+}
+
+// playCharacter
+function playTeamRow(id, fromFavourite = false) {
+	/*
+	let set = new Set();
+	set.add(id);
+	if (fromFavourite) {
+		let checkedboxArray = $('.fav-checkbox:checked');
+		for (let i = 0; i < checkedboxArray.length; i++) {
+			set.add( checkedboxArray[i].id);
+		}
+	}*/
+	ipcRenderer.send('playTeamRow', id);
+}
+
+
+function killTeamRow(id, fromFavourite = false) {
+	/*
+	ipcRenderer.send('killCharacter', id);
+	if (fromFavourite) {
+		let checkedboxArray = $('.fav-checkbox:checked');
+		for (let i = 0; i < checkedboxArray.length; i++) {
+			if (id != checkedboxArray[i].id) {
+				ipcRenderer.send('killCharacter', checkedboxArray[i].id);
+			}
+		}
+	}
+	*/
+	ipcRenderer.send('killTeamRow', id);
 }

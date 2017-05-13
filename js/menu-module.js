@@ -194,6 +194,29 @@ const menuTemplate = [
 		]
 	},
 	{
+		label: 'Links',
+		submenu: [
+			{
+				label: 'darkageofcamelot.com',
+				click: () => {
+					opn('http://www.darkageofcamelot.com');
+				}
+			},
+			{
+				label: 'origin.com',
+				click: () => {
+					opn('https://www.origin.com/');
+				}
+			},
+			{
+				label: 'craftsage.com',
+				click: () => {
+					opn('http://www.craftsage.com');
+				}
+			}
+		]
+	},
+	{
 		label: '?',
 		submenu: [
 			{
