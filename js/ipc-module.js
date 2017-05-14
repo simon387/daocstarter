@@ -121,6 +121,31 @@ ipcMain.on('saveSettingStringa', (event, id, value) => {
 	});
 });
 
+ipcMain.on('saveTeam', (event, id, value) => {
+	const borderless0 = value[3] === undefined ? false : true;
+	const teamWindowed0 = value[1] === undefined ? false : true;
+	console.log(teamWindowed0, borderless0)
+	db.teamDatastore.update(
+		{_id: id},
+		{$set: {
+			name: value[0],
+			//miss
+			//miss
+			teamWindowed0: teamWindowed0,
+			deelay0: value[2],
+			borderless0: borderless0,
+			width0: value[4],
+			height0: value[5],
+			positionx0: value[6],
+			positiony0: value[7]
+
+		}},
+		{returnUpdatedDocs: true, multi: false},
+		(err, numAffected, affectedDocuments) => {
+			event.sender.send('saveTeam-reply');
+	});
+});
+
 //event.sender.send('asynchronous-reply-get-account-per-page', doc.value);
 /*
 function sleep(milliseconds) {
@@ -148,16 +173,17 @@ ipcMain.on('remove-team', (event, id) => {
 	});
 });
 
-ipcMain.on('playTeamRow', (event, id) => {
+//ipcMain.on('playTeamRow', (event, id) => {
 	//TODO
-});
+//});
 
-ipcMain.on('killTeamRow', (event, id) => {
+//ipcMain.on('killTeamRow', (event, id) => {
 	//TODO
-});
+//});
 
 ipcMain.on('editTeam', (event, id) => {
 	db.teamDatastore.findOne({_id: id}, (err, team) => {
 		event.sender.send('editTeam-reply', team, id);
+		console.log(team)
 	});
 });

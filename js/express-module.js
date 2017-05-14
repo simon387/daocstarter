@@ -283,12 +283,10 @@ portfinder.getPort((err, port) => {
 						positionx7: post['team-position-x7'],
 						positiony7: post['team-position-y7']
 						/*
-width1: post['team-width1'],
-height1: post['team-height1'],
-teampositionx1: post['team-position-x1'],
-teampositiony1: post['team-position-y1'],
-
-
+				width1: post['team-width1'],
+				height1: post['team-height1'],
+				teampositionx1: post['team-position-x1'],
+				teampositiony1: post['team-position-y1'],
 						*/
 
 
@@ -298,7 +296,7 @@ teampositiony1: post['team-position-y1'],
 					});
 				}
 				else if (request.query.editTeam != undefined) {
-					db.teamDatastore.update({_id: request.query.editTeam},{
+					/*db.teamDatastore.update({_id: request.query.editTeam},{
 						$set:{
 							
 							name: post['team-name'],
@@ -394,7 +392,7 @@ teampositiony1: post['team-position-y1'],
 					},
 					{returnUpdatedDocs: true, multi: false}, (err, numAffected, affectedDocuments) => {
 						response.send(affectedDocuments);
-					});
+					});*/
 				}
 			}
 			//setting per ora con i file

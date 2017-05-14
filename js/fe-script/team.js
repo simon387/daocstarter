@@ -51,9 +51,14 @@ document.getElementById('add-team-add').onclick = () => {
 
 document.getElementById('add-team-remove').onclick = () => {
 	if (numeroTeamRow > 0) {
-		document.getElementById('generatedTeamRow' + numeroTeamRow--).outerHTML = '';
+		document.getElementById('addGeneratedTeamRow' + numeroTeamRow--).outerHTML = '';
 	}
+}
 
+document.getElementById('edit-team-remove').onclick = () => {
+	if (numeroTeamRow > 0) {
+		document.getElementById('editGeneratedTeamRow' + numeroTeamRow--).outerHTML = '';
+	}
 }
 
 // Add new row
@@ -76,38 +81,38 @@ ipcRenderer.on('remove-team-reply', event => {
 	teamDataTable.ajax.reload();
 });
 
-// Edit row
+// Edit selected row
 function editTeamRow(id) {
 	ipcRenderer.send('editTeam', id + '');
 }
 ipcRenderer.on('editTeam-reply', (event, team, id) => {
 	document.getElementById('edit-team-form').value = team._id;
 	document.getElementById('edit-team-name').value = team.name;
-	console.log(team)
+//	console.log(team)
 	document.getElementById('team-edit-container').innerHTML = '';
 	if (team.res0 != undefined) {
-		document.getElementById('team-edit-container').insertAdjacentHTML('beforeend', getTeamRow(0, 'edit'));
-		
+		document.getElementById('team-edit-container').insertAdjacentHTML('beforeend', getTeamRow(0, 'edit', team));
 		//char7: teamChar7,      team-character0
-
+//miss
 		//res7: post['team-resolution7'],
-
+//miss
 		//win7: teamWindowed7,
 		//document.getElementById('team-windowed0').value = team.win0 === null ? ;
-		$('#edit-team-windowed0').prop('checked', team.win0 === undefined ? false: obj.windowed);
-
+		console.log(team.win0)
+		$('#edit-team-windowed0').prop('checked', team.win0 === undefined ? false: team.wind0);
 		//deelay7: post['team-deelay7'],
-		document.getElementById('team-deelay0').value = team.deelay0;
+		document.getElementById('edit-team-deelay0').value = team.deelay0;
 		//borderless7 :borderless7,        team-borderless0
-		document.getElementById('team-borderless0').value = team.borderless0;
+		//document.getElementById('team-borderless0').value = team.borderless0;
+		$('#edit-team-borderless0').prop('checked', team.borderless0 === undefined ? false : team.borderless0);
 		//width0: post['team-width0'],
-		docuemnt.getElementById('team-width0').value = team.width0;
+		document.getElementById('edit-team-width0').value = team.width0;
 		//height0: post['team-height0'],
-		docuemnt.getElementById('team-height0').value = team.height0;
+		document.getElementById('edit-team-height0').value = team.height0;
 		//positionx0: post['team-position-x0'],
-		docuemnt.getElementById('team-position-x0').value = team.positionx0;
+		document.getElementById('edit-team-position-x0').value = team.positionx0;
 		//positiony0: post['team-position-y0'],
-		docuemnt.getElementById('team-position-y0').value = team.positiony0;
+		document.getElementById('edit-team-position-y0').value = team.positiony0;
 	}
 	//document.getElementById('setting-value-number').value = setting.value;
 	
@@ -115,24 +120,33 @@ ipcRenderer.on('editTeam-reply', (event, team, id) => {
 });
 
 // Save edited row
-/*$('#').on('submit', event => {
-
-	console.log(this);
+$('#edit-team-modal').on('submit',  event => {
 	event.preventDefault();
-	ipcRenderer.send(' '//, 
-	//document.getElementById('edit-setting-id-number').value,
-	//document.getElementById('setting-value-number').value
-	);
-});
-ipcRenderer.on('-reply', event => {
-	teamDataTable.ajax.reload();
-	$('#').modal('hide');
-});
-*/
 
-const getTeamRow = (n, action = 'add') => {
+
+	ipcRenderer.send('saveTeam',
+	document.getElementById('edit-team-form').value,
+	[document.getElementById('edit-team-name').value,
+	//miss
+	//miss
+	document.getElementById('edit-team-windowed0').checked,
+	document.getElementById('edit-team-deelay0').value,
+	document.getElementById('edit-team-borderless0').checked,
+	document.getElementById('edit-team-width0').value,
+	document.getElementById('edit-team-height0').value,
+	document.getElementById('edit-team-position-x0').value,
+	document.getElementById('edit-team-position-y0').value]
+
+	);
+}); 
+ipcRenderer.on('saveTeam-reply', event => {
+	teamDataTable.ajax.reload();
+	$('#edit-team-modal').modal('hide');
+});
+
+const getTeamRow = (n, action = 'add', team = undefined) => {
 	return '' +
-	"<div id='generatedTeamRow" + n + "'><hr><div class='form-group'>" +
+	"<div id=" + action + "'GeneratedTeamRow" + n + "'><hr><div class='form-group'>" +
 	"<label for='" + action + "-team-character'" + n + " class='col-sm-2 control-label'>Character " + n + "</label>" +
 	"<div class='col-sm-2'>" +
 	"<select class='form-control team-character-dropdown' id='" + action + "-team-character" + n + "' name='team-character" + n + "'></select>" +
@@ -170,6 +184,23 @@ const getTeamRow = (n, action = 'add') => {
 	"<div class='col-sm-1'>" +
 	"<input type='number' min='0' max='10000' class='form-control' id='" + action + "-team-position-y" + n + "' name='team-position-y" + n + "'>" +
 	"</div></div></div>"
+/*
+	if (undefined != team) { 
+	$('#edit-team-windowed0').prop('checked', team.win0 === undefined ? false: team.wind0);
+		//deelay7: post['team-deelay7'],
+		document.getElementById('edit-team-deelay0').value = team.deelay0;
+		//borderless7 :borderless7,        team-borderless0
+		//document.getElementById('team-borderless0').value = team.borderless0;
+		$('#edit-team-borderless0').prop('checked', team.borderless0 === undefined ? false : team.borderless0);
+		//width0: post['team-width0'],
+		document.getElementById('edit-team-width0').value = team.width0;
+		//height0: post['team-height0'],
+		document.getElementById('edit-team-height0').value = team.height0;
+		//positionx0: post['team-position-x0'],
+		document.getElementById('edit-team-position-x0').value = team.positionx0;
+		//positiony0: post['team-position-y0'],
+		document.getElementById('edit-team-position-y0').value = team.positiony0;
+	}*/
 }
 
 // playCharacter
