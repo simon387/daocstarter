@@ -213,6 +213,12 @@ const menuTemplate = [
 				click: () => {
 					opn('http://www.craftsage.com');
 				}
+			},
+			{
+				label: 'sc.excidio.net',
+				click: () => {
+					opn('http://sc.excidio.net/charplaner/');
+				}
 			}
 		]
 	},
