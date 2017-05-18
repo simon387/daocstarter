@@ -122,16 +122,22 @@ ipcMain.on('saveSettingStringa', (event, id, value) => {
 });
 
 ipcMain.on('saveTeam', (event, id, value) => {
-	const borderless0 = value[3] === undefined ? false : true;
-	const teamWindowed0 = value[1] === undefined ? false : true;
-	console.log(teamWindowed0, borderless0)
+
+	
+
+
+	const borderless0 = value[3] === undefined ? false : value[3];
+	const windowed0 = value[1] === undefined ? false : value[1];
+	console.log('mi è arrivato ', 'borderless0=', borderless0, 'windowed0=',windowed0)	
+
+//	console.log(windowed0, borderless0)
 	db.teamDatastore.update(
 		{_id: id},
 		{$set: {
 			name: value[0],
 			//miss
 			//miss
-			teamWindowed0: teamWindowed0,
+			windowed0: windowed0,
 			deelay0: value[2],
 			borderless0: borderless0,
 			width0: value[4],

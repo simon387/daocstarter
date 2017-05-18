@@ -167,14 +167,14 @@ portfinder.getPort((err, port) => {
 			}
 			//team
 			if (request.query.addTeam != undefined || request.query.editTeam != undefined) {
-				const teamWindowed0 = post['team-windowed0'] === undefined ? false : true;
-				const teamWindowed1 = post['team-windowed1'] === undefined ? false : true;
-				const teamWindowed2 = post['team-windowed2'] === undefined ? false : true;
-				const teamWindowed3 = post['team-windowed3'] === undefined ? false : true;
-				const teamWindowed4 = post['team-windowed4'] === undefined ? false : true;
-				const teamWindowed5 = post['team-windowed5'] === undefined ? false : true;
-				const teamWindowed6 = post['team-windowed6'] === undefined ? false : true;
-				const teamWindowed7 = post['team-windowed7'] === undefined ? false : true;
+				const windowed0 = post['team-windowed0'] === undefined ? false : true;
+				const windowed1 = post['team-windowed1'] === undefined ? false : true;
+				const windowed2 = post['team-windowed2'] === undefined ? false : true;
+				const windowed3 = post['team-windowed3'] === undefined ? false : true;
+				const windowed4 = post['team-windowed4'] === undefined ? false : true;
+				const windowed5 = post['team-windowed5'] === undefined ? false : true;
+				const windowed6 = post['team-windowed6'] === undefined ? false : true;
+				const windowed7 = post['team-windowed7'] === undefined ? false : true;
 				const teamChar0 = post['team-character0'] === undefined ? ' ' : post['team-character0'];
 				const teamChar1 = post['team-character1'] === undefined ? ' ' : post['team-character1'];
 				const teamChar2 = post['team-character2'] === undefined ? ' ' : post['team-character2'];
@@ -197,51 +197,51 @@ portfinder.getPort((err, port) => {
 						
 						char0: teamChar0,
 						res0: post['team-resolution0'],
-						win0: teamWindowed0,
+						windowed0: windowed0,
 						deelay0: post['team-deelay0'],
-						borderless0 :borderless0,
+						borderless0: borderless0,
 						
 						char1: teamChar1,
 						res1: post['team-resolution1'],
-						win1: teamWindowed1,
+						windowed1: windowed1,
 						deelay1: post['team-deelay1'],
-						borderless1 :borderless1,
+						borderless1: borderless1,
 
 						char2: teamChar2,
 						res2: post['team-resolution2'],
-						win2: teamWindowed2,
+						windowed2: windowed2,
 						deelay2: post['team-deelay2'],
-						borderless2 :borderless2,
+						borderless2: borderless2,
 
 						char3: teamChar3,
 						res3: post['team-resolution3'],
-						win3: teamWindowed3,
+						windowed3: windowed3,
 						deelay3: post['team-deelay3'],
-						borderless3 :borderless3,
+						borderless3: borderless3,
 
 						char4: teamChar4,
 						res4: post['team-resolution4'],
-						win4: teamWindowed4,
+						windowed4: windowed4,
 						deelay4: post['team-deelay4'],
-						borderless4 :borderless4,
+						borderless4: borderless4,
 
 						char5: teamChar5,
 						res5: post['team-resolution5'],
-						win5: teamWindowed5,
+						windowed5: windowed5,
 						deelay5: post['team-deelay5'],
-						borderless5 :borderless5,
+						borderless5: borderless5,
 
 						char6: teamChar6,
 						res6: post['team-resolution6'],
-						win6: teamWindowed6,
+						windowed6: windowed6,
 						deelay6: post['team-deelay6'],
-						borderless6 :borderless6,
+						borderless6: borderless6,
 
 						char7: teamChar7,
 						res7: post['team-resolution7'],
-						win7: teamWindowed7,
+						windowed7: windowed7,
 						deelay7: post['team-deelay7'],
-						borderless7 :borderless7,
+						borderless7: borderless7,
 
 						width0: post['team-width0'],
 						height0: post['team-height0'],
@@ -303,51 +303,51 @@ portfinder.getPort((err, port) => {
 						
 						char0: teamChar0,
 						res0: post['team-resolution0'],
-						win0: teamWindowed0,
+						windowed0: windowed0,
 						deelay0: post['team-deelay0'],
-						borderless0 :borderless0,
+						borderless0: borderless0,
 						
 						char1: teamChar1,
 						res1: post['team-resolution1'],
-						win1: teamWindowed1,
+						windowed1: windowed1,
 						deelay1: post['team-deelay1'],
-						borderless1 :borderless1,
+						borderless1: borderless1,
 
 						char2: teamChar2,
 						res2: post['team-resolution2'],
-						win2: teamWindowed2,
+						windowed2: windowed2,
 						deelay2: post['team-deelay2'],
-						borderless2 :borderless2,
+						borderless2: borderless2,
 
 						char3: teamChar3,
 						res3: post['team-resolution3'],
-						win3: teamWindowed3,
+						windowed3: windowed3,
 						deelay3: post['team-deelay3'],
-						borderless3 :borderless3,
+						borderless3: borderless3,
 
 						char4: teamChar4,
 						res4: post['team-resolution4'],
-						win4: teamWindowed4,
+						windowed4: windowed4,
 						deelay4: post['team-deelay4'],
-						borderless4 :borderless4,
+						borderless4: borderless4,
 
 						char5: teamChar5,
 						res5: post['team-resolution5'],
-						win5: teamWindowed5,
+						windowed5: windowed5,
 						deelay5: post['team-deelay5'],
-						borderless5 :borderless5,
+						borderless5: borderless5,
 
 						char6: teamChar6,
 						res6: post['team-resolution6'],
-						win6: teamWindowed6,
+						windowed6: windowed6,
 						deelay6: post['team-deelay6'],
-						borderless6 :borderless6,
+						borderless6: borderless6,
 
 						char7: teamChar7,
 						res7: post['team-resolution7'],
-						win7: teamWindowed7,
+						windowed7: windowed7,
 						deelay7: post['team-deelay7'],
-						borderless7 :borderless7,
+						borderless7: borderless7,
 
 						width0: post['team-width0'],
 						height0: post['team-height0'],

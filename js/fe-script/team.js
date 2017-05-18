@@ -96,10 +96,10 @@ ipcRenderer.on('editTeam-reply', (event, team, id) => {
 //miss
 		//res7: post['team-resolution7'],
 //miss
-		//win7: teamWindowed7,
-		//document.getElementById('team-windowed0').value = team.win0 === null ? ;
-		console.log(team.win0)
-		$('#edit-team-windowed0').prop('checked', team.win0 === undefined ? false: team.wind0);
+		//windowed7: windowed7,
+		//document.getElementById('team-windowed0').value = team.windowed0 === null ? ;
+
+		$('#edit-team-windowed0').prop('checked', team.windowed0 === undefined ? false: team.windowed0);
 		//deelay7: post['team-deelay7'],
 		document.getElementById('edit-team-deelay0').value = team.deelay0;
 		//borderless7 :borderless7,        team-borderless0
@@ -122,13 +122,14 @@ ipcRenderer.on('editTeam-reply', (event, team, id) => {
 // Save edited row
 $('#edit-team-modal').on('submit',  event => {
 	event.preventDefault();
-
+console.log("document.getElementById('edit-team-windowed0').checked", document.getElementById('edit-team-windowed0').checked);
 
 	ipcRenderer.send('saveTeam',
 	document.getElementById('edit-team-form').value,
 	[document.getElementById('edit-team-name').value,
 	//miss
 	//miss
+	
 	document.getElementById('edit-team-windowed0').checked,
 	document.getElementById('edit-team-deelay0').value,
 	document.getElementById('edit-team-borderless0').checked,
@@ -186,7 +187,7 @@ const getTeamRow = (n, action = 'add', team = undefined) => {
 	"</div></div></div>"
 /*
 	if (undefined != team) { 
-	$('#edit-team-windowed0').prop('checked', team.win0 === undefined ? false: team.wind0);
+	$('#edit-team-windowed0').prop('checked', team.windowed0 === undefined ? false: team.windowed0);
 		//deelay7: post['team-deelay7'],
 		document.getElementById('edit-team-deelay0').value = team.deelay0;
 		//borderless7 :borderless7,        team-borderless0
