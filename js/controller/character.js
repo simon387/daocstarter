@@ -23,5 +23,10 @@ module.exports = {
 			});
 			response.send(util.correggiRispostaPerDataTable(ret));
 		});
+	},
+	getAllCharacterNames: response => {
+		db.characterDatastore.find({}, (err, docs) => {
+			return util.getAllNamesHelper(response, docs);
+		});
 	}
 }
