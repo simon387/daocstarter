@@ -19,7 +19,7 @@ let characterArray;
 ipcRenderer.on('get-all-chars-reply', (event, array) => {
 	characterArray = array;
 	document.querySelectorAll('.team-character-dropdown').forEach(el => {
-		el.innerHTML = '<option value="' + 0 + '" selected=true>' + ' ' + '</option>';
+		//el.innerHTML = '<option value="' + 0 + '" selected=true>' + ' ' + '</option>';
 		array.map(item => {
 			el.innerHTML += '<option value="' + item.name + '">' + item.name + '</option>';
 		});
@@ -42,7 +42,7 @@ document.getElementById('add-team-add').onclick = () => {
 	refreshComboByFetchAndSelector('?getAllResolutions', '#add-team-resolution' + numeroTeamRow, '');
 
 	document.querySelectorAll('#add-team-character' + numeroTeamRow).forEach(el => {
-		el.innerHTML = '<option value="' + 0 + '" selected=true>' + ' ' + '</option>';
+		//el.innerHTML = '<option value="' + 0 + '" selected=true>' + ' ' + '</option>';
 		characterArray.map(item => {
 			el.innerHTML += '<option value="' + item.name + '">' + item.name + '</option>';
 		});
@@ -145,7 +145,7 @@ ipcRenderer.on('saveTeam-reply', event => {
 	$('#edit-team-modal').modal('hide');
 });
 
-const getTeamRow = (n, action = 'add', team = undefined) => {
+const getTeamRow = (n, action = 'add'/*, team = undefined*/) => {
 	return '' +
 	"<div id=" + action + "'GeneratedTeamRow" + n + "'><hr><div class='form-group'>" +
 	"<label for='" + action + "-team-character'" + n + " class='col-sm-2 control-label'>Character " + n + "</label>" +
@@ -201,7 +201,7 @@ const getTeamRow = (n, action = 'add', team = undefined) => {
 		document.getElementById('edit-team-position-x0').value = team.positionx0;
 		//positiony0: post['team-position-y0'],
 		document.getElementById('edit-team-position-y0').value = team.positiony0;
-	}*/
+	} */
 }
 
 // playCharacter
