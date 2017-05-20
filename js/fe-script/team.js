@@ -54,6 +54,7 @@ document.getElementById('edit-team-add').onclick = () => {
 		return;
 	}
 	document.getElementById('team-edit-container').insertAdjacentHTML('beforeend', getTeamRow(++numeroTeamRow, 'edit'));
+	//populateTeamChars();
 	refreshComboByFetchAndSelector('?getAllResolutions', '#edit-team-resolution' + numeroTeamRow, '');
 	document.querySelectorAll('#edit-team-character' + numeroTeamRow).forEach(el => {
 		characterArray.map(item => {
@@ -102,7 +103,8 @@ ipcRenderer.on('editTeam-reply', (event, team, id) => {
 	document.getElementById('edit-team-form').value = team._id;
 	document.getElementById('edit-team-name').value = team.name;
 	document.getElementById('team-edit-container').innerHTML = '';
-	if (team.res0 != undefined) {
+	
+	if (team.char0 != undefined) {
 		document.getElementById('team-edit-container').insertAdjacentHTML('beforeend', getTeamRow(0, 'edit', team));
 		refreshComboByFetchAndSelector('?getAllCharacterNames', '#edit-team-character0', team.char0);
 		refreshComboByFetchAndSelector('?getAllResolutions', '#edit-team-resolution0', team.res0);

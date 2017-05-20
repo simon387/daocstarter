@@ -203,103 +203,83 @@ portfinder.getPort((err, port) => {
 						windowed0: windowed0,
 						deelay0: post['team-deelay0'],
 						borderless0: borderless0,
+						width0: post['team-width0'],
+						height0: post['team-height0'],
+						positionx0: post['team-position-x0'],
+						positiony0: post['team-position-y0'],
 						
 						char1: teamChar1,
 						res1: post['team-resolution1'],
 						windowed1: windowed1,
 						deelay1: post['team-deelay1'],
 						borderless1: borderless1,
+						width1: post['team-width1'],
+						height1: post['team-height1'],
+						positionx1: post['team-position-x1'],
+						positiony1: post['team-position-y1'],
 
 						char2: teamChar2,
 						res2: post['team-resolution2'],
 						windowed2: windowed2,
 						deelay2: post['team-deelay2'],
 						borderless2: borderless2,
+						width2: post['team-width2'],
+						height2: post['team-height2'],
+						positionx2: post['team-position-x2'],
+						positiony2: post['team-position-y2'],
 
 						char3: teamChar3,
 						res3: post['team-resolution3'],
 						windowed3: windowed3,
 						deelay3: post['team-deelay3'],
 						borderless3: borderless3,
+						width3: post['team-width3'],
+						height3: post['team-height3'],
+						positionx3: post['team-position-x3'],
+						positiony3: post['team-position-y3'],
 
 						char4: teamChar4,
 						res4: post['team-resolution4'],
 						windowed4: windowed4,
 						deelay4: post['team-deelay4'],
 						borderless4: borderless4,
+						width4: post['team-width4'],
+						height4: post['team-height4'],
+						positionx4: post['team-position-x4'],
+						positiony4: post['team-position-y4'],
 
 						char5: teamChar5,
 						res5: post['team-resolution5'],
 						windowed5: windowed5,
 						deelay5: post['team-deelay5'],
 						borderless5: borderless5,
+						width5: post['team-width5'],
+						height5: post['team-height5'],
+						positionx5: post['team-position-x5'],
+						positiony5: post['team-position-y5'],
 
 						char6: teamChar6,
 						res6: post['team-resolution6'],
 						windowed6: windowed6,
 						deelay6: post['team-deelay6'],
 						borderless6: borderless6,
+						width6: post['team-width6'],
+						height6: post['team-height6'],
+						positionx6: post['team-position-x6'],
+						positiony6: post['team-position-y6'],
 
 						char7: teamChar7,
 						res7: post['team-resolution7'],
 						windowed7: windowed7,
 						deelay7: post['team-deelay7'],
 						borderless7: borderless7,
-
-						width0: post['team-width0'],
-						height0: post['team-height0'],
-						positionx0: post['team-position-x0'],
-						positiony0: post['team-position-y0'],
-
-						width1: post['team-width1'],
-						height1: post['team-height1'],
-						positionx1: post['team-position-x1'],
-						positiony1: post['team-position-y1'],
-
-						width2: post['team-width2'],
-						height2: post['team-height2'],
-						positionx2: post['team-position-x2'],
-						positiony2: post['team-position-y2'],
-
-						width3: post['team-width3'],
-						height3: post['team-height3'],
-						positionx3: post['team-position-x3'],
-						positiony3: post['team-position-y3'],
-
-						width4: post['team-width4'],
-						height4: post['team-height4'],
-						positionx4: post['team-position-x4'],
-						positiony4: post['team-position-y4'],
-
-						width5: post['team-width5'],
-						height5: post['team-height5'],
-						positionx5: post['team-position-x5'],
-						positiony5: post['team-position-y5'],
-
-						width6: post['team-width6'],
-						height6: post['team-height6'],
-						positionx6: post['team-position-x6'],
-						positiony6: post['team-position-y6'],
-
 						width7: post['team-width7'],
 						height7: post['team-height7'],
 						positionx7: post['team-position-x7'],
 						positiony7: post['team-position-y7']
-						/*
-				width1: post['team-width1'],
-				height1: post['team-height1'],
-				teampositionx1: post['team-position-x1'],
-				teampositiony1: post['team-position-y1'],
-						*/
-
-
-						//speriamo di non aggiungere più nulla
 					}, (err, newDoc) => {
 						response.send(newDoc);
 					});
-				}
-				else if (request.query.editTeam != undefined) {
-				
 				}
 			}
 			//setting per ora con i file

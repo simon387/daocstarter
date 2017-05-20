@@ -131,6 +131,7 @@ ipcMain.on('saveTeam', (event, id, value) => {
 		{_id: id},
 		{$set: {
 			name: value[0],
+			
 			char0: value[1],
 			res0: value[2],
 			windowed0: windowed0,
