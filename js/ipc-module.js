@@ -121,26 +121,22 @@ ipcMain.on('saveSettingStringa', (event, id, value) => {
 	});
 });
 
-ipcMain.on('saveTeam', (event, id, value) => {
+ipcMain.on('saveTeam', (event, id, name, team) => {
 
-	const borderless0 = value[5] === undefined ? false : value[5];
-	const windowed0 = value[3] === undefined ? false : value[3];
-
-//	console.log(windowed0, borderless0)
 	db.teamDatastore.update(
 		{_id: id},
 		{$set: {
-			name: value[0],
-			
-			char0: value[1],
-			res0: value[2],
-			windowed0: windowed0,
-			deelay0: value[4],
-			borderless0: borderless0,
-			width0: value[6],
-			height0: value[7],
-			positionx0: value[8],
-			positiony0: value[9]
+			name: name,
+
+			char0: team['team0'][0],
+			res0: team['team0'][1],
+			windowed0: team['team0'][2] === undefined ? false : team['team0'][2],
+			deelay0: team['team0'][3],
+			borderless0: team['team0'][4] === undefined ? false : team['team0'][4],
+			width0: team['team0'][5],
+			height0: team['team0'][6],
+			positionx0: team['team0'][7],
+			positiony0: team['team0'][8]
 //+7
 		}},
 		{returnUpdatedDocs: true, multi: false},

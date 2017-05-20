@@ -103,40 +103,54 @@ ipcRenderer.on('editTeam-reply', (event, team, id) => {
 	document.getElementById('edit-team-form').value = team._id;
 	document.getElementById('edit-team-name').value = team.name;
 	document.getElementById('team-edit-container').innerHTML = '';
-	
-	if (team.char0 != undefined) {
-		document.getElementById('team-edit-container').insertAdjacentHTML('beforeend', getTeamRow(0, 'edit', team));
-		refreshComboByFetchAndSelector('?getAllCharacterNames', '#edit-team-character0', team.char0);
-		refreshComboByFetchAndSelector('?getAllResolutions', '#edit-team-resolution0', team.res0);
-		$('#edit-team-windowed0').prop('checked', team.windowed0 === undefined ? false: team.windowed0);
-		document.getElementById('edit-team-deelay0').value = team.deelay0;
-		$('#edit-team-borderless0').prop('checked', team.borderless0 === undefined ? false : team.borderless0);
-		document.getElementById('edit-team-width0').value = team.width0;
-		document.getElementById('edit-team-height0').value = team.height0;
-		document.getElementById('edit-team-position-x0').value = team.positionx0;
-		document.getElementById('edit-team-position-y0').value = team.positiony0;
+
+	for (let i = 0; i < 7; i++) {
+		if (team['res' + i] != undefined ) {
+			document.getElementById('team-edit-container').insertAdjacentHTML('beforeend', getTeamRow(i, 'edit'));
+			refreshComboByFetchAndSelector('?getAllCharacterNames', '#edit-team-character' + i, team['char' + i]);
+			refreshComboByFetchAndSelector('?getAllResolutions', '#edit-team-resolution' + i, team['res' + i]);
+			$('#edit-team-windowed' + i).prop('checked', team['windowed' + i] === undefined ? false: team['windowed' + i]);
+			document.getElementById('edit-team-deelay' + i).value = team['deelay' + i];
+			$('#edit-team-borderless' + i).prop('checked', team['borderless' + i] === undefined ? false : team['borderless' + i]);
+			document.getElementById('edit-team-width' + i).value = team['width' + i];
+			document.getElementById('edit-team-height' + i).value = team['height' + i];
+			document.getElementById('edit-team-position-x' + i).value = team['positionx' + i];
+			document.getElementById('edit-team-position-y' + i).value = team['positiony' + i];
+		}
 	}
-	//+7
 	$('#edit-team-modal').modal('show');
 });
 
 // Save edited row
 $('#edit-team-modal').on('submit', event => {
 	event.preventDefault();
+	let team = new Object();
+	team.team0 = [];
+	team.team1 = [];
+	team.team2 = [];
+	team.team3 = [];
+	team.team4 = [];
+	team.team5 = [];
+	team.team6 = [];
+	team.team7 = [];
+	for (let i = 0; i < 7; i++) {
+		if (document.getElementById('edit-team-resolution' + i) != undefined) {
+			team['team' + i].push(document.getElementById('edit-team-character' + i).value);
+			team['team' + i].push(document.getElementById('edit-team-resolution' + i).value);
+			team['team' + i].push(document.getElementById('edit-team-windowed' + i).checked);
+			team['team' + i].push(document.getElementById('edit-team-deelay' + i).value);
+			team['team' + i].push(document.getElementById('edit-team-borderless' + i).checked);
+			team['team' + i].push(document.getElementById('edit-team-width' + i).value);
+			team['team' + i].push(document.getElementById('edit-team-height' + i).value);
+			team['team' + i].push(document.getElementById('edit-team-position-x' + i).value);
+			team['team' + i].push(document.getElementById('edit-team-position-y' + i).value);
+		}
+	}
 
 	ipcRenderer.send('saveTeam',
-	document.getElementById('edit-team-form').value,
-	[document.getElementById('edit-team-name').value,
-	document.getElementById('edit-team-character0').value,
-	document.getElementById('edit-team-resolution0').value,
-	document.getElementById('edit-team-windowed0').checked,
-	document.getElementById('edit-team-deelay0').value,
-	document.getElementById('edit-team-borderless0').checked,
-	document.getElementById('edit-team-width0').value,
-	document.getElementById('edit-team-height0').value,
-	document.getElementById('edit-team-position-x0').value,
-	document.getElementById('edit-team-position-y0').value]
-//+7
+		document.getElementById('edit-team-form').value,
+		document.getElementById('edit-team-name').value,
+		team
 	);
 });
 ipcRenderer.on('saveTeam-reply', event => {

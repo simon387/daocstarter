@@ -90,26 +90,25 @@ portfinder.getPort((err, port) => {
 			const post = querystring.parse(body);
 			//account
 			if (request.query.addAccount != undefined || request.query.editAccount != undefined) {
-				const accountWindowed = post['account-windowed'] === undefined ? false : true;
 				if (request.query.addAccount != undefined) {
 					db.accountDatastore.insert({
-							name:post['account-name'],
-							password:post['account-password'],
-							server:post['account-server'],
-							resolution:post['account-resolution'],
-							windowed:accountWindowed,
+							name: post['account-name'],
+							password: post['account-password'],
+							server: post['account-server'],
+							resolution: post['account-resolution'],
+							windowed: post['account-windowed'] === undefined ? false : true,
 							title:post['account-title']
 						}, (err, newDoc) => {// Callback is optional
 						response.send(newDoc);
 					});
 				} else if (request.query.editAccount != undefined) {
 					db.accountDatastore.update({_id:request.query.editAccount}, {$set:{
-							name:post['account-name'],
-							password:post['account-password'],
-							server:post['account-server'],
-							resolution:post['account-resolution'],
-							windowed:accountWindowed,
-							title:post['account-title']}
+							name: post['account-name'],
+							password: post['account-password'],
+							server: post['account-server'],
+							resolution: post['account-resolution'],
+							windowed: post['account-windowed'] === undefined ? false : true,
+							title: post['account-title']}
 						}, {returnUpdatedDocs: true, multi: false}, (err, numAffected, affectedDocuments) => {
 						response.send(affectedDocuments);
 					});
@@ -117,11 +116,6 @@ portfinder.getPort((err, port) => {
 			}
 			//char
 			if (request.query.addCharacter != undefined || request.query.editCharacter != undefined) {
-				const characterWindowed = post['character-windowed'] === undefined ? false : true;
-				const characterFavourite = post['character-favourite'] === undefined ? false : true;
-				const fullscreen_windowed = post['character-fullscreen_windowed'] === undefined ? false : true;
-				const forward_breaks_runlock = post['character-forwardbreaksrunlock'] === undefined ? false : true;
-				const borderless = post['character-borderless'] === undefined ? false : true;
 				if (request.query.addCharacter != undefined) {
 					db.characterDatastore.insert({
 							name: post['character-name'],
@@ -130,12 +124,12 @@ portfinder.getPort((err, port) => {
 							server: post['character-server'],
 							classe: post['character-class'],
 							resolution: post['character-resolution'],
-							windowed: characterWindowed,
-							favourite: characterFavourite,
+							windowed: post['character-windowed'] === undefined ? false : true,
+							favourite: post['character-favourite'] === undefined ? false : true,
 							title: post['character-title'],
-							fullscreen_windowed: fullscreen_windowed,
-							forward_breaks_runlock: forward_breaks_runlock,
-							borderless: borderless,
+							fullscreen_windowed: post['character-fullscreen_windowed'] === undefined ? false : true,
+							forward_breaks_runlock: post['character-forwardbreaksrunlock'] === undefined ? false : true,
+							borderless: post['character-borderless'] === undefined ? false : true,
 							width: post['character-width'],
 							height: post['character-height'],
 							positionX: post['character-position-x'],
@@ -151,12 +145,12 @@ portfinder.getPort((err, port) => {
 							server: post['character-server'],
 							classe: post['character-class'],
 							resolution: post['character-resolution'],
-							windowed: characterWindowed,
-							favourite: characterFavourite,
+							windowed: post['character-windowed'] === undefined ? false : true,
+							favourite: post['character-favourite'] === undefined ? false : true,
 							title: post['character-title'],
-							fullscreen_windowed: fullscreen_windowed,
-							forward_breaks_runlock: forward_breaks_runlock,
-							borderless: borderless,
+							fullscreen_windowed: post['character-fullscreen_windowed'] === undefined ? false : true,
+							forward_breaks_runlock: post['character-forwardbreaksrunlock'] === undefined ? false : true,
+							borderless: post['character-borderless'] === undefined ? false : true,
 							width: post['character-width'],
 							height: post['character-height'],
 							positionX: post['character-position-x'],
@@ -170,109 +164,84 @@ portfinder.getPort((err, port) => {
 			}
 			//team
 			if (request.query.addTeam != undefined || request.query.editTeam != undefined) {
-				const windowed0 = post['team-windowed0'] === undefined ? false : true;
-				const windowed1 = post['team-windowed1'] === undefined ? false : true;
-				const windowed2 = post['team-windowed2'] === undefined ? false : true;
-				const windowed3 = post['team-windowed3'] === undefined ? false : true;
-				const windowed4 = post['team-windowed4'] === undefined ? false : true;
-				const windowed5 = post['team-windowed5'] === undefined ? false : true;
-				const windowed6 = post['team-windowed6'] === undefined ? false : true;
-				const windowed7 = post['team-windowed7'] === undefined ? false : true;
-				const teamChar0 = post['team-character0'] === undefined ? ' ' : post['team-character0'];
-				const teamChar1 = post['team-character1'] === undefined ? ' ' : post['team-character1'];
-				const teamChar2 = post['team-character2'] === undefined ? ' ' : post['team-character2'];
-				const teamChar3 = post['team-character3'] === undefined ? ' ' : post['team-character3'];
-				const teamChar4 = post['team-character4'] === undefined ? ' ' : post['team-character4'];
-				const teamChar5 = post['team-character5'] === undefined ? ' ' : post['team-character5'];
-				const teamChar6 = post['team-character6'] === undefined ? ' ' : post['team-character6'];
-				const teamChar7 = post['team-character7'] === undefined ? ' ' : post['team-character7'];
-				const borderless0 = post['team-borderless0'] === undefined ? false : true;
-				const borderless1 = post['team-borderless1'] === undefined ? false : true;
-				const borderless2 = post['team-borderless2'] === undefined ? false : true;
-				const borderless3 = post['team-borderless3'] === undefined ? false : true;
-				const borderless4 = post['team-borderless4'] === undefined ? false : true;
-				const borderless5 = post['team-borderless5'] === undefined ? false : true;
-				const borderless6 = post['team-borderless6'] === undefined ? false : true;
-				const borderless7 = post['team-borderless7'] === undefined ? false : true;
 				if (request.query.addTeam != undefined) {// TO CHANGE; THIS IS SO BAD
 					db.teamDatastore.insert({
 						name: post['team-name'],
-						
-						char0: teamChar0,
+						char0: post['team-character0'] === undefined ? ' ' : post['team-character0'],
 						res0: post['team-resolution0'],
-						windowed0: windowed0,
+						windowed0: post['team-windowed0'] === undefined ? false : true,
 						deelay0: post['team-deelay0'],
-						borderless0: borderless0,
+						borderless0: post['team-borderless0'] === undefined ? false : true,
 						width0: post['team-width0'],
 						height0: post['team-height0'],
 						positionx0: post['team-position-x0'],
 						positiony0: post['team-position-y0'],
 						
-						char1: teamChar1,
+						char1: post['team-character1'] === undefined ? ' ' : post['team-character1'],
 						res1: post['team-resolution1'],
-						windowed1: windowed1,
+						windowed1: post['team-windowed1'] === undefined ? false : true,
 						deelay1: post['team-deelay1'],
-						borderless1: borderless1,
+						borderless1: post['team-borderless1'] === undefined ? false : true,
 						width1: post['team-width1'],
 						height1: post['team-height1'],
 						positionx1: post['team-position-x1'],
 						positiony1: post['team-position-y1'],
 
-						char2: teamChar2,
+						char2: post['team-character2'] === undefined ? ' ' : post['team-character2'],
 						res2: post['team-resolution2'],
-						windowed2: windowed2,
+						windowed2: post['team-windowed2'] === undefined ? false : true,
 						deelay2: post['team-deelay2'],
-						borderless2: borderless2,
+						borderless2: post['team-borderless2'] === undefined ? false : true,
 						width2: post['team-width2'],
 						height2: post['team-height2'],
 						positionx2: post['team-position-x2'],
 						positiony2: post['team-position-y2'],
 
-						char3: teamChar3,
+						char3: post['team-character3'] === undefined ? ' ' : post['team-character3'],
 						res3: post['team-resolution3'],
-						windowed3: windowed3,
+						windowed3: post['team-windowed3'] === undefined ? false : true,
 						deelay3: post['team-deelay3'],
-						borderless3: borderless3,
+						borderless3: post['team-borderless3'] === undefined ? false : true,
 						width3: post['team-width3'],
 						height3: post['team-height3'],
 						positionx3: post['team-position-x3'],
 						positiony3: post['team-position-y3'],
 
-						char4: teamChar4,
+						char4: post['team-character4'] === undefined ? ' ' : post['team-character4'],
 						res4: post['team-resolution4'],
-						windowed4: windowed4,
+						windowed4: post['team-windowed4'] === undefined ? false : true,
 						deelay4: post['team-deelay4'],
-						borderless4: borderless4,
+						borderless4: post['team-borderless4'] === undefined ? false : true,
 						width4: post['team-width4'],
 						height4: post['team-height4'],
 						positionx4: post['team-position-x4'],
 						positiony4: post['team-position-y4'],
 
-						char5: teamChar5,
+						char5: post['team-character5'] === undefined ? ' ' : post['team-character5'],
 						res5: post['team-resolution5'],
-						windowed5: windowed5,
+						windowed5: post['team-windowed5'] === undefined ? false : true,
 						deelay5: post['team-deelay5'],
-						borderless5: borderless5,
+						borderless5: post['team-borderless5'] === undefined ? false : true,
 						width5: post['team-width5'],
 						height5: post['team-height5'],
 						positionx5: post['team-position-x5'],
 						positiony5: post['team-position-y5'],
 
-						char6: teamChar6,
+						char6: post['team-character6'] === undefined ? ' ' : post['team-character6'],
 						res6: post['team-resolution6'],
-						windowed6: windowed6,
+						windowed6: post['team-windowed6'] === undefined ? false : true,
 						deelay6: post['team-deelay6'],
-						borderless6: borderless6,
+						borderless6: post['team-borderless6'] === undefined ? false : true,
 						width6: post['team-width6'],
 						height6: post['team-height6'],
 						positionx6: post['team-position-x6'],
 						positiony6: post['team-position-y6'],
 
-						char7: teamChar7,
+						char7: post['team-character7'] === undefined ? ' ' : post['team-character7'],
 						res7: post['team-resolution7'],
-						windowed7: windowed7,
+						windowed7: post['team-windowed7'] === undefined ? false : true,
 						deelay7: post['team-deelay7'],
-						borderless7: borderless7,
+						borderless7: post['team-borderless7'] === undefined ? false : true,
 						width7: post['team-width7'],
 						height7: post['team-height7'],
 						positionx7: post['team-position-x7'],
