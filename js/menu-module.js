@@ -218,9 +218,9 @@ const menuTemplate = [
 				}
 			},
 			{
-				label: 'sc.excidio.net',
+				label: 'excidio.net/charplaner',
 				click: () => {
-					opn('http://sc.excidio.net/charplaner/');
+					opn('http://www.excidio.net/charplaner/');
 				}
 			},
 			{
@@ -233,7 +233,7 @@ const menuTemplate = [
 				}
 			},
 			{
-				label: 'DAoC discord channel',
+				label: 'DAoC YWAIN Discord channel',
 				click: () => {
 					opn('https://discord.gg/KwAGwYa');
 				}
