@@ -209,6 +209,9 @@ const menuTemplate = [
 				}
 			},
 			{
+				type: 'separator'
+			},
+			{
 				label: 'craftsage.com',
 				click: () => {
 					opn('http://www.craftsage.com');
@@ -219,14 +222,29 @@ const menuTemplate = [
 				click: () => {
 					opn('http://sc.excidio.net/charplaner/');
 				}
-			}
+			},
+			{
+				type: 'separator'
+			},
+			{
+				label: 'sorcery.net',
+				click: () => {
+					opn('http://www.sorcery.net/index.php?option=com_wrapper&view=wrapper&Itemid=69');
+				}
+			},
+			{
+				label: 'DAoC discord channel',
+				click: () => {
+					opn('https://discord.gg/KwAGwYa');
+				}
+			},
 		]
 	},
 	{
 		label: '?',
 		submenu: [
 			{
-				label: 'Report a BUG',
+				label: 'Report a BUG or suggestions',
 				click: () => {
 					opn('https://github.com/simon387/daocstarter/issues');
 				}

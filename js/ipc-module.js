@@ -54,29 +54,6 @@ ipcMain.on('saveFavouriteCoordinate', (event, id, left, top) => {
 	});
 });
 
-ipcMain.on('playCharacter', (event, charArrayID) => {
-	let accountSet = new Set();
-	let accountArray;
-	db.settingDatastore.findOne({key: 'default.login.delay.milli'}, (err, setting) => {
-		db.characterDatastore.find({_id: {$in: charArrayID}}, async (err, characters) => {
-			for (let character of characters) {
-				accountSet.add(character.account);
-			}
-			accountArray = Array.from(accountSet);
-			if (accountArray.length == charArrayID.length) {
-				for (let id of charArrayID) {
-					gamedll.playCharacter(id);
-					await sleep(setting.value);
-				}
-			}
-			else {
-				dialog.showErrorBox('Error', "You can't play characters from same account!");
-			}
-		});
-	});
-});
-
-
 ipcMain.on('killCharacter', (event, id) => {
 	gamedll.killCharacter(id);
 });
@@ -243,13 +220,80 @@ ipcMain.on('remove-team', (event, id) => {
 	});
 });
 
-//ipcMain.on('playTeamRow', (event, id) => {
-	//TODO
-//});
+ipcMain.on('playCharacter', (event, charArrayID) => {
+	let accountSet = new Set();
+	let accountArray;
+	db.settingDatastore.findOne({key: 'default.login.delay.milli'}, (err, setting) => {
+		db.characterDatastore.find({_id: {$in: charArrayID}}, async (err, characters) => {
+			for (let character of characters) {
+				accountSet.add(character.account);
+			}
+			accountArray = Array.from(accountSet);
+			if (accountArray.length == charArrayID.length) {
+				for (let id of charArrayID) {
+					gamedll.playCharacter(id);
+					await sleep(setting.value);
+				}
+			}
+			else {
+				dialog.showErrorBox('Error', "You can't play characters from same account!");
+			}
+		});
+	});
+});
 
-//ipcMain.on('killTeamRow', (event, id) => {
-	//TODO
-//});
+ipcMain.on('playTeamRow', (event, id) => {
+	let accountSet = new Set();
+	let accountArray;
+	let charArrayName = [];
+	let deelayArray = [];
+	let index = 0;
+	db.teamDatastore.findOne({_id: id}, (err, team) => {
+		if (team.char0 != undefined && team.char0 != ' ') {charArrayName.push(team.char0); deelayArray.push(team.deelay0);}
+		if (team.char1 != undefined && team.char1 != ' ') {charArrayName.push(team.char1); deelayArray.push(team.deelay1);}
+		if (team.char2 != undefined && team.char2 != ' ') {charArrayName.push(team.char2); deelayArray.push(team.deelay2);}
+		if (team.char3 != undefined && team.char3 != ' ') {charArrayName.push(team.char3); deelayArray.push(team.deelay3);}
+		if (team.char4 != undefined && team.char4 != ' ') {charArrayName.push(team.char4); deelayArray.push(team.deelay4);}
+		if (team.char5 != undefined && team.char5 != ' ') {charArrayName.push(team.char5); deelayArray.push(team.deelay5);}
+		if (team.char6 != undefined && team.char6 != ' ') {charArrayName.push(team.char6); deelayArray.push(team.deelay6);}
+		if (team.char7 != undefined && team.char7 != ' ') {charArrayName.push(team.char7); deelayArray.push(team.deelay7);}
+
+		db.characterDatastore.find({name: {$in: charArrayName}}, async (err, characters) => {
+			for (let character of characters) {
+				accountSet.add(character.account);
+			}
+			accountArray = Array.from(accountSet);
+
+			if (accountArray.length == charArrayName.length) {
+				for (let character of characters) {
+					gamedll.playCharacterFromTeam(character,
+					team['res' + index],
+					team['windowed' + index],
+					team['borderless' + index],
+					team['width' + index],
+					team['positionx' + index],
+					team['positiony' + index]);
+					await sleep(deelayArray[index++]);
+				}
+			}
+			else {
+				dialog.showErrorBox('Error', "You can't play characters from same account!");
+			}
+		});
+	});
+});
+/*
+res
+windowed
+borderless
+width
+height
+positionx
+positiony
+*/
+ipcMain.on('killTeamRow', (event, id) => {
+	gamedll.killTeam(id);
+});
 
 ipcMain.on('editTeam', (event, id) => {
 	db.teamDatastore.findOne({_id: id}, (err, team) => {

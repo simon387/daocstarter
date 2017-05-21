@@ -122,7 +122,7 @@ ipcRenderer.on('editTeam-reply', (event, team, id) => {
 	document.getElementById('team-edit-container').innerHTML = '';
 	numeroTeamRow = 0;
 
-	for (let i = 0; i < 7; i++) {
+	for (let i = 0; i <= 7; i++) {
 		if (team['res' + i] != undefined ) {
 			numeroTeamRow++;
 			document.getElementById('team-edit-container').insertAdjacentHTML('beforeend', getTeamRow(i, 'edit'));
@@ -152,7 +152,7 @@ $('#edit-team-modal').on('submit', event => {
 	team.team5 = [];
 	team.team6 = [];
 	team.team7 = [];
-	for (let i = 0; i < 7; i++) {
+	for (let i = 0; i <= 7; i++) {
 		if (document.getElementById('edit-team-resolution' + i) != undefined) {
 			team['team' + i].push(document.getElementById('edit-team-character' + i).value);
 			team['team' + i].push(document.getElementById('edit-team-resolution' + i).value);
