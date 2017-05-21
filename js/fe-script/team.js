@@ -50,12 +50,16 @@ document.getElementById('add-team-add').onclick = () => {
 }
 
 document.getElementById('edit-team-add').onclick = () => {
+	console.log(numeroTeamRow)
 	if (numeroTeamRow >= 7) {
 		return;
 	}
 	document.getElementById('team-edit-container').insertAdjacentHTML('beforeend', getTeamRow(++numeroTeamRow, 'edit'));
 	//populateTeamChars();
 	refreshComboByFetchAndSelector('?getAllResolutions', '#edit-team-resolution' + numeroTeamRow, '');
+
+	
+
 	document.querySelectorAll('#edit-team-character' + numeroTeamRow).forEach(el => {
 		characterArray.map(item => {
 			el.innerHTML += '<option value="' + item.name + '">' + item.name + '</option>';
@@ -70,9 +74,19 @@ document.getElementById('add-team-remove').onclick = () => {
 }
 
 document.getElementById('edit-team-remove').onclick = () => {
+
+	
+
 	if (numeroTeamRow > 0) {
+		//console.log(numeroTeamRow)
+		if (document.getElementById('editGeneratedTeamRow' + numeroTeamRow) == null) {
+			numeroTeamRow--;
+		}
 		document.getElementById('editGeneratedTeamRow' + numeroTeamRow--).outerHTML = '';
+		//numeroTeamRow--;
 	}
+
+	console.log(numeroTeamRow)
 }
 
 // Add new row
@@ -98,14 +112,19 @@ ipcRenderer.on('remove-team-reply', event => {
 // Edit selected row
 function editTeamRow(id) {
 	ipcRenderer.send('editTeam', id + '');
+
+	populateTeamChars();
+
 }
 ipcRenderer.on('editTeam-reply', (event, team, id) => {
 	document.getElementById('edit-team-form').value = team._id;
 	document.getElementById('edit-team-name').value = team.name;
 	document.getElementById('team-edit-container').innerHTML = '';
+	numeroTeamRow = 0;
 
 	for (let i = 0; i < 7; i++) {
 		if (team['res' + i] != undefined ) {
+			numeroTeamRow++;
 			document.getElementById('team-edit-container').insertAdjacentHTML('beforeend', getTeamRow(i, 'edit'));
 			refreshComboByFetchAndSelector('?getAllCharacterNames', '#edit-team-character' + i, team['char' + i]);
 			refreshComboByFetchAndSelector('?getAllResolutions', '#edit-team-resolution' + i, team['res' + i]);
@@ -146,7 +165,7 @@ $('#edit-team-modal').on('submit', event => {
 			team['team' + i].push(document.getElementById('edit-team-position-y' + i).value);
 		}
 	}
-
+	console.log(team)
 	ipcRenderer.send('saveTeam',
 		document.getElementById('edit-team-form').value,
 		document.getElementById('edit-team-name').value,
