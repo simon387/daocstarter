@@ -8,5 +8,5 @@ handle/tmp
 handle/Eula.txt
 tmp
 resources/
-daocstarter.au3
+*.au3
 test.js
