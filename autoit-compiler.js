@@ -29,6 +29,8 @@ const buffer = new Buffer (
 	'FileInstall(".\\borderless\\borderless.exe", $TMP_BORDERLESS, 1)\r\n' +
 	'Global Const $TMP_CALGAMMA = @TempDir & "\\CALGamma.exe"\r\n' +
 	'FileInstall(".\\calgamma\\CALGamma.exe", $TMP_CALGAMMA, 1)\r\n' +
+	'Global Const $TMP_HANDLE = @TempDir & "\\handle.exe"\r\n' +
+	'FileInstall(".\\handle\\handle.exe", $TMP_HANDLE, 1)\r\n' +
 	';~ DirRemove($DIST_ZIP_PATH, 1)\r\n' +
 	'If Not FileExists($EXE) Then\r\n' +
 	'\tFileInstall(".\\dist.zip", $TMP_ZIP_PATH, 1);1=overwrite\r\n' +

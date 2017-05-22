@@ -4,37 +4,29 @@ const ps = require('ps-node');
 const os = require('os');
 const child_process = require('child_process');
 const fs = require('fs');
-let handle_Path = 'resources\\app\\handle\\handle.exe';
+const handle_Path = os.tmpdir() + '\\handle.exe';
 
 module.exports = {
 	killMutants: function () {
-		console.log("killMutants called!");
-		if (!fs.existsSync(handle_Path)) {
-			handle_Path = 'handle\\handle.exe';
-		}
-		getGameDllPids();
-	}
-}
-
-function getGameDllPids() {
-	let aPID = [];
-	ps.lookup({
-		command: 'game.dll',
-		psargs: 'ux'
-	}, (err, resultList) => {
-		if (err) {
-			throw new Error(err);
-		}
-		resultList.forEach(process => {
-			if (process){
-				console.log("_PUSHATO UN PROCESSO")
-				aPID.push(process.pid);
+		let aPID = [];
+		ps.lookup({
+			command: 'game.dll',
+			psargs: 'ux'
+		}, (err, resultList) => {
+			if (err) {
+				throw new Error(err);
+			}
+			resultList.forEach(process => {
+				if (process){
+					//console.log("_PUSHATO UN PROCESSO")
+					aPID.push(process.pid);
+				}
+			});
+			if (aPID.length > 0) {
+				getGameDllHandles(aPID);
 			}
 		});
-		if (aPID.length > 0) {
-			getGameDllHandles(aPID);
-		}
-	});
+	}
 }
 
 function getGameDllHandles(aPID) {
@@ -56,7 +48,7 @@ function getGameDllHandles(aPID) {
 	});
 	findstr_exe.stdout.on('data', (data) => {
 		const dataRows = data.toString().split('\n');
-		console.log("dataRows", dataRows)
+		//console.log("dataRows", dataRows)
 		if (dataRows instanceof Array) {
 			for (let r = 0; r < dataRows.length; r++) {
 				let hex = dataRows[r].split(':');

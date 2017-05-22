@@ -3,13 +3,13 @@
 const db = require("./db-module.js");
 const {dialog} = require('electron');
 const path = require('path');
-const fs = require("fs");
+const fs = require('fs');
 const child_process = require('child_process');
 const ini = require('ini');
 const moment = require('moment');
 const os = require('os');
 const ps = require('ps-node');
-const handle = require("./handle-module.js");
+const handle = require('./handle-module.js');
 
 module.exports = {
 	playCharacter: id => {
@@ -265,23 +265,19 @@ module.exports = {
 
 	killTeam: id => {
 		db.teamDatastore.findOne({_id: id}, (err, team) => {
-			//if (team.char0 != undefined) {
-				db.characterDatastore.find({name: {$in: [team.char0,
-					team.char1,
-					team.char2,
-					team.char3,
-					team.char4,
-					team.char5,
-					team.char6,
-					team.char7,
-
-					]}}, (err, characters) => {
-						characters.forEach(character => {
-							module.exports.killCharacter(character._id);
-						
-					});
+			db.characterDatastore.find({name: {$in: [team.char0,
+				team.char1,
+				team.char2,
+				team.char3,
+				team.char4,
+				team.char5,
+				team.char6,
+				team.char7,
+			]}}, (err, characters) => {
+				characters.forEach(character => {
+					module.exports.killCharacter(character._id);
 				});
-			//}
+			});
 		});
 	},
 
