@@ -96,3 +96,7 @@ function killCharacterRow(id, fromFavourite = false) {
 		}
 	}
 }
+
+document.getElementById('import-from-appdata').onclick = () => {
+	console.log('TODO')
+}
