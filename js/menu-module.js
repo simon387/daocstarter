@@ -13,7 +13,7 @@ const gamedll = require('./gamedll-module.js');
 const fs = require('fs');
 const child_process = require('child_process');
 const {app} = require('electron');
-const os = require('os');
+const constants = require('./constants.js');
 
 Menu.getApplicationMenu();
 
@@ -141,7 +141,7 @@ const menuTemplate = [
 				label: 'Run CALGamma Tool',
 				click: () => {
 					const exec = child_process.exec;
-					exec(os.tmpdir() + '\\CALGamma.exe', (err, so, se) => {});
+					exec(constants.calgamma_path, (err, so, se) => {});
 				}
 			}
 		]

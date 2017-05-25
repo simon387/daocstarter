@@ -7,9 +7,9 @@ const fs = require('fs');
 const child_process = require('child_process');
 const ini = require('ini');
 const moment = require('moment');
-const os = require('os');
 const ps = require('ps-node');
 const handle = require('./handle-module.js');
+const constants = require('./constants.js');
 
 module.exports = {
 	playCharacter: id => {
@@ -90,12 +90,12 @@ module.exports = {
 										});
 										if (undefined != character.title && '' != character.title && prc.pid > 0) {
 											const exec = child_process.exec;
-											exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
+											exec(constants.titlerenamer_path + ' ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
 										}
 										else {
 											if (undefined != account.title && '' != account.title && prc.pid > 0) {
 												const exec = child_process.exec;
-												exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
+												exec(constants.titlerenamer_path + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
 											}
 										}
 										//gestione borderless
@@ -125,7 +125,7 @@ module.exports = {
 											}
 
 											const exec = child_process.exec;
-											exec(os.tmpdir() + '\\borderless.exe ' + prc.pid + ' ' +
+											exec(constants.borderless_path + ' ' + prc.pid + ' ' +
 												width + ' ' + height + ' ' + positionX + ' ' + positionY,
 												(err, so, se) => {});
 										}
@@ -253,7 +253,7 @@ module.exports = {
 							console.log('Spawned child pid: ' + prc.pid);
 							if (undefined != account.title && '' != account.title && prc.pid > 0) {
 								const exec = child_process.exec;
-								exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
+								exec(constants.titlerenamer_path + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
 							}
 						}
 					});
@@ -359,12 +359,12 @@ module.exports = {
 											});
 											if (undefined != character.title && '' != character.title && prc.pid > 0) {
 												const exec = child_process.exec;
-												exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
+												exec(constants.titlerenamer_path + ' ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
 											}
 											else {
 												if (undefined != account.title && '' != account.title && prc.pid > 0) {
 													const exec = child_process.exec;
-													exec(os.tmpdir() + '\\titlerenamer.exe ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
+													exec(constants.titlerenamer_path + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
 												}
 											}
 											//gestione borderless
@@ -390,7 +390,7 @@ module.exports = {
 												}
 
 												const exec = child_process.exec;
-												exec(os.tmpdir() + '\\borderless.exe ' + prc.pid + ' ' +
+												exec(constants.borderless_path + ' ' + prc.pid + ' ' +
 													width + ' ' + height + ' ' + positionX + ' ' + positionY,
 													(err, so, se) => {});
 											}
