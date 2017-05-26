@@ -1,4 +1,4 @@
-/* titlerenamer.exe source code
+/*
 #NoTrayIcon
 WinSetTitle(_WinGetByPID($CmdLine[1]), "", $CmdLine[2])
 Func _WinGetByPID($iPID, $iArray = 1) ; 0 Will Return 1 Base Array & 1 Will Return The First Window.

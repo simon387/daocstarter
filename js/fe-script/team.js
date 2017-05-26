@@ -199,7 +199,7 @@ const getTeamRow = (n, action = 'add'/*, team = undefined*/) => {
 	"<div class='form-group'>" +
 	"<label for='" + action + "-team-deelay" + n + "' class='col-sm-3 control-label'>Deelay</label>" +
 	"<div class='col-sm-1'>" +
-	"<input type='number' value='500' min='500' max='10000' class='form-control team-deelay' id='" + action + "-team-deelay" + n + "' name='team-deelay" + n + "' required>" +
+	"<input type='number' value='1000' min='1000' max='60000' class='form-control team-deelay' id='" + action + "-team-deelay" + n + "' name='team-deelay" + n + "' required>" +
 	"</div>" +
 	"<label for='" + action + "-team-width" + n + "' class='col-sm-1 control-label'>Width</label>" +
 	"<div class='col-sm-1'>" +

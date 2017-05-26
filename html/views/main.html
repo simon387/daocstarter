@@ -58,7 +58,7 @@
 				</div>
 			</div>
 			<button type='button' class='btnX btn-primary btn-sm btn-crea-a-dx sr-button' data-toggle='modal' data-target='#add-character-modal' onclick='refreshModalCombos()'><b>Add new Chararacter</b></button>
-			<!--button type='button' class='btnX btn-primary btn-sm btn-crea-a-dx sr-button' data-toggle='modal' data-target='#import-from-appdata-modal' id='import-from-appdata'><b>Import from AppData</b></button-->
+			<button type='button' class='btnX btn-primary btn-sm btn-crea-a-dx sr-button' data-toggle='modal' data-target='#import-from-appdata-modal' id='import-from-appdata'><b>Import from AppData</b></button>
 			<div class='row'>
 				<div class='col-md-12 marginT20'>
 					<div class='table-responsive demo-x content'>
@@ -90,8 +90,12 @@
 							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
 							<h4 class='modal-title' id='import-from-appdata-label'>Import from AppData folder</h4>
 						</div>
-						<div class='modal-body'>
+						<div id='import-appdata-container' class='modal-body'>
 							
+						</div>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Import</button>
 						</div>
 					</form>
 				</div>

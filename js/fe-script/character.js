@@ -98,15 +98,17 @@ function killCharacterRow(id, fromFavourite = false) {
 }
 
 document.getElementById('import-from-appdata').onclick = () => {
-	console.log('TODO')
+	ipcRenderer.send('importFromAppData');
 }
 
 ipcRenderer.on('importFromAppData-reply', (event, chars) => {
-	document.getElementById('TODO-container').innerHTML = '';
+	console.log(chars);
+
+	document.getElementById('import-appdata-container').innerHTML = '';
 
 	chars.forEach(char => {
 
-		document.getElementById('TODO-container').insertAdjacentHTML('beforeend', renderImportedChar(char));
+		document.getElementById('import-appdata-container').insertAdjacentHTML('beforeend', renderImportedChar(char));
 	});
 });
 
@@ -116,4 +118,5 @@ const renderImportedChar = (char) => {
 	"<div class='form-group'>" +
 		"<input type='text' class='form-control' id=''" +
 	"</div>";
+
 }

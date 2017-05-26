@@ -1,4 +1,4 @@
-/* calgamma.au3 source code
+/*
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_icon=C:\electron\daocstarter\img\i.ico
 #AutoIt3Wrapper_Compression=4

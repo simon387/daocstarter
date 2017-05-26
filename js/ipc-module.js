@@ -5,6 +5,7 @@ const db = require('./db-module.js');
 const accountController = require('./controller/account.js');
 const gamedll = require('./gamedll-module.js');
 const {dialog} = require('electron');
+const fs = require('fs');
 
 ipcMain.on('asynchronous-get-character-per-page', (event, item) => {
 	db.settingDatastore.findOne({key: item}, (err, doc) => {
@@ -277,5 +278,55 @@ ipcMain.on('killTeamRow', (event, id) => {
 ipcMain.on('editTeam', (event, id) => {
 	db.teamDatastore.findOne({_id: id}, (err, team) => {
 		event.sender.send('editTeam-reply', team, id);
+	});
+});
+
+ipcMain.on('importFromAppData', event => {
+	db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
+		let chars = [];
+
+		if (fs.existsSync(userdat['value'])) {
+			
+			const path = userdat['value'].replace(/user\.dat$/gi, '');
+			const re = new RegExp('^[A-Z]([a-z])+-(41|49|50|51|52|53|54|55|56|57){1}\.ini$');
+
+			fs.readdirSync(path).forEach(i => {
+
+				let file = path + '/' + i
+				fs.lstat(file, (err, stats) => {
+
+					if (stats.isFile()) {
+
+						if (re.test(i)) {
+							let char = {};
+							let array = i.split('-');
+							let name = array[0];
+							array = array[1].split('.');
+							let n = array[0];
+					//		console.log('sto cercando ')
+					//		db.serverDatastore.findOne({n: n}, (err, server) => {
+								let serverName = n;
+								char.name = name;
+								char.server = serverName;
+					//			console.log('sto pushando ')
+								chars.push(char);
+							//	console.log(chars)
+					//		});
+							//console.log(i)
+						}
+
+		event.sender.send('importFromAppData-reply', chars);
+//console.log(chars)
+
+
+					}
+				});
+			});
+		//	console.log(chars)
+
+		}
+		else {
+			dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
+		}
 	});
 });
