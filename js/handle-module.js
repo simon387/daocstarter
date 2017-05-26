@@ -1,10 +1,9 @@
 'use strict';
 
 const ps = require('ps-node');
-const os = require('os');
 const child_process = require('child_process');
 const fs = require('fs');
-const handle_Path = os.tmpdir() + '\\handle.exe';
+const constants = require('./constants.js');
 
 module.exports = {
 	killMutants: function () {
@@ -32,7 +31,7 @@ module.exports = {
 function getGameDllHandles(aPID) {
 	const spawn = child_process.spawn;
 	let aHex = [];
-	const handle_exe= spawn(handle_Path, ['-a', '-nobanner']);
+	const handle_exe= spawn(constants.handle_path, ['-a', '-nobanner']);
 	const findstr_exe = spawn('findstr', ['DAoC']);//i
 	handle_exe.stdout.on('data', (data) => {
 		findstr_exe.stdin.write(data);
@@ -73,7 +72,7 @@ function killHandles (aPID, aHex) {
 	for (let p = 0; p < aPID.length; p++) {
 		for (let h = 0; h < aHex.length; h++) {
 			const spawn = child_process.spawn;
-			const handle_exe = spawn(handle_Path, ['-c', aHex[h], '-y', '-p', aPID[p]]);
+			const handle_exe = spawn(constants.handle_path, ['-c', aHex[h], '-y', '-p', aPID[p]]);
 			handle_exe.stdout.on('data', (data) => {
 				console.log(`stdout: ${data}`);
 			});
