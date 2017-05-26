@@ -100,3 +100,20 @@ function killCharacterRow(id, fromFavourite = false) {
 document.getElementById('import-from-appdata').onclick = () => {
 	console.log('TODO')
 }
+
+ipcRenderer.on('importFromAppData-reply', (event, chars) => {
+	document.getElementById('TODO-container').innerHTML = '';
+
+	chars.forEach(char => {
+
+		document.getElementById('TODO-container').insertAdjacentHTML('beforeend', renderImportedChar(char));
+	});
+});
+
+//name resolution account
+const renderImportedChar = (char) => {
+	return '' +
+	"<div class='form-group'>" +
+		"<input type='text' class='form-control' id=''" +
+	"</div>";
+}
