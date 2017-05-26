@@ -22,7 +22,7 @@ module.exports = {
 		docs.forEach(doc => {
 			array.push(doc.name);
 		});
-		return response.send(array);
+		return response.send(array.sort());
 	},
 
 	playButton: (entity, id) => {
