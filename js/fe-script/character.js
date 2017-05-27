@@ -97,26 +97,46 @@ function killCharacterRow(id, fromFavourite = false) {
 	}
 }
 
-document.getElementById('import-from-appdata').onclick = () => {
+document.getElementById('import-from-appdata-button').onclick = () => {
 	ipcRenderer.send('importFromAppData');
 }
 
-ipcRenderer.on('importFromAppData-reply', (event, chars) => {
-	console.log(chars);
-
-	document.getElementById('import-appdata-container').innerHTML = '';
-
-	chars.forEach(char => {
-
-		document.getElementById('import-appdata-container').insertAdjacentHTML('beforeend', renderImportedChar(char));
-	});
+ipcRenderer.on('importFromAppData-reply', (event, chars, accounts) => {
+	if (chars.length > 0) {
+		$('#import-from-appdata-modal').modal('show');
+		document.getElementById('import-appdata-container').innerHTML = '';
+		chars.forEach(char => {
+			document.getElementById('import-appdata-container').insertAdjacentHTML('beforeend', renderImportedChar(char, accounts));
+		});
+	}
 });
 
 //name resolution account
-const renderImportedChar = (char) => {
+const renderImportedChar = (char, accounts) => {
+	let accountOptions = '';
+	accounts.forEach(account => {
+		accountOptions += "<option value='" + account.name + "'>" + account.name + "</option>";
+	});
 	return '' +
 	"<div class='form-group'>" +
-		"<input type='text' class='form-control' id=''" +
+		"<div class='col-sm-4'>" +
+			"<input type='text' class='form-control' readonly value='" + char.name + "'>" +
+		"</div>" +
+		"<div class='col-sm-3'>" +
+			"<input type='text' class='form-control' readonly value='" + char.server + "'>" +
+		"</div>" +
+		"<div class='col-sm-4'>" + 
+			"<select class='form-control''>" + 
+				accountOptions +
+			"</select>" +
+		"</div>" +
+		"<div class='col-sm-1'>" +
+			 '<a href=javascript:' + "nonImportare(this); " + cancCSS + '>x<\/a>' +
+		"</div>" +
 	"</div>";
+}
 
+const nonImportare = (charName) => {
+	console.log("bhop")
+	console.log(charName)
 }

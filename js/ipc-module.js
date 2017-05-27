@@ -281,52 +281,72 @@ ipcMain.on('editTeam', (event, id) => {
 	});
 });
 
+let waiting = -1;
 ipcMain.on('importFromAppData', event => {
 	db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
 		let chars = [];
-
 		if (fs.existsSync(userdat['value'])) {
-			
 			const path = userdat['value'].replace(/user\.dat$/gi, '');
 			const re = new RegExp('^[A-Z]([a-z])+-(41|49|50|51|52|53|54|55|56|57){1}\.ini$');
+			//db.accountDatastore.find({}, (err, accounts) => {
+				fs.readdir(path, (err, files) => {
 
-			fs.readdirSync(path).forEach(i => {
+					waiting = files.length;
+					console.log("waiting iniziale:" + waiting)
+					files.forEach(i => {
 
-				let file = path + '/' + i
-				fs.lstat(file, (err, stats) => {
-
-					if (stats.isFile()) {
-
-						if (re.test(i)) {
-							let char = {};
-							let array = i.split('-');
-							let name = array[0];
-							array = array[1].split('.');
-							let n = array[0];
-					//		console.log('sto cercando ')
-					//		db.serverDatastore.findOne({n: n}, (err, server) => {
-								let serverName = n;
+						let file = path + '/' + i
+						fs.lstat(file, (err, stats) => {
+							if (stats.isFile() && re.test(i)) {
+								let char = {};
+								let array = i.split('-');
+								let name = array[0];
+								array = array[1].split('.');
+								switch(array[0]) {
+									case '41': char.server = 'Ywain1'; break;
+									case '49': char.server = 'Ywain2'; break;
+									case '50': char.server = 'Ywain3'; break;
+									case '51': char.server = 'Ywain4'; break;
+									case '52': char.server = 'Ywain5'; break;
+									case '53': char.server = 'Ywain6'; break;
+									case '54': char.server = 'Ywain7'; break;
+									case '55': char.server = 'Ywain8'; break;
+									case '56': char.server = 'Ywain9'; break;
+									case '57': char.server = 'Ywain10'; break;
+								}
 								char.name = name;
-								char.server = serverName;
-					//			console.log('sto pushando ')
 								chars.push(char);
-							//	console.log(chars)
-					//		});
-							//console.log(i)
-						}
+							//	console.log(chars.length)
+								finish(event, chars);
+							}
+							else {
+								waiting--;
+							}
+						});
 
-		event.sender.send('importFromAppData-reply', chars);
-//console.log(chars)
+					})
+			//	console.log(chars)
+//				console.log(accounts)
+			//	event.sender.send('importFromAppData-reply', chars);
 
-
-					}
 				});
-			});
-		//	console.log(chars)
-
+			
 		}
 		else {
 			dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
 		}
 	});
 });
+
+const finish = (event, chars) => {
+//	console.log(waiting)
+	waiting--;
+	if (waiting == 0) {
+		console.log("sendo l'evento")
+		console.log("chars.length " + chars.length)
+		db.accountDatastore.find({}, (err, accounts) => {
+
+			event.sender.send('importFromAppData-reply', chars, accounts);
+		});
+	}
+}
