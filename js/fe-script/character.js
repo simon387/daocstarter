@@ -118,25 +118,41 @@ const renderImportedChar = (char, accounts) => {
 		accountOptions += "<option value='" + account.name + "'>" + account.name + "</option>";
 	});
 	return '' +
-	"<div class='form-group'>" +
+	"<div class='form-group' id='renderImportedChar" + char.name + "'>" +
 		"<div class='col-sm-4'>" +
-			"<input type='text' class='form-control' readonly value='" + char.name + "'>" +
+			"<input type='text' name='charName' class='form-control' readonly value='" + char.name + "'>" +
 		"</div>" +
 		"<div class='col-sm-3'>" +
-			"<input type='text' class='form-control' readonly value='" + char.server + "'>" +
+			"<input type='text' name='charServer' class='form-control' readonly value='" + char.server + "'>" +
 		"</div>" +
 		"<div class='col-sm-4'>" + 
-			"<select class='form-control''>" + 
+			"<select name='charAccount' class='form-control'>" +
 				accountOptions +
 			"</select>" +
 		"</div>" +
 		"<div class='col-sm-1'>" +
-			 '<a href=javascript:' + "nonImportare(this); " + cancCSS + '>x<\/a>' +
+			 '<a href=javascript:' + "nonImportare('" + char.name + "'); " + cancCSS + '>x<\/a>' +
 		"</div>" +
 	"</div>";
 }
 
 const nonImportare = (charName) => {
-	console.log("bhop")
-	console.log(charName)
+	let elem = document.getElementById('renderImportedChar' + charName);
+	elem.parentNode.removeChild(elem);
 }
+
+// Save imported chars
+$('#import-from-appdata-form').on('submit', function(event) {
+	event.preventDefault();
+
+	
+	$.post(localhost + '?importFromAppData', $(this).serialize(), (data) => {
+
+		characterDataTable.ajax.reload();
+		$('#import-from-appdata-modal').modal('hide');
+
+
+	}).fail(() => {
+		alert('Unable to save data, please try again later.');
+	});
+});

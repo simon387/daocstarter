@@ -162,6 +162,26 @@ portfinder.getPort((err, port) => {
 					});
 				}
 			}
+			if (request.query.importFromAppData != undefined) {
+				//console.log(post)
+				let charNameArray = post.charName;
+				let charServerArray = post.charServer;
+				let charAccountArray = post.charAccount;
+				for (let c = 0; c < charNameArray.length; c++) {
+					db.characterDatastore.insert({
+						name: charNameArray[c],
+						lastlogin: '-',
+						account: charAccountArray[c],
+						server: charServerArray[c],
+					}, (err, newDoc) => {
+						
+					});
+					
+					if (c == charNameArray.length - 1) {
+						response.send({});
+					}
+				}
+			}
 			//team
 			if (request.query.addTeam != undefined || request.query.editTeam != undefined) {
 				if (request.query.addTeam != undefined) {// TO CHANGE; THIS IS SO BAD
