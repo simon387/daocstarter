@@ -1,7 +1,7 @@
 {
   "name": "daocstarter",
   "productName": "daocstarter",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "a DAOC starter tool",
   "main": "app.js",
   "homepage": "https://github.com/simon387/daocstarter",
@@ -15,7 +15,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "electron": "^1.7.1"
+    "electron": "^1.7.2"
   },
   "repository": {
     "type": "git",

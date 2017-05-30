@@ -1,7 +1,8 @@
 # DAoC Starter
 
 A Dark Age of Camelot client starter <http://darkageofcamelot.com>  
-100% HTML+CSS+JS platform independent Desktop application.
+100% HTML+CSS+JS core platform independent Desktop application.
+(Full features on Windows Machines Only)
 
 ![alt tag](http://www.simonecelia.it/github/img/screen0.png)
 ![alt tag](http://www.simonecelia.it/github/img/screen1.png)
@@ -72,7 +73,3 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 3. if not in a Windows environment, install Wine!
 4. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
 5. electron-installer-windows --src dist/daocstarter-win32-x64 --dest dist/installers
-
-## more dev details
-
-+ all the autoit source code is inside autoit-compiler.js
