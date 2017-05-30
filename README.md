@@ -1,7 +1,7 @@
 # DAoC Starter
 
 A Dark Age of Camelot client starter <http://darkageofcamelot.com>  
-100% HTML+CSS+JS core platform independent Desktop application.
+100% HTML+CSS+JS core platform independent Desktop application.  
 (Full features on Windows Machines Only)
 
 ![alt tag](http://www.simonecelia.it/github/img/screen0.png)
@@ -12,10 +12,10 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 
 ## main features
 
-+ advanced characters, accounts, teams, and settings management
-+ allow to log any number of accounts on the same machine
-+ quickest login/logout system
-+ autoupdate system
++ Advanced characters, accounts, teams, and settings management
++ Allow to log any number of accounts on the same machine
++ Quickest login/logout system
++ Autoupdate system
 + Smart Gamma Calibration tool
 + No installation required, full portable executable
 
