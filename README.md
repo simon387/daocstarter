@@ -12,10 +12,12 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 
 ## main features
 
-+ advanced characters, accounts, and settings management
++ advanced characters, accounts, teams, and settings management
 + allow to log any number of accounts on the same machine
 + quickest login/logout system
 + autoupdate system
++ Smart Gamma Calibration tool
++ No installation required, full portable executable
 
 ## quick infos
 
