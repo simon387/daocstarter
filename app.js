@@ -13,7 +13,12 @@ require('./js/menu-module.js');
 let tray = null;
 
 app.on('ready', () => {
-	tray = new Tray('img/i.ico')
+	try {
+		tray = new Tray('resources\\app\\img\\i.ico');
+	}
+	catch(e) {
+		tray = new Tray('img/i.ico');
+	}
 	const contextMenu = Menu.buildFromTemplate([{
 		label: 'Quit',
 		click: () => {
