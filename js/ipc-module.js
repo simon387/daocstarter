@@ -59,8 +59,8 @@ ipcMain.on('killCharacter', (event, id) => {
 	gamedll.killCharacter(id);
 });
 
-ipcMain.on('playAccount', (event, id) => {
-	gamedll.playAccount(id);
+ipcMain.on('playAccount', (event, id, server) => {
+	gamedll.playAccount(id, server);
 });
 
 ipcMain.on('killAccount', (event, id) => {

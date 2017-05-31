@@ -56,8 +56,12 @@ function removeAccountRow(id) {
 	}
 }
 
-function playAccountRow(id) {
-	ipcRenderer.send('playAccount', id);
+function playAccountRow(id, server = null) {
+	if (null != server) {
+		let e = document.getElementById(id);
+		server = e.options[e.selectedIndex].text;
+	}
+	ipcRenderer.send('playAccount', id, server);
 }
 
 function killAccountRow(id) {

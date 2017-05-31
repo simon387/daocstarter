@@ -193,7 +193,7 @@ module.exports = {
 		});
 	},
 
-	playAccount: id => {
+	playAccount: (id, _server) => {
 	db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox('Error', "User.dat not found!\nPlease edit the location from Setting section!");
@@ -206,7 +206,10 @@ module.exports = {
 				if (null == account) {
 					return dialog.showErrorBox('Error', "Cannot find account!");
 				}
-				db.serverDatastore.findOne({name:account.server}, (err, server) => {
+				if (null != _server) {
+					account.server = _server;
+				}
+				db.serverDatastore.findOne({name: account.server}, (err, server) => {
 					if (null == server) {
 						return dialog.showErrorBox('Error', "Cannot find server!");
 					}

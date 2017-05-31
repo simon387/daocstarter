@@ -14,21 +14,13 @@ let tray = null;
 
 app.on('ready', () => {
 	tray = new Tray('img/i.ico')
-	const contextMenu = Menu.buildFromTemplate([
-		{
-			label: 'Restore Daocstarter',
-			click: () => {
-				mainWindow.show();
-			}
-		},
-		{
-			label: 'Quit',
-			click: () => {
-				app.isQuiting = true;
-				app.quit();
-			}
+	const contextMenu = Menu.buildFromTemplate([{
+		label: 'Quit',
+		click: () => {
+			app.isQuiting = true;
+			app.quit();
 		}
-	]);
+	}]);
 	tray.setToolTip('Daocstarter!');
 	tray.setContextMenu(contextMenu);
 
@@ -60,14 +52,6 @@ app.on('ready', () => {
 	mainWindow.on('minimize', event => {
 		event.preventDefault()
 		mainWindow.hide();
-	});
-
-	mainWindow.on('close', event => {
-		if(!app.isQuiting) {
-			event.preventDefault()
-			mainWindow.hide();
-		}
-		return false;
 	});
 
 	tray.on('click', event => {

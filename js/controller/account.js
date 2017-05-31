@@ -10,7 +10,8 @@ module.exports = {
 			docs.forEach(account => {
 				ret += '["' + account._id + '","' +
 				util.playButton('Account', account._id) + ' ' +
-				util.qtdButton('Account', account._id) + '","' +
+				util.qtdButton('Account', account._id) + ' ' +
+				selectYwain(account) + '","' +
 				account.name + '","' +
 				account.password.replace(/./g, '*') + '","' +
 				account.server + '","' +
@@ -28,4 +29,13 @@ module.exports = {
 			return util.getAllNamesHelper(response, docs);
 		});
 	},
+}
+
+const selectYwain = (account) => {
+	let select = "<select class='select-account-server' id='" + account._id + "' onchange=\\\"playAccountRow('" + account._id + "', 'usaSelezionato')\\\">";
+	for (let i = 1; i < 11; i++) {
+		select += "<option value='Ywain" + i + "' " + (account.server === 'Ywain' + i ? 'selected' : "") + ">" + "Ywain" + i + "</option>";
+	}
+	select += "</select>";
+	return select;
 }
