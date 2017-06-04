@@ -1,34 +1,18 @@
 'use strict';
 
-const {app, Menu, Tray, BrowserWindow} = require('electron');
+const {app, BrowserWindow} = require('electron');
 const packageJSON = require('./package.json');
 const path = require('path');
 const commonUtil = require('./js/controller/common-util.js');
+const trayModule = require('./js/tray-module.js');
+let tray = null;
 require('./js/update-module.js').updateCheck();
 require('./js/db-module.js').init();
 require('./js/ipc-module');
 require('./js/express-module.js');
 require('./js/menu-module.js');
 
-let tray = null;
-
 app.on('ready', () => {
-	try {
-		tray = new Tray('resources\\app\\img\\i.ico');
-	}
-	catch(e) {
-		tray = new Tray('img/i.ico');
-	}
-	const contextMenu = Menu.buildFromTemplate([{
-		label: 'Quit',
-		click: () => {
-			app.isQuiting = true;
-			app.quit();
-		}
-	}]);
-	tray.setToolTip('Daocstarter!');
-	tray.setContextMenu(contextMenu);
-
 	const mainWindow = new BrowserWindow({
 		width: 1400,
 		height: 809,
@@ -48,25 +32,20 @@ app.on('ready', () => {
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show();
+		//setTray();
 	});
 
 	mainWindow.on('resize', () => {
 		commonUtil.moveFavourites(mainWindow.getSize());
 	});
 
+	trayModule.setup(tray, app, mainWindow);
+/*
 	mainWindow.on('minimize', event => {
 		event.preventDefault()
 		mainWindow.hide();
-	});
-
-	tray.on('click', event => {
-		if (mainWindow.isVisible()) {
-			mainWindow.hide();
-		}
-		else {
-			mainWindow.show();
-		}
-	});
+	});*/
 });
 
 app.on('window-all-closed', app.quit);//altrimenti al quit lascia i processi appesi-.-
+

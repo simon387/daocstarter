@@ -73,7 +73,11 @@ const menuTemplate = [
 									setsid: false,
 									detached: true,
 								},
-								(error, stdout, stderr) => {}
+								(error, stdout, stderr) => {
+									console.log(error);
+									console.log(stdout);
+									console.log(stderr);
+								}
 							);
 						}
 						else {

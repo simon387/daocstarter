@@ -72,3 +72,23 @@ ipcRenderer.on('saveSettingStringa-reply', event => {
 	$('#edit-setting-modal-stringa').modal('hide');
 });
 
+const editSettingRowBooleano = (id) => {
+	document.getElementById('edit-setting-id-boolean').value = id;
+	ipcRenderer.send('edit-setting-booleano', id + '');
+}
+ipcRenderer.on('edit-setting-booleano-reply', (event, setting) => {
+	document.getElementById('setting-value-boolean').value = setting.value;
+	$('#edit-setting-modal-boolean').modal('show');
+});
+
+$('#edit-setting-form-boolean').on('submit', event => {
+	event.preventDefault();
+	ipcRenderer.send('save-setting-booleano',
+	document.getElementById('edit-setting-id-boolean').value,
+	document.getElementById('setting-value-boolean').checked
+	);
+});
+ipcRenderer.on('save-setting-booleano-reply', (event) => {
+	settingDataTable.ajax.reload();
+	$('#edit-setting-modal-boolean').modal('hide');
+});

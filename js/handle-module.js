@@ -13,6 +13,7 @@ module.exports = {
 			psargs: 'ux'
 		}, (err, resultList) => {
 			if (err) {
+				console.log(err);
 				throw new Error(err);
 			}
 			resultList.forEach(process => {

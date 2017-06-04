@@ -1,10 +1,11 @@
 'use strict';
 
-const {ipcMain} = require('electron');
+const {ipcMain, dialog} = require('electron');
 const db = require('./db-module.js');
 const accountController = require('./controller/account.js');
+const spellcraftController = require('./controller/spellcraft.js');
+const settingController = require('./controller/setting.js');
 const gamedll = require('./gamedll-module.js');
-const {dialog} = require('electron');
 const fs = require('fs');
 
 ipcMain.on('asynchronous-get-character-per-page', (event, item) => {
@@ -335,3 +336,16 @@ const finish = (event, chars) => {
 		});
 	}
 }
+
+ipcMain.on('edit-setting-booleano', (event, id) => {
+	settingController.editSettingBooleano(event, id);
+});
+
+ipcMain.on('save-setting-booleano', (event, id, value) => {
+	settingController.saveSettingBooleano(event, id, value);
+});
+
+//TODO
+ipcMain.on('open-spellcraft-form', event => {
+	spellcraftController.OpenForm(event);
+});

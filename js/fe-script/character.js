@@ -144,14 +144,9 @@ const nonImportare = (charName) => {
 // Save imported chars
 $('#import-from-appdata-form').on('submit', function(event) {
 	event.preventDefault();
-
-	
 	$.post(localhost + '?importFromAppData', $(this).serialize(), (data) => {
-
 		characterDataTable.ajax.reload();
 		$('#import-from-appdata-modal').modal('hide');
-
-
 	}).fail(() => {
 		alert('Unable to save data, please try again later.');
 	});

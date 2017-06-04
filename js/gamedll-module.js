@@ -62,6 +62,7 @@ module.exports = {
 									psargs: 'ux'
 								}, (err, resultList) => {
 									if (err) {
+										console.log(err);
 										throw new Error(err);
 									}
 									let flag = false;
@@ -148,6 +149,7 @@ module.exports = {
 				psargs: 'ux'
 			}, (err, resultList) => {
 				if (err) {
+					console.log(err);
 					throw new Error(err);
 				}
 				resultList.forEach(process => {
@@ -166,6 +168,7 @@ module.exports = {
 			psargs: 'ux'
 		}, (err, resultList) => {
 			if (err) {
+				console.log(err);
 				throw new Error(err);
 			}
 			resultList.forEach(process => {
@@ -181,6 +184,7 @@ module.exports = {
 				psargs: 'ux'
 			}, (err, resultList) => {
 				if (err) {
+					console.log(err);
 					throw new Error(err);
 				}
 				resultList.forEach(process => {
@@ -233,6 +237,7 @@ module.exports = {
 						psargs: 'ux'
 					}, (err, resultList) => {
 						if (err) {
+							console.log(err);
 							throw new Error(err);
 						}
 						let flag = false;
@@ -334,6 +339,7 @@ module.exports = {
 										psargs: 'ux'
 									}, (err, resultList) => {
 										if (err) {
+											console.log(err);
 											throw new Error(err);
 										}
 										let flag = false;

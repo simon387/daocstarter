@@ -101,6 +101,24 @@
 				</div>
 			</div>
 		</div>
+		<div class='modal fade' id='spellcraft-modal' tabindex='-1' role='dialog' aria-labelledby='spellcraft-label'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='spellcraft-form'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='spellcraft-label'>Spellcraft Tool</h4>
+						</div>
+						<div id='spellcrafter-container' class='modal-body'>
+						</div>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<!--button type='submit' class='btnX btn-primary btn-sm'>Import</button-->
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 		<div class='modal fade' id='edit-character-modal' tabindex='-1' role='dialog' aria-labelledby='edit-character-modal-label'>
 			<div class='modal-dialog' role='document'>
 				<div class='modal-content'>
@@ -618,6 +636,33 @@
 				</div>
 			</div>
 		</div>
+
+
+		<div class='modal fade' id='edit-setting-modal-boolean' tabindex='-1' role='dialog' aria-labelledby='edit-setting-modal-label-boolean'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<form class='form-horizontal' id='edit-setting-form-boolean'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+							<h4 class='modal-title' id='edit-setting-modal-label-boolean'>Edit selected setting</h4>
+						</div>
+						<div class='modal-body'>
+							<input type='hidden' id='edit-setting-id-boolean' value='' class='hidden'>
+							<div class='form-group'>
+								<label for='setting-value-boolean' class='col-sm-2 control-label'>Value</label>
+								<div class='col-sm-10'>
+									<input type='checkbox' class='form-control' id='setting-value-boolean' name='setting-value-boolean'>
+								</div>
+							</div>
+						</div>
+						<div class='modal-footer'>
+							<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>
+							<button type='submit' class='btnX btn-primary btn-sm'>Save changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</section>
 <!-- CONTACTS -->
 	<section id='contacts'>
@@ -652,6 +697,7 @@
 	<script src='../../js/fe-script/character.js'></script>
 	<script src='../../js/fe-script/team.js'></script>
 	<script src='../../js/fe-script/setting.js'></script>
+	<script src='../../js/fe-script/spellcraft.js'></script>
 	<!-- Bootstrap Core JavaScript -->
 	<script src='../../vendor/bootstrap/js/bootstrap.min.js'></script>
 	<!-- Plugin JavaScript -->
