@@ -77,7 +77,7 @@ const editSettingRowBooleano = (id) => {
 	ipcRenderer.send('edit-setting-booleano', id + '');
 }
 ipcRenderer.on('edit-setting-booleano-reply', (event, setting) => {
-	document.getElementById('setting-value-boolean').value = setting.value;
+	document.getElementById('setting-value-boolean').checked = setting.value;
 	$('#edit-setting-modal-boolean').modal('show');
 });
 
