@@ -11,6 +11,11 @@ const ps = require('ps-node');
 const handle = require('./handle-module.js');
 const constants = require('./constants.js');
 
+
+let log = require('electron-log');
+log.transports.file.level = 'silly';
+
+
 module.exports = {
 	playCharacter: id => {
 	db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {

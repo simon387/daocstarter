@@ -1,6 +1,6 @@
 'use strict'
 
-const {Menu, Tray} = require('electron');
+const {Menu, Tray, BrowserWindow} = require('electron');
 const db = require('./db-module.js');
 let _tray;
 let _app;
@@ -8,7 +8,7 @@ let _mainWindow;
 
 module.exports = {
 	setup: (tray, app, mainWindow) => {
-		setTray(tray, app, mainWindow);
+		return setTray(tray, app, mainWindow);
 	},
 	applySettings: () => {
 		applySettings();
@@ -22,6 +22,7 @@ const applySettings = () => {
 		minimizeToTray = setting.value;
 		db.settingDatastore.findOne({key: 'quit.minimize.to.tray'}, (err, setting) => {
 			quitMinimizeToTray = setting.value;
+
 			if (minimizeToTray) {
 
 				_mainWindow.on('minimize', event => {
@@ -29,30 +30,48 @@ const applySettings = () => {
 					_mainWindow.hide();
 				});
 
-				_tray.on('click', event => {
-					if (_mainWindow.isVisible()) {
-						_mainWindow.hide();
-					}
-					else {
-						_mainWindow.show();
-					}
-				})
+				_mainWindow.on('restore', event => {
+					event.preventDefault()
+					_mainWindow.show();
+					_mainWindow.restore();
+				});
 
 			}
-			if (quitMinimizeToTray) {
-				_mainWindow.on('close', event => {
-					_mainWindow.hide();
+			else {
+				_mainWindow.on('minimize', event => {
+					event.preventDefault();
+					_mainWindow.minimize();
+				});
+
+				_mainWindow.on('restore', event => {
+					event.preventDefault();
+
 				});
 			}
+
+			if (quitMinimizeToTray) {
+				_mainWindow.removeAllListeners('close');
+
+				_mainWindow.on('close', event => {
+					event.preventDefault();
+					_mainWindow.minimize();
+				});
+
+			}
+			else {
+				_mainWindow.on('close', event => {
+					event.preventDefault();
+					_mainWindow.hide()
+					_app.exit(0);
+				});
+			}
+			
 		});
 	});
 
 }
 
 const setTray = (tray, app, mainWindow) => {
-	_tray = tray;
-	_app = app;
-	_mainWindow = mainWindow;
 	try {
 		tray = new Tray('resources\\app\\img\\i.ico');
 	}
@@ -70,19 +89,23 @@ const setTray = (tray, app, mainWindow) => {
 		tray.setContextMenu(Menu.buildFromTemplate([{
 			label: 'Quit',
 			click: () => {
-				app.isQuiting = true;
-				app.quit();
+				_app.exit(0);
 			}
 		}]));
-/*
+
 		tray.on('click', event => {
-			if (mainWindow.isVisible()) {
-				mainWindow.hide();
+			if (mainWindow.isMinimized()) {
+				mainWindow.restore();
 			}
 			else {
-				mainWindow.show();
+				mainWindow.minimize();
 			}
-		});*/
+		});
+		
+		_tray = tray;
+		_app = app;
+		_mainWindow = mainWindow;
 		applySettings();
+		return tray;
 	}
 }

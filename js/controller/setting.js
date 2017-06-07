@@ -31,7 +31,7 @@ module.exports = {
 			{$set: {value: value}},
 			{returnUpdatedDocs: false, multi: false}, (err, numAffected, affectedDocuments) => {
 				event.sender.send('save-setting-booleano-reply');
-				if (id === 9 || id === 10) {
+				if (id === '9' || id === '10') {
 					trayModule.applySettings();
 				}
 			}

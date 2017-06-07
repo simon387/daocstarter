@@ -12,12 +12,7 @@ require('./js/ipc-module');
 require('./js/express-module.js');
 require('./js/menu-module.js');
 
-let log = require('electron-log');
-log.transports.file.level = 'silly';
-
 app.on('ready', () => {
-
-	log.info('Hello, log');
 
 	const mainWindow = new BrowserWindow({
 		width: 1400,
@@ -38,20 +33,11 @@ app.on('ready', () => {
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show();
-		//setTray();
 	});
 
 	mainWindow.on('resize', () => {
 		commonUtil.moveFavourites(mainWindow.getSize());
 	});
 
-	trayModule.setup(tray, app, mainWindow);
-/*
-	mainWindow.on('minimize', event => {
-		event.preventDefault()
-		mainWindow.hide();
-	});*/
+	tray = trayModule.setup(tray, app, mainWindow);
 });
-
-app.on('window-all-closed', app.quit);//altrimenti al quit lascia i processi appesi-.-
-

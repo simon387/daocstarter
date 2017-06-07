@@ -3,16 +3,14 @@
 const electron = require('electron');
 const Menu = electron.Menu;
 const opn = require('opn');
-const {shell} = require('electron');
+const {shell, app, dialog} = require('electron');
 const db = require('./db-module.js');
-const {dialog} = require('electron');
 const path = require('path');
 const BrowserWindow = require('electron').BrowserWindow;
 const handle = require('./handle-module.js');
 const gamedll = require('./gamedll-module.js');
 const fs = require('fs');
 const child_process = require('child_process');
-const {app} = require('electron');
 const constants = require('./constants.js');
 
 Menu.getApplicationMenu();
