@@ -13,7 +13,7 @@ require('./js/express-module.js');
 require('./js/menu-module.js');
 
 let log = require('electron-log');
-
+log.transports.file.level = 'silly';
 
 app.on('ready', () => {
 
