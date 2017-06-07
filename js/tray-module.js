@@ -49,7 +49,7 @@ const applySettings = () => {
 
 }
 
-const setTray = (tray, app) => {
+const setTray = (tray, app, mainWindow) => {
 	_tray = tray;
 	_app = app;
 	_mainWindow = mainWindow;

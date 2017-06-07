@@ -12,7 +12,13 @@ require('./js/ipc-module');
 require('./js/express-module.js');
 require('./js/menu-module.js');
 
+let log = require('electron-log');
+
+
 app.on('ready', () => {
+
+	log.info('Hello, log');
+
 	const mainWindow = new BrowserWindow({
 		width: 1400,
 		height: 809,
