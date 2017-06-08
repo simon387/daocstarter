@@ -50,7 +50,6 @@ document.getElementById('add-team-add').onclick = () => {
 }
 
 document.getElementById('edit-team-add').onclick = () => {
-	console.log(numeroTeamRow)
 	if (numeroTeamRow >= 7) {
 		return;
 	}
@@ -74,19 +73,12 @@ document.getElementById('add-team-remove').onclick = () => {
 }
 
 document.getElementById('edit-team-remove').onclick = () => {
-
-	
-
 	if (numeroTeamRow > 0) {
-		//console.log(numeroTeamRow)
 		if (document.getElementById('editGeneratedTeamRow' + numeroTeamRow) == null) {
 			numeroTeamRow--;
 		}
 		document.getElementById('editGeneratedTeamRow' + numeroTeamRow--).outerHTML = '';
-		//numeroTeamRow--;
 	}
-
-	console.log(numeroTeamRow)
 }
 
 // Add new row
@@ -165,7 +157,6 @@ $('#edit-team-modal').on('submit', event => {
 			team['team' + i].push(document.getElementById('edit-team-position-y' + i).value);
 		}
 	}
-	console.log(team)
 	ipcRenderer.send('saveTeam',
 		document.getElementById('edit-team-form').value,
 		document.getElementById('edit-team-name').value,

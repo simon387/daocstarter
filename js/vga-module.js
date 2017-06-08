@@ -3,6 +3,8 @@
 const os = require('os');
 const shell = require('node-powershell');
 const db = require('./db-module.js');
+const log = require('electron-log');
+log.transports.file.level = 'debug';
 
 module.exports = {
 	getAllResolutions: response => {
@@ -55,7 +57,7 @@ module.exports = {
 				});
 			}
 			catch(e) {
-				console.log(e);
+				log.error(e);
 				return response.send(array);
 			}
 		});

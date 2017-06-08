@@ -2,6 +2,8 @@
 
 const {Menu, Tray, BrowserWindow} = require('electron');
 const db = require('./db-module.js');
+const log = require('electron-log');
+log.transports.file.level = 'debug';
 let _tray;
 let _app;
 let _mainWindow;
@@ -80,7 +82,7 @@ const setTray = (tray, app, mainWindow) => {
 			tray = new Tray('img/i.ico');
 		}
 		catch(e) {
-			console.log('Sorry, no Tray Icon for you!')
+			log.warning('Sorry, no Tray Icon for you!')
 		}
 	}
 

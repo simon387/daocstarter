@@ -6,6 +6,8 @@ const compareVersions = require('compare-versions');
 const pjson = require('../package.json');
 const opn = require('opn');
 const {dialog} = require('electron');
+const log = require('electron-log');
+log.transports.file.level = 'debug';
 
 module.exports = {
 	updateCheck: () => {
@@ -32,7 +34,7 @@ module.exports = {
 			});
 		});
 		request.on('error', error => {
-			console.log(error.message);
+			log.error(error.message);
 		});
 		request.end();
 	}

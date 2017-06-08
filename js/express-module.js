@@ -13,6 +13,8 @@ const classeController = require('./controller/classe.js');
 const characterController = require('./controller/character.js');
 const settingController = require('./controller/setting.js');
 const teamController = require('./controller/team.js');
+const log = require('electron-log');
+log.transports.file.level = 'debug';
 
 const server = express();
 portfinder.getPort((err, port) => {
@@ -163,7 +165,6 @@ portfinder.getPort((err, port) => {
 				}
 			}
 			if (request.query.importFromAppData != undefined) {
-				//console.log(post)
 				let charNameArray = post.charName;
 				let charServerArray = post.charServer;
 				let charAccountArray = post.charAccount;
@@ -284,6 +285,6 @@ portfinder.getPort((err, port) => {
 	});
 
 	server.listen(port, () => {
-		console.log('Express running in electron and listening on port ' + port + '!');
+		log.info('Express running in electron and listening on port ' + port + '!');
 	});
 });

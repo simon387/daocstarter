@@ -12,6 +12,8 @@ const gamedll = require('./gamedll-module.js');
 const fs = require('fs');
 const child_process = require('child_process');
 const constants = require('./constants.js');
+const log = require('electron-log');
+log.transports.file.level = 'debug';
 
 Menu.getApplicationMenu();
 
@@ -72,9 +74,9 @@ const menuTemplate = [
 									detached: true,
 								},
 								(error, stdout, stderr) => {
-									console.log(error);
-									console.log(stdout);
-									console.log(stderr);
+									log.error(error);
+									log.error(stdout);
+									log.error(stderr);
 								}
 							);
 						}
@@ -143,7 +145,7 @@ const menuTemplate = [
 				label: 'Run CALGamma Tool',
 				click: () => {
 					const exec = child_process.exec;
-					exec(constants.calgamma_path, (err, so, se) => {});
+					exec(constants.calgamma_path(), (err, so, se) => {});
 				}
 			}
 		]

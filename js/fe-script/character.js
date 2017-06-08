@@ -152,7 +152,35 @@ $('#import-from-appdata-form').on('submit', function(event) {
 	});
 });
 
-'advanced-button-char-apply-template-add'
-'advanced-button-char-set-as-default-template-add'
-'advanced-button-char-apply-template-edit'
-'advanced-button-char-set-as-default-template-edit'	
+document.getElementById('advanced-button-char-set-as-default-template-add').onclick = () => {
+	setDefaultTemplateHelper();
+}
+
+document.getElementById('advanced-button-char-set-as-default-template-edit').onclick = () => {
+	setDefaultTemplateHelper();
+}
+
+document.getElementById('advanced-button-char-apply-template-add').onclick = () => {
+	applyTemplateHelper();
+}
+
+document.getElementById('advanced-button-char-apply-template-edit').onclick = () => {
+	applyTemplateHelper();
+}
+
+
+const setDefaultTemplateHelper = (name, server) => {
+	/*
+	 ipc per forza
+		leggi dalla form nome pg e server
+		ipcsend - ipcmodule - controllercharacter
+		leggi se c'è il file
+		copi il contenuto in backup utilizzando backupmodule
+	*/
+}
+
+const applyTemplateHelper = (name, server) => {
+/*
+	come prima ma inverti il flusso dell'ultimo punto
+*/
+}

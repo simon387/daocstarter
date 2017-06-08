@@ -1,7 +1,7 @@
 'use strict';
 
 const db = require("./db-module.js");
-const {dialog} = require('electron');
+const {dialog, app} = require('electron');
 const path = require('path');
 const fs = require('fs');
 const child_process = require('child_process');
@@ -10,11 +10,9 @@ const moment = require('moment');
 const ps = require('ps-node');
 const handle = require('./handle-module.js');
 const constants = require('./constants.js');
-
-
-let log = require('electron-log');
-log.transports.file.level = 'silly';
-
+const backup = require('./backup-module.js');
+const log = require('electron-log');
+log.transports.file.level = 'debug';
 
 module.exports = {
 	playCharacter: id => {
@@ -22,6 +20,7 @@ module.exports = {
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox('Error', "User.dat not found!\nPlease edit the location from Setting section!");
 		}
+		backup.backupFile(userdat.value);
 		db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
 			if (null == gamedll || !fs.existsSync(gamedll.value)) {
 				return dialog.showErrorBox('Error', "game.dll not found!\nPlease edit the location from Setting section!");
@@ -54,7 +53,7 @@ module.exports = {
 									config.main.screen_height = xy[1];
 								}
 								catch (e) {
-									console.log(e);
+									log.error(e);
 									dialog.showErrorBox('Error', e.toString());
 								}
 								config.main.windowed = character.windowed ? 1 : 0;
@@ -67,7 +66,7 @@ module.exports = {
 									psargs: 'ux'
 								}, (err, resultList) => {
 									if (err) {
-										console.log(err);
+										log.error(e);
 										throw new Error(err);
 									}
 									let flag = false;
@@ -83,12 +82,13 @@ module.exports = {
 										return dialog.showErrorBox('Error', "The account is already logged in!");
 									}
 									if (false == flag) {
+										backup.backupFile(path.dirname(userdat.value) + '\\' + character.name.charAt(0).toUpperCase() + character.name.slice(1) + '-' + server.n + '.ini');
 										const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
 											cwd: path.dirname(gamedll.value),
 											setsid: false,
 											detached: true
 										});
-										console.log('Spawned child pid: ' + prc.pid);
+										log.info('Spawned child pid: ' + prc.pid);
 										const now = moment(Date.now()).format('DD/MM/YY HH:mm');
 										//aggiorna timestamp last login e killa i mutants
 										db.characterDatastore.update({_id: id}, {$set: {lastlogin: now}}, (err, numAffected, affectedDocuments) => {
@@ -96,12 +96,12 @@ module.exports = {
 										});
 										if (undefined != character.title && '' != character.title && prc.pid > 0) {
 											const exec = child_process.exec;
-											exec(constants.titlerenamer_path + ' ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
+											exec(constants.titlerenamer_path() + ' ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
 										}
 										else {
 											if (undefined != account.title && '' != account.title && prc.pid > 0) {
 												const exec = child_process.exec;
-												exec(constants.titlerenamer_path + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
+												exec(constants.titlerenamer_path() + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
 											}
 										}
 										//gestione borderless
@@ -119,7 +119,7 @@ module.exports = {
 												}
 											}
 											catch (e) {
-												console.log(e);
+												log.error(e);
 												width = 800;
 												height = 600;
 											}
@@ -131,7 +131,7 @@ module.exports = {
 											}
 
 											const exec = child_process.exec;
-											exec(constants.borderless_path + ' ' + prc.pid + ' ' +
+											exec(constants.borderless_path() + ' ' + prc.pid + ' ' +
 												width + ' ' + height + ' ' + positionX + ' ' + positionY,
 												(err, so, se) => {});
 										}
@@ -154,7 +154,7 @@ module.exports = {
 				psargs: 'ux'
 			}, (err, resultList) => {
 				if (err) {
-					console.log(err);
+					log.error(err);
 					throw new Error(err);
 				}
 				resultList.forEach(process => {
@@ -173,7 +173,7 @@ module.exports = {
 			psargs: 'ux'
 		}, (err, resultList) => {
 			if (err) {
-				console.log(err);
+				log.error(err);
 				throw new Error(err);
 			}
 			resultList.forEach(process => {
@@ -189,7 +189,7 @@ module.exports = {
 				psargs: 'ux'
 			}, (err, resultList) => {
 				if (err) {
-					console.log(err);
+					log.error(err);
 					throw new Error(err);
 				}
 				resultList.forEach(process => {
@@ -207,6 +207,7 @@ module.exports = {
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox('Error', "User.dat not found!\nPlease edit the location from Setting section!");
 		}
+		backup.backupFile(userdat.value);
 		db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
 			if (null == gamedll || !fs.existsSync(gamedll.value)) {
 				return dialog.showErrorBox('Error', "game.dll not found!\nPlease edit the location from Setting section!");
@@ -230,7 +231,7 @@ module.exports = {
 						config.main.screen_height = xy[1];
 					}
 					catch (e) {
-						console.log(e);
+						log.error(e);
 						dialog.showErrorBox('Error', e.toString());
 					}
 					const windowed = account.windowed ? 1 : 0;
@@ -242,7 +243,7 @@ module.exports = {
 						psargs: 'ux'
 					}, (err, resultList) => {
 						if (err) {
-							console.log(err);
+							log.error(err);
 							throw new Error(err);
 						}
 						let flag = false;
@@ -263,10 +264,10 @@ module.exports = {
 								setsid: false,
 								detached: true
 							});
-							console.log('Spawned child pid: ' + prc.pid);
+							log.info('Spawned child pid: ' + prc.pid);
 							if (undefined != account.title && '' != account.title && prc.pid > 0) {
 								const exec = child_process.exec;
-								exec(constants.titlerenamer_path + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
+								exec(constants.titlerenamer_path() + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
 							}
 						}
 					});
@@ -299,6 +300,7 @@ module.exports = {
 			if (!fs.existsSync(userdat.value)) {
 				return dialog.showErrorBox('Error', "User.dat not found!\nPlease edit the location from Setting section!");
 			}
+			backup.backupFile(userdat.value);
 			db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
 				if (null == gamedll || !fs.existsSync(gamedll.value)) {
 					return dialog.showErrorBox('Error', "game.dll not found!\nPlease edit the location from Setting section!");
@@ -331,7 +333,7 @@ module.exports = {
 										config.main.screen_height = xy[1];
 									}
 									catch (e) {
-										console.log(e);
+										log.error(e);
 										dialog.showErrorBox('Error', e.toString());
 									}
 									config.main.windowed = windowed ? 1 : 0;
@@ -344,7 +346,7 @@ module.exports = {
 										psargs: 'ux'
 									}, (err, resultList) => {
 										if (err) {
-											console.log(err);
+											log.error(err);
 											throw new Error(err);
 										}
 										let flag = false;
@@ -360,12 +362,13 @@ module.exports = {
 											return dialog.showErrorBox('Error', "The account is already logged in!");
 										}
 										if (false == flag) {
+											backup.backupFile(path.dirname(userdat.value) + '\\' + character.name.charAt(0).toUpperCase() + character.name.slice(1) + '-' + server.n + '.ini');
 											const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
 												cwd: path.dirname(gamedll.value),
 												setsid: false,
 												detached: true
 											});
-											console.log('Spawned child pid: ' + prc.pid);
+											log.info('Spawned child pid: ' + prc.pid);
 											const now = moment(Date.now()).format('DD/MM/YY HH:mm');
 											//aggiorna timestamp last login e killa i mutants
 											db.characterDatastore.update({_id: character._id}, {$set: {lastlogin: now}}, (err, numAffected, affectedDocuments) => {
@@ -373,12 +376,12 @@ module.exports = {
 											});
 											if (undefined != character.title && '' != character.title && prc.pid > 0) {
 												const exec = child_process.exec;
-												exec(constants.titlerenamer_path + ' ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
+												exec(constants.titlerenamer_path() + ' ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
 											}
 											else {
 												if (undefined != account.title && '' != account.title && prc.pid > 0) {
 													const exec = child_process.exec;
-													exec(constants.titlerenamer_path + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
+													exec(constants.titlerenamer_path() + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
 												}
 											}
 											//gestione borderless
@@ -392,7 +395,7 @@ module.exports = {
 													}
 												}
 												catch (e) {
-													console.log(e);
+													log.error(e);
 													width = 800;
 													height = 600;
 												}
@@ -404,7 +407,7 @@ module.exports = {
 												}
 
 												const exec = child_process.exec;
-												exec(constants.borderless_path + ' ' + prc.pid + ' ' +
+												exec(constants.borderless_path() + ' ' + prc.pid + ' ' +
 													width + ' ' + height + ' ' + positionX + ' ' + positionY,
 													(err, so, se) => {});
 											}
