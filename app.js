@@ -3,6 +3,7 @@
 const {app, BrowserWindow} = require('electron');
 const packageJSON = require('./package.json');
 const path = require('path');
+const url = require('url');
 const commonUtil = require('./js/controller/common-util.js');
 const trayModule = require('./js/tray-module.js');
 let tray = null;
@@ -25,7 +26,7 @@ app.on('ready', () => {
 		icon: 'img/i.ico'
 	});
 
-	mainWindow.loadURL(require('url').format({
+	mainWindow.loadURL(url.format({
 		pathname: path.join(__dirname, 'html', 'views', 'main.html'),
 		protocol: 'file',
 		slashes: true

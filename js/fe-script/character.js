@@ -151,3 +151,8 @@ $('#import-from-appdata-form').on('submit', function(event) {
 		alert('Unable to save data, please try again later.');
 	});
 });
+
+'advanced-button-char-apply-template-add'
+'advanced-button-char-set-as-default-template-add'
+'advanced-button-char-apply-template-edit'
+'advanced-button-char-set-as-default-template-edit'	
