@@ -153,19 +153,23 @@ $('#import-from-appdata-form').on('submit', function(event) {
 });
 
 document.getElementById('advanced-button-char-set-as-default-template-add').onclick = () => {
-	setDefaultTemplateHelper();
+	setDefaultTemplateHelper(document.getElementById('add-character-name').value,
+		document.getElementById('add-character-servers').value);
 }
 
 document.getElementById('advanced-button-char-set-as-default-template-edit').onclick = () => {
-	setDefaultTemplateHelper();
+	setDefaultTemplateHelper(document.getElementById('edit-character-name').value,
+		document.getElementById('edit-character-servers').value);
 }
 
 document.getElementById('advanced-button-char-apply-template-add').onclick = () => {
-	applyTemplateHelper();
+	applyTemplateHelper(document.getElementById('add-character-name').value,
+		document.getElementById('add-character-servers').value);
 }
 
 document.getElementById('advanced-button-char-apply-template-edit').onclick = () => {
-	applyTemplateHelper();
+	applyTemplateHelper(document.getElementById('edit-character-name').value,
+		document.getElementById('edit-character-servers').value);
 }
 
 

@@ -82,7 +82,7 @@ const setTray = (tray, app, mainWindow) => {
 			tray = new Tray('img/i.ico');
 		}
 		catch(e) {
-			log.warning('Sorry, no Tray Icon for you!')
+			log.warn('Sorry, no Tray Icon for you!')
 		}
 	}
 
