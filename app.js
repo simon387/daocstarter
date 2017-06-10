@@ -1,6 +1,6 @@
 'use strict';
 
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, dialog} = require('electron');
 const packageJSON = require('./package.json');
 const path = require('path');
 const url = require('url');

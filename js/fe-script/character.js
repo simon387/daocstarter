@@ -172,19 +172,10 @@ document.getElementById('advanced-button-char-apply-template-edit').onclick = ()
 		document.getElementById('edit-character-servers').value);
 }
 
-
 const setDefaultTemplateHelper = (name, server) => {
-	/*
-	 ipc per forza
-		leggi dalla form nome pg e server
-		ipcsend - ipcmodule - controllercharacter
-		leggi se c'è il file
-		copi il contenuto in backup utilizzando backupmodule
-	*/
+	ipcRenderer.send('set-ini-default-template', name, server);
 }
 
 const applyTemplateHelper = (name, server) => {
-/*
-	come prima ma inverti il flusso dell'ultimo punto
-*/
+	ipcRenderer.send('apply-ini-default-template', name, server);
 }

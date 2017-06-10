@@ -5,6 +5,7 @@ const db = require('./db-module.js');
 const accountController = require('./controller/account.js');
 const spellcraftController = require('./controller/spellcraft.js');
 const settingController = require('./controller/setting.js');
+const characterController = require('./controller/character.js');
 const gamedll = require('./gamedll-module.js');
 const fs = require('fs');
 
@@ -156,7 +157,6 @@ ipcMain.on('saveTeam', (event, id, name, team) => {
 			height4: team['team4'][6],
 			positionx4: team['team4'][7],
 			positiony4: team['team4'][8],
-
 
 			char5: team['team5'][0],
 			res5: team['team5'][1],
@@ -343,6 +343,14 @@ ipcMain.on('edit-setting-booleano', (event, id) => {
 
 ipcMain.on('save-setting-booleano', (event, id, value) => {
 	settingController.saveSettingBooleano(event, id, value);
+});
+
+ipcMain.on('set-ini-default-template', (event, name, server) => {
+	characterController.setIniDefaultTemplate(name, server);
+});
+
+ipcMain.on('apply-ini-default-template', (event, name, server) => {
+	characterController.applyIniDefaultTemplate(name, server);
 });
 
 //TODO

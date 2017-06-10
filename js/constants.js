@@ -1,6 +1,8 @@
 'use strict';
 
 const fs = require('fs');
+const {app} = require('electron');
+const userData = app.getPath('userData');
 const handle_path_compiled = 'resources\\app\\handle\\handle.exe';
 const handle_path_dev = 'handle\\handle.exe';
 const borderless_path_compiled = 'resources\\app\\borderless\\borderless.exe';
@@ -11,6 +13,10 @@ const titlerenamer_path_compiled = 'resources\\app\\titlerenamer\\titlerenamer.e
 const titlerenamer_path_dev = 'titlerenamer\\titlerenamer.exe';
 
 module.exports = {
+	backupPath: () => {
+		return userData + '\\backup';
+	},
+
 	handle_path: () => {
 		if (fs.existsSync(handle_path_compiled)) {
 			return handle_path_compiled;
