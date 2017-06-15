@@ -1,11 +1,10 @@
 'use strict';
 
-const electron = require('electron');
 const http = require('http');
 const compareVersions = require('compare-versions');
 const pjson = require('../package.json');
 const opn = require('opn');
-const {dialog} = require('electron');
+const {app, dialog} = require('electron');
 const log = require('./log-module.js').getLog();
 
 module.exports = {

@@ -1,12 +1,9 @@
 'use strict';
 
-const electron = require('electron');
-const Menu = electron.Menu;
 const opn = require('opn');
-const {shell, app, dialog} = require('electron');
+const {shell, app, dialog, BrowserWindow, Menu} = require('electron');
 const db = require('./db-module.js');
 const path = require('path');
-const BrowserWindow = require('electron').BrowserWindow;
 const handle = require('./handle-module.js');
 const gamedll = require('./gamedll-module.js');
 const fs = require('fs');
@@ -99,7 +96,7 @@ const menuTemplate = [
 			{
 				label: 'Show DAoC screenshot directory',
 				click: () => {
-					shell.showItemInFolder(electron.app.getPath("documents") + "\\Electronic Arts\\Dark Age of Camelot\\.");
+					shell.showItemInFolder(app.getPath("documents") + "\\Electronic Arts\\Dark Age of Camelot\\.");
 				}
 			},
 			{

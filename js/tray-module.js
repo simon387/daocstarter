@@ -25,7 +25,6 @@ const applySettings = () => {
 			quitMinimizeToTray = setting.value;
 
 			if (minimizeToTray) {
-
 				_mainWindow.on('minimize', event => {
 					event.preventDefault()
 					_mainWindow.hide();

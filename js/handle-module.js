@@ -8,6 +8,7 @@ const log = require('./log-module.js').getLog();
 
 module.exports = {
 	killMutants: function () {
+		log.info('killMutants called');
 		let aPID = [];
 		ps.lookup({
 			command: 'game.dll',
@@ -30,6 +31,7 @@ module.exports = {
 }
 
 function getGameDllHandles(aPID) {
+	log.info('getGameDllHandles called');
 	const spawn = child_process.spawn;
 	let aHex = [];
 	const handle_exe= spawn(constants.handle_path(), ['-a', '-nobanner']);
@@ -69,6 +71,7 @@ function getGameDllHandles(aPID) {
 }
 
 function killHandles (aPID, aHex) {
+	log.info('killHandles called');
 	for (let p = 0; p < aPID.length; p++) {
 		for (let h = 0; h < aHex.length; h++) {
 			const spawn = child_process.spawn;

@@ -1,11 +1,11 @@
 'use strict';
 
 const {app, BrowserWindow, dialog} = require('electron');
-const packageJSON = require('./package.json');
 const path = require('path');
 const url = require('url');
 const commonUtil = require('./js/controller/common-util.js');
 const trayModule = require('./js/tray-module.js');
+const log = require('./js/log-module.js').getLog();
 let tray = null;
 require('./js/update-module.js').updateCheck();
 require('./js/db-module.js').init();
@@ -13,8 +13,9 @@ require('./js/ipc-module');
 require('./js/express-module.js');
 require('./js/menu-module.js');
 
-app.on('ready', () => {
+log.info('daocstarter init');
 
+app.on('ready', () => {
 	const mainWindow = new BrowserWindow({
 		width: 1400,
 		height: 809,
@@ -22,7 +23,7 @@ app.on('ready', () => {
 		minHeight: 400,
 		show: false,
 		resizable: true,
-		title: 'DAoC Starter v' + packageJSON.version,
+		title: 'DAoC Starter v' + app.getVersion(),
 		icon: 'img/i.ico'
 	});
 
@@ -41,4 +42,8 @@ app.on('ready', () => {
 	});
 
 	tray = trayModule.setup(tray, app, mainWindow);
+});
+
+app.on('quit', () => {
+	log.info('daocstarter quit');
 });
