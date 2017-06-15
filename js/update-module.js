@@ -6,8 +6,7 @@ const compareVersions = require('compare-versions');
 const pjson = require('../package.json');
 const opn = require('opn');
 const {dialog} = require('electron');
-const log = require('electron-log');
-log.transports.file.level = 'debug';
+const log = require('./log-module.js').getLog();
 
 module.exports = {
 	updateCheck: () => {

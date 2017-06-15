@@ -12,8 +12,7 @@ const gamedll = require('./gamedll-module.js');
 const fs = require('fs');
 const child_process = require('child_process');
 const constants = require('./constants.js');
-const log = require('electron-log');
-log.transports.file.level = 'debug';
+const log = require('./log-module.js').getLog();
 
 Menu.getApplicationMenu();
 

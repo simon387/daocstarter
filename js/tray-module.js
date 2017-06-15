@@ -2,8 +2,7 @@
 
 const {Menu, Tray, BrowserWindow} = require('electron');
 const db = require('./db-module.js');
-const log = require('electron-log');
-log.transports.file.level = 'debug';
+const log = require('./log-module.js').getLog();
 let _tray;
 let _app;
 let _mainWindow;

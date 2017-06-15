@@ -4,8 +4,7 @@ const ps = require('ps-node');
 const child_process = require('child_process');
 const fs = require('fs');
 const constants = require('./constants.js');
-const log = require('electron-log');
-log.transports.file.level = 'debug';
+const log = require('./log-module.js').getLog();
 
 module.exports = {
 	killMutants: function () {

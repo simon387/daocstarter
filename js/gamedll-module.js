@@ -11,8 +11,7 @@ const ps = require('ps-node');
 const handle = require('./handle-module.js');
 const constants = require('./constants.js');
 const backup = require('./backup-module.js');
-const log = require('electron-log');
-log.transports.file.level = 'debug';
+const log = require('./log-module.js').getLog();
 
 module.exports = {
 	playCharacter: id => {

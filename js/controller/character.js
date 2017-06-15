@@ -1,13 +1,13 @@
 'use strict';
 
+const {dialog} = require('electron');
 const db = require('../db-module.js');
 const util = require('./common-util.js');
 const serverController = require('./server.js');
 const constants = require('../constants.js');
 const path = require('path');
 const fs = require('fs');
-const log = require('electron-log');
-log.transports.file.level = 'debug';
+const log = require('../log-module.js').getLog();
 
 module.exports = {
 	getAllCharacters: response => {
@@ -41,13 +41,20 @@ module.exports = {
 		if (name === '' || server === '') {
 			return;
 		}
-		db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
-			const fileInput = path.dirname(userdat.value) + '\\' +
-				name.charAt(0).toUpperCase() + name.slice(1) +
-				'-' + serverController.toNumber(server) + '.ini';
-			
-			fs.createReadStream(fileInput)
-			.pipe(fs.createWriteStream(constants.backupPath() + '\\default.ini'));
+
+		dialog.showSaveDialog({message: 'save as template'}, (filename) => {
+			log.info(filename)
+			if (undefined != filename && '' != filename) {
+				db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
+					const fileInput = path.dirname(userdat.value) + '\\' +
+						name.charAt(0).toUpperCase() + name.slice(1) +
+						'-' + serverController.toNumber(server) + '.ini';
+					
+					fs.createReadStream(fileInput)
+					//.pipe(fs.createWriteStream(constants.backupPath() + '\\default.ini'));
+					.pipe(fs.createWriteStream(filename));
+				});
+			}
 		});
 	},
 
@@ -55,13 +62,23 @@ module.exports = {
 		if (name === '' || server === '') {
 			return;
 		}
-		db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
-			const fileOutput = path.dirname(userdat.value) + '\\' +
-				name.charAt(0).toUpperCase() + name.slice(1) +
-				'-' + serverController.toNumber(server) + '.ini';
-			
-			fs.createReadStream(constants.backupPath() + '\\default.ini')
-			.pipe(fs.createWriteStream(fileOutput));
+
+		dialog.showOpenDialog({message: 'load template', properties: ['openFile', 'noResolveAliases']}, filePaths => {
+
+			if (filePaths != filename && '' != filePaths[0]) {
+
+				db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
+					const fileOutput = path.dirname(userdat.value) + '\\' +
+						name.charAt(0).toUpperCase() + name.slice(1) +
+						'-' + serverController.toNumber(server) + '.ini';
+					
+					//fs.createReadStream(constants.backupPath() + '\\default.ini')
+					fs.createReadStream(filePaths[0])
+					.pipe(fs.createWriteStream(fileOutput));
+				});
+			}
+
+
 		});
 	}
 }

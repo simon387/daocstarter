@@ -13,8 +13,7 @@ const classeController = require('./controller/classe.js');
 const characterController = require('./controller/character.js');
 const settingController = require('./controller/setting.js');
 const teamController = require('./controller/team.js');
-const log = require('electron-log');
-log.transports.file.level = 'debug';
+const log = require('./log-module.js').getLog();
 
 const server = express();
 portfinder.getPort((err, port) => {

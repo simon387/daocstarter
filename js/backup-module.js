@@ -2,9 +2,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const log = require('electron-log');
+const log = require('./log-module.js').getLog();
 const constants = require('./constants.js');
-log.transports.file.level = 'debug';
 
 module.exports = {
 	backupFile: inputFile => {
