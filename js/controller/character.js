@@ -50,9 +50,13 @@ module.exports = {
 						name.charAt(0).toUpperCase() + name.slice(1) +
 						'-' + serverController.toNumber(server) + '.ini';
 					
-					fs.createReadStream(fileInput)
-					//.pipe(fs.createWriteStream(constants.backupPath() + '\\default.ini'));
-					.pipe(fs.createWriteStream(filename));
+					try {
+						fs.createReadStream(fileInput).pipe(fs.createWriteStream(filename));
+						log.info('wrote ' + fileInput + ' in ' + filename);
+					}
+					catch(err) {
+						log.error(err);
+					}
 				});
 			}
 		});
@@ -65,16 +69,20 @@ module.exports = {
 
 		dialog.showOpenDialog({message: 'load template', properties: ['openFile', 'noResolveAliases']}, filePaths => {
 
-			if (filePaths != filename && '' != filePaths[0]) {
+			if (undefined != filePaths && '' != filePaths[0]) {
 
 				db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
 					const fileOutput = path.dirname(userdat.value) + '\\' +
 						name.charAt(0).toUpperCase() + name.slice(1) +
 						'-' + serverController.toNumber(server) + '.ini';
 					
-					//fs.createReadStream(constants.backupPath() + '\\default.ini')
-					fs.createReadStream(filePaths[0])
-					.pipe(fs.createWriteStream(fileOutput));
+					try {
+						fs.createReadStream(filePaths[0]).pipe(fs.createWriteStream(fileOutput));
+						log.info('wrote ' + filePaths[0] + ' in ' + fileOutput);
+					}
+					catch(err) {
+						log.error(err);
+					}
 				});
 			}
 
