@@ -1,8 +1,8 @@
 'use strict';
 
+const fs = require('fs');
 const ps = require('ps-node');
 const child_process = require('child_process');
-const fs = require('fs');
 const constants = require('./constants.js');
 const log = require('./log-module.js').getLog();
 

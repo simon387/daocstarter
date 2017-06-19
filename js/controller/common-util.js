@@ -1,7 +1,6 @@
 'use strict';
 
-const BrowserWindow = require('electron').BrowserWindow;
-const {ipcMain} = require('electron');
+const {ipcMain, BrowserWindow} = require('electron');
 const db = require('../db-module.js');
 
 const playCSS = "class='btnX btn-primary btn-sm sr-button'";

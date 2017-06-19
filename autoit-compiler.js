@@ -1,10 +1,10 @@
 "use strict";
 
-const shell = require('node-powershell');
-const distzip = 'dist.zip';
-const archiver = require('archiver');
 const fs = require('fs');
+const shell = require('node-powershell');
 const packagejson = require('./package.json');
+const archiver = require('archiver');
+const distzip = 'dist.zip';
 const archive = archiver('zip', {
 	zlib: {level: 0} // Sets the compression level.
 });

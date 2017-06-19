@@ -1,12 +1,12 @@
 'use strict';
 
-const {dialog} = require('electron');
-const db = require('../db-module.js');
-const util = require('./common-util.js');
-const serverController = require('./server.js');
-const constants = require('../constants.js');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const {dialog} = require('electron');
+const serverController = require('./server.js');
+const util = require('./common-util.js');
+const db = require('../db-module.js');
+const constants = require('../constants.js');
 const log = require('../log-module.js').getLog();
 
 module.exports = {

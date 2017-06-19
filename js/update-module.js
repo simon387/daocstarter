@@ -2,10 +2,10 @@
 
 const http = require('http');
 const compareVersions = require('compare-versions');
-const pjson = require('../package.json');
 const opn = require('opn');
 const {app, dialog} = require('electron');
 const log = require('./log-module.js').getLog();
+const pjson = require('../package.json');
 
 module.exports = {
 	updateCheck: () => {

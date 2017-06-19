@@ -1,7 +1,7 @@
 'use strict';
 
-const db = require('../db-module.js');
 const util = require('./common-util.js');
+const db = require('../db-module.js');
 
 module.exports = {
 	getAllClassesNames: response => {

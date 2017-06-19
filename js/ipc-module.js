@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const {ipcMain, dialog} = require('electron');
 const db = require('./db-module.js');
 const accountController = require('./controller/account.js');
@@ -7,7 +8,6 @@ const spellcraftController = require('./controller/spellcraft.js');
 const settingController = require('./controller/setting.js');
 const characterController = require('./controller/character.js');
 const gamedll = require('./gamedll-module.js');
-const fs = require('fs');
 
 ipcMain.on('asynchronous-get-character-per-page', (event, item) => {
 	db.settingDatastore.findOne({key: item}, (err, doc) => {

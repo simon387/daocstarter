@@ -1,12 +1,12 @@
 'use strict';
 
-const db = require('./db-module.js');
-const gamedll = require('./gamedll-module.js');
 const {ipcMain} = require('electron');
 const portfinder = require('portfinder');
 const express = require('express');
-const vga_module = require('./vga-module.js');
 const querystring = require('querystring');
+const vga_module = require('./vga-module.js');
+const gamedll = require('./gamedll-module.js');
+const db = require('./db-module.js');
 const accountController = require('./controller/account.js');
 const serverController = require('./controller/server.js');
 const classeController = require('./controller/classe.js');

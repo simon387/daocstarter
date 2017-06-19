@@ -1,13 +1,13 @@
 'use strict';
 
-const db = require("./db-module.js");
-const {dialog, app} = require('electron');
-const path = require('path');
 const fs = require('fs');
-const child_process = require('child_process');
+const path = require('path');
 const ini = require('ini');
 const moment = require('moment');
+const child_process = require('child_process');
 const ps = require('ps-node');
+const {dialog, app} = require('electron');
+const db = require("./db-module.js");
 const handle = require('./handle-module.js');
 const constants = require('./constants.js');
 const backup = require('./backup-module.js');

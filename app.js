@@ -1,17 +1,17 @@
 'use strict';
 
-const {app, BrowserWindow, dialog} = require('electron');
 const path = require('path');
 const url = require('url');
+const {app, BrowserWindow, dialog} = require('electron');
 const commonUtil = require('./js/controller/common-util.js');
 const trayModule = require('./js/tray-module.js');
 const log = require('./js/log-module.js').getLog();
-let tray = null;
 require('./js/update-module.js').updateCheck();
 require('./js/db-module.js').init();
 require('./js/ipc-module');
 require('./js/express-module.js');
 require('./js/menu-module.js');
+let tray = null;
 
 log.info('daocstarter init');
 

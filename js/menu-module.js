@@ -1,12 +1,12 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
 const opn = require('opn');
 const {shell, app, dialog, BrowserWindow, Menu} = require('electron');
 const db = require('./db-module.js');
-const path = require('path');
 const handle = require('./handle-module.js');
 const gamedll = require('./gamedll-module.js');
-const fs = require('fs');
 const child_process = require('child_process');
 const constants = require('./constants.js');
 const log = require('./log-module.js').getLog();

@@ -2,12 +2,14 @@
 
 let localhost;
 window.jQuery = window.$ = require('jquery');
-const {ipcRenderer} = require('electron');
+
+const {ipcRenderer, remote} = require('electron');
+const {dialog} = require('electron').remote;
 const datatable = require('datatables.net');
-const remote = require('electron').remote;
+//const remote = require('electron').remote;
+
 const playCSS = "class='btnX btn-primary btn-sm sr-button'";
 const cancCSS = "class='sr-button btnX btn-primary btn-md btnX-delete'";
-const {dialog} = require('electron').remote;
 
 let characterDataTable;
 let accountDataTable;
