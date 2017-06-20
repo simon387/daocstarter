@@ -5,7 +5,6 @@ const compareVersions = require('compare-versions');
 const opn = require('opn');
 const {app, dialog} = require('electron');
 const log = require('./log-module.js').getLog();
-const pjson = require('../package.json');
 
 module.exports = {
 	updateCheck: () => {
@@ -19,7 +18,7 @@ module.exports = {
 				remoteVersion += chunk;
 			});
 			res.on('end', () => {
-				if (compareVersions(pjson.version, remoteVersion) < 0) {
+				if (compareVersions(app.getVersion(), remoteVersion) < 0) {
 					const options = {
 						type: 'info',
 						title: 'Update available!',
