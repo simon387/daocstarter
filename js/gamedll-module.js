@@ -13,8 +13,29 @@ const constants = require('./constants.js');
 const backup = require('./backup-module.js');
 const log = require('./log-module.js').getLog();
 
+const callAPromise = () => {
+	console.log('lol')
+	return 'lol';
+}
+
+const getUserdat = () => {
+	console.log('getUserdat called')
+	db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) =>  {
+		/*if (!fs.existsSync(userdat.value)) {
+			dialog.showErrorBox('Error', "User.dat not found!\nPlease edit the location from Setting section!");
+		}*/
+		console.log(userdat);
+		return userdat;
+	});
+}
+
 module.exports = {
-	playCharacter: id => {
+	playCharacter: /*async*/ id => {
+
+		// let u = await getUserdat();
+		// console.log (u);
+		// return;
+
 	db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox('Error', "User.dat not found!\nPlease edit the location from Setting section!");

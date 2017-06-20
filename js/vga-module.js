@@ -52,6 +52,7 @@ module.exports = {
 				})
 				.catch(err => {
 					ps.dispose();
+					log.error(err);
 					return response.send(array);
 				});
 			}

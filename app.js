@@ -12,11 +12,26 @@ require('./js/ipc-module');
 require('./js/express-module.js');
 require('./js/menu-module.js');
 let tray = null;
+let mainWindow = null;
 
 log.info('daocstarter init');
+//se non funziona da compilato su win lo togliamo
+const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
+	// Someone tried to run a second instance, we should focus our window.
+	if (mainWindow) {
+		if (mainWindow.isMinimized()) {
+			mainWindow.restore();
+		}
+		mainWindow.focus();
+	}
+});
+
+if (shouldQuit) {
+	app.quit();
+}////////////////////////////////////////////////////https://github.com/electron/electron/blob/master/docs/api/app.md
 
 app.on('ready', () => {
-	const mainWindow = new BrowserWindow({
+	mainWindow = new BrowserWindow({
 		width: 1400,
 		height: 809,
 		minWidth: 400,
