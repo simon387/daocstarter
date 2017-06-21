@@ -11,7 +11,6 @@ require('./js/db-module.js').init();
 require('./js/ipc-module');
 require('./js/express-module.js');
 require('./js/menu-module.js');
-let tray = null;
 let mainWindow = null;
 
 log.info('daocstarter init');
@@ -55,7 +54,7 @@ app.on('ready', () => {
 		commonUtil.moveFavourites(mainWindow.getSize());
 	});
 
-	tray = trayModule.setup(tray, app, mainWindow);
+	trayModule.setup(app, mainWindow);
 });
 
 app.on('quit', () => {

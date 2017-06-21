@@ -3,13 +3,13 @@
 const {Menu, Tray, BrowserWindow} = require('electron');
 const db = require('./db-module.js');
 const log = require('./log-module.js').getLog();
-let _tray;
+let _tray = null;
 let _app;
 let _mainWindow;
 
 module.exports = {
-	setup: (tray, app, mainWindow) => {
-		return setTray(tray, app, mainWindow);
+	setup: (app, mainWindow) => {
+		setTray(app, mainWindow);
 	},
 	applySettings: () => {
 		applySettings();
@@ -71,29 +71,29 @@ const applySettings = () => {
 
 }
 
-const setTray = (tray, app, mainWindow) => {
+const setTray = (app, mainWindow) => {
 	try {
-		tray = new Tray('resources\\app\\img\\i.ico');
+		_tray = new Tray('resources\\app\\img\\i.ico');
 	}
 	catch(e) {
 		try {
-			tray = new Tray('img/i.ico');
+			_tray = new Tray('img/i.ico');
 		}
 		catch(e) {
 			log.warn('Sorry, no Tray Icon for you!')
 		}
 	}
 
-	if (null != tray) {
-		tray.setToolTip('Daocstarter!');
-		tray.setContextMenu(Menu.buildFromTemplate([{
+	if (null != _tray) {
+		_tray.setToolTip('Daocstarter!');
+		_tray.setContextMenu(Menu.buildFromTemplate([{
 			label: 'Quit',
 			click: () => {
 				_app.exit(0);
 			}
 		}]));
 
-		tray.on('click', event => {
+		_tray.on('click', event => {
 			if (mainWindow.isMinimized()) {
 				mainWindow.restore();
 			}
@@ -101,11 +101,9 @@ const setTray = (tray, app, mainWindow) => {
 				mainWindow.minimize();
 			}
 		});
-		
-		_tray = tray;
+
 		_app = app;
 		_mainWindow = mainWindow;
 		applySettings();
-		return tray;
 	}
 }
