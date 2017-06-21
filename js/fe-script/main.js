@@ -179,11 +179,3 @@ const refreshComboByFetchAndSelector = (query, selector, sel = '') => {
 }
 
 $(renderFavourites);
-
-document.getElementById('advanced-button-char-edit').onclick = () => {
-	document.getElementById('advanced-div-char-edit').classList.toggle('nonmostrare');
-};
-
-document.getElementById('advanced-button-char-add').onclick = () => {
-	document.getElementById('advanced-div-char-add').classList.toggle('nonmostrare');
-};

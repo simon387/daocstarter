@@ -42,6 +42,7 @@ function editCharacterRow(id) {
 		$('#edit-character-windowed').prop('checked', obj.windowed === undefined ? false: obj.windowed);
 		$('#edit-character-favourite').prop('checked', obj.favourite === undefined ? false: obj.favourite);
 		$('#edit-character-title').val(obj.title);
+		$('#edit-character-spellcrafter').prop('checked', obj.spellcrafter === undefined ? false: obj.spellcrafter);
 		$('#edit-character-fullscreen_windowed').prop('checked', obj.fullscreen_windowed === undefined ? false: obj.fullscreen_windowed);
 		$('#edit-character-forwardbreaksrunlock').prop('checked', obj.forward_breaks_runlock === undefined ? false: obj.forward_breaks_runlock);
 		$('#edit-character-borderless').prop('checked', obj.borderless === undefined ? false: obj.borderless);
@@ -179,3 +180,11 @@ const setDefaultTemplateHelper = (name, server) => {
 const applyTemplateHelper = (name, server) => {
 	ipcRenderer.send('apply-ini-default-template', name, server);
 }
+
+document.getElementById('advanced-button-char-edit').onclick = () => {
+	document.getElementById('advanced-div-char-edit').classList.toggle('nonmostrare');
+};
+
+document.getElementById('advanced-button-char-add').onclick = () => {
+	document.getElementById('advanced-div-char-add').classList.toggle('nonmostrare');
+};

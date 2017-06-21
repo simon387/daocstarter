@@ -8,6 +8,11 @@ const log = require('./log-module.js').getLog();
 module.exports = {
 	getAllResolutions: response => {
 		
+		if (os.platform() != 'win32') {
+			log.warn('Per ora il modulo vga-module funziona solo su windows');
+			return response.send(["4096×2160"]);
+		}
+
 		db.settingDatastore.findOne({key: 'custom.resolutions.comma.separated'}, (err, setting) => {
 			const array = setting.value.split(',');
 			let ps;
