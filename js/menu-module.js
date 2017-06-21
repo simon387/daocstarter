@@ -57,6 +57,9 @@ const menuTemplate = [
 				}
 			},
 			{
+				type: 'separator'
+			},
+			{
 				label: 'Patch client',
 				click: () => {
 					db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
@@ -81,6 +84,35 @@ const menuTemplate = [
 						}
 					});
 				}
+			},
+			{
+				label: 'Patch client from test server',
+				click: () => {
+					db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
+						if (fs.existsSync(gamedll["value"])) {
+							const exec = child_process.exec;
+							const cmd = 'camtest.exe';
+							const child = exec(
+								cmd, {
+									cwd: path.dirname(gamedll["value"]),
+									setsid: false,
+									detached: true,
+								},
+								(error, stdout, stderr) => {
+									log.error(error);
+									log.error(stdout);
+									log.error(stderr);
+								}
+							);
+						}
+						else {
+							dialog.showErrorBox("error", "camtest.exe not found!\nGo to settings and select the right game.dll");
+						}
+					});
+				}
+			},
+			{
+				type: 'separator'
 			},
 			{
 				label: 'Kill all clients',

@@ -13,11 +13,11 @@ module.exports = {
 			return;
 		}
 
-		if (!fs.existsSync(constants.backupPath())){
-			fs.mkdirSync(constants.backupPath());
+		if (!fs.existsSync(constants.backupPath)){
+			fs.mkdirSync(constants.backupPath);
 		}
 
-		let outputFile = constants.backupPath() + '\\' + path.basename(inputFile);
+		let outputFile = constants.backupPath + '\\' + path.basename(inputFile);
 		let i = 0;
 
 		while (fs.existsSync(outputFile + '_backup_' + i)) {

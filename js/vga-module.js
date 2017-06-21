@@ -13,7 +13,7 @@ module.exports = {
 			let ps;
 			try{
 				ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
-					ps.addCommand('get-wmiobject -query "' +
+				ps.addCommand('get-wmiobject -query "' +
 				'select HorizontalResolution, VerticalResolution ' +
 				'from CIM_VideoControllerResolution where HorizontalResolution > 799" | ' +
 				'Sort-Object HorizontalResolution, VerticalResolution -descending | ' +
