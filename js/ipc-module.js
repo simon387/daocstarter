@@ -354,6 +354,6 @@ ipcMain.on('apply-ini-default-template', (event, name, server) => {
 });
 
 //TODO
-ipcMain.on('open-spellcraft-form', event => {
+ipcMain.on('spellcraft-tool-start', event => {
 	spellcraftController.OpenForm(event);
 });
