@@ -75,3 +75,10 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 3. if not in a Windows environment, install Wine!
 4. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
 5. electron-installer-windows --src dist/daocstarter-win32-x64 --dest dist/installers
+
+## License
+
+[MIT](https://github.com/simon387/daocstarter/blob/master/LICENSE.md)
+
+
+When using the Daocstarter or other GitHub logos, be sure to follow the [GitHub logo guidelines](https://github.com/logos).
