@@ -6,12 +6,12 @@ const userData = app.getPath('userData');
 const backupDir = '\\backup';
 const handle_path_compiled = 'resources\\app\\handle\\handle.exe';
 const handle_path_dev = 'handle\\handle.exe';
-const borderless_path_compiled = 'resources\\app\\borderless\\borderless.exe';
-const borderless_path_dev = 'borderless\\borderless.exe';
-const calgamma_path_compiled = 'resources\\app\\calgamma\\CALGamma.exe';
-const calgamma_path_dev = 'calgamma\\CALGamma.exe';
-const titlerenamer_path_compiled = 'resources\\app\\titlerenamer\\titlerenamer.exe';
-const titlerenamer_path_dev = 'titlerenamer\\titlerenamer.exe';
+const borderless_path_compiled = 'resources\\app\\autoit\\borderless\\borderless.exe';
+const borderless_path_dev = 'autoit\\borderless\\borderless.exe';
+const calgamma_path_compiled = 'resources\\app\\autoit\\calgamma\\CALGamma.exe';
+const calgamma_path_dev = 'autoit\\calgamma\\CALGamma.exe';
+const titlerenamer_path_compiled = 'resources\\app\\autoit\\titlerenamer\\titlerenamer.exe';
+const titlerenamer_path_dev = 'autoit\\titlerenamer\\titlerenamer.exe';
 
 module.exports = {
 	backupPath: userData + backupDir,

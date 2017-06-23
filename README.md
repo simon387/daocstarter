@@ -65,8 +65,8 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 ## creating windows single portable executable (from a Windows machine)
 
 1. install AutoIt or just get the Aut2exe.exe program
-2. edit autoit-compiler.js (adjust paths if differents)
-3. node .\autoit-compiler.js
+2. edit autoit\autoit-compiler.js (adjust paths if differents)
+3. node .\autoit\autoit-compiler.js
 
 ## creating windows installer (not tested!)
 
