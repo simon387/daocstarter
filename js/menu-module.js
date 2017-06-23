@@ -73,9 +73,9 @@ const menuTemplate = [
 									detached: true,
 								},
 								(error, stdout, stderr) => {
-									log.error(error);
-									log.error(stdout);
-									log.error(stderr);
+									if (error) {
+										log.error(error);
+									}
 								}
 							);
 						}
@@ -99,9 +99,9 @@ const menuTemplate = [
 									detached: true,
 								},
 								(error, stdout, stderr) => {
-									log.error(error);
-									log.error(stdout);
-									log.error(stderr);
+									if (error) {
+										log.error(error);
+									}
 								}
 							);
 						}
