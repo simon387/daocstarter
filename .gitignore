@@ -3,9 +3,9 @@ npm-debug.*
 dist/
 dist.zip
 daocstarter.exe
-handle/handle64.exe
-handle/tmp
-handle/Eula.txt
+vendor/handle/handle64.exe
+vendor/handle/tmp
+vendor/handle/Eula.txt
 tmp
 resources/
 *.au3

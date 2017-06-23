@@ -2,13 +2,14 @@
 
 const fs = require('fs');
 const shell = require('node-powershell');
-const packagejson = require('./package.json');
 const archiver = require('archiver');
+const packagejson = require('./package.json');
 const distzip = 'dist.zip';
 const archive = archiver('zip', {
 	zlib: {level: 0} // Sets the compression level.
 });
-const packagercmd = 'electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\\i.ico --overwrite';
+const ignoreList = '';
+const packagercmd = 'electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\\i.ico --overwrite ' + ignoreList;
 const autoitcmd = '& "C:\\Program Files (x86)\\AutoIt3\\Aut2Exe\\Aut2exe.exe" /in "C:\\electron\\daocstarter\\daocstarter.au3" /icon img\\i.ico /comp 4'
 const daocstarterau3 = "daocstarter.au3";
 const exe = "daocstarter.exe"
