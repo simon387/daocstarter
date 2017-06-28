@@ -15,6 +15,11 @@ const titlerenamer_path_dev = 'autoit\\titlerenamer\\titlerenamer.exe';
 
 module.exports = {
 	backupPath: userData + backupDir,
+	userdatPath: 'path.to.user.dat',
+	playCSS: "class='btnX btn-primary btn-sm sr-button'",
+	cancCSS: "class='sr-button btnX btn-primary btn-md btnX-delete'",
+	editCSS: "class='sr-button btnX btn-md btn-successX'",
+	getAllFavouriteCharactersReply: 'getAllFavouriteCharacters-reply',
 
 	handle_path: () => {
 		if (fs.existsSync(handle_path_compiled)) {

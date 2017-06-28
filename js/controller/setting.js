@@ -6,17 +6,18 @@ const trayModule = require('../tray-module.js');
 
 module.exports = {
 	getAllSettings: response => {
-		db.settingDatastore.find({_id: {$nin:
-			['3', '4', '5', '6']
-			}}, (err, docs) => {
-			let ret = '{"aaData":[';
-			docs.forEach(setting => {
-				ret += '["' + setting._id + '","' +
-				setting.key + '","' +
-				setting.value + '","' +
-				util.editButton('Setting', setting._id, setting.type) + '"],';
+		db.settingDatastore.find({_id: {$nin: ['3', '4', '5', '6']}}, (err, settings) => {
+			let payload = new Object();
+			payload.aaData = [];
+			settings.forEach(setting => {
+				let row = [];
+				row.push(setting._id);
+				row.push(setting.key);
+				row.push(setting.value);
+				row.push(util.editButton('Setting', setting._id, setting.type));
+				payload.aaData.push(row);
 			});
-			response.send(util.correggiRispostaPerDataTable(ret));
+			response.send(payload);
 		});
 	},
 

@@ -5,22 +5,25 @@ const db = require('../db-module.js');
 
 module.exports = {
 	getAllAccounts: response => {
-		db.accountDatastore.find({}, (err, docs) => {
-			let ret = '{"aaData":[';
-			docs.forEach(account => {
-				ret += '["' + account._id + '","' +
-				util.playButton('Account', account._id) + ' ' +
-				util.qtdButton('Account', account._id) + ' ' +
-				selectYwain(account) + '","' +
-				account.name + '","' +
-				account.password.replace(/./g, '*') + '","' +
-				account.server + '","' +
-				account.resolution + '","' +
-				account.windowed + '","' +
-				util.editButton('Account', account._id) + ' ' +
-				util.deleteButton('Account', account._id) + '"],';
+		db.accountDatastore.find({}, (err, accounts) => {
+			let payload = new Object();
+			payload.aaData = [];
+			accounts.forEach(account => {
+				let row = [];
+				row.push(account._id);
+				row.push(util.playButton('Account', account._id) + ' ' +
+					util.qtdButton('Account', account._id) + ' ' +
+					selectYwain(account));
+				row.push(account.name);
+				row.push(account.password.replace(/./g, '*'));
+				row.push(account.server);
+				row.push(account.resolution);
+				row.push(account.windowed);
+				row.push(util.editButton('Account', account._id));
+				row.push(util.deleteButton('Account', account._id));
+				payload.aaData.push(row);
 			});
-			response.send(util.correggiRispostaPerDataTable(ret));
+			response.send(payload);
 		});
 	},
 	
