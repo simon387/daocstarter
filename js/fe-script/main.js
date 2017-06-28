@@ -6,7 +6,6 @@ window.jQuery = window.$ = require('jquery');
 const {ipcRenderer, remote} = require('electron');
 const {dialog} = require('electron').remote;
 const datatable = require('datatables.net');
-//const remote = require('electron').remote;
 
 const playCSS = "class='btnX btn-primary btn-sm sr-button'";
 const cancCSS = "class='sr-button btnX btn-primary btn-md btnX-delete'";
@@ -121,43 +120,43 @@ const qtdButton = (entity, id) => {
 
 const renderFavourites = () => {
 	ipcRenderer.send('getAllFavouriteCharacters', '');
-	ipcRenderer.on('getAllFavouriteCharacters-reply', (event, favourites) => {
-		$('.draggable').remove();
-		favourites.forEach(item => {
-			if (undefined === item.x) {
-				item.x = 40;
-				item.y = 220;
-			}
-			$("<div id='" + item._id + "' class='draggable ui-widget-content' " +
-			"style='left:" + item.x + 'px; top:' + item.y + "px;'>" +
-			"<table class='table-draggable'>" +
-			'<tr>' +
-				'<td>' + item.name + '</td>' +
-				'<td>' + "<img height='32' width='32' src='../../img/" + item.classe + ".jpg'>" + '</td>' +
-			'</tr>' +
-			'<tr>' +
-				'<td class="fav-details">' + item.classe + ' [' + item.account + '] of ' + item.server + '</td>' +
-				'<td>' + "<input type='checkbox' id='" + item._id + "' class='fav-checkbox' value='false'>" + '</td>' + 
-			'</tr>' +
-			'<tr>' +
-				'<td>' + playButton('Character', item._id) + '</td>' +
-				'<td>' + qtdButton('Character', item._id) + '</td>' +
-			'</tr>' +
-			'</table></div>').appendTo('#mini-char-container');
-		});
-		$(() => {
-			$(".draggable").draggable({
-				stop: (o) => {
-					ipcRenderer.send('saveFavouriteCoordinate',
-					o.target.id,
-					o.target.offsetLeft,
-					o.target.offsetTop);
-				},
-				containment: "#mini-char-container"//cursor: "move", cursorAt: { top: 56, left: 56 }
-			});
+};
+ipcRenderer.on('getAllFavouriteCharacters-reply', (event, favourites) => {
+	$('.draggable').remove();
+	favourites.forEach(item => {
+		if (undefined === item.x) {
+			item.x = 40;
+			item.y = 220;
+		}
+		$("<div id='" + item._id + "' class='draggable ui-widget-content' " +
+		"style='left:" + item.x + 'px; top:' + item.y + "px;'>" +
+		"<table class='table-draggable'>" +
+		'<tr>' +
+			'<td>' + item.name + '</td>' +
+			'<td>' + "<img height='32' width='32' src='../../img/" + item.classe + ".jpg'>" + '</td>' +
+		'</tr>' +
+		'<tr>' +
+			'<td class="fav-details">' + item.classe + ' [' + item.account + '] of ' + item.server + '</td>' +
+			'<td>' + "<input type='checkbox' id='" + item._id + "' class='fav-checkbox' value='false'>" + '</td>' + 
+		'</tr>' +
+		'<tr>' +
+			'<td>' + playButton('Character', item._id) + '</td>' +
+			'<td>' + qtdButton('Character', item._id) + '</td>' +
+		'</tr>' +
+		'</table></div>').appendTo('#mini-char-container');
+	});
+	$(() => {
+		$(".draggable").draggable({
+			stop: (o) => {
+				ipcRenderer.send('saveFavouriteCoordinate',
+				o.target.id,
+				o.target.offsetLeft,
+				o.target.offsetTop);
+			},
+			containment: "#mini-char-container"//cursor: "move", cursorAt: { top: 56, left: 56 }
 		});
 	});
-};
+});
 
 const refreshComboByFetchAndSelector = (query, selector, sel = '') => {
 	fetch(localhost + query)

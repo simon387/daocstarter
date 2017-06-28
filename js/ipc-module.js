@@ -8,6 +8,7 @@ const spellcraftController = require('./controller/spellcraft.js');
 const settingController = require('./controller/setting.js');
 const characterController = require('./controller/character.js');
 const gamedll = require('./gamedll-module.js');
+const constants = require('./constants.js');
 
 ipcMain.on('asynchronous-get-character-per-page', (event, item) => {
 	db.settingDatastore.findOne({key: item}, (err, doc) => {

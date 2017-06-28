@@ -113,6 +113,27 @@ module.exports = {
 		});
 	},
 
+	importFromAppData: obj => {
+		return new Promise(function(resolve, reject) {
+			let charNameArray = obj.charName;
+			let charServerArray = obj.charServer;
+			let charAccountArray = obj.charAccount;
+			for (let c = 0; c < charNameArray.length; c++) {
+				db.characterDatastore.insert({
+					name: charNameArray[c],
+					lastlogin: '-',
+					account: charAccountArray[c],
+					server: charServerArray[c],
+				}, (err, newDoc) => {
+					log.error(err);
+				});
+				if (c == charNameArray.length - 1) {
+					resolve({});
+				}
+			}
+		});
+	},
+
 	setIniDefaultTemplate: (name, server) => {
 		if (name === '' || server === '') {
 			return;

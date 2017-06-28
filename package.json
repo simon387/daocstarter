@@ -32,6 +32,8 @@
 	"ps-node": "^0.1.6",
 	"portfinder": "^1.0.13",
 	"express": "^4.15.3",
-	"node-powershell": "^3.1.1"
+	"node-powershell": "^3.1.1",
+	"jquery": "^1.7.4",
+	"datatables.net": "1.10.15"
   }
 }

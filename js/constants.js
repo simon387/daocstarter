@@ -4,14 +4,15 @@ const fs = require('fs');
 const {app} = require('electron');
 const userData = app.getPath('userData');
 const backupDir = '\\backup';
-const handle_path_compiled = 'resources\\app\\vendor\\handle\\handle.exe';
+const compiled_prefix = 'resources\\app\\';
 const handle_path_dev = 'vendor\\handle\\handle.exe';
-const borderless_path_compiled = 'resources\\app\\autoit\\borderless\\borderless.exe';
+const handle_path_compiled = compiled_prefix + handle_path_dev;
 const borderless_path_dev = 'autoit\\borderless\\borderless.exe';
-const calgamma_path_compiled = 'resources\\app\\autoit\\calgamma\\CALGamma.exe';
+const borderless_path_compiled = compiled_prefix + borderless_path_dev;
 const calgamma_path_dev = 'autoit\\calgamma\\CALGamma.exe';
-const titlerenamer_path_compiled = 'resources\\app\\autoit\\titlerenamer\\titlerenamer.exe';
+const calgamma_path_compiled = compiled_prefix + calgamma_path_dev;
 const titlerenamer_path_dev = 'autoit\\titlerenamer\\titlerenamer.exe';
+const titlerenamer_path_compiled = compiled_prefix + titlerenamer_path_dev;
 
 module.exports = {
 	backupPath: userData + backupDir,

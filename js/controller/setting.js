@@ -55,5 +55,16 @@ module.exports = {
 				resolve(setting);
 			});
 		});
+	},
+
+	update: (id, obj) => {
+		return new Promise(function(resolve, reject) {
+			db.settingDatastore.update(
+				{key: id},
+				{$set: {value: obj['setting-value-file']}},
+				{returnUpdatedDocs: true, multi: false}, (err, numAffected, setting) => {
+				resolve(setting);
+			});
+		});
 	}
 }
