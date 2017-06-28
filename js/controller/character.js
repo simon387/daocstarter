@@ -11,33 +11,105 @@ const log = require('../log-module.js').getLog();
 const setting = require('./setting.js');
 
 module.exports = {
-	getAllCharacters: response => {
-		db.characterDatastore.find({}, (err, characters) => {
-			let payload = new Object();
-			payload.aaData = [];
-			characters.forEach(character => {
-				let row = [];
-				row.push(character._id);
-				row.push(util.playButton('Character', character._id) + ' ' +
-					util.qtdButton('Character', character._id));
-				row.push(character.name);
-				row.push(character.lastlogin);
-				row.push(character.account);
-				row.push(character.server);
-				row.push(character.classe);
-				row.push(character.resolution);
-				row.push(character.windowed);
-				row.push(util.editButton('Character', character._id) + ' ' +
-					util.deleteButton('Character', character._id));
-				payload.aaData.push(row);
+	getAllCharactersForDT: () => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.find({}, (err, characters) => {
+				let payload = new Object();
+				payload.aaData = [];
+				characters.forEach(character => {
+					let row = [];
+					row.push(character._id);
+					row.push(util.playButton('Character', character._id) + ' ' +
+						util.qtdButton('Character', character._id));
+					row.push(character.name);
+					row.push(character.lastlogin);
+					row.push(character.account);
+					row.push(character.server);
+					row.push(character.classe);
+					row.push(character.resolution);
+					row.push(character.windowed);
+					row.push(util.editButton('Character', character._id) + ' ' +
+						util.deleteButton('Character', character._id));
+					payload.aaData.push(row);
+				});
+				resolve(payload);
 			});
-			response.send(payload);
 		});
 	},
 
-	getAllCharacterNames: response => {
-		db.characterDatastore.find({}, (err, docs) => {
-			return util.getAllNamesHelper(response, docs);
+	getAllCharacterNames: () => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.find({}, (err, characters) => {
+				resolve(util.getAllNamesHelper(characters));
+			});
+		});
+	},
+
+	remove: id => {
+		db.characterDatastore.remove({_id: id}, {multi: false}, (err, numRemoved) => {
+			log.info('removing character ' + id);
+		});
+	},
+
+	findOneById: id => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.findOne({_id: id}, (err, character) => {
+				resolve(character);
+			});
+		});
+	},
+
+	create: obj => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.insert({
+				name: obj['character-name'],
+				lastlogin: '-',
+				account: obj['character-account'],
+				server: obj['character-server'],
+				classe: obj['character-class'],
+				resolution: obj['character-resolution'],
+				windowed: obj['character-windowed'] === undefined ? false : true,
+				favourite: obj['character-favourite'] === undefined ? false : true,
+				title: obj['character-title'],
+				spellcrafter: obj['character-spellcrafter'] === undefined ? false : true,
+				fullscreen_windowed: obj['character-fullscreen_windowed'] === undefined ? false : true,
+				forward_breaks_runlock: obj['character-forwardbreaksrunlock'] === undefined ? false : true,
+				borderless: obj['character-borderless'] === undefined ? false : true,
+				width: obj['character-width'],
+				height: obj['character-height'],
+				positionX: obj['character-position-x'],
+				positionY: obj['character-position-y']
+			}, (err, newCharacter) => {
+				resolve(newCharacter);
+			});
+		});
+	},
+
+	update: (id, obj) => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.update({_id: id},{
+				$set:{
+					name: obj['character-name'],
+					account: obj['character-account'],
+					server: obj['character-server'],
+					classe: obj['character-class'],
+					resolution: obj['character-resolution'],
+					windowed: obj['character-windowed'] === undefined ? false : true,
+					favourite: obj['character-favourite'] === undefined ? false : true,
+					title: obj['character-title'],
+					spellcrafter: obj['character-spellcrafter'] === undefined ? false : true,
+					fullscreen_windowed: obj['character-fullscreen_windowed'] === undefined ? false : true,
+					forward_breaks_runlock: obj['character-forwardbreaksrunlock'] === undefined ? false : true,
+					borderless: obj['character-borderless'] === undefined ? false : true,
+					width: obj['character-width'],
+					height: obj['character-height'],
+					positionX: obj['character-position-x'],
+					positionY: obj['character-position-y']
+				}
+			},
+			{returnUpdatedDocs: true, multi: false}, (err, numAffected, updatedCharacter) => {
+				resolve(updatedCharacter);
+			});
 		});
 	},
 

@@ -3,6 +3,7 @@
 const {app} = require('electron');
 const dbPath = app.getPath("userData") + '/db/';
 const Datastore = require('nedb');
+const constants = require('./constants.js');
 let accountDatastore;
 let characterDatastore;
 let serverDatastore;
@@ -157,7 +158,7 @@ module.exports = {
 		);
 		module.exports.settingDatastore.insert({
 			_id: '2',
-			key: 'path.to.user.dat',
+			key: constants.userdatPath,
 			type: 'File',
 			value: app.getPath('appData').replace(/\\/g, '\\\\') + '\\\\Electronic Arts\\\\Dark Age of Camelot\\\\LotM\\\\user.dat'}, err => {}
 		);

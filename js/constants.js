@@ -20,6 +20,8 @@ module.exports = {
 	cancCSS: "class='sr-button btnX btn-primary btn-md btnX-delete'",
 	editCSS: "class='sr-button btnX btn-md btn-successX'",
 	getAllFavouriteCharactersReply: 'getAllFavouriteCharacters-reply',
+	asynchronousGetPort: 'asynchronous-get-port',
+	asynchronousGetPortReply: 'asynchronous-reply-get-port',
 
 	handle_path: () => {
 		if (fs.existsSync(handle_path_compiled)) {

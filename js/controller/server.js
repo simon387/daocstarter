@@ -4,9 +4,16 @@ const util = require('./common-util.js');
 const db = require('../db-module.js');
 
 module.exports = {
-	getAllServersNames: response => {
-		db.serverDatastore.find({}).sort({n: 1}).exec((err, docs) => {
-			return util.getAllNamesHelper(response, docs);
+	// getAllServersNames: response => {
+	// 	db.serverDatastore.find({}).sort({n: 1}).exec((err, docs) => {
+	// 		return util.getAllNamesHelper(response, docs);
+	// 	});
+	// },
+	getAllServersNames: () => {
+		return new Promise(function(resolve, reject) {
+			db.serverDatastore.find({}).sort({n: 1}).exec((err, servers) => {
+				resolve(util.getAllNamesHelper(servers));
+			});
 		});
 	},
 

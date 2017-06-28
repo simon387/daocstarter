@@ -5,19 +5,21 @@ const db = require('../db-module.js');
 const trayModule = require('../tray-module.js');
 
 module.exports = {
-	getAllSettings: response => {
-		db.settingDatastore.find({_id: {$nin: ['3', '4', '5', '6']}}, (err, settings) => {
-			let payload = new Object();
-			payload.aaData = [];
-			settings.forEach(setting => {
-				let row = [];
-				row.push(setting._id);
-				row.push(setting.key);
-				row.push(setting.value);
-				row.push(util.editButton('Setting', setting._id, setting.type));
-				payload.aaData.push(row);
+	getAllSettings: () => {
+		return new Promise(function(resolve, reject) {
+			db.settingDatastore.find({_id: {$nin: ['3', '4', '5', '6']}}, (err, settings) => {
+				let payload = new Object();
+				payload.aaData = [];
+				settings.forEach(setting => {
+					let row = [];
+					row.push(setting._id);
+					row.push(setting.key);
+					row.push(setting.value);
+					row.push(util.editButton('Setting', setting._id, setting.type));
+					payload.aaData.push(row);
+				});
+				resolve(payload);
 			});
-			response.send(payload);
 		});
 	},
 
@@ -43,6 +45,14 @@ module.exports = {
 		return new Promise(function(resolve, reject) {
 			db.settingDatastore.findOne({key: key}, (err, value) => {
 				resolve(value);
+			});
+		});
+	},
+
+	findOneById: id => {
+		return new Promise(function(resolve, reject) {
+			db.settingDatastore.findOne({key: id}, (err, setting) => {
+				resolve(setting);
 			});
 		});
 	}

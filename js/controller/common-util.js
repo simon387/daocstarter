@@ -5,12 +5,20 @@ const db = require('../db-module.js');
 const constants = require('../constants.js');
 
 module.exports = {
-	getAllNamesHelper: (response, docs) => {
+	// getAllNamesHelper: (response, docs) => {
+	// 	let array = [];
+	// 	docs.forEach(doc => {
+	// 		array.push(doc.name);
+	// 	});
+	// 	return response.send(array.sort());
+	// },
+
+	getAllNamesHelper: docs => {
 		let array = [];
 		docs.forEach(doc => {
 			array.push(doc.name);
 		});
-		return response.send(array.sort());
+		return array.sort();
 	},
 
 	playButton: (entity, id) => {

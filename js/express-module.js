@@ -14,67 +14,66 @@ const characterController = require('./controller/character.js');
 const settingController = require('./controller/setting.js');
 const teamController = require('./controller/team.js');
 const log = require('./log-module.js').getLog();
+const constants = require('./constants.js');
 
 const server = express();
 portfinder.getPort((err, port) => {
-	ipcMain.on('asynchronous-get-port', (event, arg) => {
-		event.sender.send('asynchronous-reply-get-port', port)
+	ipcMain.on(constants.asynchronousGetPort, (event, arg) => {
+		event.sender.send(constants.asynchronousGetPortReply, port);
 	});
-	//
-	server.get('/', (request, response) => {
-		if (request.query.getAllCharacterNames != undefined) {
-			characterController.getAllCharacterNames(response);
-		}
-		if (request.query.getAllAccountsNames != undefined) {
-			accountController.getAllAccountsNames(response);
-		}
-		if (request.query.getAllServersNames != undefined) {
-			serverController.getAllServersNames(response);
-		}
-		if (request.query.getAllClassesNames != undefined) {
-			classeController.getAllClassesNames(response);
-		}
-		if (request.query.getAllResolutions != undefined) {
-			vga_module.getAllResolutions(response);
-		}
+
+	server.get('/', async (request, response) => {
 		//account
 		if (request.query.ajaxAccount != undefined || request.query.removeAccount != undefined || request.query.editAccount != undefined) {
 			if (request.query.removeAccount != undefined) {
-				db.accountDatastore.remove({_id: request.query.removeAccount}, {multi: false}, (err, numRemoved) => {});
+				accountController.remove(request.query.removeAccount);
 			}
-			if (request.query.editAccount != undefined) {//per aprire la modal di edit, ritorniamo l'elemento da modificare
-				db.accountDatastore.findOne({_id: request.query.editAccount}, (err, doc) => {
-					response.send(doc);
-				});
-			} else {//view normale
-				accountController.getAllAccounts(response);
+			if (request.query.editAccount != undefined) {
+				response.send(await accountController.findOneById(request.query.editAccount));
+			} else {
+				response.send(await accountController.getAllAccountsForDT());
 			}
+		}
+		if (request.query.getAllAccountsNames != undefined) {
+			response.send(await accountController.getAllAccountsNames());
 		}
 		//character
 		if (request.query.ajaxCharacter != undefined || request.query.removeCharacter != undefined || request.query.editCharacter != undefined) {
 			if (request.query.removeCharacter != undefined) {
-				db.characterDatastore.remove({_id: request.query.removeCharacter}, {multi: false}, (err, numRemoved) => {});
+				characterController.remove(request.query.removeCharacter);
 			}
 			if (request.query.editCharacter != undefined) {
-				db.characterDatastore.findOne({_id: request.query.editCharacter}, (err, doc) => {
-					response.send(doc);
-				});
+				response.send(await characterController.findOneById(request.query.editCharacter));
 			} else {
-				characterController.getAllCharacters(response);
+				response.send(await characterController.getAllCharactersForDT());
 			}
+		}
+		if (request.query.getAllCharacterNames != undefined) {
+			response.send(await characterController.getAllCharacterNames());
 		}
 		//setting
 		if (request.query.ajaxSetting != undefined) {
-			settingController.getAllSettings(response);
+			response.send(await settingController.getAllSettings());
 		}
 		if (request.query.editSetting != undefined) {
-			db.settingDatastore.findOne({key: request.query.editSetting}, (err, doc) => {
-				response.send(doc);
-			});
+			response.send(await settingController.findOneById(request.query.editSetting));
+			
 		}
 		//team
 		if (request.query.ajaxTeam != undefined) {
-			teamController.getAllTeams(response);
+			response.send(await teamController.getAllTeams());
+		}
+		//server
+		if (request.query.getAllServersNames != undefined) {
+			response.send(await serverController.getAllServersNames());
+		}
+		//classes
+		if (request.query.getAllClassesNames != undefined) {
+			response.send(await classeController.getAllClassesNames());
+		}
+		//vga
+		if (request.query.getAllResolutions != undefined) {
+			response.send(await vga_module.getAllResolutions());
 		}
 	});
 
@@ -87,82 +86,22 @@ portfinder.getPort((err, port) => {
 			}
 		});
 		//
-		request.on('end', function () {
+		request.on('end', async function () {
 			const post = querystring.parse(body);
 			//account
 			if (request.query.addAccount != undefined || request.query.editAccount != undefined) {
 				if (request.query.addAccount != undefined) {
-					db.accountDatastore.insert({
-							name: post['account-name'],
-							password: post['account-password'],
-							server: post['account-server'],
-							resolution: post['account-resolution'],
-							windowed: post['account-windowed'] === undefined ? false : true,
-							title:post['account-title']
-						}, (err, newDoc) => {// Callback is optional
-						response.send(newDoc);
-					});
+					response.send(await accountController.create(post));
 				} else if (request.query.editAccount != undefined) {
-					db.accountDatastore.update({_id:request.query.editAccount}, {$set:{
-							name: post['account-name'],
-							password: post['account-password'],
-							server: post['account-server'],
-							resolution: post['account-resolution'],
-							windowed: post['account-windowed'] === undefined ? false : true,
-							title: post['account-title']}
-						}, {returnUpdatedDocs: true, multi: false}, (err, numAffected, affectedDocuments) => {
-						response.send(affectedDocuments);
-					});
+					response.send(await accountController.update(request.query.editAccount, post));
 				}
 			}
 			//char
 			if (request.query.addCharacter != undefined || request.query.editCharacter != undefined) {
 				if (request.query.addCharacter != undefined) {
-					db.characterDatastore.insert({
-							name: post['character-name'],
-							lastlogin: '-',
-							account: post['character-account'],
-							server: post['character-server'],
-							classe: post['character-class'],
-							resolution: post['character-resolution'],
-							windowed: post['character-windowed'] === undefined ? false : true,
-							favourite: post['character-favourite'] === undefined ? false : true,
-							title: post['character-title'],
-							spellcrafter: post['character-spellcrafter'] === undefined ? false : true,
-							fullscreen_windowed: post['character-fullscreen_windowed'] === undefined ? false : true,
-							forward_breaks_runlock: post['character-forwardbreaksrunlock'] === undefined ? false : true,
-							borderless: post['character-borderless'] === undefined ? false : true,
-							width: post['character-width'],
-							height: post['character-height'],
-							positionX: post['character-position-x'],
-							positionY: post['character-position-y']
-						}, (err, newDoc) => {
-						response.send(newDoc);
-					});
+					response.send(await characterController.create(post));
 				} else if (request.query.editCharacter != undefined) {
-					db.characterDatastore.update({_id: request.query.editCharacter},{
-						$set:{
-							name: post['character-name'],
-							account: post['character-account'],
-							server: post['character-server'],
-							classe: post['character-class'],
-							resolution: post['character-resolution'],
-							windowed: post['character-windowed'] === undefined ? false : true,
-							favourite: post['character-favourite'] === undefined ? false : true,
-							title: post['character-title'],
-							spellcrafter: post['character-spellcrafter'] === undefined ? false : true,
-							fullscreen_windowed: post['character-fullscreen_windowed'] === undefined ? false : true,
-							forward_breaks_runlock: post['character-forwardbreaksrunlock'] === undefined ? false : true,
-							borderless: post['character-borderless'] === undefined ? false : true,
-							width: post['character-width'],
-							height: post['character-height'],
-							positionX: post['character-position-x'],
-							positionY: post['character-position-y']
-						}
-					},
-					{returnUpdatedDocs: true, multi: false}, (err, numAffected, affectedDocuments) => {
-						response.send(affectedDocuments);
-					});
+					response.send(await characterController.update(request.query.editCharacter, post));
 				}
 			}
 			if (request.query.importFromAppData != undefined) {
