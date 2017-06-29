@@ -52,7 +52,7 @@ portfinder.getPort((err, port) => {
 		}
 		//setting
 		if (request.query.ajaxSetting != undefined) {
-			response.send(await settingController.getAllSettings());
+			response.send(await settingController.getAllSettingsForDT());
 		}
 		if (request.query.editSetting != undefined) {
 			response.send(await settingController.findOneById(request.query.editSetting));
@@ -60,7 +60,7 @@ portfinder.getPort((err, port) => {
 		}
 		//team
 		if (request.query.ajaxTeam != undefined) {
-			response.send(await teamController.getAllTeams());
+			response.send(await teamController.getAllTeamsForDT());
 		}
 		//server
 		if (request.query.getAllServersNames != undefined) {

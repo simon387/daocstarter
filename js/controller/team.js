@@ -4,7 +4,7 @@ const util = require('./common-util.js');
 const db = require('../db-module.js');
 
 module.exports = {
-	getAllTeams: () => {
+	getAllTeamsForDT: () => {
 		return new Promise(function(resolve, reject) {
 			db.teamDatastore.find({}, (err, teams) => {
 				let payload = new Object();

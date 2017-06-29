@@ -5,7 +5,7 @@ const db = require('../db-module.js');
 const trayModule = require('../tray-module.js');
 
 module.exports = {
-	getAllSettings: () => {
+	getAllSettingsForDT: () => {
 		return new Promise(function(resolve, reject) {
 			db.settingDatastore.find({_id: {$nin: ['3', '4', '5', '6']}}, (err, settings) => {
 				let payload = new Object();
