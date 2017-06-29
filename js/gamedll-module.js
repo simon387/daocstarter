@@ -435,6 +435,34 @@ module.exports = {
 				});
 			});
 		});
+	},
+
+	patchClient: (isTest) => {
+		let exe = constants.camelotExe;
+		if (isTest) {
+			exe = constants.camtestExe;
+		}
+		db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
+			if (fs.existsSync(gamedll["value"])) {
+				const exec = child_process.exec;
+				const cmd = exe;
+				const child = exec(
+					cmd, {
+						cwd: path.dirname(gamedll["value"]),
+						setsid: false,
+						detached: true,
+					},
+					(error, stdout, stderr) => {
+						if (error) {
+							log.error(error);
+						}
+					}
+				);
+			}
+			else {
+				dialog.showErrorBox("error", exe + " not found!\nGo to settings and select the right game.dll");
+			}
+		});
 	}
 }
 

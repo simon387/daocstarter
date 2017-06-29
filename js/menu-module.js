@@ -62,53 +62,13 @@ const menuTemplate = [
 			{
 				label: 'Patch client',
 				click: () => {
-					db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
-						if (fs.existsSync(gamedll["value"])) {
-							const exec = child_process.exec;
-							const cmd = 'camelot.exe';
-							const child = exec(
-								cmd, {
-									cwd: path.dirname(gamedll["value"]),
-									setsid: false,
-									detached: true,
-								},
-								(error, stdout, stderr) => {
-									if (error) {
-										log.error(error);
-									}
-								}
-							);
-						}
-						else {
-							dialog.showErrorBox("error", "camelot.exe not found!\nGo to settings and select the right game.dll");
-						}
-					});
+					gamedll.patchClient();
 				}
 			},
 			{
 				label: 'Patch client from test server',
 				click: () => {
-					db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
-						if (fs.existsSync(gamedll["value"])) {
-							const exec = child_process.exec;
-							const cmd = 'camtest.exe';
-							const child = exec(
-								cmd, {
-									cwd: path.dirname(gamedll["value"]),
-									setsid: false,
-									detached: true,
-								},
-								(error, stdout, stderr) => {
-									if (error) {
-										log.error(error);
-									}
-								}
-							);
-						}
-						else {
-							dialog.showErrorBox("error", "camtest.exe not found!\nGo to settings and select the right game.dll");
-						}
-					});
+					gamedll.patchClient(true);
 				}
 			},
 			{
