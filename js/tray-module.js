@@ -20,9 +20,9 @@ module.exports = {
 const applySettings = async () => {
 	let minimizeToTray = false;
 	let quitMinimizeToTray = false;
-	let setting = await settingController.readSettingByKey(constants.minimizeToTray);
+	let setting = await settingController.findOneByKey(constants.minimizeToTray);
 	minimizeToTray = setting.value;
-	setting = await	settingController.readSettingByKey(constants.quitMinimizeToTray);
+	setting = await	settingController.findOneByKey(constants.quitMinimizeToTray);
 	quitMinimizeToTray = setting.value;
 	if (minimizeToTray) {
 		_mainWindow.on('minimize', event => {

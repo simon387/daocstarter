@@ -12,22 +12,22 @@ const gamedll = require('./gamedll-module.js');
 const constants = require('./constants.js');
 
 ipcMain.on(constants.getCharacterPerPage, async event => {
-	let setting = await settingController.readSettingByKey(constants.accountItemsPerPage);
+	let setting = await settingController.findOneByKey(constants.accountItemsPerPage);
 	event.sender.send(constants.getCharacterPerPageReply, setting.value);
 });
 
 ipcMain.on(constants.getAccountPerPage, async event => {
-	let setting = await settingController.readSettingByKey(constants.accountItemsPerPage);
+	let setting = await settingController.findOneByKey(constants.accountItemsPerPage);
 	event.sender.send(constants.getAccountPerPageReply, setting.value);
 });
 
 ipcMain.on(constants.getTeamPerPage, async event => {
-	let setting = await settingController.readSettingByKey(constants.teamItemsPerPage);
+	let setting = await settingController.findOneByKey(constants.teamItemsPerPage);
 	event.sender.send(constants.getTeamPerPageReply, setting.value);
 });
 
 ipcMain.on(constants.getSettingPerPage, async event => {
-	let setting = await settingController.readSettingByKey(constants.characterItemsPerPage);
+	let setting = await settingController.findOneByKey(constants.characterItemsPerPage);
 	event.sender.send(constants.getSettingPerPageReply, setting.value);
 });
 
@@ -85,41 +85,37 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-ipcMain.on('get-all-chars', event => {
-	db.characterDatastore.find({}, (err, docs) => {
-		event.sender.send('get-all-chars-reply', docs);
-	});
+ipcMain.on(constants.getAllChars, async event => {
+	let characters = await characterController.getAllCharacters();
+	event.sender.send(constants.getAllCharsReply, characters);
 });
 
-ipcMain.on('remove-team', (event, id) => {
-	db.teamDatastore.remove({_id: id}, {multi: false}, (err, numRemoved) => {
-		event.sender.send('remove-team-reply');
-	});
+ipcMain.on(constants.removeTeam, async (event, id) => {
+	await teamController.remove(id);
+	event.sender.send(constants.removeTeamReply);
 });
 
-ipcMain.on('playCharacter', (event, charArrayID) => {
+ipcMain.on(constants.playCharacter, async (event, characterArrayID) => {
 	let accountSet = new Set();
 	let accountArray;
-	db.settingDatastore.findOne({key: 'default.login.delay.milli'}, (err, setting) => {
-		db.characterDatastore.find({_id: {$in: charArrayID}}, async (err, characters) => {
-			for (let character of characters) {
-				accountSet.add(character.account);
-			}
-			accountArray = Array.from(accountSet);
-			if (accountArray.length == charArrayID.length) {
-				for (let id of charArrayID) {
-					gamedll.playCharacter(id);
-					await sleep(setting.value);
-				}
-			}
-			else {
-				dialog.showErrorBox('Error', "You can't play characters from same account!");
-			}
-		});
-	});
+	let setting = await settingController.findOneByKey(constants.defaultLoginDelayMilli);
+	let characters = await characterController.getByIdArray(characterArrayID);
+	for (let character of characters) {
+		accountSet.add(character.account);
+	}
+	accountArray = Array.from(accountSet);
+	if (accountArray.length == characterArrayID.length) {
+		for (let id of characterArrayID) {
+			gamedll.playCharacter(id);
+			await sleep(setting.value);
+		}
+	}
+	else {
+		dialog.showErrorBox(constants.error, constants.errorDiffAccount);
+	}
 });
 
-ipcMain.on('playTeamRow', (event, id) => {
+ipcMain.on(constants.playTeamRow, (event, id) => {
 	let accountSet = new Set();
 	let accountArray;
 	let charArrayName = [];
@@ -152,7 +148,7 @@ ipcMain.on('playTeamRow', (event, id) => {
 				}
 			}
 			else {
-				dialog.showErrorBox('Error', "You can't play characters from same account!");
+				dialog.showErrorBox(constants.error, constants.errorDiffAccount);
 			}
 		});
 	});

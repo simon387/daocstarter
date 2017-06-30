@@ -141,7 +141,7 @@ module.exports = {
 		dialog.showSaveDialog({message: 'save as template'}, async (filename) => {
 			log.info(filename)
 			if (undefined != filename && '' != filename) {
-				const userdat = await setting.readSettingByKey(constants.pathToUserDat);
+				const userdat = await setting.findOneByKey(constants.pathToUserDat);
 				const fileInput = path.dirname(userdat.value) + '\\' +
 					name.charAt(0).toUpperCase() + name.slice(1) +
 					'-' + serverController.toNumber(server) + '.ini';
@@ -162,7 +162,7 @@ module.exports = {
 		}
 		dialog.showOpenDialog({message: 'load template', properties: ['openFile', 'noResolveAliases']}, async filePaths => {
 			if (undefined != filePaths && '' != filePaths[0]) {
-				const userdat = await setting.readSettingByKey(constants.pathToUserDat);
+				const userdat = await setting.findOneByKey(constants.pathToUserDat);
 				const fileOutput = path.dirname(userdat.value) + '\\' +
 					name.charAt(0).toUpperCase() + name.slice(1) +
 					'-' + serverController.toNumber(server) + '.ini';
@@ -213,5 +213,27 @@ module.exports = {
 					log.error(err);
 				}
 		});
+	},
+
+	getAllCharacters: () => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.find({}, (err, characters) => {
+				resolve(characters);
+				if (err) {
+					log.error(err);
+				}
+			});
+		});
+	},
+	
+	getByIdArray: characterArrayID => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.find({_id: {$in: characterArrayID}}, (err, characters) => {
+				resolve(charactes);
+			});
+		});
 	}
+	
+
+
 }

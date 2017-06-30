@@ -70,6 +70,14 @@ module.exports = {
 	saveSettingStringaReply: 'saveSettingStringa-reply',
 	saveTeam: 'saveTeam',
 	saveTeamReply: 'saveTeam-reply',
+	getAllChars: 'get-all-chars',
+	getAllCharsReply: 'get-all-chars-reply',
+	removeTeam: 'remove-team',
+	removeTeamReply: 'remove-team-reply',
+	error: 'Error',
+	errorDiffAccount: "You can't play characters from same account!",
+	playCharacter: 'playCharacter',
+	playTeamRow: 'playTeamRow',
 
 	handle_path: () => {
 		const handle_path_dev = path.join('vendor', 'handle', 'handle.exe');

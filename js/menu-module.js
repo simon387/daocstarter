@@ -93,7 +93,7 @@ const menuTemplate = [
 			{
 				label: 'Open DAoC user setting directory',
 				click: async () => {
-					let userdat = await settingController.readSettingByKey(constants.pathToUserDat);
+					let userdat = await settingController.findOneByKey(constants.pathToUserDat);
 					if (fs.existsSync(userdat.value)) {
 						shell.showItemInFolder(userdat.value);
 					}
@@ -105,7 +105,7 @@ const menuTemplate = [
 			{
 				label: 'Edit user.dat',
 				click: async () => {
-					let userdat = await settingController.readSettingByKey(constants.pathToUserDat);
+					let userdat = await settingController.findOneByKey(constants.pathToUserDat);
 					if (fs.existsSync(userdat.value)) {
 						shell.openItem(userdat.value);
 					}

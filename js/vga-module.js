@@ -16,7 +16,7 @@ module.exports = {
 				return resolve (["4096×2160"]);
 			}
 
-			let setting = await settingController.readSettingByKey(constants.customResolutionsCommaSeparated);
+			let setting = await settingController.findOneByKey(constants.customResolutionsCommaSeparated);
 			const array = setting.value.split(',');
 			let ps;
 			try{
