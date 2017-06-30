@@ -193,5 +193,25 @@ module.exports = {
 				resolve(numAffected);
 			});
 		});
+	},
+
+	getAllFavouriteCharacters: () => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.find({favourite: true}, (err, characters) => {
+				resolve(characters);
+			});
+		});
+	},
+
+	saveFavouriteCoordinate: () => {
+		db.characterDatastore.update(
+			{_id: id},
+			{$set: {x: left, y: top}},
+			{returnUpdatedDocs: true, multi: false},
+			(err, numAffected, affectedDocuments) => {
+				if (err) {
+					log.error(err);
+				}
+		});
 	}
 }

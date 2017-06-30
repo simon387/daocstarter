@@ -1,8 +1,9 @@
 'use strict'
 
 const {Menu, Tray, BrowserWindow} = require('electron');
-const db = require('./db-module.js');
 const log = require('./log-module.js').getLog();
+const settingController = require('./controller/setting.js');
+const constants = require('./constants.js');
 let _tray = null;
 let _app;
 let _mainWindow;
@@ -16,68 +17,63 @@ module.exports = {
 	}
 }
 
-const applySettings = () => {
+const applySettings = async () => {
 	let minimizeToTray = false;
 	let quitMinimizeToTray = false;
-	db.settingDatastore.findOne({key: 'minimize.to.tray'}, (err, setting) => {
-		minimizeToTray = setting.value;
-		db.settingDatastore.findOne({key: 'quit.minimize.to.tray'}, (err, setting) => {
-			quitMinimizeToTray = setting.value;
-
-			if (minimizeToTray) {
-				_mainWindow.on('minimize', event => {
-					event.preventDefault()
-					_mainWindow.hide();
-				});
-
-				_mainWindow.on('restore', event => {
-					event.preventDefault()
-					_mainWindow.show();
-					_mainWindow.restore();
-				});
-
-			}
-			else {
-				_mainWindow.on('minimize', event => {
-					event.preventDefault();
-					_mainWindow.minimize();
-				});
-
-				_mainWindow.on('restore', event => {
-					event.preventDefault();
-
-				});
-			}
-
-			if (quitMinimizeToTray) {
-				_mainWindow.removeAllListeners('close');
-
-				_mainWindow.on('close', event => {
-					event.preventDefault();
-					_mainWindow.minimize();
-				});
-
-			}
-			else {
-				_mainWindow.on('close', event => {
-					event.preventDefault();
-					_mainWindow.hide()
-					_app.exit(0);
-				});
-			}
-			
+	let setting = await settingController.readSettingByKey(constants.minimizeToTray);
+	minimizeToTray = setting.value;
+	setting = await	settingController.readSettingByKey(constants.quitMinimizeToTray);
+	quitMinimizeToTray = setting.value;
+	if (minimizeToTray) {
+		_mainWindow.on('minimize', event => {
+			event.preventDefault()
+			_mainWindow.hide();
 		});
-	});
 
+		_mainWindow.on('restore', event => {
+			event.preventDefault()
+			_mainWindow.show();
+			_mainWindow.restore();
+		});
+
+	}
+	else {
+		_mainWindow.on('minimize', event => {
+			event.preventDefault();
+			_mainWindow.minimize();
+		});
+
+		_mainWindow.on('restore', event => {
+			event.preventDefault();
+
+		});
+	}
+
+	if (quitMinimizeToTray) {
+		_mainWindow.removeAllListeners('close');
+
+		_mainWindow.on('close', event => {
+			event.preventDefault();
+			_mainWindow.minimize();
+		});
+
+	}
+	else {
+		_mainWindow.on('close', event => {
+			event.preventDefault();
+			_mainWindow.hide()
+			_app.exit(0);
+		});
+	}
 }
 
 const setTray = (app, mainWindow) => {
 	try {
-		_tray = new Tray('resources\\app\\img\\i.ico');
+		_tray = new Tray(constants.compiled);
 	}
 	catch(e) {
 		try {
-			_tray = new Tray('img/i.ico');
+			_tray = new Tray(constants.ico);
 		}
 		catch(e) {
 			log.warn('Sorry, no Tray Icon for you!')

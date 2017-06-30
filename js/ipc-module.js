@@ -10,76 +10,59 @@ const characterController = require('./controller/character.js');
 const gamedll = require('./gamedll-module.js');
 const constants = require('./constants.js');
 
-ipcMain.on('asynchronous-get-character-per-page', (event, item) => {
-	db.settingDatastore.findOne({key: item}, (err, doc) => {
-		event.sender.send('asynchronous-reply-get-character-per-page', doc.value);
-	});
+ipcMain.on(constants.getCharacterPerPage, async event => {
+	let setting = await settingController.readSettingByKey(constants.accountItemsPerPage);
+	event.sender.send(constants.getCharacterPerPageReply, setting.value);
 });
 
-ipcMain.on('asynchronous-get-account-per-page', (event, item) => {
-	db.settingDatastore.findOne({key: item}, (err, doc) => {
-		event.sender.send('asynchronous-reply-get-account-per-page', doc.value);
-	});
+ipcMain.on(constants.getAccountPerPage, async event => {
+	let setting = await settingController.readSettingByKey(constants.accountItemsPerPage);
+	event.sender.send(constants.getAccountPerPageReply, setting.value);
 });
 
-ipcMain.on('asynchronous-get-team-per-page', (event, item) => {
-	db.settingDatastore.findOne({key: item}, (err, doc) => {
-		event.sender.send('asynchronous-reply-get-team-per-page', doc.value);
-	});
+ipcMain.on(constants.getTeamPerPage, async event => {
+	let setting = await settingController.readSettingByKey(constants.teamItemsPerPage);
+	event.sender.send(constants.getTeamPerPageReply, setting.value);
 });
 
-ipcMain.on('asynchronous-get-setting-per-page', (event, item) => {
-	db.settingDatastore.findOne({key: item}, (err, doc) => {
-		event.sender.send('asynchronous-reply-get-setting-per-page', doc.value);
-	});
+ipcMain.on(constants.getSettingPerPage, async event => {
+	let setting = await settingController.readSettingByKey(constants.characterItemsPerPage);
+	event.sender.send(constants.getSettingPerPageReply, setting.value);
 });
 
-ipcMain.on('asynchronous-set-items-per-page', (event, key, value) => {
-	db.settingDatastore.update(
-		{key: key},
-		{$set: {value: value}},
-		{returnUpdatedDocs: true, multi: false},
-		(err, numAffected, affectedDocuments) => {
-	});
+ipcMain.on(constants.setItemsPerPage, async (event, key, value) => {
+	settingController.updateSettingByKey(key, value);
 });
 
-ipcMain.on('getAllFavouriteCharacters', event => {
-	db.characterDatastore.find({favourite: true}, (err, docs) => {
-		event.sender.send('getAllFavouriteCharacters-reply', docs);
-	});
+ipcMain.on(constants.getAllFavouriteCharacters, async event => {
+	let characters = await characterController.getAllFavouriteCharacters();
+	event.sender.send(constants.getAllFavouriteCharactersReply, characters);
 });
 
-ipcMain.on('saveFavouriteCoordinate', (event, id, left, top) => {
-	db.characterDatastore.update(
-		{_id: id},
-		{$set: {x: left, y: top}},
-		{returnUpdatedDocs: true, multi: false},
-		(err, numAffected, affectedDocuments) => {
-	});
+ipcMain.on(constants.saveFavouriteCoordinate, (event, id, left, top) => {
+	characterController.saveFavouriteCoordinate(id, left, top);
 });
 
-ipcMain.on('killCharacter', (event, id) => {
+ipcMain.on(constants.killCharacter, (event, id) => {
 	gamedll.killCharacter(id);
 });
 
-ipcMain.on('playAccount', (event, id, server) => {
+ipcMain.on(constants.playAccount, (event, id, server) => {
 	gamedll.playAccount(id, server);
 });
 
-ipcMain.on('killAccount', (event, id) => {
+ipcMain.on(constants.killAccount, (event, id) => {
 	gamedll.killAccount(id);
 });
 
-ipcMain.on('editSettingNumber', (event, id) => {
-	db.settingDatastore.findOne({_id: id}, (err, setting) => {
-		event.sender.send('editSettingNumber-reply', setting, id);
-	});
+ipcMain.on(constants.editSettingNumber, async (event, id) => {
+	let setting = await settingController.findOneById(id);
+	event.sender.send(constants.editSettingNumberReply, setting, id);
 });
 
-ipcMain.on('editSettingStringa', (event, id) => {
-	db.settingDatastore.findOne({_id: id}, (err, setting) => {
-		event.sender.send('editSettingStringa-reply', setting, id);
-	});
+ipcMain.on(constants.editSettingStringa, async (event, id) => {
+	let setting = await settingController.findOneById(id);
+	event.sender.send(constants.editSettingStringaReply, setting, id);
 });
 
 ipcMain.on('saveSettingNumber', (event, id, value) => {

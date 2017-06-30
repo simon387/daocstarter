@@ -41,10 +41,25 @@ module.exports = {
 		);
 	},
 
-	readSettingByKey: (key) => {
+	readSettingByKey: key => {
 		return new Promise(function(resolve, reject) {
 			db.settingDatastore.findOne({key: key}, (err, value) => {
 				resolve(value);
+			});
+		});
+	},
+
+	updateSettingByKey: (key, value) => {
+		return new Promise(function(resolve, reject) {
+			db.settingDatastore.update(
+				{key: key},
+				{$set: {value: value}},
+				{returnUpdatedDocs: true, multi: false},
+				(err, numAffected, affectedDocuments) => {
+					resolve(numAffected);
+					if (err) {
+						log.error(err);
+					}
 			});
 		});
 	},

@@ -15,10 +15,10 @@ let accountDataTable;
 let settingDataTable;
 let teamDataTable;
 ipcRenderer.send('asynchronous-get-port', 'arg');
-ipcRenderer.send('asynchronous-get-character-per-page', 'character.items.per.page');
-ipcRenderer.send('asynchronous-get-team-per-page', 'team.items.per.page');
-ipcRenderer.send('asynchronous-get-account-per-page', 'account.items.per.page');
-ipcRenderer.send('asynchronous-get-setting-per-page', 'setting.items.per.page');
+ipcRenderer.send('asynchronous-get-character-per-page');
+ipcRenderer.send('asynchronous-get-team-per-page');
+ipcRenderer.send('asynchronous-get-account-per-page');
+ipcRenderer.send('asynchronous-get-setting-per-page');
 
 ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 	localhost = 'http://localhost:' + port;
