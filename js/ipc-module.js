@@ -7,6 +7,7 @@ const accountController = require('./controller/account.js');
 const spellcraftController = require('./controller/spellcraft.js');
 const settingController = require('./controller/setting.js');
 const characterController = require('./controller/character.js');
+const teamController = require('./controller/team.js')
 const gamedll = require('./gamedll-module.js');
 const constants = require('./constants.js');
 
@@ -65,118 +66,19 @@ ipcMain.on(constants.editSettingStringa, async (event, id) => {
 	event.sender.send(constants.editSettingStringaReply, setting, id);
 });
 
-ipcMain.on('saveSettingNumber', (event, id, value) => {
-	db.settingDatastore.update(
-		{_id: id},
-		{$set: {value: value}},
-		{returnUpdatedDocs: true, multi: false},
-		(err, numAffected, affectedDocuments) => {
-			event.sender.send('saveSettingNumber-reply');
-	});
+ipcMain.on(constants.saveSettingNumber, async (event, id, value) => {
+	await settingController.updateSettingById(id, value);
+	event.sender.send(constants.saveSettingNumberReply);
 });
 
-ipcMain.on('saveSettingStringa', (event, id, value) => {
-	db.settingDatastore.update(
-		{_id: id},
-		{$set: {value: value}},
-		{returnUpdatedDocs: true, multi: false},
-		(err, numAffected, affectedDocuments) => {
-			event.sender.send('saveSettingStringa-reply');
-	});
+ipcMain.on(constants.saveSettingStringa, async (event, id, value) => {
+	await settingController.updateSettingById(id, value);
+	event.sender.send(constants.saveSettingStringaReply);
 });
 
-ipcMain.on('saveTeam', (event, id, name, team) => {
-
-	db.teamDatastore.update(
-		{_id: id},
-		{$set: {
-			name: name,
-
-			char0: team['team0'][0],
-			res0: team['team0'][1],
-			windowed0: team['team0'][2] === undefined ? false : team['team0'][2],
-			deelay0: team['team0'][3],
-			borderless0: team['team0'][4] === undefined ? false : team['team0'][4],
-			width0: team['team0'][5],
-			height0: team['team0'][6],
-			positionx0: team['team0'][7],
-			positiony0: team['team0'][8],
-
-			char1: team['team1'][0],
-			res1: team['team1'][1],
-			windowed1: team['team1'][2] === undefined ? false : team['team1'][2],
-			deelay1: team['team1'][3],
-			borderless1: team['team1'][4] === undefined ? false : team['team1'][4],
-			width1: team['team1'][5],
-			height1: team['team1'][6],
-			positionx1: team['team1'][7],
-			positiony1: team['team1'][8],
-
-			char2: team['team2'][0],
-			res2: team['team2'][1],
-			windowed2: team['team2'][2] === undefined ? false : team['team2'][2],
-			deelay2: team['team2'][3],
-			borderless2: team['team2'][4] === undefined ? false : team['team2'][4],
-			width2: team['team2'][5],
-			height2: team['team2'][6],
-			positionx2: team['team2'][7],
-			positiony2: team['team2'][8],
-
-			char3: team['team3'][0],
-			res3: team['team3'][1],
-			windowed3: team['team3'][2] === undefined ? false : team['team3'][2],
-			deelay3: team['team3'][3],
-			borderless3: team['team3'][4] === undefined ? false : team['team3'][4],
-			width3: team['team3'][5],
-			height3: team['team3'][6],
-			positionx3: team['team3'][7],
-			positiony3: team['team3'][8],
-
-			char4: team['team4'][0],
-			res4: team['team4'][1],
-			windowed4: team['team4'][2] === undefined ? false : team['team4'][2],
-			deelay4: team['team4'][3],
-			borderless4: team['team4'][4] === undefined ? false : team['team4'][4],
-			width4: team['team4'][5],
-			height4: team['team4'][6],
-			positionx4: team['team4'][7],
-			positiony4: team['team4'][8],
-
-			char5: team['team5'][0],
-			res5: team['team5'][1],
-			windowed5: team['team5'][2] === undefined ? false : team['team5'][2],
-			deelay5: team['team5'][3],
-			borderless5: team['team5'][4] === undefined ? false : team['team5'][4],
-			width5: team['team5'][5],
-			height5: team['team5'][6],
-			positionx5: team['team5'][7],
-			positiony5: team['team5'][8],
-
-			char6: team['team6'][0],
-			res6: team['team6'][1],
-			windowed6: team['team6'][2] === undefined ? false : team['team6'][2],
-			deelay6: team['team6'][3],
-			borderless6: team['team6'][4] === undefined ? false : team['team6'][4],
-			width6: team['team6'][5],
-			height6: team['team6'][6],
-			positionx6: team['team6'][7],
-			positiony6: team['team6'][8],
-
-			char7: team['team7'][0],
-			res7: team['team7'][1],
-			windowed7: team['team7'][2] === undefined ? false : team['team7'][2],
-			deelay7: team['team7'][3],
-			borderless7: team['team7'][4] === undefined ? false : team['team7'][4],
-			width7: team['team7'][5],
-			height7: team['team7'][6],
-			positionx7: team['team7'][7],
-			positiony7: team['team7'][8]
-
-		}},
-		{returnUpdatedDocs: true, multi: false},
-		(err, numAffected, affectedDocuments) => {
-			event.sender.send('saveTeam-reply');
-	});
+ipcMain.on(constants.saveTeam, async (event, id, name, team) => {
+	await teamController.update(id, name, team);
+	event.sender.send(constants.saveTeamReply);
 });
 
 function sleep(ms) {

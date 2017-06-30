@@ -64,6 +64,10 @@ module.exports = {
 	editSettingNumberReply: 'editSettingNumber-reply',
 	editSettingStringa: 'editSettingStringa',
 	editSettingStringaReply: 'editSettingStringa-reply',
+	saveSettingNumber: 'saveSettingNumber',
+	saveSettingNumberReply: 'saveSettingNumber-reply',
+	saveSettingStringa: 'saveSettingStringa',
+	saveSettingStringaReply: 'saveSettingStringa-reply',
 
 	handle_path: () => {
 		const handle_path_dev = path.join('vendor', 'handle', 'handle.exe');

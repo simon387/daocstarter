@@ -64,6 +64,21 @@ module.exports = {
 		});
 	},
 
+	updateSettingById: (id, value) => {
+		return new Promise(function(resolve, reject) {
+			db.settingDatastore.update(
+				{_id: id},
+				{$set: {value: value}},
+				{returnUpdatedDocs: true, multi: false},
+				(err, numAffected, affectedDocuments) => {
+					resolve(numAffected);
+					if (err) {
+						log.error(err);
+					}
+			});
+		});
+	},
+
 	findOneById: id => {
 		return new Promise(function(resolve, reject) {
 			db.settingDatastore.findOne({key: id}, (err, setting) => {
