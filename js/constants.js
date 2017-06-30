@@ -68,6 +68,8 @@ module.exports = {
 	saveSettingNumberReply: 'saveSettingNumber-reply',
 	saveSettingStringa: 'saveSettingStringa',
 	saveSettingStringaReply: 'saveSettingStringa-reply',
+	saveTeam: 'saveTeam',
+	saveTeamReply: 'saveTeam-reply',
 
 	handle_path: () => {
 		const handle_path_dev = path.join('vendor', 'handle', 'handle.exe');
