@@ -203,7 +203,7 @@ module.exports = {
 		});
 	},
 
-	saveFavouriteCoordinate: () => {
+	saveFavouriteCoordinate: (id, left, top) => {
 		db.characterDatastore.update(
 			{_id: id},
 			{$set: {x: left, y: top}},
@@ -229,11 +229,18 @@ module.exports = {
 	getByIdArray: characterArrayID => {
 		return new Promise(function(resolve, reject) {
 			db.characterDatastore.find({_id: {$in: characterArrayID}}, (err, characters) => {
-				resolve(charactes);
+				resolve(characters);
+			});
+		});
+	},
+
+	getByNamerray: characterArrayName => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.find({name: {$in: characterArrayName}}, (err, characters) => {
+				resolve(characters);
 			});
 		});
 	}
-	
 
 
 }

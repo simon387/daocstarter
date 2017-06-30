@@ -24,6 +24,14 @@ module.exports = {
 		});
 	},
 
+	findOne: id => {
+		return new Promise(function(resolve, reject) {
+			db.teamDatastore.findOne({_id: id}, (err, team) => {
+				resolve(team);
+			});
+		});
+	},
+
 	remove: id => {
 		return new Promise(function(resolve, reject) {
 			db.teamDatastore.remove({_id: id}, {multi: false}, (err, numRemoved) => {

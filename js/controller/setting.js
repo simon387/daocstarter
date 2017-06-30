@@ -81,7 +81,7 @@ module.exports = {
 
 	findOneById: id => {
 		return new Promise(function(resolve, reject) {
-			db.settingDatastore.findOne({key: id}, (err, setting) => {
+			db.settingDatastore.findOne({_id: id}, (err, setting) => {
 				resolve(setting);
 			});
 		});

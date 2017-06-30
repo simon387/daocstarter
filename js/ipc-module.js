@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const {ipcMain, dialog} = require('electron');
-const db = require('./db-module.js');
 const accountController = require('./controller/account.js');
 const spellcraftController = require('./controller/spellcraft.js');
 const settingController = require('./controller/setting.js');
@@ -111,131 +110,124 @@ ipcMain.on(constants.playCharacter, async (event, characterArrayID) => {
 		}
 	}
 	else {
-		dialog.showErrorBox(constants.error, constants.errorDiffAccount);
+		dialog.showErrorBox(constants.error, constants.errorSameAccount);
 	}
 });
 
-ipcMain.on(constants.playTeamRow, (event, id) => {
+ipcMain.on(constants.playTeamRow, async (event, id) => {
 	let accountSet = new Set();
 	let accountArray;
 	let charArrayName = [];
-	db.teamDatastore.findOne({_id: id}, (err, team) => {
+	let team = await teamController.findOne(id);
+	for (let i = 0; i <= 7; i++) {
+		if (team['char' + i] != undefined && team['char' + i] != ' ') {
+			charArrayName.push(team['char' + i]);
+		}
+	}
+	let characters = await characterController.characterArrayName(charArrayName);
+	for (let character of characters) {
+		accountSet.add(character.account);
+	}
+	accountArray = Array.from(accountSet);
+	if (accountArray.length == charArrayName.length) {
 		for (let i = 0; i <= 7; i++) {
 			if (team['char' + i] != undefined && team['char' + i] != ' ') {
-				charArrayName.push(team['char' + i]);
+				gamedll.playCharacterFromTeam(
+					team['char' + i],
+					team['res' + i],
+					team['windowed' + i],
+					team['borderless' + i],
+					team['width' + i],
+					team['positionx' + i],
+					team['positiony' + i]);
+				await sleep(team['deelay' + i]);
 			}
 		}
-
-		db.characterDatastore.find({name: {$in: charArrayName}}, async (err, characters) => {
-			for (let character of characters) {
-				accountSet.add(character.account);
-			}
-			accountArray = Array.from(accountSet);
-
-			if (accountArray.length == charArrayName.length) {
-				for (let i = 0; i <= 7; i++) {
-					if (team['char' + i] != undefined && team['char' + i] != ' ') {
-						gamedll.playCharacterFromTeam(
-							team['char' + i],
-							team['res' + i],
-							team['windowed' + i],
-							team['borderless' + i],
-							team['width' + i],
-							team['positionx' + i],
-							team['positiony' + i]);
-						await sleep(team['deelay' + i]);
-					}
-				}
-			}
-			else {
-				dialog.showErrorBox(constants.error, constants.errorDiffAccount);
-			}
-		});
-	});
+	}
+	else {
+		dialog.showErrorBox(constants.error, constants.errorSameAccount);
+	}
 });
 
-ipcMain.on('killTeamRow', (event, id) => {
+ipcMain.on(constants.killTeamRow, (event, id) => {
 	gamedll.killTeam(id);
 });
 
-ipcMain.on('editTeam', (event, id) => {
-	db.teamDatastore.findOne({_id: id}, (err, team) => {
-		event.sender.send('editTeam-reply', team, id);
-	});
+ipcMain.on(constants.editTeam, async (event, id) => {
+	let team = await teamController.findOne(id);
+	event.sender.send(constants.editTeamReply, team, id);
 });
 
 let waiting = -1;
-ipcMain.on('importFromAppData', event => {
-	db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
-		let chars = [];
-		if (fs.existsSync(userdat['value'])) {
-			const path = userdat['value'].replace(/user\.dat$/gi, '');
-			const re = new RegExp('^[A-Z]([a-z])+-(41|49|50|51|52|53|54|55|56|57){1}\.ini$');
-			fs.readdir(path, (err, files) => {
-				waiting = files.length;
-				files.forEach(i => {
-					let file = path + '/' + i;
-					fs.lstat(file, (err, stats) => {
-						if (stats.isFile() && re.test(i)) {
-							let char = {};
-							let array = i.split('-');
-							let name = array[0];
-							array = array[1].split('.');
-							switch(array[0]) {
-								case '41': char.server = 'Ywain1'; break;
-								case '49': char.server = 'Ywain2'; break;
-								case '50': char.server = 'Ywain3'; break;
-								case '51': char.server = 'Ywain4'; break;
-								case '52': char.server = 'Ywain5'; break;
-								case '53': char.server = 'Ywain6'; break;
-								case '54': char.server = 'Ywain7'; break;
-								case '55': char.server = 'Ywain8'; break;
-								case '56': char.server = 'Ywain9'; break;
-								case '57': char.server = 'Ywain10'; break;
-							}
-							char.name = name;
-							chars.push(char);
-							finish(event, chars);
+ipcMain.on(constants.importFromAppData, async event => {
+	let userdat = await settingController.findOneByKey(constants.pathToUserDat);
+	let chars = [];
+	if (fs.existsSync(userdat['value'])) {
+		const path = userdat['value'].replace(/user\.dat$/gi, '');
+		const re = new RegExp('^[A-Z]([a-z])+-(41|49|50|51|52|53|54|55|56|57){1}\.ini$');
+		fs.readdir(path, (err, files) => {
+			waiting = files.length;
+			files.forEach(i => {
+				let file = path + '/' + i;
+				fs.lstat(file, (err, stats) => {
+					if (stats.isFile() && re.test(i)) {
+						let char = {};
+						let array = i.split('-');
+						let name = array[0];
+						array = array[1].split('.');
+						switch(array[0]) {
+							case '41': char.server = 'Ywain1'; break;
+							case '49': char.server = 'Ywain2'; break;
+							case '50': char.server = 'Ywain3'; break;
+							case '51': char.server = 'Ywain4'; break;
+							case '52': char.server = 'Ywain5'; break;
+							case '53': char.server = 'Ywain6'; break;
+							case '54': char.server = 'Ywain7'; break;
+							case '55': char.server = 'Ywain8'; break;
+							case '56': char.server = 'Ywain9'; break;
+							case '57': char.server = 'Ywain10'; break;
 						}
-						else {
-							waiting--;
-						}
-					});
-				})
-			});
-		}
-		else {
-			dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
-		}
-	});
+						char.name = name;
+						chars.push(char);
+						finish(event, chars);
+					}
+					else {
+						waiting--;
+					}
+				});
+			})
+		});
+	}
+	else {
+		dialog.showErrorBox(constants.error, constants.errorUserDatNF);
+	}
 });
 
-const finish = (event, chars) => {
+const finish = async (event, chars) => {
 	waiting--;
 	if (waiting == 0) {
-		db.accountDatastore.find({}).sort({name: 1}).exec((err, accounts) => {
-			event.sender.send('importFromAppData-reply', chars, accounts);
-		});
+		let accounts = await characterController.findAll();
+		event.sender.send(constants.importFromAppDataReply, chars, accounts);
 	}
 }
 
-ipcMain.on('edit-setting-booleano', (event, id) => {
+ipcMain.on(constants.editSettingBooleano, (event, id) => {
 	settingController.editSettingBooleano(event, id);
 });
 
-ipcMain.on('save-setting-booleano', (event, id, value) => {
+ipcMain.on(constants.saveSettingBooleano, (event, id, value) => {
 	settingController.saveSettingBooleano(event, id, value);
 });
 
-ipcMain.on('set-ini-default-template', (event, name, server) => {
+ipcMain.on(constants.setIniDefaultTemplate, (event, name, server) => {
 	characterController.setIniDefaultTemplate(name, server);
 });
 
-ipcMain.on('apply-ini-default-template', (event, name, server) => {
+ipcMain.on(constants.applyIniDefaultTemplate, (event, name, server) => {
 	characterController.applyIniDefaultTemplate(name, server);
 });
 
 //TODO
-ipcMain.on('spellcraft-tool-start', event => {
+ipcMain.on(constants.spellcraftToolStart, event => {
 	spellcraftController.OpenForm(event);
 });

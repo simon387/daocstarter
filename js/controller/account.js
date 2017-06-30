@@ -30,6 +30,14 @@ module.exports = {
 		});
 	},
 	
+	findAll: () => {
+		return new Promise(function(resolve, reject) {
+			db.accountDatastore.find({}).sort({name: 1}).exec((err, accounts) => {
+				resolve(accounts);
+			});
+		});
+	},
+
 	getAllAccountsNames: () => {
 		return new Promise(function(resolve, reject) {
 			db.accountDatastore.find({}, (err, accounts) => {

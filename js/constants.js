@@ -75,9 +75,23 @@ module.exports = {
 	removeTeam: 'remove-team',
 	removeTeamReply: 'remove-team-reply',
 	error: 'Error',
-	errorDiffAccount: "You can't play characters from same account!",
+	errorSameAccount: "You can't play characters from same account!",
 	playCharacter: 'playCharacter',
 	playTeamRow: 'playTeamRow',
+	killTeamRow: 'killTeamRow',
+	editTeam: 'editTeam',
+	editTeamReply: 'editTeam-reply',
+	importFromAppData: 'importFromAppData',
+	errorUserDatNF: "User.dat not found!\nPlease edit the location from Setting section!",
+	importFromAppDataReply: 'importFromAppData-reply',
+	editSettingBooleano: 'edit-setting-booleano',
+	saveSettingBooleano: 'save-setting-booleano',
+	setIniDefaultTemplate: 'set-ini-default-template',
+	applyIniDefaultTemplate: 'apply-ini-default-template',
+	spellcraftToolStart: 'spellcraft-tool-start',
+
+
+
 
 	handle_path: () => {
 		const handle_path_dev = path.join('vendor', 'handle', 'handle.exe');
