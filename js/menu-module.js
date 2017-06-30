@@ -3,13 +3,14 @@
 const fs = require('fs');
 const path = require('path');
 const opn = require('opn');
-const {shell, app, dialog, BrowserWindow, Menu} = require('electron');
-const db = require('./db-module.js');
+const {shell, dialog, BrowserWindow, Menu} = require('electron');
 const handle = require('./handle-module.js');
 const gamedll = require('./gamedll-module.js');
 const child_process = require('child_process');
 const constants = require('./constants.js');
 const log = require('./log-module.js').getLog();
+const settingController = require('./controller/setting.js');
+const characterController = require('./controller/character.js');
 
 Menu.getApplicationMenu();
 
@@ -33,14 +34,12 @@ const menuTemplate = [
 			},
 			{
 				role: 'cut',
-
 			},
 			{
 				role: 'copy',
 			},
 			{
 				role: 'paste',
-
 			},
 			{
 				role: 'delete'
@@ -88,33 +87,31 @@ const menuTemplate = [
 			{
 				label: 'Show DAoC screenshot directory',
 				click: () => {
-					shell.showItemInFolder(app.getPath("documents") + "\\Electronic Arts\\Dark Age of Camelot\\.");
+					shell.showItemInFolder(constants.screenshotDir);
 				}
 			},
 			{
 				label: 'Open DAoC user setting directory',
-				click: () => {
-					db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
-						if (fs.existsSync(userdat["value"])) {
-							shell.showItemInFolder(userdat["value"]);
-						}
-						else {
-							dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
-						}
-					});
+				click: async () => {
+					let userdat = await settingController.readSettingByKey(constants.pathToUserDat);
+					if (fs.existsSync(userdat.value)) {
+						shell.showItemInFolder(userdat.value);
+					}
+					else {
+						dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
+					}
 				}
 			},
 			{
 				label: 'Edit user.dat',
-				click: () => {
-					db.settingDatastore.findOne({key: 'path.to.user.dat'}, (err, userdat) => {
-						if (fs.existsSync(userdat["value"])) {
-							shell.openItem(userdat["value"]);
-						}
-						else {
-							dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
-						}
-					});
+				click: async () => {
+					let userdat = await settingController.readSettingByKey(constants.pathToUserDat);
+					if (fs.existsSync(userdat.value)) {
+						shell.openItem(userdat.value);
+					}
+					else {
+						dialog.showErrorBox("error", "User.dat not found!\nPlease edit the location from Setting section!");
+					}
 				}
 			},
 			{
@@ -123,7 +120,7 @@ const menuTemplate = [
 			{
 				label: 'Open DAoCStarter user setting directory',
 				click: () => {
-					shell.openItem(app.getPath("userData"));
+					shell.openItem(constants.daocstarterSettingsDir);
 				}
 			},
 			{
@@ -167,14 +164,12 @@ const menuTemplate = [
 			},
 			{
 				label: 'Reset favourites positions',
-				click: () => {
-					db.characterDatastore.update({favourite: true}, {$set:{x: 40, y: 220}}, {returnUpdatedDocs: true, multi: true},
-					(err, numAffected, affectedDocuments) => {
-						if (numAffected > 0) {
-							const win = BrowserWindow.getFocusedWindow();
-							win.reload();
-						}
-					});
+				click: async () => {
+					let numAffected = await characterController.resetAllFavouritesPositions();
+					if (numAffected > 0) {
+						const win = BrowserWindow.getFocusedWindow();
+						win.reload();
+					}
 				}
 			},
 			{

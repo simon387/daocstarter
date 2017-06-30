@@ -442,7 +442,7 @@ module.exports = {
 		if (isTest) {
 			exe = constants.camtestExe;
 		}
-		db.settingDatastore.findOne({key: 'path.to.game.dll'}, (err, gamedll) => {
+		db.settingDatastore.findOne({key: constants.pathToGameDll}, (err, gamedll) => {
 			if (fs.existsSync(gamedll["value"])) {
 				const exec = child_process.exec;
 				const cmd = exe;

@@ -141,7 +141,7 @@ module.exports = {
 		dialog.showSaveDialog({message: 'save as template'}, async (filename) => {
 			log.info(filename)
 			if (undefined != filename && '' != filename) {
-				const userdat = await setting.readSettingByKey(constants.userdatPath);
+				const userdat = await setting.readSettingByKey(constants.pathToUserDat);
 				const fileInput = path.dirname(userdat.value) + '\\' +
 					name.charAt(0).toUpperCase() + name.slice(1) +
 					'-' + serverController.toNumber(server) + '.ini';
@@ -162,7 +162,7 @@ module.exports = {
 		}
 		dialog.showOpenDialog({message: 'load template', properties: ['openFile', 'noResolveAliases']}, async filePaths => {
 			if (undefined != filePaths && '' != filePaths[0]) {
-				const userdat = await setting.readSettingByKey(constants.userdatPath);
+				const userdat = await setting.readSettingByKey(constants.pathToUserDat);
 				const fileOutput = path.dirname(userdat.value) + '\\' +
 					name.charAt(0).toUpperCase() + name.slice(1) +
 					'-' + serverController.toNumber(server) + '.ini';
@@ -174,6 +174,24 @@ module.exports = {
 					log.error(err);
 				}
 			}
+		});
+	},
+
+	resetAllFavouritesPositions: () => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.update(
+				{
+					favourite: true
+				},
+				{
+					$set: {x: 40, y: 220}
+				},
+				{
+					returnUpdatedDocs: true, multi: true
+				},
+			(err, numAffected, affectedDocuments) => {
+				resolve(numAffected);
+			});
 		});
 	}
 }

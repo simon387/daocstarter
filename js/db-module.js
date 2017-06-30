@@ -1,8 +1,8 @@
 'use strict';
 
 const {app} = require('electron');
-const dbPath = app.getPath("userData") + '/db/';
 const Datastore = require('nedb');
+const path = require('path');
 const constants = require('./constants.js');
 let accountDatastore;
 let characterDatastore;
@@ -20,153 +20,187 @@ module.exports = {
 	settingDatastore: settingDatastore,
 	init: () => {
 		//account
-		module.exports.accountDatastore = new Datastore({filename:dbPath + 'account', autoload: true});
-		module.exports.accountDatastore.ensureIndex({fieldName: 'name', unique: true}, err => {});
+		module.exports.accountDatastore = new Datastore({
+			filename: constants.dbPath + 'account',
+			autoload: true
+		});
+		module.exports.accountDatastore.ensureIndex({
+			fieldName: 'name',
+			unique: true
+		}, err => {});
 		//server
-		module.exports.serverDatastore = new Datastore({filename:dbPath + 'server', autoload: true});
-		module.exports.serverDatastore.ensureIndex({fieldName: 'name', unique: true}, err => {});
-		const ywain = 'Ywain';
-		const ip = '107.23.173.143';
-		const port = '10622';
-		const albion = 'Albion';
-		const hibernia = 'Hibernia';
-		const midgard = 'Midgard';
+		module.exports.serverDatastore = new Datastore({
+			filename: constants.dbPath + 'server',
+			autoload: true
+		});
+		module.exports.serverDatastore.ensureIndex({
+			fieldName: 'name',
+			unique: true
+		}, err => {});
 		module.exports.serverDatastore.insert([
-			{name: ywain + '1', ip: ip, port: port, n: '41'},
-			{name: ywain + '2', ip: ip, port: port, n: '49'},
-			{name: ywain + '3', ip: ip, port: port, n: '50'},
-			{name: ywain + '4', ip: ip, port: port, n: '51'},
-			{name: ywain + '5', ip: ip, port: port, n: '52'},
-			{name: ywain + '6', ip: ip, port: port, n: '53'},
-			{name: ywain + '7', ip: ip, port: port, n: '54'},
-			{name: ywain + '8', ip: ip, port: port, n: '55'},
-			{name: ywain + '9', ip: ip, port: port, n: '56'},
-			{name: ywain + '10', ip: ip, port: port, n: '57'}], err => {});
+			{name: constants.ywain + '1',  ip: constants.ywainIp, port: constants.ywainPort, n: '41'},
+			{name: constants.ywain + '2',  ip: constants.ywainIp, port: constants.ywainPort, n: '49'},
+			{name: constants.ywain + '3',  ip: constants.ywainIp, port: constants.ywainPort, n: '50'},
+			{name: constants.ywain + '4',  ip: constants.ywainIp, port: constants.ywainPort, n: '51'},
+			{name: constants.ywain + '5',  ip: constants.ywainIp, port: constants.ywainPort, n: '52'},
+			{name: constants.ywain + '6',  ip: constants.ywainIp, port: constants.ywainPort, n: '53'},
+			{name: constants.ywain + '7',  ip: constants.ywainIp, port: constants.ywainPort, n: '54'},
+			{name: constants.ywain + '8',  ip: constants.ywainIp, port: constants.ywainPort, n: '55'},
+			{name: constants.ywain + '9',  ip: constants.ywainIp, port: constants.ywainPort, n: '56'},
+			{name: constants.ywain + '10', ip: constants.ywainIp, port: constants.ywainPort, n: '57'}
+		], err => {});
 		//realm
-		module.exports.realmDatastore = new Datastore({filename: dbPath + 'realm', autoload: true});
-		module.exports.realmDatastore.ensureIndex({fieldName: 'name', unique:true}, err => {});
+		module.exports.realmDatastore = new Datastore({
+			filename: constants.dbPath + 'realm',
+			autoload: true
+		});
+		module.exports.realmDatastore.ensureIndex({
+			fieldName: 'name',
+			unique:true
+		}, err => {});
 		module.exports.realmDatastore.insert([
-			{name: albion, n: '1'},
-			{name: hibernia, n: '3'},
-			{name: midgard, n: '2'}], err => {});
+			{name: constants.albion, n: '1'},
+			{name: constants.hibernia, n: '3'},
+			{name: constants.midgard, n: '2'}], err => {});
 		//class
-		module.exports.classDatastore = new Datastore({filename: dbPath + 'class', autoload: true});
-		module.exports.classDatastore.ensureIndex({fieldName: 'name', unique: true}, err => {});
+		module.exports.classDatastore = new Datastore({
+			filename: constants.dbPath + 'class',
+			autoload: true
+		});
+		module.exports.classDatastore.ensureIndex({
+			fieldName: 'name',
+			unique: true
+		}, err => {});
 		module.exports.classDatastore.insert([
-			{name: 'Armsman', realm: albion},
-			{name: 'Cabalist', realm: albion},
-			{name: 'Cleric', realm: albion},
-			{name: 'Friar', realm: albion},
-			{name: 'Heretic', realm: albion},
-			{name: 'Infiltrator', realm: albion},
-			{name: 'Mauler (Alb) ', realm:albion},
-			{name: 'Mercenary', realm: albion},
-			{name: 'Minstrel', realm: albion},
-			{name: 'Necromancer', realm: albion},
-			{name: 'Paladin', realm: albion},
-			{name: 'Reaver', realm: albion},
-			{name: 'Scout', realm: albion},
-			{name: 'Sorcerer', realm: albion},
-			{name: 'Theurg', realm: albion},
-			{name: 'Wizard', realm: albion},
-			{name: 'Animist', realm: hibernia},
-			{name: 'Bainshee', realm: hibernia},
-			{name: 'Bard', realm: hibernia},
-			{name: 'Blademaster', realm: hibernia},
-			{name: 'Champion', realm: hibernia},
-			{name: 'Druid', realm: hibernia},
-			{name: 'Eldritch', realm: hibernia},
-			{name: 'Enchanter', realm: hibernia},
-			{name: 'Hero', realm: hibernia},
-			{name: 'Mauler (Hib) ', realm:hibernia},
-			{name: 'Mentalist', realm: hibernia},
-			{name: 'Nightshade', realm: hibernia},
-			{name: 'Ranger', realm: hibernia},
-			{name: 'Valewalker', realm: hibernia},
-			{name: 'Vampiir', realm: hibernia},
-			{name: 'Warden', realm: hibernia},
-			{name: 'Berserker', realm: midgard},
-			{name: 'Bonedancer', realm: midgard},
-			{name: 'Healer', realm: midgard},
-			{name: 'Hunter', realm: midgard},
-			{name: 'Mauler (Mid) ', realm:midgard},
-			{name: 'Runemaster', realm: midgard},
-			{name: 'Savage', realm: midgard},
-			{name: 'Shadowblade', realm: midgard},
-			{name: 'Shaman', realm: midgard},
-			{name: 'Skald', realm: midgard},
-			{name: 'Spiritmaster', realm: midgard},
-			{name: 'Thane', realm: midgard},
-			{name: 'Valkyrie', realm: midgard},
-			{name: 'Warlock', realm: midgard},
-			{name: 'Warrior', realm: midgard}], err => {});
+			{name: 'Armsman', realm: constants.albion},
+			{name: 'Cabalist', realm: constants.albion},
+			{name: 'Cleric', realm: constants.albion},
+			{name: 'Friar', realm: constants.albion},
+			{name: 'Heretic', realm: constants.albion},
+			{name: 'Infiltrator', realm: constants.albion},
+			{name: 'Mauler (Alb) ', realm: constants.albion},
+			{name: 'Mercenary', realm: constants.albion},
+			{name: 'Minstrel', realm: constants.albion},
+			{name: 'Necromancer', realm: constants.albion},
+			{name: 'Paladin', realm: constants.albion},
+			{name: 'Reaver', realm: constants.albion},
+			{name: 'Scout', realm: constants.albion},
+			{name: 'Sorcerer', realm: constants.albion},
+			{name: 'Theurg', realm: constants.albion},
+			{name: 'Wizard', realm: constants.albion},
+			{name: 'Animist', realm: constants.hibernia},
+			{name: 'Bainshee', realm: constants.hibernia},
+			{name: 'Bard', realm: constants.hibernia},
+			{name: 'Blademaster', realm: constants.hibernia},
+			{name: 'Champion', realm: constants.hibernia},
+			{name: 'Druid', realm: constants.hibernia},
+			{name: 'Eldritch', realm: constants.hibernia},
+			{name: 'Enchanter', realm: constants.hibernia},
+			{name: 'Hero', realm: constants.hibernia},
+			{name: 'Mauler (Hib) ', realm: constants.hibernia},
+			{name: 'Mentalist', realm: constants.hibernia},
+			{name: 'Nightshade', realm: constants.hibernia},
+			{name: 'Ranger', realm: constants.hibernia},
+			{name: 'Valewalker', realm: constants.hibernia},
+			{name: 'Vampiir', realm: constants.hibernia},
+			{name: 'Warden', realm: constants.hibernia},
+			{name: 'Berserker', realm: constants.midgard},
+			{name: 'Bonedancer', realm: constants.midgard},
+			{name: 'Healer', realm: constants.midgard},
+			{name: 'Hunter', realm: constants.midgard},
+			{name: 'Mauler (Mid) ', realm: constants.midgard},
+			{name: 'Runemaster', realm: constants.midgard},
+			{name: 'Savage', realm: constants.midgard},
+			{name: 'Shadowblade', realm: constants.midgard},
+			{name: 'Shaman', realm: constants.midgard},
+			{name: 'Skald', realm: constants.midgard},
+			{name: 'Spiritmaster', realm: constants.midgard},
+			{name: 'Thane', realm: constants.midgard},
+			{name: 'Valkyrie', realm: constants.midgard},
+			{name: 'Warlock', realm: constants.midgard},
+			{name: 'Warrior', realm: constants.midgard}], err => {});
 		//character
-		module.exports.characterDatastore = new Datastore({filename: dbPath + 'character', autoload: true});
+		module.exports.characterDatastore = new Datastore({
+			filename: constants.dbPath + 'character',
+			autoload: true
+		});
 		//team
-		module.exports.teamDatastore = new Datastore({filename: dbPath + 'team', autoload: true});
-		module.exports.teamDatastore.ensureIndex({fieldName: 'name', unique: true}, err => {});
+		module.exports.teamDatastore = new Datastore({
+			filename: constants.dbPath + 'team',
+			autoload: true
+		});
+		module.exports.teamDatastore.ensureIndex({
+			fieldName: 'name',
+			unique: true
+		}, err => {});
 		//setting 
-		module.exports.settingDatastore = new Datastore({filename: dbPath + 'setting', autoload: true});
-		module.exports.settingDatastore.ensureIndex({fieldName: 'key', unique: true}, err => {});
+		module.exports.settingDatastore = new Datastore({
+			filename: constants.dbPath + 'setting',
+			autoload: true
+		});
+		module.exports.settingDatastore.ensureIndex({
+			fieldName: 'key',
+			unique: true
+		}, err => {});
 		module.exports.settingDatastore.insert({
 			_id: '10',
-			key: 'quit.minimize.to.tray',
-			type: 'Booleano',
+			key: constants.quitMinimizeToTray,
+			type: constants.typeBooleano,
 			value: false}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '9',
-			key: 'minimize.to.tray',
-			type: 'Booleano',
+			key: constants.minimizeToTray,
+			type: constants.typeBooleano,
 			value: false}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '8',
-			key: 'custom.resolutions.comma.separated',
-			type: 'Stringa',
-			value: '1920x1080,800x600'}, err => {}
+			key: constants.customResolutionsCommaSeparated,
+			type: constants.typeStringa,
+			value: constants.defaultBaseResolutions}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '7',
-			key: 'default.login.delay.milli',
-			type: 'Numero',
+			key: constants.defaultLoginDelayMilli,
+			type: constants.typeNumero,
 			value: 2000}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '6',
-			key: 'setting.items.per.page',
-			type: 'Numero',
+			key: constants.settingItemsPerPage,
+			type: constants.typeNumero,
 			value: 10}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '5',
-			key: 'account.items.per.page',
-			type: 'Numero',
+			key: constants.accountItemsPerPage,
+			type: constants.typeNumero,
 			value: 10}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '4',
-			key: 'team.items.per.page',
-			type: 'Numero',
+			key: constants.teamItemsPerPage,
+			type: constants.typeNumero,
 			value: 10}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '3',
-			key: 'character.items.per.page',
-			type: 'Numero',
+			key: constants.characterItemsPerPage,
+			type: constants.typeNumero,
 			value: 10}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '2',
-			key: constants.userdatPath,
-			type: 'File',
-			value: app.getPath('appData').replace(/\\/g, '\\\\') + '\\\\Electronic Arts\\\\Dark Age of Camelot\\\\LotM\\\\user.dat'}, err => {}
+			key: constants.pathToUserDat,
+			type: constants.typeFile,
+			value: constants.defaultPathToUserDat}, err => {}
 		);
 		module.exports.settingDatastore.insert({
 			_id: '1',
-			key: 'path.to.game.dll',
-			type: 'File',
-			value: 'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll'}, err => {}
+			key: constants.pathToGameDll,
+			type: constants.typeFile,
+			value: constants.defaultPathToGameDll}, err => {}
 		);
 	}
 }

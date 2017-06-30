@@ -9,7 +9,7 @@ module.exports = {
 	backupFile: inputFile => {
 
 		if (!fs.existsSync(inputFile)) {
-			log.error('file ' + inputFile + ' does not exists! backup failed');
+			log.error('file', inputFile, 'does not exists! backup failed');
 			return;
 		}
 
@@ -17,7 +17,7 @@ module.exports = {
 			fs.mkdirSync(constants.backupPath);
 		}
 
-		let outputFile = constants.backupPath + '\\' + path.basename(inputFile);
+		let outputFile = path.join(constants.backupPath, path.basename(inputFile));
 		let i = 0;
 
 		while (fs.existsSync(outputFile + '_backup_' + i)) {
@@ -27,7 +27,7 @@ module.exports = {
 
 		try {
 			fs.createReadStream(inputFile).pipe(fs.createWriteStream(outputFile));
-			log.info('Backuped ' + outputFile)
+			log.info('Backuped', outputFile)
 		}
 		catch(e) {
 			log.error(e);
