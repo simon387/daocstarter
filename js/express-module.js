@@ -5,7 +5,6 @@ const portfinder = require('portfinder');
 const express = require('express');
 const querystring = require('querystring');
 const vga_module = require('./vga-module.js');
-const gamedll = require('./gamedll-module.js');
 const accountController = require('./controller/account.js');
 const serverController = require('./controller/server.js');
 const classeController = require('./controller/classe.js');
@@ -30,11 +29,11 @@ portfinder.getPort((err, port) => {
 			if (request.query.editAccount != undefined) {
 				response.send(await accountController.findOneById(request.query.editAccount));
 			} else {
-				response.send(await accountController.getAllAccountsForDT());
+				response.send(await accountController.findAllForDT());
 			}
 		}
 		if (request.query.getAllAccountsNames != undefined) {
-			response.send(await accountController.getAllAccountsNames());
+			response.send(await accountController.findAllAccountsNames());
 		}
 		//character
 		if (request.query.ajaxCharacter != undefined || request.query.removeCharacter != undefined || request.query.editCharacter != undefined) {
@@ -44,11 +43,11 @@ portfinder.getPort((err, port) => {
 			if (request.query.editCharacter != undefined) {
 				response.send(await characterController.findOneById(request.query.editCharacter));
 			} else {
-				response.send(await characterController.getAllCharactersForDT());
+				response.send(await characterController.findAllForDT());
 			}
 		}
 		if (request.query.getAllCharacterNames != undefined) {
-			response.send(await characterController.getAllCharacterNames());
+			response.send(await characterController.findAllCharacterNames());
 		}
 		//setting
 		if (request.query.ajaxSetting != undefined) {
@@ -64,11 +63,11 @@ portfinder.getPort((err, port) => {
 		}
 		//server
 		if (request.query.getAllServersNames != undefined) {
-			response.send(await serverController.getAllServersNames());
+			response.send(await serverController.findAllServersNames());
 		}
 		//classes
 		if (request.query.getAllClassesNames != undefined) {
-			response.send(await classeController.getAllClassesNames());
+			response.send(await classeController.findAllClassesNames());
 		}
 		//vga
 		if (request.query.getAllResolutions != undefined) {
@@ -118,6 +117,6 @@ portfinder.getPort((err, port) => {
 	});
 
 	server.listen(port, () => {
-		log.info('Express running in electron and listening on port ' + port + '!');
+		log.info(constants.infoExpress, port);
 	});
 });

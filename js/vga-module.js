@@ -8,24 +8,17 @@ const settingController = require('./controller/setting.js');
 
 module.exports = {
 	getAllResolutions: () => {
-		
 		return new Promise(async function(resolve, reject) {
-
-			if (os.platform() != 'win32') {
-				log.warn('Per ora il modulo vga-module funziona solo su windows');
-				return resolve (["4096×2160"]);
+			if (os.platform() != constants.win32Platform) {
+				log.warn(constants.warnVGAModule);
+				return resolve (constants.defaultBaseResolutionsArray);
 			}
-
 			let setting = await settingController.findOneByKey(constants.customResolutionsCommaSeparated);
 			const array = setting.value.split(',');
 			let ps;
 			try{
-				ps = new shell({executionPolicy: 'Bypass', debugMsg: false, noProfile: true});
-				ps.addCommand('get-wmiobject -query "' +
-				'select HorizontalResolution, VerticalResolution ' +
-				'from CIM_VideoControllerResolution where HorizontalResolution > 799" | ' +
-				'Sort-Object HorizontalResolution, VerticalResolution -descending | ' +
-				'select HorizontalResolution, VerticalResolution')
+				ps = new shell({executionPolicy: constants.executionPolicy, debugMsg: false, noProfile: true});
+				ps.addCommand(constants.vgaQuery)
 				.then(() => {
 					return ps.invoke();
 				})
@@ -35,7 +28,7 @@ module.exports = {
 							return resolve(array);
 						}
 						else {
-							return resolve(['1920x1200', '800x600']);
+							return resolve(constants.defaultBaseResolutionsArray);
 						}
 					}
 					let str = output.replace(/[\n\r]/g, '').replace(/\ +/g, 'x');
@@ -51,7 +44,7 @@ module.exports = {
 							return resolve(array);
 						}
 						else {
-							return resolve(['1920x1200', '800x600']);
+							return resolve(constants.defaultBaseResolutionsArray);
 						}
 					}
 					else {

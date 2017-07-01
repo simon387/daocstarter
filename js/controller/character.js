@@ -2,16 +2,18 @@
 
 const fs = require('fs');
 const path = require('path');
-const {dialog} = require('electron');
+const {dialog, ipcMain} = require('electron');
 const serverController = require('./server.js');
 const util = require('./common-util.js');
 const db = require('../db-module.js');
 const constants = require('../constants.js');
 const log = require('../log-module.js').getLog();
-const setting = require('./setting.js');
+const settingController = require('./setting.js');
+const accountController = require('./account.js');
+let waiting = -1;
 
 module.exports = {
-	getAllCharactersForDT: () => {
+	findAllForDT: () => {
 		return new Promise(function(resolve, reject) {
 			db.characterDatastore.find({}, (err, characters) => {
 				let payload = new Object();
@@ -37,7 +39,7 @@ module.exports = {
 		});
 	},
 
-	getAllCharacterNames: () => {
+	findAllCharacterNames: () => {
 		return new Promise(function(resolve, reject) {
 			db.characterDatastore.find({}, (err, characters) => {
 				resolve(util.getAllNamesHelper(characters));
@@ -125,7 +127,9 @@ module.exports = {
 					account: charAccountArray[c],
 					server: charServerArray[c],
 				}, (err, newDoc) => {
-					log.error(err);
+					if (err) {
+						log.error(err);
+					}
 				});
 				if (c == charNameArray.length - 1) {
 					resolve({});
@@ -141,7 +145,7 @@ module.exports = {
 		dialog.showSaveDialog({message: 'save as template'}, async (filename) => {
 			log.info(filename)
 			if (undefined != filename && '' != filename) {
-				const userdat = await setting.findOneByKey(constants.pathToUserDat);
+				const userdat = await settingController.findOneByKey(constants.pathToUserDat);
 				const fileInput = path.dirname(userdat.value) + '\\' +
 					name.charAt(0).toUpperCase() + name.slice(1) +
 					'-' + serverController.toNumber(server) + '.ini';
@@ -162,7 +166,7 @@ module.exports = {
 		}
 		dialog.showOpenDialog({message: 'load template', properties: ['openFile', 'noResolveAliases']}, async filePaths => {
 			if (undefined != filePaths && '' != filePaths[0]) {
-				const userdat = await setting.findOneByKey(constants.pathToUserDat);
+				const userdat = await settingController.findOneByKey(constants.pathToUserDat);
 				const fileOutput = path.dirname(userdat.value) + '\\' +
 					name.charAt(0).toUpperCase() + name.slice(1) +
 					'-' + serverController.toNumber(server) + '.ini';
@@ -234,13 +238,63 @@ module.exports = {
 		});
 	},
 
-	getByNamerray: characterArrayName => {
+	getByNameArray: characterArrayName => {
 		return new Promise(function(resolve, reject) {
 			db.characterDatastore.find({name: {$in: characterArrayName}}, (err, characters) => {
 				resolve(characters);
 			});
 		});
+	},
+
+	importFromAppDataStart: async event => {
+		let userdat = await settingController.findOneByKey(constants.pathToUserDat);
+		let chars = [];
+		if (fs.existsSync(userdat['value'])) {
+			const path = userdat['value'].replace(/user\.dat$/gi, '');
+			const re = new RegExp('^[A-Z]([a-z])+-(41|49|50|51|52|53|54|55|56|57){1}\.ini$');
+			fs.readdir(path, (err, files) => {
+				waiting = files.length;
+				files.forEach(i => {
+					let file = path + '/' + i;
+					fs.lstat(file, (err, stats) => {
+						if (stats.isFile() && re.test(i)) {
+							let char = {};
+							let array = i.split('-');
+							let name = array[0];
+							array = array[1].split('.');
+							switch(array[0]) {
+								case '41': char.server = 'Ywain1'; break;
+								case '49': char.server = 'Ywain2'; break;
+								case '50': char.server = 'Ywain3'; break;
+								case '51': char.server = 'Ywain4'; break;
+								case '52': char.server = 'Ywain5'; break;
+								case '53': char.server = 'Ywain6'; break;
+								case '54': char.server = 'Ywain7'; break;
+								case '55': char.server = 'Ywain8'; break;
+								case '56': char.server = 'Ywain9'; break;
+								case '57': char.server = 'Ywain10'; break;
+							}
+							char.name = name;
+							chars.push(char);
+							finish(event, chars);
+						}
+						else {
+							waiting--;
+						}
+					});
+				})
+			});
+		}
+		else {
+			dialog.showErrorBox(constants.error, constants.errorUserDatNF);
+		}
 	}
+}
 
-
+const finish = async (event, chars) => {
+	waiting--;
+	if (waiting == 0) {
+		let accounts = await accountController.findAll();
+		event.sender.send(constants.importFromAppDataReply, chars, accounts);
+	}
 }

@@ -14,7 +14,7 @@ module.exports = {
 			path: constants.updatePath
 		}
 		let request = http.request(opts, res => {
-			let remoteVersion = '0.0.0';
+			let remoteVersion = '';
 			res.on('data', chunk => {
 				remoteVersion += chunk;
 			});

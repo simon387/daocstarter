@@ -8,6 +8,7 @@ const compiled_prefix = path.join('resources', 'app');
 module.exports = {
 	backupPath: path.join(app.getPath('userData'), 'backup'),
 	pathToUserDat: 'path.to.user.dat',
+	pathToGameDll: 'path.to.game.dll',
 	quitMinimizeToTray: 'quit.minimize.to.tray',
 	minimizeToTray: 'minimize.to.tray',
 	customResolutionsCommaSeparated: 'custom.resolutions.comma.separated',
@@ -16,7 +17,6 @@ module.exports = {
 	accountItemsPerPage: 'account.items.per.page',
 	teamItemsPerPage: 'team.items.per.page',
 	characterItemsPerPage: 'character.items.per.page',
-	pathToGameDll: 'path.to.game.dll',
 	typeBooleano: 'booleano',
 	typeNumero: 'Numero',
 	typeFile: 'File',
@@ -24,6 +24,7 @@ module.exports = {
 	defaultPathToUserDat: app.getPath('appData').replace(/\\/g, '\\\\') + '\\\\Electronic Arts\\\\Dark Age of Camelot\\\\LotM\\\\user.dat',
 	defaultPathToGameDll: 'C:\\\\Program Files (x86)\\\\Electronic Arts\\\\Dark Age of Camelot\\\\game.dll',
 	defaultBaseResolutions: '1920x1080,800x600',
+	defaultBaseResolutionsArray: ['1920x1200', '800x600'],
 	playCSS: "class='btnX btn-primary btn-sm sr-button'",
 	cancCSS: "class='sr-button btnX btn-primary btn-md btnX-delete'",
 	editCSS: "class='sr-button btnX btn-md btn-successX'",
@@ -31,6 +32,10 @@ module.exports = {
 	asynchronousGetPortReply: 'asynchronous-reply-get-port',
 	camelotExe: 'camelot.exe',
 	camtestExe: 'camtest.exe',
+	gameDll: 'game.dll',
+	userDat: 'user.dat',
+	psargs: 'ux',
+	utf8: 'utf-8',
 	updateHost: 'www.simonecelia.it',
 	updatePath: '/daocstarter/version.html',
 	githubReleases: 'https://github.com/simon387/daocstarter/releases',
@@ -44,7 +49,7 @@ module.exports = {
 	screenshotDir: path.join(app.getPath('documents'), 'Electronic Arts', 'Dark Age of Camelot'),
 	daocstarterSettingsDir: app.getPath('userData'),
 	ico: path.join('resources', 'app', 'img', 'i.ico'),
-	icoCompiled: path.join('img','i.ico'),
+	icoCompiled: 'img/i.ico',
 	getCharacterPerPage: 'asynchronous-get-character-per-page',
 	getCharacterPerPageReply: 'asynchronous-reply-get-character-per-page',
 	getAccountPerPage: 'asynchronous-get-account-per-page',
@@ -83,15 +88,22 @@ module.exports = {
 	editTeamReply: 'editTeam-reply',
 	importFromAppData: 'importFromAppData',
 	errorUserDatNF: "User.dat not found!\nPlease edit the location from Setting section!",
+	errorGameDllNF: "game.dll not found!\nPlease edit the location from Setting section!",
 	importFromAppDataReply: 'importFromAppData-reply',
 	editSettingBooleano: 'edit-setting-booleano',
 	saveSettingBooleano: 'save-setting-booleano',
 	setIniDefaultTemplate: 'set-ini-default-template',
 	applyIniDefaultTemplate: 'apply-ini-default-template',
 	spellcraftToolStart: 'spellcraft-tool-start',
-
-
-
+	infoExpress: 'Express running in electron and listening on port',
+	warnVGAModule: 'Per ora il modulo vga-module funziona solo su windows',
+	win32Platform: 'win32',
+	vgaQuery: 'get-wmiobject -query "' +
+		'select HorizontalResolution, VerticalResolution ' +
+		'from CIM_VideoControllerResolution where HorizontalResolution > 799" | ' +
+		'Sort-Object HorizontalResolution, VerticalResolution -descending | ' +
+		'select HorizontalResolution, VerticalResolution',
+	executionPolicy: 'Bypass',
 
 	handle_path: () => {
 		const handle_path_dev = path.join('vendor', 'handle', 'handle.exe');

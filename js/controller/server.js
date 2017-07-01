@@ -4,10 +4,10 @@ const util = require('./common-util.js');
 const db = require('../db-module.js');
 
 module.exports = {
-	getAllServersNames: () => {
+	findAllServersNames: () => {
 		return new Promise(function(resolve, reject) {
 			db.serverDatastore.find({}).sort({n: 1}).exec((err, servers) => {
-				resolve(util.getAllNamesHelper(servers));
+				resolve(util.getAllNamesHelper(servers, true));
 			});
 		});
 	},
@@ -25,5 +25,13 @@ module.exports = {
 			case 'Ywain9': return '56';
 			case 'Ywain10': return '57';
 		}
-	}
+	},
+
+	findOneByName: name => {
+		return new Promise(function(resolve, reject) {
+			db.serverDatastore.findOne({name: name}, (err, server) => {
+				resolve(server);
+			});
+		});
+	},
 }

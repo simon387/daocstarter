@@ -69,7 +69,7 @@ const applySettings = async () => {
 
 const setTray = (app, mainWindow) => {
 	try {
-		_tray = new Tray(constants.compiled);
+		_tray = new Tray(constants.icoCompiled);
 	}
 	catch(e) {
 		try {

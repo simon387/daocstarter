@@ -5,11 +5,14 @@ const db = require('../db-module.js');
 const constants = require('../constants.js');
 
 module.exports = {
-	getAllNamesHelper: docs => {
+	getAllNamesHelper: (docs, noSort = false) => {
 		let array = [];
 		docs.forEach(doc => {
 			array.push(doc.name);
 		});
+		if (noSort) {
+			return array;
+		}
 		return array.sort();
 	},
 

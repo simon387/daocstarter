@@ -24,7 +24,7 @@ module.exports = {
 		});
 	},
 
-	findOne: id => {
+	findOneById: id => {
 		return new Promise(function(resolve, reject) {
 			db.teamDatastore.findOne({_id: id}, (err, team) => {
 				resolve(team);

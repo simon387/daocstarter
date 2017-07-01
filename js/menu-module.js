@@ -6,6 +6,7 @@ const opn = require('opn');
 const {shell, dialog, BrowserWindow, Menu} = require('electron');
 const handle = require('./handle-module.js');
 const gamedll = require('./gamedll-module.js');
+const patch = require('./patch-module.js');
 const child_process = require('child_process');
 const constants = require('./constants.js');
 const log = require('./log-module.js').getLog();
@@ -61,13 +62,13 @@ const menuTemplate = [
 			{
 				label: 'Patch client',
 				click: () => {
-					gamedll.patchClient();
+					patch.patchClient();
 				}
 			},
 			{
 				label: 'Patch client from test server',
 				click: () => {
-					gamedll.patchClient(true);
+					patch.patchClient(true);
 				}
 			},
 			{

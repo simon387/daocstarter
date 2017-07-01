@@ -5,7 +5,7 @@ const db = require('../db-module.js');
 const log = require('../log-module.js').getLog();
 
 module.exports = {
-	getAllAccountsForDT: () => {
+	findAllForDT: () => {
 		return new Promise(function(resolve, reject) {
 			db.accountDatastore.find({}, (err, accounts) => {
 				let payload = new Object();
@@ -38,7 +38,7 @@ module.exports = {
 		});
 	},
 
-	getAllAccountsNames: () => {
+	findAllAccountsNames: () => {
 		return new Promise(function(resolve, reject) {
 			db.accountDatastore.find({}, (err, accounts) => {
 				resolve(util.getAllNamesHelper(accounts));
@@ -55,6 +55,14 @@ module.exports = {
 	findOneById: id => {
 		return new Promise(function(resolve, reject) {
 			db.accountDatastore.findOne({_id: id}, (err, account) => {
+				resolve(account);
+			});
+		});
+	},
+
+	findOneByName: name => {
+		return new Promise(function(resolve, reject) {
+			db.accountDatastore.findOne({name: name}, (err, account) => {
 				resolve(account);
 			});
 		});

@@ -11,7 +11,7 @@ module.exports = {
 		log.info('killMutants called');
 		let aPID = [];
 		ps.lookup({
-			command: 'game.dll',
+			command: constants.gameDll,
 			psargs: 'ux'
 		}, (err, resultList) => {
 			if (err) {
