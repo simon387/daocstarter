@@ -96,7 +96,7 @@ module.exports = {
 	applyIniDefaultTemplate: 'apply-ini-default-template',
 	spellcraftToolStart: 'spellcraft-tool-start',
 	infoExpress: 'Express running in electron and listening on port',
-	warnVGAModule: 'Per ora il modulo vga-module funziona solo su windows',
+	warnVGAModule: 'vga-module working only on windows',
 	win32Platform: 'win32',
 	vgaQuery: 'get-wmiobject -query "' +
 		'select HorizontalResolution, VerticalResolution ' +
@@ -104,6 +104,8 @@ module.exports = {
 		'Sort-Object HorizontalResolution, VerticalResolution -descending | ' +
 		'select HorizontalResolution, VerticalResolution',
 	executionPolicy: 'Bypass',
+	timestampFormat: 'DD/MM/YY HH:mm',
+	errorAlreadyLoggedIn: 'The account is already logged in!',
 
 	handle_path: () => {
 		const handle_path_dev = path.join('vendor', 'handle', 'handle.exe');

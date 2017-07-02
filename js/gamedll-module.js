@@ -2,12 +2,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const ini = require('ini');
-const moment = require('moment');
 const child_process = require('child_process');
 const ps = require('ps-node');
 const {dialog, app} = require('electron');
-const db = require("./db-module.js");
 const handle = require('./handle-module.js');
 const constants = require('./constants.js');
 const backup = require('./backup-module.js');
@@ -19,6 +16,7 @@ const serverController = require('./controller/server.js');
 const classeController = require('./controller/classe.js');
 const realmController = require('./controller/realm.js');
 const userdatModule = require('./userdat-module.js');
+const autoit = require('./autoit-module.js');
 
 module.exports = {
 	playCharacter: async id => {
@@ -41,7 +39,7 @@ module.exports = {
 		ps.lookup({
 			command: constants.gameDll,
 			psargs: constants.psargs
-		}, (err, resultList) => {
+		}, async (err, resultList) => {
 			if (err) {
 				log.error(err);
 			}
@@ -55,7 +53,7 @@ module.exports = {
 			});
 			while (c < resultList.length) {}
 			if (flag){
-				return dialog.showErrorBox('Error', "The account is already logged in!");
+				return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
 			}
 			if (false == flag) {
 				backup.backupFile(path.dirname(userdat.value) + '\\' + character.name.charAt(0).toUpperCase() + character.name.slice(1) + '-' + server.n + '.ini');
@@ -65,52 +63,11 @@ module.exports = {
 					detached: true
 				});
 				log.info('Spawned child pid: ' + prc.pid);
-				const now = moment(Date.now()).format('DD/MM/YY HH:mm');
-				//aggiorna timestamp last login e killa i mutants
-				db.characterDatastore.update({_id: id}, {$set: {lastlogin: now}}, (err, numAffected, affectedDocuments) => {
-					handle.killMutants();
-				});
-				if (undefined != character.title && '' != character.title && prc.pid > 0) {
-					const exec = child_process.exec;
-					exec(constants.titlerenamer_path() + ' ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
-				}
-				else {
-					if (undefined != account.title && '' != account.title && prc.pid > 0) {
-						const exec = child_process.exec;
-						exec(constants.titlerenamer_path() + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
-					}
-				}
-				//gestione borderless
-				if (true === character.borderless) {
-					let width = character.width;
-					let height = character.height;
-					let positionX = character.positionX;
-					let positionY = character.positionY;
-					try {
-						if (undefined === width || width < 800) {
-							width = xy[0];
-						}
-						if (undefined === height || height < 600) {
-							height = xy[1];
-						}
-					}
-					catch (e) {
-						log.error(e);
-						width = 800;
-						height = 600;
-					}
-					if (positionX === undefined || positionX === '') {
-						positionX = 0;
-					}
-					if (positionY === undefined || positionY === '') {
-						positionY = 0;
-					}
-
-					const exec = child_process.exec;
-					exec(constants.borderless_path() + ' ' + prc.pid + ' ' +
-						width + ' ' + height + ' ' + positionX + ' ' + positionY,
-						(err, so, se) => {});
-				}
+				await characterController.updateLastLogin(id);
+				await autoit.renameCharacterWindow(prc, account, character);
+				await autoit.applyBorderless(character.borderless, character.width,
+					character.height, character.positionX, character.positionY);
+				await handle.killMutants();
 			}
 		});
 	},
@@ -135,10 +92,9 @@ module.exports = {
 		ps.lookup({
 			command: constants.gameDll,
 			psargs: constants.psargs
-		}, (err, resultList) => {
+		}, async (err, resultList) => {
 			if (err) {
 				log.error(err);
-				throw new Error(err);
 			}
 			let flag = false;
 			let c = 0;
@@ -150,7 +106,7 @@ module.exports = {
 			});
 			while (c < resultList.length) {}
 			if (flag){
-				return dialog.showErrorBox('Error', "The account is already logged in!");
+				return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
 			}
 			if (false == flag) {
 				const prc = spawn(gamedll.value, [server.ip, server.port, server.n, account.name, account.password], {
@@ -159,21 +115,8 @@ module.exports = {
 					detached: true
 				});
 				log.info('Spawned child pid: ' + prc.pid);
-				if (undefined != account.title && '' != account.title && prc.pid > 0) {
-					const exec = child_process.exec;
-					exec(constants.titlerenamer_path() + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
-				}
+				await renameAccountWindow(prc, account);
 			}
-		});
-	},
-
-	killTeam: async id => {
-		let team = await teamController.findOneById(id);
-		let characters = await characterController.getByNameArray([team.char0,
-			team.char1, team.char2, team.char3, team.char4, team.char5, team.char6, team.char7,
-		]);
-		characters.forEach(character => {
-			module.exports.killCharacter(character._id);
 		});
 	},
 
@@ -195,12 +138,11 @@ module.exports = {
 		await userdatModule.setIniOnPlayTeam(userdat, res, windowed);
 		const spawn = child_process.spawn;
 		ps.lookup({
-			command: 'game.dll',
-			psargs: 'ux'
-		}, (err, resultList) => {
+			command: constants.gameDll,
+			psargs: constants.psargs
+		}, async (err, resultList) => {
 			if (err) {
 				log.error(err);
-				throw new Error(err);
 			}
 			let flag = false;
 			let c = 0;
@@ -212,7 +154,7 @@ module.exports = {
 			});
 			while (c < resultList.length) {}
 			if (flag){
-				return dialog.showErrorBox('Error', "The account is already logged in!");
+				return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
 			}
 			if (false == flag) {
 				backup.backupFile(path.dirname(userdat.value) + '\\' + character.name.charAt(0).toUpperCase() + character.name.slice(1) + '-' + server.n + '.ini');
@@ -222,48 +164,11 @@ module.exports = {
 					detached: true
 				});
 				log.info('Spawned child pid: ' + prc.pid);
-				const now = moment(Date.now()).format('DD/MM/YY HH:mm');
-				//aggiorna timestamp last login e killa i mutants
-				db.characterDatastore.update({_id: character._id}, {$set: {lastlogin: now}}, (err, numAffected, affectedDocuments) => {
-					handle.killMutants();
-				});
-				if (undefined != character.title && '' != character.title && prc.pid > 0) {
-					const exec = child_process.exec;
-					exec(constants.titlerenamer_path() + ' ' + prc.pid + ' "' + character.title + '"', (err, so, se) => {});
-				}
-				else {
-					if (undefined != account.title && '' != account.title && prc.pid > 0) {
-						const exec = child_process.exec;
-						exec(constants.titlerenamer_path() + ' ' + prc.pid + ' "' + account.title + '"', (err, so, se) => {});
-					}
-				}
-				//gestione borderless
-				if (true === borderless) {
-					try {
-						if (undefined === width || width < 800) {
-							width = xy[0];
-						}
-						if (undefined === height || height < 600) {
-							height = xy[1];
-						}
-					}
-					catch (e) {
-						log.error(e);
-						width = 800;
-						height = 600;
-					}
-					if (positionX === undefined || positionX === '') {
-						positionX = 0;
-					}
-					if (positionY === undefined || positionY === '') {
-						positionY = 0;
-					}
-
-					const exec = child_process.exec;
-					exec(constants.borderless_path() + ' ' + prc.pid + ' ' +
-						width + ' ' + height + ' ' + positionX + ' ' + positionY,
-						(err, so, se) => {});
-				}
+				await characterController.updateLastLogin(character._id);
+				await autoit.renameCharacterWindow(prc, account, character);
+				await autoit.applyBorderless(borderless, width,
+					height, positionX, positionY);
+				await handle.killMutants();
 			}
 		});
 	},
@@ -313,6 +218,16 @@ module.exports = {
 			resultList.forEach(process => {
 				ps.kill(process.pid);
 			});
+		});
+	},
+
+	killTeam: async id => {
+		let team = await teamController.findOneById(id);
+		let characters = await characterController.getByNameArray([team.char0,
+			team.char1, team.char2, team.char3, team.char4, team.char5, team.char6, team.char7,
+		]);
+		characters.forEach(character => {
+			module.exports.killCharacter(character._id);
 		});
 	}
 }

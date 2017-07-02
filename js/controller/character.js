@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const moment = require('moment');
 const {dialog, ipcMain} = require('electron');
 const serverController = require('./server.js');
 const util = require('./common-util.js');
@@ -288,7 +289,18 @@ module.exports = {
 		else {
 			dialog.showErrorBox(constants.error, constants.errorUserDatNF);
 		}
+	},
+
+	updateLastLogin: id => {
+		return new Promise(function(resolve, reject) {
+			const now = moment(Date.now()).format(constants.timestampFormat);
+			db.characterDatastore.update({_id: id}, {$set: {lastlogin: now}},
+			(err, numAffected, affectedDocuments) => {
+				resolve();
+			});
+		});
 	}
+
 }
 
 const finish = async (event, chars) => {
