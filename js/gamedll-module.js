@@ -17,6 +17,7 @@ const classeController = require('./controller/classe.js');
 const realmController = require('./controller/realm.js');
 const userdatModule = require('./userdat-module.js');
 const autoit = require('./autoit-module.js');
+const spawn = child_process.spawn;
 
 module.exports = {
 	playCharacter: async id => {
@@ -24,7 +25,7 @@ module.exports = {
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
 		}
-		backup.backupFile(userdat.value);
+		await backup.backupUserDat(userdat);
 		const gamedll = await settingController.findOneByKey(constants.pathToGameDll);
 		if (null == gamedll || !fs.existsSync(gamedll.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorGameDllNF);
@@ -35,41 +36,20 @@ module.exports = {
 		const classe = await classeController.findOneByName(character.classe);
 		const realm = await realmController.findOneByName(classe.realm);
 		await userdatModule.setIniOnPlayCharacter(userdat, character);
-		const spawn = child_process.spawn;
-		ps.lookup({
-			command: constants.gameDll,
-			psargs: constants.psargs
-		}, async (err, resultList) => {
-			if (err) {
-				log.error(err);
-			}
-			let flag = false;
-			let c = 0;
-			resultList.forEach(process => {
-				if (process && process.arguments[3] == character.account) {
-					flag = true;
-				}
-				c++;
-			});
-			while (c < resultList.length) {}
-			if (flag){
-				return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
-			}
-			if (false == flag) {
-				backup.backupFile(path.dirname(userdat.value) + '\\' + character.name.charAt(0).toUpperCase() + character.name.slice(1) + '-' + server.n + '.ini');
-				const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
-					cwd: path.dirname(gamedll.value),
-					setsid: false,
-					detached: true
-				});
-				log.info('Spawned child pid: ' + prc.pid);
-				await characterController.updateLastLogin(id);
-				await autoit.renameCharacterWindow(prc, account, character);
-				await autoit.applyBorderless(character.borderless, character.width,
-					character.height, character.positionX, character.positionY);
-				await handle.killMutants();
-			}
+		if (await alreadyLoggedInCheck(character.account)) {
+			return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
+		}
+		await backup.backupCharacter(userdat, character, server);
+		const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
+			cwd: path.dirname(gamedll.value),
+			setsid: false,
+			detached: true
 		});
+		log.info(constants.infoSpawnedChildPid, prc.pid);
+		await characterController.updateLastLogin(id);
+		await autoit.renameCharacterWindow(prc, account, character);
+		await autoit.applyBorderless(character.borderless, character.width, character.height, character.positionX, character.positionY);
+		await handle.killMutants();
 	},
 
 	playAccount: async (id, _server) => {
@@ -77,7 +57,7 @@ module.exports = {
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
 		}
-		backup.backupFile(userdat.value);
+		await backup.backupUserDat(userdat);
 		const gamedll = await settingController.findOneByKey(constants.pathToGameDll);
 		if (null == gamedll || !fs.existsSync(gamedll.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorGameDllNF);
@@ -88,36 +68,17 @@ module.exports = {
 		}
 		let server = await serverController.findOneByName(account.server);
 		await userdatModule.setIniOnPlayAccount(userdat, account);
-		const spawn = child_process.spawn;
-		ps.lookup({
-			command: constants.gameDll,
-			psargs: constants.psargs
-		}, async (err, resultList) => {
-			if (err) {
-				log.error(err);
-			}
-			let flag = false;
-			let c = 0;
-			resultList.forEach(process => {
-				if (process && process.arguments[3] == account.name) {
-					flag = true;
-				}
-				c++;
-			});
-			while (c < resultList.length) {}
-			if (flag){
-				return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
-			}
-			if (false == flag) {
-				const prc = spawn(gamedll.value, [server.ip, server.port, server.n, account.name, account.password], {
-					cwd:path.dirname(gamedll.value),
-					setsid: false,
-					detached: true
-				});
-				log.info('Spawned child pid: ' + prc.pid);
-				await renameAccountWindow(prc, account);
-			}
+		if (await alreadyLoggedInCheck(account.name)) {
+			return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
+		}
+		const prc = spawn(gamedll.value, [server.ip, server.port, server.n, account.name, account.password], {
+			cwd:path.dirname(gamedll.value),
+			setsid: false,
+			detached: true
 		});
+		log.info(constants.infoSpawnedChildPid, prc.pid);
+		await renameAccountWindow(prc, account);
+		await handle.killMutants();
 	},
 
 	playCharacterFromTeam: async (_character, res, windowed, borderless, width, height, positionX, positionY) => {
@@ -125,7 +86,7 @@ module.exports = {
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
 		}
-		backup.backupFile(userdat.value);
+		await backup.backupUserDat(userdat);
 		const gamedll = await settingController.findOneByKey(constants.pathToGameDll);
 		if (null == gamedll || !fs.existsSync(gamedll.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorGameDllNF);
@@ -136,45 +97,24 @@ module.exports = {
 		let classe = await classeController.findOneByName(character.classe);
 		let realm = await realmController.findOneByName(classe.realm);
 		await userdatModule.setIniOnPlayTeam(userdat, res, windowed);
-		const spawn = child_process.spawn;
-		ps.lookup({
-			command: constants.gameDll,
-			psargs: constants.psargs
-		}, async (err, resultList) => {
-			if (err) {
-				log.error(err);
-			}
-			let flag = false;
-			let c = 0;
-			resultList.forEach(process => {
-				if (process && process.arguments[3] == character.account) {
-					flag = true;
-				}
-				c++;
-			});
-			while (c < resultList.length) {}
-			if (flag){
-				return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
-			}
-			if (false == flag) {
-				backup.backupFile(path.dirname(userdat.value) + '\\' + character.name.charAt(0).toUpperCase() + character.name.slice(1) + '-' + server.n + '.ini');
-				const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
-					cwd: path.dirname(gamedll.value),
-					setsid: false,
-					detached: true
-				});
-				log.info('Spawned child pid: ' + prc.pid);
-				await characterController.updateLastLogin(character._id);
-				await autoit.renameCharacterWindow(prc, account, character);
-				await autoit.applyBorderless(borderless, width,
-					height, positionX, positionY);
-				await handle.killMutants();
-			}
+		if (await alreadyLoggedInCheck(character.account)) {
+			return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
+		}
+		await backup.backupCharacter(userdat, character, server);
+		const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
+			cwd: path.dirname(gamedll.value),
+			setsid: false,
+			detached: true
 		});
+		log.info(constants.infoSpawnedChildPid, prc.pid);
+		await characterController.updateLastLogin(character._id);
+		await autoit.renameCharacterWindow(prc, account, character);
+		await autoit.applyBorderless(borderless, width, height, positionX, positionY);
+		await handle.killMutants();
 	},
 	
 	killCharacter: async id => {
-		let character = await characterController.findOneById(id);
+		const character = await characterController.findOneById(id);
 		ps.lookup({
 			command: constants.gameDll,
 			psargs: constants.psargs
@@ -191,7 +131,7 @@ module.exports = {
 	},
 
 	killAccount: async id => {
-		let account = await accountController.findOneById(id);
+		const account = await accountController.findOneById(id);
 		ps.lookup({
 			command: constants.gameDll,
 			psargs: constants.psargs
@@ -222,12 +162,36 @@ module.exports = {
 	},
 
 	killTeam: async id => {
-		let team = await teamController.findOneById(id);
-		let characters = await characterController.getByNameArray([team.char0,
+		const team = await teamController.findOneById(id);
+		const characters = await characterController.getByNameArray([team.char0,
 			team.char1, team.char2, team.char3, team.char4, team.char5, team.char6, team.char7,
 		]);
 		characters.forEach(character => {
 			module.exports.killCharacter(character._id);
 		});
 	}
+}
+
+const alreadyLoggedInCheck = accountName => {
+	return new Promise(function(resolve, reject) {
+		ps.lookup({
+			command: constants.gameDll,
+			psargs: constants.psargs
+		}, (err, resultList) => {
+			if (err) {
+				log.error(err);
+			}
+			let flag = false;
+			let c = 0;
+			resultList.forEach(process => {
+				if (process && process.arguments[3] == accountName) {
+					flag = true;
+				}
+				c++;
+			});
+			while (c < resultList.length) {
+			}
+			resolve(flag);
+		});
+	});
 }

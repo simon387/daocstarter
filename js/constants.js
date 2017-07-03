@@ -106,6 +106,10 @@ module.exports = {
 	executionPolicy: 'Bypass',
 	timestampFormat: 'DD/MM/YY HH:mm',
 	errorAlreadyLoggedIn: 'The account is already logged in!',
+	infoSpawnedChildPid: 'Spawned child pid:',
+	doubleSlash: '\\',
+	minus: '-',
+	ini: '.ini',
 
 	handle_path: () => {
 		const handle_path_dev = path.join('vendor', 'handle', 'handle.exe');
