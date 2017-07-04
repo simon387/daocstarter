@@ -178,7 +178,6 @@ ipcMain.on(constants.applyIniDefaultTemplate, (event, name, server) => {
 	characterController.applyIniDefaultTemplate(name, server);
 });
 
-//TODO
-ipcMain.on(constants.spellcraftToolStart, event => {
-	spellcraftController.OpenForm(event);
-});
+/*ipcMain.on(constants.spellcraftToolStart, event => {
+	spellcraftController.openForm(event);
+});*/

@@ -163,6 +163,7 @@ $('#edit-team-modal').on('submit', event => {
 		team
 	);
 });
+
 ipcRenderer.on('saveTeam-reply', event => {
 	teamDataTable.ajax.reload();
 	$('#edit-team-modal').modal('hide');

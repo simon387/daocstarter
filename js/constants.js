@@ -95,6 +95,7 @@ module.exports = {
 	setIniDefaultTemplate: 'set-ini-default-template',
 	applyIniDefaultTemplate: 'apply-ini-default-template',
 	spellcraftToolStart: 'spellcraft-tool-start',
+	spellcraftToolStartReply: 'spellcraft-tool-start-reply',
 	infoExpress: 'Express running in electron and listening on port',
 	warnVGAModule: 'vga-module working only on windows',
 	win32Platform: 'win32',
