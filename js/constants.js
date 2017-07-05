@@ -111,6 +111,8 @@ module.exports = {
 	doubleSlash: '\\',
 	minus: '-',
 	ini: '.ini',
+	getSpellcrafters: 'get-spellcrafters',
+	getSpellcraftersReply: 'get-spellcrafters-reply',
 
 	handle_path: () => {
 		const handle_path_dev = path.join('vendor', 'handle', 'handle.exe');

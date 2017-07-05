@@ -208,6 +208,14 @@ module.exports = {
 		});
 	},
 
+	findAllSpellcrafter: () => {
+		return new Promise(function(resolve, reject) {
+			db.characterDatastore.find({spellcrafter: true}, (err, characters) => {
+				resolve(characters);
+			});
+		});
+	},
+
 	saveFavouriteCoordinate: (id, left, top) => {
 		db.characterDatastore.update(
 			{_id: id},

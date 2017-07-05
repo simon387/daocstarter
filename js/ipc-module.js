@@ -6,7 +6,8 @@ const accountController = require('./controller/account.js');
 const spellcraftController = require('./controller/spellcraft.js');
 const settingController = require('./controller/setting.js');
 const characterController = require('./controller/character.js');
-const teamController = require('./controller/team.js')
+const teamController = require('./controller/team.js');
+const classeController = require('./controller/classe.js');
 const gamedll = require('./gamedll-module.js');
 const constants = require('./constants.js');
 
@@ -176,6 +177,16 @@ ipcMain.on(constants.setIniDefaultTemplate, (event, name, server) => {
 
 ipcMain.on(constants.applyIniDefaultTemplate, (event, name, server) => {
 	characterController.applyIniDefaultTemplate(name, server);
+});
+
+ipcMain.on(constants.getSpellcrafters, async event => {
+	let charsArray = [];
+	let characters = await characterController.findAllSpellcrafter();
+	for (let c = 0; c < characters.length; c++) {
+		let classe = await classeController.findOneByName(characters[c].classe);
+		charsArray.push({name: characters[c].name, realm: classe.realm})
+	}
+	event.sender.send(constants.getSpellcraftersReply, charsArray);
 });
 
 /*ipcMain.on(constants.spellcraftToolStart, event => {
