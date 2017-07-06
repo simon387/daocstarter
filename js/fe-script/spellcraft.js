@@ -33,6 +33,14 @@ document.getElementById('spellcraft-button').onclick = () => {
 						"<div class='col-sm-4'>" +
 							"<select class='form-control' id='spellcraft-character-dropdown' onchange='reCalc(0, 0)' name='spellcraft-character-dropdown'></select>" +
 						"</div>" +
+						"<label for='spellcraft-qbar-dropdown' class='col-sm-2 control-label'>qbar</label>" +
+						"<div class='col-sm-4'>" +
+							"<select class='form-control' id='spellcraft-qbar-dropdown' name='spellcraft-qbar-dropdown'>" +
+								printOptionTag('1') +
+								printOptionTag('2') +
+								printOptionTag('3') +
+							"</select>" +
+						"</div>" +
 						//"<>" +
 					"</div>" +
 					"<div id='container-spellcrafter'>" +
@@ -80,6 +88,13 @@ const generaPezzo = () => {
 		generaGemma(itemCounter, 2) +
 		generaGemma(itemCounter, 3) +
 		generaGemma(itemCounter, 4) +
+		"<div class='form-group'>" +
+			"<label class='col-sm-2 control-label'>imbue</label>" +
+			"<div class='col-sm-3'>" +
+				"<input type='text' class='form-control' id='imbue" + itemCounter +
+				"' name='imbue" + itemCounter + "' placeholder='0' readonly>" +
+			"</div>" +
+		"</div>" +
 		"<hr>"
 	);
 }
@@ -90,21 +105,22 @@ const generaGemma = (nItem, nRiga) => {
 	"<div class='form-group'>" +
 		"<label class='col-sm-2 control-label'>Gem " + nRiga + "</label>" +
 		"<div class='col-sm-3'>" +
-			"<select class='form-control' id='effect" + nItem + nRiga + "' onchange='reCalc(" + nItem + "," + nRiga + ")'>" +
+			"<select class='form-control' id='effect" + nItem + nRiga +
+			"' name='effect" + nItem + nRiga + "' onchange='reCalc(" + nItem + "," + nRiga + ")'>" +
 				printOptionTag('stat', '+ Stat') +
 				printOptionTag('resist', '+ Resists') +
 				printOptionTag('hits', '+ Hits') +
 				printOptionTag('power', '+ Power') +
 				printOptionTag('focus', '+ Focus') +
 				printOptionTag('skill', '+ Skill') +
-				printOptionTag('unused', '+ Unused', true) +
+				printOptionTag('unused', 'Unused', true) +
 			"</select>" +
 		"</div>" +
 		"<div class='col-sm-3'>" +
-			"<select class='form-control' id='evalue" + nItem + nRiga + "'></select>" +
+			"<select class='form-control' id='evalue" + nItem + nRiga + "' name='effect" + nItem + nRiga + "'></select>" +
 		"</div>" +
 		"<div class='col-sm-4'>" +
-			"<select class='form-control' id='ebonus" + nItem + nRiga + "'></select>" +
+			"<select class='form-control' id='ebonus" + nItem + nRiga + "' name='effect" + nItem + nRiga + "'></select>" +
 		"</div>" +
 	"</div>";
 }
