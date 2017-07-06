@@ -92,7 +92,7 @@ const generaPezzo = () => {
 			"<label class='col-sm-2 control-label'>imbue</label>" +
 			"<div class='col-sm-3'>" +
 				"<input type='text' class='form-control' id='imbue" + itemCounter +
-				"' name='imbue" + itemCounter + "' placeholder='0' readonly>" +
+				"' name='imbue" + itemCounter + "' placeholder='0' >" +//readonly
 			"</div>" +
 		"</div>" +
 		"<hr>"
@@ -106,18 +106,19 @@ const generaGemma = (nItem, nRiga) => {
 		"<label class='col-sm-2 control-label'>Gem " + nRiga + "</label>" +
 		"<div class='col-sm-3'>" +
 			"<select class='form-control' id='effect" + nItem + nRiga +
-			"' name='effect" + nItem + nRiga + "' onchange='reCalc(" + nItem + "," + nRiga + ")'>" +
+			"' name='effect" + nItem + nRiga + "' onchange='reCalc(" + nItem + "," + nRiga + ",true)'>" +
 				printOptionTag('stat', '+ Stat') +
 				printOptionTag('resist', '+ Resists') +
 				printOptionTag('hits', '+ Hits') +
 				printOptionTag('power', '+ Power') +
-				printOptionTag('focus', '+ Focus') +
+				//printOptionTag('focus', '+ Focus') +
 				printOptionTag('skill', '+ Skill') +
 				printOptionTag('unused', 'Unused', true) +
 			"</select>" +
 		"</div>" +
 		"<div class='col-sm-3'>" +
-			"<select class='form-control' id='evalue" + nItem + nRiga + "' name='effect" + nItem + nRiga + "'></select>" +
+			"<select class='form-control' onchange='reCalc(" + nItem + "," + nRiga + ")' id='evalue" +
+			nItem + nRiga + "' name='effect" + nItem + nRiga + "'></select>" +
 		"</div>" +
 		"<div class='col-sm-4'>" +
 			"<select class='form-control' id='ebonus" + nItem + nRiga + "' name='effect" + nItem + nRiga + "'></select>" +
@@ -137,7 +138,7 @@ ipcRenderer.on('spellcraft-tool-start-reply', event => {
 });
 */
 
-const reCalc = (nItem, nRiga) => {
+const reCalc = (nItem, nRiga, refillFieldsFlag = false) => {
 	if (nItem == 0) {//se 0 0 proviene dalla dropdown char
 		return resetAll();
 	}
@@ -148,6 +149,68 @@ const reCalc = (nItem, nRiga) => {
 	let effectValue = getEffectValue(nItem, nRiga);
 	let evalueElement = document.getElementById('evalue' + nItem + nRiga);
 	let ebonusElement = document.getElementById('ebonus' + nItem + nRiga);
+	if (refillFieldsFlag) {
+		refillFields(effectValue, evalueElement, ebonusElement, realm);
+	}
+	let finalImbueResult = 42;
+	let e;
+	let mVal1 = 0, mVal2 = 0, mVal3 = 0, mVal4 = 0;
+	//var e = document.getElementById("ddlViewBy");
+	//var strUser = e.options[e.selectedIndex].value;
+
+	e = document.getElementById('evalue' + nItem + 1);
+	try {
+		mVal1 = e.options[e.selectedIndex].value * getMultiplier(nItem, 1);
+	}catch(e) {}
+	e = document.getElementById('evalue' + nItem + 2);
+	try {
+		mVal2 = e.options[e.selectedIndex].value * getMultiplier(nItem, 2);
+	}catch(e) {}
+	e = document.getElementById('evalue' + nItem + 3);
+	try {
+		mVal3 = e.options[e.selectedIndex].value * getMultiplier(nItem, 3);
+	}catch(e) {}
+	e = document.getElementById('evalue' + nItem + 4);
+	try {
+		mVal4 = e.options[e.selectedIndex].value * getMultiplier(nItem, 4);
+	}catch(e) {}
+
+	let mValMax = Math.max(mVal1, mVal2, mVal3, mVal4);
+	let mValArray = [];
+	mValArray.push(mVal1);
+	mValArray.push(mVal2);
+	mValArray.push(mVal3);
+	mValArray.push(mVal4);
+	for (let i = 0; i < mValArray.length; i++) {
+		if (mValArray[i] == mValMax) {
+			mValArray[i] = mValArray[i] * 2;
+			break;
+		}
+	}
+
+	finalImbueResult = (mVal1 + mVal2 + mVal3 + mVal4) / 2;
+
+	document.getElementById('imbue' + nItem).value = finalImbueResult;
+}
+
+const getMultiplier = (nItem, nRiga) => {
+	switch (getEffectValue(nItem, nRiga)) {
+		case 'stat':
+			return 1;
+		case 'resist':
+			return 2;
+		case 'hits':
+			return 0.25;
+		case 'power':
+			return 2;
+		// case 'focus':
+		// 	return ;
+		case 'skill':
+			return 5;
+	}
+}
+
+const refillFields = (effectValue, evalueElement, ebonusElement, realm) => {
 	switch (effectValue) {
 		case 'stat':
 			fillStat(evalueElement, ebonusElement);
