@@ -1,11 +1,43 @@
-function reCalc(elementUsed){
+function reCalc(elementUsed){//SERVE UN CAZZ IL PAR QQUI
+
+let DAOCSTARTER_REAME = 0;//012 albion hib mid
+//prima gemma
+let DAOCSTARTER_G1_EFFECT = window.document.form1.g1effect.selectedIndex;
+let DAOCSTARTER_G1_AMOUNT = window.document.form1.g1effect2.selectedIndex;
+let DAOCSTARTER_G1_TERZA = window.document.form1.line1.selectedIndex;
+//seconda gemma
+let DAOCSTARTER_G2_EFFECT = window.document.form1.g2effect.selectedIndex;
+let DAOCSTARTER_G2_AMOUNT = window.document.form1.g2effect2.selectedIndex;
+let DAOCSTARTER_G2_TERZA = window.document.form1.line2.selectedIndex;
+//terza gemma
+let DAOCSTARTER_G3_EFFECT = window.document.form1.g3effect.selectedIndex;
+let DAOCSTARTER_G3_AMOUNT = window.document.form1.g3effect2.selectedIndex;
+let DAOCSTARTER_G3_TERZA = window.document.form1.line3.selectedIndex;
+//quarta gemma
+let DAOCSTARTER_G4_EFFECT = window.document.form1.g4effect.selectedIndex;
+let DAOCSTARTER_G4_AMOUNT = window.document.form1.g4effect2.selectedIndex;
+let DAOCSTARTER_G4_TERZA = window.document.form1.line4.selectedIndex;
+/*console.log( 
+"DAOCSTARTER_G1_EFFECT=",DAOCSTARTER_G1_EFFECT,
+"DAOCSTARTER_G1_AMOUNT=",DAOCSTARTER_G1_AMOUNT,
+"DAOCSTARTER_G1_TERZA=",DAOCSTARTER_G1_TERZA)
+console.log( "DAOCSTARTER_G2_EFFECT=",DAOCSTARTER_G2_EFFECT,
+"DAOCSTARTER_G2_AMOUNT=",DAOCSTARTER_G2_AMOUNT,
+"DAOCSTARTER_G2_TERZA=",DAOCSTARTER_G2_TERZA)
+console.log( "DAOCSTARTER_G3_EFFECT=",DAOCSTARTER_G3_EFFECT,
+ "DAOCSTARTER_G3_AMOUNT=",DAOCSTARTER_G3_AMOUNT,
+ "DAOCSTARTER_G3_TERZA=" ,DAOCSTARTER_G3_TERZA)
+console.log( "DAOCSTARTER_G4_EFFECT=",DAOCSTARTER_G4_EFFECT,
+ "DAOCSTARTER_G4_AMOUNT=" ,DAOCSTARTER_G4_AMOUNT,
+ "DAOCSTARTER_G4_TERZA=" ,DAOCSTARTER_G4_TERZA,
+ "DAOCSTARTER_REAME=",DAOCSTARTER_REAME)*/
+
 var intNumAlbSkillsUsed = 34;
 var intNumMidSkillsUsed = 30;
 var intNumHibSkillsUsed = 34;
 var intFocusUsedAlb = 12;
 var intFocusUsedHib = 12;
 var intFocusUsedMid = 6;
-var arrOptions = new Array('+ Stat', '+ Resists', '+ Hits', '+ Power', '+ Focus', '+ Skill', 'Unused');
 var arrSkills = new Array (1,2,3,4,5,6,7,8,9,10);
 var arrSkillsUsedAlb = new Array('Body Destruction', 'Chants', 'Critical Strike', 'Crossbow', 'Crush', 'Death Servant', 'Deathsight', 'Dual Wield', 'Earth','Enhancement', 'Envenom', 'Flexible', 'Fire', 'Healing', 'Ice', 'Instruments', 'Longbow', 'Matter', 'Mind Twisting', 'Painworking', 'Parry', 'Polearm', 'Shield', 'Slash', 'Smite', 'Soulrending', 'Spirit Animation', 'Staff', 'Stealth', 'Thrust', 'Two Handed', 'Wind', 'All: Primary Melee', 'All: Casting');
 var arrSkillsAlbName = new Array('heated evocation sigil', 'earthen fervor sigil', 'heated battle jewel', 'vapor war sigil', 'fiery war sigil', 'ashen fervor sigil', 'vacuous fervor sigil', 'icy war sigil', 'earthen evocation sigil', 'airy fervor sigil', 'dusty battle jewel', 'molten magma war sigil', 'fiery evocation sigil', 'watery fervor sigil', 'icy evocation sigil', 'vapor fervor sigil', 'airy war sigil', 'dusty evocation sigil', 'watery evocation sigil', 'salt encrusted fervor sigil', 'vapor battle jewel', 'earthen war sigil', 'fiery battle jewel', 'watery war sigil', 'fiery fervor sigil', 'steaming fervor sigil', 'vapor evocation sigil', 'earthen battle jewel',  'airy battle jewel', 'dusty war sigil', 'heated war sigil', 'airy evocation sigil', 'finesse war sigil', 'finesse fervor sigil');
@@ -130,15 +162,13 @@ while (window.document.form1.line1.options.length>0)
 	 window.document.form1.line1.options[deleteIndex]=null;
 	}
 
-
-
-switch (window.document.form1.g1effect.selectedIndex) {
+switch (DAOCSTARTER_G1_EFFECT) {
 case 0:
   for (i = 0; i < 10; i++) {
   myOption=new Option();
   myOption.text="+ " + Math.floor(arrStats[i] * 1.5);
-  if (window.document.form1.g1effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g1effect2.selectedIndex;
+  if (DAOCSTARTER_G1_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G1_AMOUNT;
    else
     insertIndex=window.document.form1.g1effect2.options.length;
    window.document.form1.g1effect2.options[insertIndex]=myOption;
@@ -146,8 +176,8 @@ case 0:
   for (i = 0; i < 8; i++) {
   myOption=new Option();
   myOption.text= arrStatsUsed[i];
-  if (window.document.form1.line1.selectedIndex > 0)
-    insertIndex=window.document.form1.line1.selectedIndex;
+  if (DAOCSTARTER_G1_TERZA > 0)
+    insertIndex=DAOCSTARTER_G1_TERZA;
    else
     insertIndex=window.document.form1.line1.options.length;
    window.document.form1.line1.options[insertIndex]=myOption;
@@ -157,8 +187,8 @@ case 1:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrResist[i];
-  if (window.document.form1.g1effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g1effect2.selectedIndex;
+  if (DAOCSTARTER_G1_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G1_AMOUNT;
    else
     insertIndex=window.document.form1.g1effect2.options.length;
    window.document.form1.g1effect2.options[insertIndex]=myOption;
@@ -166,8 +196,8 @@ case 1:
     for (i = 0; i < 9; i++) {
   myOption=new Option();
   myOption.text= arrResistUsed[i];
-  if (window.document.form1.line1.selectedIndex > 0)
-    insertIndex=window.document.form1.line1.selectedIndex;
+  if (DAOCSTARTER_G1_TERZA > 0)
+    insertIndex=DAOCSTARTER_G1_TERZA;
    else
     insertIndex=window.document.form1.line1.options.length;
    window.document.form1.line1.options[insertIndex]=myOption;
@@ -177,16 +207,16 @@ case 2:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrHits[i];
-  if (window.document.form1.g1effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g1effect2.selectedIndex;
+  if (DAOCSTARTER_G1_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G1_AMOUNT;
    else
     insertIndex=window.document.form1.g1effect2.options.length;
    window.document.form1.g1effect2.options[insertIndex]=myOption;
   }
     myOption=new Option();
   myOption.text= 'HP';
-  if (window.document.form1.line1.selectedIndex > 0)
-         insertIndex=window.document.form1.line1.selectedIndex;
+  if (DAOCSTARTER_G1_TERZA > 0)
+         insertIndex=DAOCSTARTER_G1_TERZA;
        else
          insertIndex=window.document.form1.line1.options.length;
   window.document.form1.line1.options[insertIndex]=myOption;
@@ -195,16 +225,16 @@ case 3:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrPower[i];
-  if (window.document.form1.g1effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g1effect2.selectedIndex;
+  if (DAOCSTARTER_G1_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G1_AMOUNT;
    else
     insertIndex=window.document.form1.g1effect2.options.length;
    window.document.form1.g1effect2.options[insertIndex]=myOption;
   }
   myOption=new Option();
   myOption.text= 'Power';
-  if (window.document.form1.line1.selectedIndex > 0)
-         insertIndex=window.document.form1.line1.selectedIndex;
+  if (DAOCSTARTER_G1_TERZA > 0)
+         insertIndex=DAOCSTARTER_G1_TERZA;
        else
          insertIndex=window.document.form1.line1.options.length;
   window.document.form1.line1.options[insertIndex]=myOption;
@@ -213,19 +243,19 @@ case 4:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrFocus[i];
-  if (window.document.form1.g1effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g1effect2.selectedIndex;
+  if (DAOCSTARTER_G1_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G1_AMOUNT;
    else
     insertIndex=window.document.form1.g1effect2.options.length;
    window.document.form1.g1effect2.options[insertIndex]=myOption;
   }
-  switch (window.document.form1.realm.selectedIndex) {
+  switch (DAOCSTARTER_REAME) {
     case 0:
 	  for (i = 0; i < intFocusUsedAlb; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedAlb[i];
-       if (window.document.form1.line1.selectedIndex > 0)
-         insertIndex=window.document.form1.line1.selectedIndex;
+       if (DAOCSTARTER_G1_TERZA > 0)
+         insertIndex=DAOCSTARTER_G1_TERZA;
        else
          insertIndex=window.document.form1.line1.options.length;
        window.document.form1.line1.options[insertIndex]=myOption;
@@ -235,8 +265,8 @@ case 4:
 	  for (i = 0; i < intFocusUsedHib; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedHib[i];
-       if (window.document.form1.line1.selectedIndex > 0)
-         insertIndex=window.document.form1.line1.selectedIndex;
+       if (DAOCSTARTER_G1_TERZA > 0)
+         insertIndex=DAOCSTARTER_G1_TERZA;
        else
          insertIndex=window.document.form1.line1.options.length;
        window.document.form1.line1.options[insertIndex]=myOption;
@@ -246,8 +276,8 @@ case 4:
 	  for (i = 0; i < intFocusUsedMid; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedMid[i];
-       if (window.document.form1.line1.selectedIndex > 0)
-         insertIndex=window.document.form1.line1.selectedIndex;
+       if (DAOCSTARTER_G1_TERZA > 0)
+         insertIndex=DAOCSTARTER_G1_TERZA;
        else
          insertIndex=window.document.form1.line1.options.length;
        window.document.form1.line1.options[insertIndex]=myOption;
@@ -259,19 +289,19 @@ case 5:
   for (i = 0; i < 8; i++) {
     myOption=new Option();
   myOption.text="+ " + arrSkills[i];
-  if (window.document.form1.g1effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g1effect2.selectedIndex;
+  if (DAOCSTARTER_G1_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G1_AMOUNT;
    else
     insertIndex=window.document.form1.g1effect2.options.length;
    window.document.form1.g1effect2.options[insertIndex]=myOption;
   }
-    switch (window.document.form1.realm.selectedIndex) {
+    switch (DAOCSTARTER_REAME) {
     case 0:
 	  for (i = 0; i < intNumAlbSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedAlb[i];
-       if (window.document.form1.line1.selectedIndex > 0)
-         insertIndex=window.document.form1.line1.selectedIndex;
+       if (DAOCSTARTER_G1_TERZA > 0)
+         insertIndex=DAOCSTARTER_G1_TERZA;
        else
          insertIndex=window.document.form1.line1.options.length;
        window.document.form1.line1.options[insertIndex]=myOption;
@@ -281,8 +311,8 @@ case 5:
 	  for (i = 0; i < intNumHibSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedHib[i];
-       if (window.document.form1.line1.selectedIndex > 0)
-         insertIndex=window.document.form1.line1.selectedIndex;
+       if (DAOCSTARTER_G1_TERZA > 0)
+         insertIndex=DAOCSTARTER_G1_TERZA;
        else
          insertIndex=window.document.form1.line1.options.length;
        window.document.form1.line1.options[insertIndex]=myOption;
@@ -292,8 +322,8 @@ case 5:
 	  for (i = 0; i < intNumMidSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedMid[i];
-       if (window.document.form1.line1.selectedIndex > 0)
-         insertIndex=window.document.form1.line1.selectedIndex;
+       if (DAOCSTARTER_G1_TERZA > 0)
+         insertIndex=DAOCSTARTER_G1_TERZA;
        else
          insertIndex=window.document.form1.line1.options.length;
        window.document.form1.line1.options[insertIndex]=myOption;
@@ -306,24 +336,22 @@ case 5:
 
 // Reset pulldowns: gem 2
 if ((elementUsed == 2) || (elementUsed == 5)) {
-while (window.document.form1.g2effect2.options.length>0)
-    {
+while (window.document.form1.g2effect2.options.length>0){
 	 deleteIndex=window.document.form1.g2effect2.options.length-1;
 	 window.document.form1.g2effect2.options[deleteIndex]=null;
 	}
-while (window.document.form1.line2.options.length>0)
-    {
+while (window.document.form1.line2.options.length>0){
 	 deleteIndex=window.document.form1.line2.options.length-1;
 	 window.document.form1.line2.options[deleteIndex]=null;
 	}
 
-switch (window.document.form1.g2effect.selectedIndex) {
+switch (DAOCSTARTER_G2_EFFECT) {
 case 0:
   for (i = 0; i < 10; i++) {
   myOption=new Option();
   myOption.text="+ " + Math.floor(arrStats[i] * 1.5);
-  if (window.document.form1.g2effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g2effect2.selectedIndex;
+  if (DAOCSTARTER_G2_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G2_AMOUNT;
    else
     insertIndex=window.document.form1.g2effect2.options.length;
    window.document.form1.g2effect2.options[insertIndex]=myOption;
@@ -331,8 +359,8 @@ case 0:
   for (i = 0; i < 8; i++) {
   myOption=new Option();
   myOption.text= arrStatsUsed[i];
-  if (window.document.form1.line2.selectedIndex > 0)
-    insertIndex=window.document.form1.line2.selectedIndex;
+  if (DAOCSTARTER_G2_TERZA > 0)
+    insertIndex=DAOCSTARTER_G2_TERZA;
    else
     insertIndex=window.document.form1.line2.options.length;
    window.document.form1.line2.options[insertIndex]=myOption;
@@ -342,8 +370,8 @@ case 1:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrResist[i];
-  if (window.document.form1.g2effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g2effect2.selectedIndex;
+  if (DAOCSTARTER_G2_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G2_AMOUNT;
    else
     insertIndex=window.document.form1.g2effect2.options.length;
    window.document.form1.g2effect2.options[insertIndex]=myOption;
@@ -351,8 +379,8 @@ case 1:
     for (i = 0; i < 9; i++) {
   myOption=new Option();
   myOption.text= arrResistUsed[i];
-  if (window.document.form1.line2.selectedIndex > 0)
-    insertIndex=window.document.form1.line2.selectedIndex;
+  if (DAOCSTARTER_G2_TERZA > 0)
+    insertIndex=DAOCSTARTER_G2_TERZA;
    else
     insertIndex=window.document.form1.line2.options.length;
    window.document.form1.line2.options[insertIndex]=myOption;
@@ -362,16 +390,16 @@ case 2:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrHits[i];
-  if (window.document.form1.g2effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g2effect2.selectedIndex;
+  if (DAOCSTARTER_G2_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G2_AMOUNT;
    else
     insertIndex=window.document.form1.g2effect2.options.length;
    window.document.form1.g2effect2.options[insertIndex]=myOption;
   }
     myOption=new Option();
   myOption.text= 'HP';
-  if (window.document.form1.line2.selectedIndex > 0)
-         insertIndex=window.document.form1.line2.selectedIndex;
+  if (DAOCSTARTER_G2_TERZA > 0)
+         insertIndex=DAOCSTARTER_G2_TERZA;
        else
          insertIndex=window.document.form1.line2.options.length;
   window.document.form1.line2.options[insertIndex]=myOption;
@@ -380,16 +408,16 @@ case 3:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrPower[i];
-  if (window.document.form1.g2effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g2effect2.selectedIndex;
+  if (DAOCSTARTER_G2_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G2_AMOUNT;
    else
     insertIndex=window.document.form1.g2effect2.options.length;
    window.document.form1.g2effect2.options[insertIndex]=myOption;
   }
   myOption=new Option();
   myOption.text= 'Power';
-  if (window.document.form1.line2.selectedIndex > 0)
-         insertIndex=window.document.form1.line2.selectedIndex;
+  if (DAOCSTARTER_G2_TERZA > 0)
+         insertIndex=DAOCSTARTER_G2_TERZA;
        else
          insertIndex=window.document.form1.line2.options.length;
   window.document.form1.line2.options[insertIndex]=myOption;
@@ -398,19 +426,19 @@ case 4:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrFocus[i];
-  if (window.document.form1.g2effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g2effect2.selectedIndex;
+  if (DAOCSTARTER_G2_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G2_AMOUNT;
    else
     insertIndex=window.document.form1.g2effect2.options.length;
    window.document.form1.g2effect2.options[insertIndex]=myOption;
   }
-  switch (window.document.form1.realm.selectedIndex) {
+  switch (DAOCSTARTER_REAME) {
     case 0:
 	  for (i = 0; i < intFocusUsedAlb; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedAlb[i];
-       if (window.document.form1.line2.selectedIndex > 0)
-         insertIndex=window.document.form1.line2.selectedIndex;
+       if (DAOCSTARTER_G2_TERZA > 0)
+         insertIndex=DAOCSTARTER_G2_TERZA;
        else
          insertIndex=window.document.form1.line2.options.length;
        window.document.form1.line2.options[insertIndex]=myOption;
@@ -420,8 +448,8 @@ case 4:
 	  for (i = 0; i < intFocusUsedHib; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedHib[i];
-       if (window.document.form1.line2.selectedIndex > 0)
-         insertIndex=window.document.form1.line2.selectedIndex;
+       if (DAOCSTARTER_G2_TERZA > 0)
+         insertIndex=DAOCSTARTER_G2_TERZA;
        else
          insertIndex=window.document.form1.line2.options.length;
        window.document.form1.line2.options[insertIndex]=myOption;
@@ -431,8 +459,8 @@ case 4:
 	  for (i = 0; i < intFocusUsedMid; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedMid[i];
-       if (window.document.form1.line2.selectedIndex > 0)
-         insertIndex=window.document.form1.line2.selectedIndex;
+       if (DAOCSTARTER_G2_TERZA > 0)
+         insertIndex=DAOCSTARTER_G2_TERZA;
        else
          insertIndex=window.document.form1.line2.options.length;
        window.document.form1.line2.options[insertIndex]=myOption;
@@ -444,19 +472,19 @@ case 5:
   for (i = 0; i < 8; i++) {
     myOption=new Option();
   myOption.text="+ " + arrSkills[i];
-  if (window.document.form1.g2effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g2effect2.selectedIndex;
+  if (DAOCSTARTER_G2_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G2_AMOUNT;
    else
     insertIndex=window.document.form1.g2effect2.options.length;
    window.document.form1.g2effect2.options[insertIndex]=myOption;
   }
-    switch (window.document.form1.realm.selectedIndex) {
+    switch (DAOCSTARTER_REAME) {
     case 0:
 	  for (i = 0; i < intNumAlbSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedAlb[i];
-       if (window.document.form1.line2.selectedIndex > 0)
-         insertIndex=window.document.form1.line2.selectedIndex;
+       if (DAOCSTARTER_G2_TERZA > 0)
+         insertIndex=DAOCSTARTER_G2_TERZA;
        else
          insertIndex=window.document.form1.line2.options.length;
        window.document.form1.line2.options[insertIndex]=myOption;
@@ -466,8 +494,8 @@ case 5:
 	  for (i = 0; i < intNumHibSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedHib[i];
-       if (window.document.form1.line2.selectedIndex > 0)
-         insertIndex=window.document.form1.line2.selectedIndex;
+       if (DAOCSTARTER_G2_TERZA > 0)
+         insertIndex=DAOCSTARTER_G2_TERZA;
        else
          insertIndex=window.document.form1.line2.options.length;
        window.document.form1.line2.options[insertIndex]=myOption;
@@ -477,8 +505,8 @@ case 5:
 	  for (i = 0; i < intNumMidSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedMid[i];
-       if (window.document.form1.line2.selectedIndex > 0)
-         insertIndex=window.document.form1.line2.selectedIndex;
+       if (DAOCSTARTER_G2_TERZA > 0)
+         insertIndex=DAOCSTARTER_G2_TERZA;
        else
          insertIndex=window.document.form1.line2.options.length;
        window.document.form1.line2.options[insertIndex]=myOption;
@@ -489,27 +517,24 @@ case 5:
   }
 }
 
-
 // Reset pulldowns: gem 3
 if ((elementUsed == 3) || (elementUsed == 5)) {
-while (window.document.form1.g3effect2.options.length>0)
-    {
+while (window.document.form1.g3effect2.options.length>0) {
 	 deleteIndex=window.document.form1.g3effect2.options.length-1;
 	 window.document.form1.g3effect2.options[deleteIndex]=null;
 	}
-while (window.document.form1.line3.options.length>0)
-    {
+while (window.document.form1.line3.options.length>0) {
 	 deleteIndex=window.document.form1.line3.options.length-1;
 	 window.document.form1.line3.options[deleteIndex]=null;
 	}
 
-switch (window.document.form1.g3effect.selectedIndex) {
+switch (DAOCSTARTER_G3_EFFECT) {
 case 0:
   for (i = 0; i < 10; i++) {
   myOption=new Option();
   myOption.text="+ " + Math.floor(arrStats[i] * 1.5);
-  if (window.document.form1.g3effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g3effect2.selectedIndex;
+  if (DAOCSTARTER_G3_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G3_AMOUNT;
    else
     insertIndex=window.document.form1.g3effect2.options.length;
    window.document.form1.g3effect2.options[insertIndex]=myOption;
@@ -517,8 +542,8 @@ case 0:
   for (i = 0; i < 8; i++) {
   myOption=new Option();
   myOption.text= arrStatsUsed[i];
-  if (window.document.form1.line3.selectedIndex > 0)
-    insertIndex=window.document.form1.line3.selectedIndex;
+  if (DAOCSTARTER_G3_TERZA > 0)
+    insertIndex=DAOCSTARTER_G3_TERZA;
    else
     insertIndex=window.document.form1.line3.options.length;
    window.document.form1.line3.options[insertIndex]=myOption;
@@ -528,8 +553,8 @@ case 1:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrResist[i];
-  if (window.document.form1.g3effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g3effect2.selectedIndex;
+  if (DAOCSTARTER_G3_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G3_AMOUNT;
    else
     insertIndex=window.document.form1.g3effect2.options.length;
    window.document.form1.g3effect2.options[insertIndex]=myOption;
@@ -537,8 +562,8 @@ case 1:
     for (i = 0; i < 9; i++) {
   myOption=new Option();
   myOption.text= arrResistUsed[i];
-  if (window.document.form1.line3.selectedIndex > 0)
-    insertIndex=window.document.form1.line3.selectedIndex;
+  if (DAOCSTARTER_G3_TERZA > 0)
+    insertIndex=DAOCSTARTER_G3_TERZA;
    else
     insertIndex=window.document.form1.line3.options.length;
    window.document.form1.line3.options[insertIndex]=myOption;
@@ -548,16 +573,16 @@ case 2:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrHits[i];
-  if (window.document.form1.g3effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g3effect2.selectedIndex;
+  if (DAOCSTARTER_G3_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G3_AMOUNT;
    else
     insertIndex=window.document.form1.g3effect2.options.length;
    window.document.form1.g3effect2.options[insertIndex]=myOption;
   }
     myOption=new Option();
   myOption.text= 'HP';
-  if (window.document.form1.line3.selectedIndex > 0)
-         insertIndex=window.document.form1.line3.selectedIndex;
+  if (DAOCSTARTER_G3_TERZA > 0)
+         insertIndex=DAOCSTARTER_G3_TERZA;
        else
          insertIndex=window.document.form1.line3.options.length;
   window.document.form1.line3.options[insertIndex]=myOption;
@@ -566,16 +591,16 @@ case 3:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrPower[i];
-  if (window.document.form1.g3effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g3effect2.selectedIndex;
+  if (DAOCSTARTER_G3_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G3_AMOUNT;
    else
     insertIndex=window.document.form1.g3effect2.options.length;
    window.document.form1.g3effect2.options[insertIndex]=myOption;
   }
   myOption=new Option();
   myOption.text= 'Power';
-  if (window.document.form1.line3.selectedIndex > 0)
-         insertIndex=window.document.form1.line3.selectedIndex;
+  if (DAOCSTARTER_G3_TERZA > 0)
+         insertIndex=DAOCSTARTER_G3_TERZA;
        else
          insertIndex=window.document.form1.line3.options.length;
   window.document.form1.line3.options[insertIndex]=myOption;
@@ -584,19 +609,19 @@ case 4:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrFocus[i];
-  if (window.document.form1.g3effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g3effect2.selectedIndex;
+  if (DAOCSTARTER_G3_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G3_AMOUNT;
    else
     insertIndex=window.document.form1.g3effect2.options.length;
    window.document.form1.g3effect2.options[insertIndex]=myOption;
   }
-  switch (window.document.form1.realm.selectedIndex) {
+  switch (DAOCSTARTER_REAME) {
     case 0:
 	  for (i = 0; i < intFocusUsedAlb; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedAlb[i];
-       if (window.document.form1.line3.selectedIndex > 0)
-         insertIndex=window.document.form1.line3.selectedIndex;
+       if (DAOCSTARTER_G3_TERZA > 0)
+         insertIndex=DAOCSTARTER_G3_TERZA;
        else
          insertIndex=window.document.form1.line3.options.length;
        window.document.form1.line3.options[insertIndex]=myOption;
@@ -606,8 +631,8 @@ case 4:
 	  for (i = 0; i < intFocusUsedHib; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedHib[i];
-       if (window.document.form1.line3.selectedIndex > 0)
-         insertIndex=window.document.form1.line3.selectedIndex;
+       if (DAOCSTARTER_G3_TERZA > 0)
+         insertIndex=DAOCSTARTER_G3_TERZA;
        else
          insertIndex=window.document.form1.line3.options.length;
        window.document.form1.line3.options[insertIndex]=myOption;
@@ -617,8 +642,8 @@ case 4:
 	  for (i = 0; i < intFocusUsedMid; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedMid[i];
-       if (window.document.form1.line3.selectedIndex > 0)
-         insertIndex=window.document.form1.line3.selectedIndex;
+       if (DAOCSTARTER_G3_TERZA > 0)
+         insertIndex=DAOCSTARTER_G3_TERZA;
        else
          insertIndex=window.document.form1.line3.options.length;
        window.document.form1.line3.options[insertIndex]=myOption;
@@ -630,19 +655,19 @@ case 5:
   for (i = 0; i < 8; i++) {
     myOption=new Option();
   myOption.text="+ " + arrSkills[i];
-  if (window.document.form1.g3effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g3effect2.selectedIndex;
+  if (DAOCSTARTER_G3_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G3_AMOUNT;
    else
     insertIndex=window.document.form1.g3effect2.options.length;
    window.document.form1.g3effect2.options[insertIndex]=myOption;
   }
-    switch (window.document.form1.realm.selectedIndex) {
+    switch (DAOCSTARTER_REAME) {
     case 0:
 	  for (i = 0; i < intNumAlbSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedAlb[i];
-       if (window.document.form1.line3.selectedIndex > 0)
-         insertIndex=window.document.form1.line3.selectedIndex;
+       if (DAOCSTARTER_G3_TERZA > 0)
+         insertIndex=DAOCSTARTER_G3_TERZA;
        else
          insertIndex=window.document.form1.line3.options.length;
        window.document.form1.line3.options[insertIndex]=myOption;
@@ -652,8 +677,8 @@ case 5:
 	  for (i = 0; i < intNumHibSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedHib[i];
-       if (window.document.form1.line3.selectedIndex > 0)
-         insertIndex=window.document.form1.line3.selectedIndex;
+       if (DAOCSTARTER_G3_TERZA > 0)
+         insertIndex=DAOCSTARTER_G3_TERZA;
        else
          insertIndex=window.document.form1.line3.options.length;
        window.document.form1.line3.options[insertIndex]=myOption;
@@ -663,8 +688,8 @@ case 5:
 	  for (i = 0; i < intNumMidSkillsUSed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedMid[i];
-       if (window.document.form1.line3.selectedIndex > 0)
-         insertIndex=window.document.form1.line3.selectedIndex;
+       if (DAOCSTARTER_G3_TERZA > 0)
+         insertIndex=DAOCSTARTER_G3_TERZA;
        else
          insertIndex=window.document.form1.line3.options.length;
        window.document.form1.line3.options[insertIndex]=myOption;
@@ -677,24 +702,21 @@ case 5:
 
 // Reset pulldowns: gem 4
 if ((elementUsed == 4) || (elementUsed == 5)) {
-while (window.document.form1.g4effect2.options.length>0)
-    {
+while (window.document.form1.g4effect2.options.length>0) {
 	 deleteIndex=window.document.form1.g4effect2.options.length-1;
 	 window.document.form1.g4effect2.options[deleteIndex]=null;
-	}
-while (window.document.form1.line4.options.length>0)
-    {
+}
+while (window.document.form1.line4.options.length>0){
 	 deleteIndex=window.document.form1.line4.options.length-1;
 	 window.document.form1.line4.options[deleteIndex]=null;
-	}
-
-switch (window.document.form1.g4effect.selectedIndex) {
+}
+switch (DAOCSTARTER_G4_EFFECT) {
 case 0:
   for (i = 0; i < 10; i++) {
   myOption=new Option();
   myOption.text="+ " + Math.floor(arrStats[i] * 1.5);
-  if (window.document.form1.g4effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g4effect2.selectedIndex;
+  if (DAOCSTARTER_G4_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G4_AMOUNT;
    else
     insertIndex=window.document.form1.g4effect2.options.length;
    window.document.form1.g4effect2.options[insertIndex]=myOption;
@@ -702,8 +724,8 @@ case 0:
   for (i = 0; i < 8; i++) {
   myOption=new Option();
   myOption.text= arrStatsUsed[i];
-  if (window.document.form1.line4.selectedIndex > 0)
-    insertIndex=window.document.form1.line4.selectedIndex;
+  if (DAOCSTARTER_G4_TERZA > 0)
+    insertIndex=DAOCSTARTER_G4_TERZA;
    else
     insertIndex=window.document.form1.line4.options.length;
    window.document.form1.line4.options[insertIndex]=myOption;
@@ -713,8 +735,8 @@ case 1:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrResist[i];
-  if (window.document.form1.g4effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g4effect2.selectedIndex;
+  if (DAOCSTARTER_G4_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G4_AMOUNT;
    else
     insertIndex=window.document.form1.g4effect2.options.length;
    window.document.form1.g4effect2.options[insertIndex]=myOption;
@@ -722,8 +744,8 @@ case 1:
     for (i = 0; i < 9; i++) {
   myOption=new Option();
   myOption.text= arrResistUsed[i];
-  if (window.document.form1.line4.selectedIndex > 0)
-    insertIndex=window.document.form1.line4.selectedIndex;
+  if (DAOCSTARTER_G4_TERZA > 0)
+    insertIndex=DAOCSTARTER_G4_TERZA;
    else
     insertIndex=window.document.form1.line4.options.length;
    window.document.form1.line4.options[insertIndex]=myOption;
@@ -733,16 +755,16 @@ case 2:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrHits[i];
-  if (window.document.form1.g4effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g4effect2.selectedIndex;
+  if (DAOCSTARTER_G4_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G4_AMOUNT;
    else
     insertIndex=window.document.form1.g4effect2.options.length;
    window.document.form1.g4effect2.options[insertIndex]=myOption;
   }
     myOption=new Option();
   myOption.text= 'HP';
-  if (window.document.form1.line4.selectedIndex > 0)
-         insertIndex=window.document.form1.line4.selectedIndex;
+  if (DAOCSTARTER_G4_TERZA > 0)
+         insertIndex=DAOCSTARTER_G4_TERZA;
        else
          insertIndex=window.document.form1.line4.options.length;
   window.document.form1.line4.options[insertIndex]=myOption;
@@ -751,16 +773,16 @@ case 3:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrPower[i];
-  if (window.document.form1.g4effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g4effect2.selectedIndex;
+  if (DAOCSTARTER_G4_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G4_AMOUNT;
    else
     insertIndex=window.document.form1.g4effect2.options.length;
    window.document.form1.g4effect2.options[insertIndex]=myOption;
   }
   myOption=new Option();
   myOption.text= 'Power';
-  if (window.document.form1.line4.selectedIndex > 0)
-         insertIndex=window.document.form1.line4.selectedIndex;
+  if (DAOCSTARTER_G4_TERZA > 0)
+         insertIndex=DAOCSTARTER_G4_TERZA;
        else
          insertIndex=window.document.form1.line4.options.length;
   window.document.form1.line4.options[insertIndex]=myOption;
@@ -769,19 +791,19 @@ case 4:
   for (i = 0; i < 10; i++) {
     myOption=new Option();
   myOption.text="+ " + arrFocus[i];
-  if (window.document.form1.g4effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g4effect2.selectedIndex;
+  if (DAOCSTARTER_G4_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G4_AMOUNT;
    else
     insertIndex=window.document.form1.g4effect2.options.length;
    window.document.form1.g4effect2.options[insertIndex]=myOption;
   }
-  switch (window.document.form1.realm.selectedIndex) {
+  switch (DAOCSTARTER_REAME) {
     case 0:
 	  for (i = 0; i < intFocusUsedAlb; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedAlb[i];
-       if (window.document.form1.line4.selectedIndex > 0)
-         insertIndex=window.document.form1.line4.selectedIndex;
+       if (DAOCSTARTER_G4_TERZA > 0)
+         insertIndex=DAOCSTARTER_G4_TERZA;
        else
          insertIndex=window.document.form1.line4.options.length;
        window.document.form1.line4.options[insertIndex]=myOption;
@@ -791,8 +813,8 @@ case 4:
 	  for (i = 0; i < intFocusUsedHib; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedHib[i];
-       if (window.document.form1.line4.selectedIndex > 0)
-         insertIndex=window.document.form1.line4.selectedIndex;
+       if (DAOCSTARTER_G4_TERZA > 0)
+         insertIndex=DAOCSTARTER_G4_TERZA;
        else
          insertIndex=window.document.form1.line4.options.length;
        window.document.form1.line4.options[insertIndex]=myOption;
@@ -802,8 +824,8 @@ case 4:
 	  for (i = 0; i < intFocusUsedMid; i++) {
        myOption=new Option();
        myOption.text= arrFocusUsedMid[i];
-       if (window.document.form1.line4.selectedIndex > 0)
-         insertIndex=window.document.form1.line4.selectedIndex;
+       if (DAOCSTARTER_G4_TERZA > 0)
+         insertIndex=DAOCSTARTER_G4_TERZA;
        else
          insertIndex=window.document.form1.line4.options.length;
        window.document.form1.line4.options[insertIndex]=myOption;
@@ -815,19 +837,19 @@ case 5:
   for (i = 0; i < 8; i++) {
     myOption=new Option();
   myOption.text="+ " + arrSkills[i];
-  if (window.document.form1.g4effect2.selectedIndex > 0)
-    insertIndex=window.document.form1.g4effect2.selectedIndex;
+  if (DAOCSTARTER_G4_AMOUNT > 0)
+    insertIndex=DAOCSTARTER_G4_AMOUNT;
    else
     insertIndex=window.document.form1.g4effect2.options.length;
    window.document.form1.g4effect2.options[insertIndex]=myOption;
   }
-    switch (window.document.form1.realm.selectedIndex) {
+    switch (DAOCSTARTER_REAME) {
     case 0:
 	  for (i = 0; i < intNumAlbSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedAlb[i];
-       if (window.document.form1.line4.selectedIndex > 0)
-         insertIndex=window.document.form1.line4.selectedIndex;
+       if (DAOCSTARTER_G4_TERZA > 0)
+         insertIndex=DAOCSTARTER_G4_TERZA;
        else
          insertIndex=window.document.form1.line4.options.length;
        window.document.form1.line4.options[insertIndex]=myOption;
@@ -837,8 +859,8 @@ case 5:
 	  for (i = 0; i < intNumHibSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedHib[i];
-       if (window.document.form1.line4.selectedIndex > 0)
-         insertIndex=window.document.form1.line4.selectedIndex;
+       if (DAOCSTARTER_G4_TERZA > 0)
+         insertIndex=DAOCSTARTER_G4_TERZA;
        else
          insertIndex=window.document.form1.line4.options.length;
        window.document.form1.line4.options[insertIndex]=myOption;
@@ -848,8 +870,8 @@ case 5:
 	  for (i = 0; i < intNumMidSkillsUsed; i++) {
        myOption=new Option();
        myOption.text= arrSkillsUsedMid[i];
-       if (window.document.form1.line4.selectedIndex > 0)
-         insertIndex=window.document.form1.line4.selectedIndex;
+       if (DAOCSTARTER_G4_TERZA > 0)
+         insertIndex=DAOCSTARTER_G4_TERZA;
        else
          insertIndex=window.document.form1.line4.options.length;
        window.document.form1.line4.options[insertIndex]=myOption;
@@ -858,564 +880,384 @@ case 5:
 	}
   break;
   }
-}
-//TODO da qui
-var l = 51
-var imbue_level = 52 - 0;
-imbue_level = imbue_level - 2;
-var imbue_qual = window.document.form1.quality.selectedIndex;
-var imbue_points = marrImbue[imbue_level][imbue_qual];
-window.document.form1.itemcap.value = imbue_points;
+}//fino a qui solo comportamento estetico
 
-var t1 = window.document.form1.itemname.value + '\nMagical Bonuses:\n';
+var imbue_points = marrImbue[50][0];
+//window.do___cument.form1.itemcap.value = imbue_points;
+var t1 = "Your Item Here!" + '\nMagical Bonuses:\n';
 var itemStrength1 = 0;
 var itemStrength2 = 0;
 var itemStrength3 = 0;
 var itemStrength4 = 0;
-var iRD1 = 0;
-var iRD2 = 0;
-var iRD3 = 0;
+var REAME012 = 0;
+var BONUSAMOUNT = 0;
+var BONUSULTIMACELLA = 0;
 var strOutput = '';
 var strOutput2 = '';
-var iC = window.document.form1.g1effect.selectedIndex;
-if (window.document.form1.g1effect.selectedIndex < 6) {
-iRD1 = window.document.form1.realm.selectedIndex;
-iRD2 = window.document.form1.g1effect2.selectedIndex;
-iRD3 = window.document.form1.line1.selectedIndex;
-switch (iC) {
+var BONUS0123456UNUSED = DAOCSTARTER_G1_EFFECT;//0 = stat, 1 = resist, 2= hits 3=power 4=focus 5=skill 6=unused
+if (BONUS0123456UNUSED < 6) {//se diverso da "unused"
+REAME012 = DAOCSTARTER_REAME;//0 = albion, 1 = hibernia, 2 = midgard
+BONUSAMOUNT = DAOCSTARTER_G1_AMOUNT;//-1 nessun + valore, altrimenti indice di array
+BONUSULTIMACELLA = DAOCSTARTER_G1_TERZA;//indice dell'ultima casella a dx
+switch (BONUS0123456UNUSED) {//
  case 0:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrStatsName[iRD3] +'\n';
-   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrStatsMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrStatsMat2[iRD3] +'\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] +'\n';
+   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] +'\n';
    break;
  case 1:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrResistName[iRD3] +'\n';
-   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrResistMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrResistMat2[iRD3] +'\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] +'\n';
+   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] +'\n';
    break;
  case 2:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' blood essence jewel\n';
-   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' Essence of Life / ' + arrGemStrMat2[iRD2] + ' Giants Blood\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
+   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
    break;
  case 3:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' mystic essence jewel\n';
-   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' Essence of Life / ' + arrGemStrMat2[iRD2] + ' Mystic Essence \n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
+   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
    break;
  case 4:
-   switch (iRD1) {
+   switch (REAME012) {
      case 0:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusAlbName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusAlbMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusAlbMat2[iRD3];
-	 if (iRD3 == intFocusUsedAlb - 1) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[iRD2] + ' Mystic Energy' + ' / ' + arrGemStrMat2[iRD2] + ' Treant Blood'; }
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA];
+	 if (BONUSULTIMACELLA == intFocusUsedAlb - 1) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
 	 strOutput2 = strOutput2 + '\n';
 	 break;
      case 1:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusHibName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusHibMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusHibMat2[iRD3];
-	 if (iRD3  == intFocusUsedHib - 1) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[iRD2] + ' Mystic Energy' + ' / ' + arrGemStrMat2[iRD2] + ' Treant Blood'; }
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA];
+	 if (BONUSULTIMACELLA  == intFocusUsedHib - 1) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
 	 strOutput2 = strOutput2 + '\n';
 	 break;
 	 case 2:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusMidName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusMidMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusMidMat2[iRD3];
-	 if (iRD3  == intFocusUsedMid - 1) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[iRD2] + ' Mystic Energy' + ' / ' + arrGemStrMat2[iRD2] + ' Treant Blood'; }
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA];
+	 if (BONUSULTIMACELLA  == intFocusUsedMid - 1) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
 	 strOutput2 = strOutput2 + '\n';
 	 break;
 	 }
    break;
  case 5:
-   switch (iRD1) {
+   switch (REAME012) {
      case 0:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsAlbName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsAlbMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsAlbMat2[iRD3];
-	 if (iRD3 >= intNumAlbSkillsUsed - 2) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[iRD2] + ' Mystic Energy' + ' / ' + arrGemStrMat2[iRD2] + ' Treant Blood'; }
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA];
+	 if (BONUSULTIMACELLA >= intNumAlbSkillsUsed - 2) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
 	 strOutput2 = strOutput2 + '\n';
 	 break;
      case 1:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsHibName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsHibMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsHibMat2[iRD3];
-	  if (iRD3 >= intNumHibSkillsUsed - 2) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[iRD2] + ' Mystic Energy' + ' / ' + arrGemStrMat2[iRD2] + ' Treant Blood'; }
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA];
+	  if (BONUSULTIMACELLA >= intNumHibSkillsUsed - 2) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
 	 strOutput2 = strOutput2 + '\n';
 	 break;
 	 case 2:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsMidName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsMidMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsMidMat2[iRD3];
- if (iRD3 >= intNumMidSkillsUsed - 2) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[iRD2] + ' Mystic Energy' + ' / ' + arrGemStrMat2[iRD2] + ' Treant Blood';}
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA];
+ if (BONUSULTIMACELLA >= intNumMidSkillsUsed - 2) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood';}
 	 strOutput2 = strOutput2 + '\n';
 	 break;
 	 }
    break;
 }
+}//questo if serviva solo per nomi gemme e materiali
+
+if (BONUS0123456UNUSED == 3){
+	BONUS0123456UNUSED = 1;
 }
-if (iC == 3) { iC = 1; }
-switch (iC) {
-  case 0:
-    itemStrength1 = (window.document.form1.g1effect2.selectedIndex * 2) + 1;
+switch (BONUS0123456UNUSED) {
+  case 0: itemStrength1 = (BONUSAMOUNT * 2) + 1; break;
+  case 1: if (BONUSAMOUNT == 0) {itemStrength1 = 1;}
+	if (BONUSAMOUNT == 1) {itemStrength1 = 2;}
+	if (BONUSAMOUNT == 2) {itemStrength1 = 4;}
+	if (BONUSAMOUNT == 3) {itemStrength1 = 8;}
+	if (BONUSAMOUNT == 4) {itemStrength1 = 12;}
+	if (BONUSAMOUNT == 5) {itemStrength1 = 16;}
+	if (BONUSAMOUNT == 6) {itemStrength1 = 20;}
+	if (BONUSAMOUNT == 7) {itemStrength1 = 24;}
+	if (BONUSAMOUNT == 8) {itemStrength1 = 28;}
+	if (BONUSAMOUNT == 9) {itemStrength1 = 32;}
     break;
-  case 1:
-	if (window.document.form1.g1effect2.selectedIndex == 0) {
-	  itemStrength1 = 1;
-	}
-	if (window.document.form1.g1effect2.selectedIndex == 1) {
-	  itemStrength1 = 2;
-	}
-	if (window.document.form1.g1effect2.selectedIndex == 2) {
-	  itemStrength1 = 4;
-	}
-	if (window.document.form1.g1effect2.selectedIndex == 3) {
-	  itemStrength1 = 8;
-	}
-	if (window.document.form1.g1effect2.selectedIndex == 4) {
-	  itemStrength1 = 12;
-	}
-	if (window.document.form1.g1effect2.selectedIndex == 5) {
-	  itemStrength1 = 16;
-	}
-	if (window.document.form1.g1effect2.selectedIndex == 6) {
-	  itemStrength1 = 20;
-	}
-	if (window.document.form1.g1effect2.selectedIndex == 7) {
-	  itemStrength1 = 24;
-	}
-	if (window.document.form1.g1effect2.selectedIndex == 8) {
-	  itemStrength1 = 28;
-	}
-	if (window.document.form1.g1effect2.selectedIndex == 9) {
-	  itemStrength1 = 32;
-	}
-    break;
-  case 2:
-    itemStrength1 = (window.document.form1.g1effect2.selectedIndex * 2);
+  case 2: itemStrength1 = (BONUSAMOUNT * 2);
 	if (itemStrength1 > 0) { itemStrength1 = itemStrength1 + 1; }
 	if (itemStrength1 == 0) { itemStrength1 = 1; }
     break;
-  case 5:
-    itemStrength1 = window.document.form1.g1effect2.selectedIndex * 5;
+  case 5: itemStrength1 = BONUSAMOUNT * 5;
     if (itemStrength1 == 0) { itemStrength1 = 1; }
     break;
 }
+//seconda gemma
+BONUS0123456UNUSED = DAOCSTARTER_G2_EFFECT;//seconda gemma
+if (DAOCSTARTER_G2_EFFECT < 6) {
+REAME012 = DAOCSTARTER_REAME;
+BONUSAMOUNT = DAOCSTARTER_G2_AMOUNT;//seconda gemma
+BONUSULTIMACELLA = DAOCSTARTER_G2_TERZA;//seconda gemma
 
-iC = window.document.form1.g2effect.selectedIndex;
-if (window.document.form1.g2effect.selectedIndex < 6) {
-iRD1 = window.document.form1.realm.selectedIndex;
-iRD2 = window.document.form1.g2effect2.selectedIndex;
-iRD3 = window.document.form1.line2.selectedIndex;
-
-switch (iC) {
+switch (BONUS0123456UNUSED) {
  case 0:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrStatsName[iRD3] +'\n';
-   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrStatsMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrStatsMat2[iRD3] +'\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] +'\n';
+   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] +'\n';
    break;
  case 1:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrResistName[iRD3] +'\n';
-   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrResistMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrResistMat2[iRD3] +'\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] +'\n';
+   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] +'\n';
    break;
  case 2:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' blood essence jewel\n';
-   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' Essence of Life / ' + arrGemStrMat2[iRD2] + ' Giants Blood\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
+   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
    break;
  case 3:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' mystic essence jewel\n';
-   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' Essence of Life / ' + arrGemStrMat2[iRD2] + ' Mystic Essence \n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
+   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
    break;
  case 4:
-   switch (iRD1) {
+   switch (REAME012) {
      case 0:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusAlbName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusAlbMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusAlbMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA] +'\n';
 	 break;
      case 1:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusHibName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusHibMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusHibMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 case 2:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusMidName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusMidMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusMidMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 }
    break;
  case 5:
-   switch (iRD1) {
+   switch (REAME012) {
      case 0:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsAlbName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsAlbMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsAlbMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA] +'\n';
 	 break;
      case 1:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsHibName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsHibMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsHibMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 case 2:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsMidName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsMidMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsMidMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 }
    break;
 }
 }
-if (iC == 3) { iC = 1; }
-switch (iC) {
-  case 0:
-    itemStrength2 = (window.document.form1.g2effect2.selectedIndex * 2) + 1;
+if (BONUS0123456UNUSED == 3) { BONUS0123456UNUSED = 1; }
+switch (BONUS0123456UNUSED) {
+  case 0: itemStrength2 = (BONUSAMOUNT * 2) + 1; break;
+  case 1: if (BONUSAMOUNT == 0) { itemStrength2 = 1;}
+	if (BONUSAMOUNT == 1) {itemStrength2 = 2;}
+	if (BONUSAMOUNT == 2) {itemStrength2 = 4;}
+	if (BONUSAMOUNT == 3) {itemStrength2 = 8;}
+	if (BONUSAMOUNT == 4) {itemStrength2 = 12;}
+	if (BONUSAMOUNT == 5) {itemStrength2 = 16;}
+	if (BONUSAMOUNT == 6) {itemStrength2 = 20;}
+	if (BONUSAMOUNT == 7) {itemStrength2 = 24;}
+	if (BONUSAMOUNT == 8) {itemStrength2 = 28;}
+	if (BONUSAMOUNT == 9) {itemStrength2 = 32;}
     break;
-  case 1:
-	if (window.document.form1.g2effect2.selectedIndex == 0) {
-	  itemStrength2 = 1;
-	}
-	if (window.document.form1.g2effect2.selectedIndex == 1) {
-	  itemStrength2 = 2;
-	}
-	if (window.document.form1.g2effect2.selectedIndex == 2) {
-	  itemStrength2 = 4;
-	}
-	if (window.document.form1.g2effect2.selectedIndex == 3) {
-	  itemStrength2 = 8;
-	}
-	if (window.document.form1.g2effect2.selectedIndex == 4) {
-	  itemStrength2 = 12;
-	}
-	if (window.document.form1.g2effect2.selectedIndex == 5) {
-	  itemStrength2 = 16;
-	}
-	if (window.document.form1.g2effect2.selectedIndex == 6) {
-	  itemStrength2 = 20;
-	}
-	if (window.document.form1.g2effect2.selectedIndex == 7) {
-	  itemStrength2 = 24;
-	}
-	if (window.document.form1.g2effect2.selectedIndex == 8) {
-	  itemStrength2 = 28;
-	}
-	if (window.document.form1.g2effect2.selectedIndex == 9) {
-	  itemStrength2 = 32;
-	}
-    break;
-  case 2:
-    itemStrength2 = (window.document.form1.g2effect2.selectedIndex * 2);
-
-    if (itemStrength2 > 0) { itemStrength2 = itemStrength2 + 1; } // HP calc bug fix 9-11
+  case 2: itemStrength2 = (BONUSAMOUNT * 2);
+    if (itemStrength2 > 0) { itemStrength2 = itemStrength2 + 1;}
 	if (itemStrength2 == 0) { itemStrength2 = 1; }
     break;
-  case 5:
-    itemStrength2 = window.document.form1.g2effect2.selectedIndex * 5;
+  case 5:  itemStrength2 = BONUSAMOUNT * 5;
     if (itemStrength2 == 0) { itemStrength2 = 1; }
     break;
 }
-
-iC = window.document.form1.g3effect.selectedIndex;
-if (window.document.form1.g3effect.selectedIndex < 6) {
-iRD1 = window.document.form1.realm.selectedIndex;
-iRD2 = window.document.form1.g3effect2.selectedIndex;
-iRD3 = window.document.form1.line3.selectedIndex;
-switch (iC) {
+//terza gemma
+BONUS0123456UNUSED = DAOCSTARTER_G3_EFFECT;//terza gemma
+if (DAOCSTARTER_G3_EFFECT < 6) {
+REAME012 = DAOCSTARTER_REAME;
+BONUSAMOUNT = DAOCSTARTER_G3_AMOUNT;//terza gemma
+BONUSULTIMACELLA = DAOCSTARTER_G3_TERZA;//terza gemma
+switch (BONUS0123456UNUSED) {
  case 0:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrStatsName[iRD3] +'\n';
-   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrStatsMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrStatsMat2[iRD3] +'\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] +'\n';
+   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] +'\n';
    break;
  case 1:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrResistName[iRD3] +'\n';
-   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrResistMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrResistMat2[iRD3] +'\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] +'\n';
+   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] +'\n';
    break;
  case 2:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' blood essence jewel\n';
-   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' Essence of Life / ' + arrGemStrMat2[iRD2] + ' Giants Blood\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
+   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
    break;
  case 3:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' mystic essence jewel\n';
-   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' Essence of Life / ' + arrGemStrMat2[iRD2] + ' Mystic Essence \n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
+   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
    break;
  case 4:
-   switch (iRD1) {
+   switch (REAME012) {
      case 0:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusAlbName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusAlbMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusAlbMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA] +'\n';
 	 break;
      case 1:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusHibName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusHibMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusHibMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 case 2:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusMidName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusMidMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusMidMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 }
    break;
  case 5:
-   switch (iRD1) {
+   switch (REAME012) {
      case 0:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsAlbName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsAlbMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsAlbMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA] +'\n';
 	 break;
      case 1:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsHibName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsHibMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsHibMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 case 2:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsMidName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsMidMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsMidMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 }
    break;
 }
+
 }
-if (iC == 3) { iC = 1; }
-switch (iC) {
-  case 0:
-    itemStrength3 = (window.document.form1.g3effect2.selectedIndex * 2) + 1;
-    break;
-  case 1:
-	if (window.document.form1.g3effect2.selectedIndex == 0) {
-	  itemStrength3 = 1;
-	}
-	if (window.document.form1.g3effect2.selectedIndex == 1) {
-	  itemStrength3 = 2;
-	}
-	if (window.document.form1.g3effect2.selectedIndex == 2) {
-	  itemStrength3 = 4;
-	}
-	if (window.document.form1.g3effect2.selectedIndex == 3) {
-	  itemStrength3 = 8;
-	}
-	if (window.document.form1.g3effect2.selectedIndex == 4) {
-	  itemStrength3 = 12;
-	}
-	if (window.document.form1.g3effect2.selectedIndex == 5) {
-	  itemStrength3 = 16;
-	}
-	if (window.document.form1.g3effect2.selectedIndex == 6) {
-	  itemStrength3 = 20;
-	}
-	if (window.document.form1.g3effect2.selectedIndex == 7) {
-	  itemStrength3 = 24;
-	}
-	if (window.document.form1.g3effect2.selectedIndex == 8) {
-	  itemStrength3 = 28;
-	}
-	if (window.document.form1.g3effect2.selectedIndex == 9) {
-	  itemStrength3 = 32;
-	}
+if (BONUS0123456UNUSED == 3) { BONUS0123456UNUSED = 1; }
+switch (BONUS0123456UNUSED) {
+  case 0: itemStrength3 = (BONUSAMOUNT * 2) + 1; break;
+  case 1: if (BONUSAMOUNT == 0) { itemStrength3 = 1;}
+	if (BONUSAMOUNT == 1) { itemStrength3 = 2;}
+	if (BONUSAMOUNT == 2) { itemStrength3 = 4;}
+	if (BONUSAMOUNT == 3) { itemStrength3 = 8;}
+	if (BONUSAMOUNT == 4) { itemStrength3 = 12;}
+	if (BONUSAMOUNT == 5) { itemStrength3 = 16;}
+	if (BONUSAMOUNT == 6) { itemStrength3 = 20;}
+	if (BONUSAMOUNT == 7) {itemStrength3 = 24;}
+	if (BONUSAMOUNT == 8) {itemStrength3 = 28;}
+	if (BONUSAMOUNT == 9) {itemStrength3 = 32;}
     break;
   case 2:
-    itemStrength3 = (window.document.form1.g3effect2.selectedIndex * 2);
-    if (itemStrength3 > 0) { itemStrength3 = itemStrength3 + 1; } // HP calc bug fix 9-11
+    itemStrength3 = (BONUSAMOUNT * 2);
+    if (itemStrength3 > 0) { itemStrength3 = itemStrength3 + 1; }
 	if (itemStrength3 == 0) { itemStrength3 = 1; }
     break;
   case 5:
-    itemStrength3 = window.document.form1.g3effect2.selectedIndex * 5;
+    itemStrength3 = BONUSAMOUNT * 5;
     if (itemStrength3 == 0) { itemStrength3 = 1; }
     break;
 }
-
-iC = window.document.form1.g4effect.selectedIndex;
-if (window.document.form1.g4effect.selectedIndex < 6) {
-iRD1 = window.document.form1.realm.selectedIndex;
-iRD2 = window.document.form1.g4effect2.selectedIndex;
-iRD3 = window.document.form1.line4.selectedIndex;
-switch (iC) {
+//quarta gemma
+BONUS0123456UNUSED = DAOCSTARTER_G4_EFFECT;//quarta gemma
+if (DAOCSTARTER_G4_EFFECT < 6) {
+REAME012 = DAOCSTARTER_REAME;
+BONUSAMOUNT = DAOCSTARTER_G4_AMOUNT;//quarta gemma
+BONUSULTIMACELLA = DAOCSTARTER_G4_TERZA;//quarta gemma
+switch (BONUS0123456UNUSED) {
  case 0:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrStatsName[iRD3] +'\n';
-   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrStatsMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrStatsMat2[iRD3] +'\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] +'\n';
+   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] +'\n';
    break;
  case 1:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrResistName[iRD3] +'\n';
-   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrResistMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrResistMat2[iRD3] +'\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] +'\n';
+   strOutput2 = strOutput2 +'1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] +'\n';
    break;
  case 2:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' blood essence jewel\n';
-   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' Essence of Life / ' + arrGemStrMat2[iRD2] + ' Giants Blood\n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
+   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
    break;
  case 3:
-   strOutput = strOutput + arrGemStrength[iRD2] + ' mystic essence jewel\n';
-   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' Essence of Life / ' + arrGemStrMat2[iRD2] + ' Mystic Essence \n';
+   strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
+   strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
    break;
  case 4:
-   switch (iRD1) {
+   switch (REAME012) {
      case 0:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusAlbName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusAlbMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusAlbMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA] +'\n';
 	 break;
      case 1:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusHibName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusHibMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusHibMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 case 2:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrFocusMidName[iRD3] + '\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1b[iRD2] + ' ' + arrFocusMidMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrFocusMidMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 }
    break;
  case 5:
-   switch (iRD1) {
+   switch (REAME012) {
      case 0:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsAlbName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsAlbMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsAlbMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA] +'\n';
 	 break;
      case 1:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsHibName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsHibMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsHibMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 case 2:
-     strOutput = strOutput + arrGemStrength[iRD2] + ' ' + arrSkillsMidName[iRD3] +'\n';
-     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[iRD2] + ' / ' + arrGemStrMat1a[iRD2] + ' ' + arrSkillsMidMat1[iRD3] + ' / ' + arrGemStrMat2[iRD2] + ' ' + arrSkillsMidMat2[iRD3] +'\n';
+     strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] +'\n';
+     strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA] +'\n';
 	 break;
 	 }
    break;
 }
 }
-if (iC == 3) { iC = 1; }
-switch (iC) {
-  case 0:
-    itemStrength4 = (window.document.form1.g4effect2.selectedIndex * 2) + 1;
-    break;
+
+if (BONUS0123456UNUSED == 3) { BONUS0123456UNUSED = 1; }
+switch (BONUS0123456UNUSED) {
+  case 0: itemStrength4 = (BONUSAMOUNT * 2) + 1;  break;
   case 1:
-	if (window.document.form1.g4effect2.selectedIndex == 0) {
-	  itemStrength4 = 1;
-	}
-	if (window.document.form1.g4effect2.selectedIndex == 1) {
-	  itemStrength4 = 2;
-	}
-	if (window.document.form1.g4effect2.selectedIndex == 2) {
-	  itemStrength4 = 4;
-	}
-	if (window.document.form1.g4effect2.selectedIndex == 3) {
-	  itemStrength4 = 8;
-	}
-	if (window.document.form1.g4effect2.selectedIndex == 4) {
-	  itemStrength4 = 12;
-	}
-	if (window.document.form1.g4effect2.selectedIndex == 5) {
-	  itemStrength4 = 16;
-	}
-	if (window.document.form1.g4effect2.selectedIndex == 6) {
-	  itemStrength4 = 20;
-	}
-	if (window.document.form1.g4effect2.selectedIndex == 7) {
-	  itemStrength4 = 24;
-	}
-	if (window.document.form1.g4effect2.selectedIndex == 8) {
-	  itemStrength4 = 28;
-	}
-	if (window.document.form1.g4effect2.selectedIndex == 9) {
-	  itemStrength4 = 32;
-	}
+	if (BONUSAMOUNT == 0) { itemStrength4 = 1;}
+	if (BONUSAMOUNT == 1) { itemStrength4 = 2;}
+	if (BONUSAMOUNT == 2) { itemStrength4 = 4;}
+	if (BONUSAMOUNT == 3) { itemStrength4 = 8;}
+	if (BONUSAMOUNT == 4) { itemStrength4 = 12;}
+	if (BONUSAMOUNT == 5) { itemStrength4 = 16;}
+	if (BONUSAMOUNT == 6) { itemStrength4 = 20;}
+	if (BONUSAMOUNT == 7) { itemStrength4 = 24;}
+	if (BONUSAMOUNT == 8) { itemStrength4 = 28;}
+	if (BONUSAMOUNT == 9) { itemStrength4 = 32;}
     break;
   case 2:
-    itemStrength4 = (window.document.form1.g4effect2.selectedIndex * 2);
-
-    if (itemStrength4 > 0) { itemStrength4 = itemStrength4 + 1; } // HP calc bug fix 9-11
+    itemStrength4 = (BONUSAMOUNT * 2);
+    if (itemStrength4 > 0) { itemStrength4 = itemStrength4 + 1; }
 	if (itemStrength4 == 0) { itemStrength4 = 1; }
     break;
   case 5:
-    itemStrength4 = window.document.form1.g4effect2.selectedIndex * 5;
+    itemStrength4 = BONUSAMOUNT * 5;
     if (itemStrength4 == 0) { itemStrength4 = 1; }
     break;
 }
-if (window.document.form1.g1effect.selectedIndex == 4) { itemStrength1 = 1; }
-if (window.document.form1.g2effect.selectedIndex == 4) { itemStrength2 = 1; }
-if (window.document.form1.g3effect.selectedIndex == 4) { itemStrength3 = 1; }
-if (window.document.form1.g4effect.selectedIndex == 4) { itemStrength4 = 1; }
+console.log("itemStrength1=",itemStrength1)
+
+if (DAOCSTARTER_G1_EFFECT == 4) { itemStrength1 = 1; }//soliti principali
+if (DAOCSTARTER_G2_EFFECT == 4) { itemStrength2 = 1; }
+if (DAOCSTARTER_G3_EFFECT == 4) { itemStrength3 = 1; }
+if (DAOCSTARTER_G4_EFFECT == 4) { itemStrength4 = 1; }
 
 if ((itemStrength4 >= itemStrength2) && (itemStrength4 >= itemStrength3) && (itemStrength4 >= itemStrength1)) { itemStrength4 = itemStrength4 * 2; }
 if ((itemStrength3 >= itemStrength2) && (itemStrength3 >= itemStrength1) && (itemStrength3 >= itemStrength4)) { itemStrength3 = itemStrength3 * 2; }
 if ((itemStrength2 >= itemStrength1) && (itemStrength2 >= itemStrength3) && (itemStrength2 >= itemStrength4)) { itemStrength2 = itemStrength2 * 2; }
 if ((itemStrength1 >= itemStrength2) && (itemStrength1 >= itemStrength3) && (itemStrength1 >= itemStrength4)) { itemStrength1 = itemStrength1 * 2; }
 
-
 itemStrength = itemStrength1 + itemStrength2 + itemStrength3 + itemStrength4;
+//console.log("itemStrength=",itemStrength)
+
 if (itemStrength > 0) { var i9 = Math.floor( itemStrength / 2); }
 if (itemStrength < 1) { var i9 = 0; }
-if (i9 > window.document.form1.itemcap.value) { window.document.form1.overcharge.value = 'YES!'; } else { window.document.form1.overcharge.value = 'NO'; }
-i9 = i9 - 5;
-if (i9 > window.document.form1.itemcap.value) { window.document.form1.overcharge.value = 'Impossible'; }
-if (((i9 + 5) > window.document.form1.itemcap.value) && (i9 <= window.document.form1.itemcap.value)) {
-window.document.form1.oversuccess.value = 'BOOM!';
- var intOC = (i9 + 5) - window.document.form1.itemcap.value;
- var intOCC = 0;
- switch (intOC) {
-   case 1: intOCC = -10; break;
-   case 2: intOCC = -20; break;
-   case 3: intOCC = -30; break;
-   case 4: intOCC = -50; break;
-   case 5: intOCC = -70; break;
-	  }
- intES = window.document.form1.g1effect.selectedIndex;
- if (intES < 6) {
-  switch (window.document.form1.g1qual.selectedIndex) {
-  case 2: intOCC = intOCC + 1; break;
-  case 3: intOCC = intOCC + 3; break;
-  case 4: intOCC = intOCC + 5; break;
-  case 5: intOCC = intOCC + 8; break;
-  case 6: intOCC = intOCC + 11; break;
-  } }
- intES = window.document.form1.g2effect.selectedIndex;
- if ( intES < 6) {
-  switch (window.document.form1.g2qual.selectedIndex) {
-  case 2: intOCC = intOCC + 1; break;
-  case 3: intOCC = intOCC + 3; break;
-  case 4: intOCC = intOCC + 5; break;
-  case 5: intOCC = intOCC + 8; break;
-  case 6: intOCC = intOCC + 11; break;
-  } }
- intES = window.document.form1.g3effect.selectedIndex;
- if ( intES < 6) {
-  switch (window.document.form1.g3qual.selectedIndex) {
-  case 2: intOCC = intOCC + 1; break;
-  case 3: intOCC = intOCC + 3; break;
-  case 4: intOCC = intOCC + 5; break;
-  case 5: intOCC = intOCC + 8; break;
-  case 6: intOCC = intOCC + 11; break;
-  }
-  }
- intES = window.document.form1.g4effect.selectedIndex;
- if ( intES < 6) {
-  switch (window.document.form1.g4qual.selectedIndex) {
-  case 2: intOCC = intOCC + 1; break;
-  case 3: intOCC = intOCC + 3; break;
-  case 4: intOCC = intOCC + 5; break;
-  case 5: intOCC = intOCC + 8; break;
-  case 6: intOCC = intOCC + 11; break;
-  }
-  }
-switch (window.document.form1.quality.selectedIndex) {
- case 2: intOCC = intOCC + 6; break;
- case 3: intOCC = intOCC + 8;break;
- case 4: intOCC = intOCC + 10;break;
- case 5:  intOCC = intOCC + 18;break;
- case 6:  intOCC = intOCC + 26; break;
-	  }
-var intSkill = window.document.form1.skill.value;
-var intSkillMod = -500;
-if (intSkill > 50) { intSkillMod = -45; }
-if (intSkill > 100) { intSkillMod = -40; }
-if (intSkill > 150) { intSkillMod = -35; }
-if (intSkill > 200) { intSkillMod = -30; }
-if (intSkill > 250) { intSkillMod = -25; }
-if (intSkill > 300) { intSkillMod = -20; }
-if (intSkill > 350) { intSkillMod = -15; }
-if (intSkill > 400) { intSkillMod = -10; }
-if (intSkill > 450) { intSkillMod = -5; }
-if (intSkill > 500) { intSkillMod = 0; }
-if (intSkill > 550) { intSkillMod = 5; }
-if (intSkill > 600) { intSkillMod = 10; }
-if (intSkill > 650) { intSkillMod = 15; }
-if (intSkill > 700) { intSkillMod = 20; }
-if (intSkill > 750) { intSkillMod = 25; }
-if (intSkill > 800) { intSkillMod = 30; }
-if (intSkill > 850) { intSkillMod = 35; }
-if (intSkill > 900) { intSkillMod = 40; }
-if (intSkill > 950) { intSkillMod = 45; }
-if (intSkill > 1000) { intSkillMod = 50; }
-intOCC = intOCC + intSkillMod;
-if (intOCC > 100) { intOCC = 100; }
-if (intOCC > 0) { window.document.form1.oversuccess.value = intOCC + ' %'; }
-} else {
-window.document.form1.oversuccess.value = 'N/A';
-}
 
-t1 = t1 + doOutputLine(window.document.form1.g1effect.selectedIndex, window.document.form1.g1effect2.selectedIndex, window.document.form1.line1.selectedIndex, window.document.form1.realm.selectedIndex);
-t1 = t1 + doOutputLine(window.document.form1.g2effect.selectedIndex, window.document.form1.g2effect2.selectedIndex, window.document.form1.line2.selectedIndex, window.document.form1.realm.selectedIndex);
-t1 = t1 + doOutputLine(window.document.form1.g3effect.selectedIndex, window.document.form1.g3effect2.selectedIndex, window.document.form1.line3.selectedIndex, window.document.form1.realm.selectedIndex);
-t1 = t1 + doOutputLine(window.document.form1.g4effect.selectedIndex, window.document.form1.g4effect2.selectedIndex, window.document.form1.line4.selectedIndex, window.document.form1.realm.selectedIndex);
-t1 = t1 + '\nQuality: ' + window.document.form1.quality.options[window.document.form1.quality.selectedIndex].text + '%';
-window.document.form1.itemstr.value = (i9 + 5);
-window.document.form1.output.value = t1;
-window.document.form1.recipe.value = strOutput;
-window.document.form1.ingredients.value = strOutput2;
+i9 = i9 - 5;
+t1 = t1 + doOutputLine(DAOCSTARTER_G1_EFFECT, DAOCSTARTER_G1_AMOUNT, DAOCSTARTER_G1_TERZA, DAOCSTARTER_REAME);
+t1 = t1 + doOutputLine(DAOCSTARTER_G2_EFFECT, DAOCSTARTER_G2_AMOUNT, DAOCSTARTER_G2_TERZA, DAOCSTARTER_REAME);
+t1 = t1 + doOutputLine(DAOCSTARTER_G3_EFFECT, DAOCSTARTER_G3_AMOUNT, DAOCSTARTER_G3_TERZA, DAOCSTARTER_REAME);
+t1 = t1 + doOutputLine(DAOCSTARTER_G4_EFFECT, DAOCSTARTER_G4_AMOUNT, DAOCSTARTER_G4_TERZA, DAOCSTARTER_REAME);
+//console.log((i9 + 5))
+window.document.form1.itemstr.value = (i9 + 5);//RISULTATONE FINALE
+window.document.form1.output.value = t1;//out 1
+window.document.form1.recipe.value = strOutput;//OUT 2
+window.document.form1.ingredients.value = strOutput2;//OUT3
 }

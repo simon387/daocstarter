@@ -2,7 +2,7 @@
 
 const {Menu, Tray, BrowserWindow} = require('electron');
 const log = require('./log-module.js').getLog();
-const settingController = require('./controller/setting.js');
+const settingController = require('./controller/tray-setting.js');
 const constants = require('./constants.js');
 let _tray = null;
 let _app;

@@ -167,8 +167,8 @@ ipcMain.on(constants.editSettingBooleano, (event, id) => {
 	settingController.editSettingBooleano(event, id);
 });
 
-ipcMain.on(constants.saveSettingBooleano, (event, id, value) => {
-	settingController.saveSettingBooleano(event, id, value);
+ipcMain.on(constants.saveSettingBooleano, async (event, id, value) => {
+	await settingController.saveSettingBooleano(event, id, value);
 });
 
 ipcMain.on(constants.setIniDefaultTemplate, (event, name, server) => {
@@ -184,6 +184,13 @@ ipcMain.on(constants.getSpellcrafters, async event => {
 	let characters = await characterController.findAllSpellcrafter();
 	for (let c = 0; c < characters.length; c++) {
 		let classe = await classeController.findOneByName(characters[c].classe);
+
+		switch (classe.realm) {
+			case constants.albion: classe.realm = 0; break;
+			case constants.hibernia: classe.realm = 1; break;
+			case constants.midgard: classe.realm = 2; break;
+		}
+
 		charsArray.push({name: characters[c].name, realm: classe.realm})
 	}
 	event.sender.send(constants.getSpellcraftersReply, charsArray);
