@@ -154,43 +154,83 @@ const reCalc = (nItem, nRiga, refillFieldsFlag = false) => {
 	}
 	let finalImbueResult = 42;
 	let e;
-	let mVal1 = 0, mVal2 = 0, mVal3 = 0, mVal4 = 0;
+	let mValArray = [0, 0, 0, 0];
+	let firstLevelsCount = 0;
+	let firstlvlArray = [];
 	//var e = document.getElementById("ddlViewBy");
 	//var strUser = e.options[e.selectedIndex].value;
 
 	e = document.getElementById('evalue' + nItem + 1);
 	try {
-		mVal1 = e.options[e.selectedIndex].value * getMultiplier(nItem, 1);
+		mValArray[0] = Math.floor(e.options[e.selectedIndex].value * getMultiplier(nItem, 1));
+		if (isFirstLevel(nItem, 1)) {
+			//firstLevelsCount++;
+			//firstlvlArray.push[0];
+			mValArray[0] = Math.floor((e.options[e.selectedIndex].value - 1) * getMultiplier(nItem, 1));
+		}
 	}catch(e) {}
 	e = document.getElementById('evalue' + nItem + 2);
 	try {
-		mVal2 = e.options[e.selectedIndex].value * getMultiplier(nItem, 2);
+		mValArray[1] = Math.floor(e.options[e.selectedIndex].value * getMultiplier(nItem, 2));
+		if (isFirstLevel(nItem, 2)) {
+			//firstLevelsCount++;
+			//firstlvlArray.push[1];
+			mValArray[1] = Math.floor((e.options[e.selectedIndex].value - 1) * getMultiplier(nItem, 2));
+		}
 	}catch(e) {}
 	e = document.getElementById('evalue' + nItem + 3);
 	try {
-		mVal3 = e.options[e.selectedIndex].value * getMultiplier(nItem, 3);
+		mValArray[2] = Math.floor(e.options[e.selectedIndex].value * getMultiplier(nItem, 3));
+		if (isFirstLevel(nItem, 3)) {
+			//firstLevelsCount++;
+			//firstlvlArray.push[2];
+			mValArray[2] = Math.floor((e.options[e.selectedIndex].value - 1) * getMultiplier(nItem, 3));
+		}
 	}catch(e) {}
 	e = document.getElementById('evalue' + nItem + 4);
 	try {
-		mVal4 = e.options[e.selectedIndex].value * getMultiplier(nItem, 4);
+		mValArray[3] = Math.floor(e.options[e.selectedIndex].value * getMultiplier(nItem, 4));
+		if (isFirstLevel(nItem, 4)) {
+			//firstLevelsCount++;
+			//firstlvlArray.push[3];
+			mValArray[3] = Math.floor((e.options[e.selectedIndex].value - 1) * getMultiplier(nItem, 4));
+		}
 	}catch(e) {}
 
-	let mValMax = Math.max(mVal1, mVal2, mVal3, mVal4);
-	let mValArray = [];
-	mValArray.push(mVal1);
-	mValArray.push(mVal2);
-	mValArray.push(mVal3);
-	mValArray.push(mVal4);
-	for (let i = 0; i < mValArray.length; i++) {
-		if (mValArray[i] == mValMax) {
-			mValArray[i] = mValArray[i] * 2;
+	/*if (firstLevelsCount == 1) {
+		e = document.getElementById('evalue' + nItem + (mValArray[firstlvlArray[0]] + 1));
+		mValArray[firstlvlArray[0]] = e.options[e.selectedIndex].value
+	}*/
+
+	let mValMax = Math.max(mValArray[0], mValArray[1], mValArray[2], mValArray[3]);
+	let mValArrayFinal = mValArray.slice();
+	for (let i = 0; i < 4; i++) {
+		if (mValArrayFinal[i] == mValMax) {
+			mValArrayFinal[i] = mValArrayFinal[i] * 2;
 			break;
 		}
 	}
 
-	finalImbueResult = (mVal1 + mVal2 + mVal3 + mVal4) / 2;
+	finalImbueResult = (mValArrayFinal[0] + mValArrayFinal[1] + mValArrayFinal[2] + mValArrayFinal[3]) / 2;
 
-	document.getElementById('imbue' + nItem).value = finalImbueResult;
+	document.getElementById('imbue' + nItem).value = Math.floor(finalImbueResult);
+}
+
+const isFirstLevel = (nItem, nRiga) => {
+	switch (getEffectValue(nItem, nRiga)) {
+		case 'resist':
+		case 'power':
+			if (getMultiplier(nItem, nRiga) == 2) {
+				return true;
+			}
+			break;
+		case 'skill':
+			if (getMultiplier(nItem, nRiga) == 5) {
+				return true;
+			}
+			break;
+	}
+	return false;
 }
 
 const getMultiplier = (nItem, nRiga) => {
