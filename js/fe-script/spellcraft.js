@@ -1,7 +1,7 @@
 'use strict'
 
 let itemCounter = 0;
-var arrSkills = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+var arrSkills = new Array(1, 2, 3, 4, 5, 6, 7, 8/*, 9, 10*/);
 var arrSkillsUsedAlb = new Array('Body Destruction', 'Chants', 'Critical Strike', 'Crossbow', 'Crush', 'Death Servant', 'Deathsight', 'Dual Wield', 'Earth', 'Enhancement', 'Envenom', 'Flexible', 'Fire', 'Healing', 'Ice', 'Instruments', 'Longbow', 'Matter', 'Mind Twisting', 'Painworking', 'Parry', 'Polearm', 'Shield', 'Slash', 'Smite', 'Soulrending', 'Spirit Animation', 'Staff', 'Stealth', 'Thrust', 'Two Handed', 'Wind', 'All: Primary Melee', 'All: Casting');
 var arrSkillsAlbName = new Array('heated evocation sigil', 'earthen fervor sigil', 'heated battle jewel', 'vapor war sigil', 'fiery war sigil', 'ashen fervor sigil', 'vacuous fervor sigil', 'icy war sigil', 'earthen evocation sigil', 'airy fervor sigil', 'dusty battle jewel', 'molten magma war sigil', 'fiery evocation sigil', 'watery fervor sigil', 'icy evocation sigil', 'vapor fervor sigil', 'airy war sigil', 'dusty evocation sigil', 'watery evocation sigil', 'salt encrusted fervor sigil', 'vapor battle jewel', 'earthen war sigil', 'fiery battle jewel', 'watery war sigil', 'fiery fervor sigil', 'steaming fervor sigil', 'vapor evocation sigil', 'earthen battle jewel', 'airy battle jewel', 'dusty war sigil', 'heated war sigil', 'airy evocation sigil', 'finesse war sigil', 'finesse fervor sigil');
 var arrSkillsAlbMat1 = new Array('Ground Cave Crystal', 'Ground Blessed Undead Bone', 'Bloodied Battlefield Dirt', 'Ground Caer Stone', 'Ground Blessed Undead Bone', 'Ground Blessed Undead Bone', 'Ground Blessed Undead Bone', 'Ground Caer Stone', 'Ground Cave Crystal', 'Ground Blessed Undead Bone', 'Bloodied Battlefield Dirt', 'Ground Caer Stone', 'Ground Cave Crystal', 'Ground Blessed Undead Bone', 'Ground Cave Crystal', 'Ground Blessed Undead Bone', 'Ground Caer Stone', 'Ground Cave Crystal', 'Ground Cave Crystal', 'Ground Blessed Undead Bone', 'Bloodied Battlefield Dirt', 'Ground Caer Stone', 'Bloodied Battlefield Dirt', 'Ground Caer Stone', 'Ground Blessed Undead Bone', 'Ground Blessed Undead Bone', 'Ground Cave Crystal', 'Bloodied Battlefield Dirt', 'Bloodied Battlefield Dirt', 'Ground Caer Stone', 'Ground Caer Stone', 'Ground Cave Crystal', 'Ground Caer Stone', 'Ground Blessed Undead Bone');
@@ -36,14 +36,14 @@ var arrResistName = new Array('dusty shielding jewel', 'icy shielding jewel', 'h
 var arrResistMat1 = new Array('Ground Draconic Scales', 'Ground Draconic Scales', 'Ground Draconic Scales', 'Ground Draconic Scales', 'Ground Draconic Scales', 'Ground Draconic Scales', 'Ground Draconic Scales', 'Ground Draconic Scales', 'Ground Draconic Scales');
 var arrResistMat2 = new Array('Undead Ash and Holy Water', 'Frost From a Wasteland', 'Heat from an Unearthly Pyre', 'Sun Light', 'Treant Blood', 'Swamp Fog', 'Air Elemental Essence', 'Draconic Fire', 'Leviathan Blood');
 var arrStats = new Array(1, 3, 5, 7, 9, 11, 13, 15, 17, 19);
-//var arrStatsUsed = new Array('STR', 'DEX', 'QUI', 'CON', 'INT', 'PIE', 'EMP', 'CHA');
+var arrStatsFE = new Array(1, 4, 7, 10, 13, 16, 19, 22, 25, 28);
+var arrStatsUsed = new Array('STR', 'DEX', 'QUI', 'CON', 'INT', 'PIE', 'EMP', 'CHA');
 var arrStatsName = new Array('fiery essence jewel', 'vapor essence jewel', 'airy essence jewel', 'earthen essence jewel', 'dusty essence jewel', 'watery essence jewel', 'heated essence jewel', 'icy essence jewel');
 var arrStatsMat1 = new Array('Essence of Life', 'Essence of Life', 'Essence of Life', 'Essence of Life', 'Essence of Life', 'Essence of Life', 'Essence of Life', 'Essence of Life');
 var arrStatsMat2 = new Array('Draconic Fire', 'Swamp Fog', 'Air Elemental Essence', 'Treant Blood', 'Undead Ash and Holy Water', 'Leviathan Blood', 'Heat From an Unearthly Pyre', 'Frost From a Wasteland');
 var arrGemStrength = new Array('Raw', 'Uncut', 'Rough', 'Flawed', 'Imperfect', 'Polished', 'Faceted', 'Precious', 'Flawless', 'Perfect')
 var marrImbue = new Array(new Array("0", "1", "1", "1", "1", "1", "1"), new Array("1", "1", "1", "1", "1", "2", "2"), new Array("1", "1", "1", "2", "2", "2", "2"), new Array("1", "1", "2", "2", "2", "3", "3"), new Array("1", "2", "2", "2", "3", "3", "4"), new Array("1", "2", "2", "3", "3", "4", "4"), new Array("2", "2", "3", "3", "4", "4", "5"), new Array("2", "3", "3", "4", "4", "5", "5"), new Array("2", "3", "3", "4", "5", "5", "6"), new Array("2", "3", "4", "4", "5", "6", "7"), new Array("2", "3", "4", "5", "6", "6", "7"), new Array("3", "4", "4", "5", "6", "7", "8"), new Array("3", "4", "5", "6", "6", "7", "9"), new Array("3", "4", "5", "6", "7", "8", "9"), new Array("3", "4", "5", "6", "7", "8", "10"), new Array("3", "5", "6", "7", "8", "9", "10"), new Array("4", "5", "6", "7", "8", "10", "11"), new Array("4", "5", "6", "8", "9", "10", "12"), new Array("4", "6", "7", "8", "9", "11", "12"), new Array("4", "6", "7", "8", "10", "11", "13"), new Array("4", "6", "7", "9", "10", "12", "13"), new Array("5", "6", "8", "9", "11", "12", "14"), new Array("5", "7", "8", "10", "11", "13", "15"), new Array("5", "7", "9", "10", "12", "13", "15"), new Array("5", "7", "9", "10", "12", "14", "16"), new Array("5", "8", "9", "11", "12", "14", "16"), new Array("6", "8", "10", "11", "13", "15", "17"), new Array("6", "8", "10", "12", "13", "15", "18"), new Array("6", "8", "10", "12", "14", "16", "18"), new Array("6", "9", "11", "12", "14", "16", "19"), new Array("6", "9", "11", "13", "15", "17", "20"), new Array("7", "9", "11", "13", "15", "17", "20"), new Array("7", "10", "12", "14", "16", "18", "21"), new Array("7", "10", "12", "14", "16", "19", "21"), new Array("7", "10", "12", "14", "17", "19", "22"), new Array("7", "10", "13", "15", "17", "20", "23"), new Array("8", "11", "13", "15", "17", "20", "23"), new Array("8", "11", "13", "16", "18", "21", "24"), new Array("8", "11", "14", "16", "18", "21", "24"), new Array("8", "11", "14", "16", "19", "22", "25"), new Array("8", "12", "14", "17", "19", "22", "26"), new Array("9", "12", "15", "17", "20", "23", "26"), new Array("9", "12", "15", "18", "20", "23", "27"), new Array("9", "13", "15", "18", "21", "24", "27"), new Array("9", "13", "16", "18", "21", "24", "28"), new Array("9", "13", "16", "19", "22", "25", "29"), new Array("10", "13", "16", "19", "22", "25", "29"), new Array("10", "14", "17", "20", "23", "26", "30"), new Array("10", "14", "17", "20", "23", "27", "31"), new Array("10", "14", "17", "20", "23", "27", "31"), new Array("10", "15", "18", "21", "24", "28", "32"));
 var arrGemStrGem = new Array('Lo', 'Um', 'On', 'Ee', 'Pal', 'Mon', 'Ros', 'Zo', 'Kath', 'Ra');
-//var arrSkilldigit1 = new Array('', '1', '2', '3', '4', '5', '6', '7', '8', '9') ;
 var arrGemStrMat1a = new Array('1', '5', '9', '13', '17', '21', '25', '29', '33', '37');
 var arrGemStrMat1b = new Array('1', '6', '11', '16', '21', '26', '31', '36', '41', '46');
 var arrGemStrMat2 = new Array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10');
@@ -73,10 +73,8 @@ document.getElementById('spellcraft-button').onclick = () => {
 								printOptionTag(3) +
 							"</select>" +
 						"</div>" +
-						//"<>" +
 					"</div>" +
 					"<div id='container-spellcrafter'>" +
-						
 					"</div>" +
 				"</div>" +
 				"<div class='modal-footer'>" +
@@ -99,15 +97,11 @@ document.getElementById('spellcraft-button').onclick = () => {
 }
 
 ipcRenderer.on('get-spellcrafters-reply', (event, characters) => {
-	filleSCDropdown(characters);
-});
-
-const filleSCDropdown = characters => {
 	let selectElement = document.getElementById('spellcraft-character-dropdown');
 	for (let c = 0; c < characters.length; c++) {
 		selectElement.innerHTML += printOptionTag(characters[c].realm, characters[c].name);
 	}
-}
+});
 
 const generaPezzo = () => {
 	if (8 == itemCounter) {
@@ -161,8 +155,8 @@ const reCalc = (nItem, nRiga, refillFieldsFlag = false) => {
 	if (nItem == 0) {//se 0 0 proviene dalla dropdown char
 		return resetAll();
 	}
-	let realm = getRealm();
-	if (undefined === realm) {
+	let realm = getDropDownValue('spellcraft-character-dropdown');
+	if (-1 === realm) {
 		return;
 	}
 	let effectValue = getEffectValue(nItem, nRiga);
@@ -171,7 +165,7 @@ const reCalc = (nItem, nRiga, refillFieldsFlag = false) => {
 	if (refillFieldsFlag) {
 		refillFields(effectValue, evalueElement, ebonusElement, realm);
 	}
-		
+
 	let finalImbueResult = reCalcHelper(
 		getDropDownValue('effect'+ nItem + 1),
 		getDropDownValue('evalue'+ nItem + 1),
@@ -203,27 +197,13 @@ const getDropDownValue = (id) => {
 
 const refillFields = (effectValue, evalueElement, ebonusElement, realm) => {
 	switch (effectValue) {
-		case "0"://'stat':
-			fillStat(evalueElement, ebonusElement);
-			break;
-		case "1"://'resist':
-			fillResist(evalueElement, ebonusElement);
-			break;
-		case "2"://'hits':
-			fillHits(evalueElement, ebonusElement);
-			break;
-		case "3"://'power':
-			fillPower(evalueElement, ebonusElement);
-			break;
-		case "4"://'focus':
-			fillFocus(evalueElement, ebonusElement, realm);
-			break;
-		case "5"://'skill':
-			fillSkill(evalueElement, ebonusElement, realm);
-			break;
-		case "6"://unused;
-			resetLine(evalueElement, ebonusElement);
-			break;
+		case "0": fillStat(evalueElement, ebonusElement); break;//'stat'
+		case "1": fillResist(evalueElement, ebonusElement); break;//'resist'
+		case "2": fillHits(evalueElement, ebonusElement); break;//'hits'
+		case "3": fillPower(evalueElement, ebonusElement); break;//'power'
+		case "4": fillFocus(evalueElement, ebonusElement, realm); break;//'focus'
+		case "5": fillSkill(evalueElement, ebonusElement, realm); break;//'skill'
+		case "6": resetLine(evalueElement, ebonusElement); break;//unused
 	}
 }
 
@@ -233,29 +213,19 @@ const resetLine = (evalueElement, ebonusElement) => {
 }
 
 const fillFocus = (evalueElement, ebonusElement, realm) => {
+	let innerHTML = '';
 	evalueElement.innerHTML = '';
-	evalueElement.innerHTML += 
-		printOptionTag(0, '+ 5') +
-		printOptionTag(1, '+ 10') +
-		printOptionTag(2, '+ 15') +
-		printOptionTag(3, '+ 20') +
-		printOptionTag(4, '+ 25') +
-		printOptionTag(5, '+ 30') +
-		printOptionTag(6, '+ 35') +
-		printOptionTag(7, '+ 40') +
-		printOptionTag(8, '+ 45') +
-		printOptionTag(9, '+ 50');
+	for (let i = 0; i < arrFocus.length; i++) {
+		innerHTML += printOptionTag(i, '+ ' + arrFocus[i]);
+	}
+	evalueElement.innerHTML = innerHTML;
+	innerHTML = '';
 	ebonusElement.innerHTML = '';
 	let arrayFocus = arrFocusUsedAlb;
 	switch (realm) {
-		case "1"://'Hibernia':
-			arrayFocus = arrFocusUsedHib;
-			break;
-		case "2"://'Midgard':
-			arrayFocus = arrFocusUsedMid;
-			break;
+		case "1": arrayFocus = arrFocusUsedHib; break;//'Hibernia'
+		case "2": arrayFocus = arrFocusUsedMid; break;//'Midgard'
 	}
-	let innerHTML = ''
 	for (let i = 0; i < arrayFocus.length; i++) {
 		innerHTML += printOptionTag(i, arrayFocus[i]);
 	}
@@ -263,27 +233,19 @@ const fillFocus = (evalueElement, ebonusElement, realm) => {
 }
 
 const fillSkill = (evalueElement, ebonusElement, realm) => {
+	let innerHTML = '';
 	evalueElement.innerHTML = '';
-	evalueElement.innerHTML += 
-		printOptionTag(0, '+ 1') +
-		printOptionTag(1, '+ 2') +
-		printOptionTag(2, '+ 3') +
-		printOptionTag(3, '+ 4') +
-		printOptionTag(4, '+ 5') +
-		printOptionTag(5, '+ 6') +
-		printOptionTag(6, '+ 7') +
-		printOptionTag(7, '+ 8');
+	for (let i = 0; i < arrSkills.length; i++) {
+		innerHTML += printOptionTag(i, '+ ' + arrSkills[i]);
+	}
+	evalueElement.innerHTML = innerHTML;
+	innerHTML = ''
 	ebonusElement.innerHTML = '';
 	let arraySkill = arrSkillsUsedAlb;
 	switch (realm) {
-		case "1"://'Hibernia':
-			arraySkill = arrSkillsUsedHib;
-			break;
-		case "2"://'Midgard':
-			arraySkill = arrSkillsUsedMid;
-			break;
+		case "1": arraySkill = arrSkillsUsedHib; break;//'Hibernia'
+		case "2": arraySkill = arrSkillsUsedMid; break;//'Midgard'
 	}
-	let innerHTML = ''
 	for (let i = 0; i < arraySkill.length; i++) {
 		innerHTML += printOptionTag(i, arraySkill[i]);
 	}
@@ -291,89 +253,55 @@ const fillSkill = (evalueElement, ebonusElement, realm) => {
 }
 
 const fillPower = (evalueElement, ebonusElement) => {
+	let innerHTML = '';
 	evalueElement.innerHTML = '';
-	evalueElement.innerHTML += 
-		printOptionTag(0, '+ 1') +
-		printOptionTag(1, '+ 2') +
-		printOptionTag(2, '+ 3') +
-		printOptionTag(3, '+ 5') +
-		printOptionTag(4, '+ 7') +
-		printOptionTag(5, '+ 9') +
-		printOptionTag(6, '+ 11') +
-		printOptionTag(7, '+ 13') +
-		printOptionTag(8, '+ 15') +
-		printOptionTag(9, '+ 17');
+	for (let i = 0; i < arrResist.length; i++) {
+		innerHTML += printOptionTag(i, '+ ' + arrResist[i]);
+	}
+	evalueElement.innerHTML = innerHTML;
 	ebonusElement.innerHTML = '';
-	ebonusElement.innerHTML += 
-		printOptionTag(0, 'Power');
+	ebonusElement.innerHTML += printOptionTag(0, 'Power');
 }
 
 const fillHits = (evalueElement, ebonusElement) => {
+	let innerHTML = '';
 	evalueElement.innerHTML = '';
-	evalueElement.innerHTML += 
-		printOptionTag(0, '+ 4') +
-		printOptionTag(1, '+ 12') +
-		printOptionTag(2, '+ 20') +
-		printOptionTag(3, '+ 28') +
-		printOptionTag(4, '+ 63') +
-		printOptionTag(5, '+ 44') +
-		printOptionTag(6, '+ 52') +
-		printOptionTag(7, '+ 60') +
-		printOptionTag(8, '+ 68') +
-		printOptionTag(9, '+ 76');
+	for (let i = 0; i < arrHits.length; i++) {
+		innerHTML += printOptionTag(i, '+ ' + arrHits[i]);
+	}
+	evalueElement.innerHTML = innerHTML;
 	ebonusElement.innerHTML = '';
-	ebonusElement.innerHTML += 
-		printOptionTag(0, 'HP');
+	ebonusElement.innerHTML += printOptionTag(0, 'HP');
 }
 
 const fillResist = (evalueElement, ebonusElement) => {
+	let innerHTML = '';
 	evalueElement.innerHTML = '';
-	evalueElement.innerHTML += 
-		printOptionTag(0, '+ 1') +
-		printOptionTag(1, '+ 2') +
-		printOptionTag(2, '+ 3') +
-		printOptionTag(3, '+ 5') +
-		printOptionTag(4, '+ 7') +
-		printOptionTag(5, '+ 9') +
-		printOptionTag(6, '+ 11') +
-		printOptionTag(7, '+ 13') +
-		printOptionTag(8, '+ 15') +
-		printOptionTag(9, '+ 17');
+	for (let i = 0; i < arrResist.length; i++) {
+		innerHTML += printOptionTag(i, '+ ' + arrResist[i]);
+	}
+	evalueElement.innerHTML = innerHTML;
+	innerHTML = '';
 	ebonusElement.innerHTML = '';
-	ebonusElement.innerHTML += 
-		printOptionTag(0, 'Body') +
-		printOptionTag(1, 'Cold') +
-		printOptionTag(2, 'Heat') +
-		printOptionTag(3, 'Energy') +
-		printOptionTag(4, 'Matter') +
-		printOptionTag(5, 'Spirit') +
-		printOptionTag(6, 'Thrust') +
-		printOptionTag(7, 'Crush') +
-		printOptionTag(8, 'Slash');
+	for (let i = 0; i < arrResistUsed.length; i++) {
+		innerHTML += printOptionTag(i, arrResistUsed[i]);
+	}
+	ebonusElement.innerHTML = innerHTML;
 }
 
-const fillStat = (evalueElement, ebonusElement) => {
+const fillStat = (evalueElement, ebonusElement) => {//
+	let innerHTML = '';
 	evalueElement.innerHTML = '';
-	evalueElement.innerHTML += 
-		printOptionTag(0, '+ 1') +
-		printOptionTag(1, '+ 4') +
-		printOptionTag(2, '+ 7') +
-		printOptionTag(3, '+ 10') +
-		printOptionTag(4, '+ 13') +
-		printOptionTag(5, '+ 16') +
-		printOptionTag(6, '+ 19') +
-		printOptionTag(7, '+ 22') +
-		printOptionTag(8, '+ 25') +
-		printOptionTag(9, '+ 28');
+	for (let i = 0; i < arrStatsFE.length; i++) {
+		innerHTML += printOptionTag(i, '+ ' + arrStatsFE[i]);
+	}
+	evalueElement.innerHTML = innerHTML;
+	innerHTML = '';
 	ebonusElement.innerHTML = '';
-	ebonusElement.innerHTML += 
-		printOptionTag(0, 'STR') +
-		printOptionTag(1, 'DEX') +
-		printOptionTag(2, 'QUI') +
-		printOptionTag(3, 'CON') +
-		printOptionTag(4, 'INT') +
-		printOptionTag(5, 'PIE') +
-		printOptionTag(6, 'EMP');
+	for (let i = 0; i < arrStatsUsed.length; i++) {
+		innerHTML += printOptionTag(i, arrStatsUsed[i]);
+	}
+	ebonusElement.innerHTML = innerHTML;
 }
 
 const printOptionTag = (value, text = '', selected = '') => {
@@ -390,18 +318,6 @@ const printOptionTag = (value, text = '', selected = '') => {
 const getEffectValue = (nItem, nRiga) => {
 	let element = document.getElementById('effect' + nItem + nRiga);
 	return element.value;
-}
-
-const getRealm = () => {
-	let element = document.getElementById('spellcraft-character-dropdown');
-	let value = undefined;
-	try {
-		value = element.options[element.selectedIndex].value;
-	}
-	catch (e) {}
-	finally {
-		return value;
-	}
 }
 
 const resetAll = () => {
@@ -432,7 +348,6 @@ const reCalcHelper = (
 	var itemStrength2 = 0;
 	var itemStrength3 = 0;
 	var itemStrength4 = 0;
-	var REAME012 = 0;
 	var BONUSAMOUNT = 0;
 	var BONUSULTIMACELLA = 0;
 	var strOutput = '';
@@ -440,67 +355,66 @@ const reCalcHelper = (
 	var BONUS0123456UNUSED = DAOCSTARTER_G1_EFFECT;//0 = stat, 1 = resist, 2= hits 3=power 4=focus 5=skill 6=unused
 
 	if (BONUS0123456UNUSED < 6) {//se diverso da "unused"
-		REAME012 = DAOCSTARTER_REAME;//0 = albion, 1 = hibernia, 2 = midgard
 		BONUSAMOUNT = DAOCSTARTER_G1_AMOUNT;//-1 nessun + valore, altrimenti indice di array
 		BONUSULTIMACELLA = DAOCSTARTER_G1_TERZA;//indice dell'ultima casella a dx
 		switch (BONUS0123456UNUSED) {//
 			case "0":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] + '\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] + '\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] + '\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] + '\n';
 				break;
 			case "1":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] + '\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] + '\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] + '\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] + '\n';
 				break;
 			case "2":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
 				break;
 			case "3":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
 				break;
 			case "4":
-				switch (REAME012) {
+				switch (DAOCSTARTER_REAME) {
 					case "0":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA];
-						if (BONUSULTIMACELLA == intFocusUsedAlb - 1) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
-						strOutput2 = strOutput2 + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA];
+						if (BONUSULTIMACELLA == intFocusUsedAlb - 1) { strOutput2 += ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
+						strOutput2 += '\n';
 						break;
 					case "1":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA];
-						if (BONUSULTIMACELLA == intFocusUsedHib - 1) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
-						strOutput2 = strOutput2 + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA];
+						if (BONUSULTIMACELLA == intFocusUsedHib - 1) { strOutput2 += ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
+						strOutput2 += '\n';
 						break;
 					case "2":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA];
-						if (BONUSULTIMACELLA == intFocusUsedMid - 1) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
-						strOutput2 = strOutput2 + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA];
+						if (BONUSULTIMACELLA == intFocusUsedMid - 1) { strOutput2 += ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
+						strOutput2 += '\n';
 						break;
 				}
 				break;
 			case "5":
-				switch (REAME012) {
+				switch (DAOCSTARTER_REAME) {
 					case "0":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA];
-						if (BONUSULTIMACELLA >= intNumAlbSkillsUsed - 2) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
-						strOutput2 = strOutput2 + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA];
+						if (BONUSULTIMACELLA >= intNumAlbSkillsUsed - 2) { strOutput2 += ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
+						strOutput2 += '\n';
 						break;
 					case "1":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA];
-						if (BONUSULTIMACELLA >= intNumHibSkillsUsed - 2) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
-						strOutput2 = strOutput2 + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA];
+						if (BONUSULTIMACELLA >= intNumHibSkillsUsed - 2) { strOutput2 += ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
+						strOutput2 += '\n';
 						break;
 					case "2":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA];
-						if (BONUSULTIMACELLA >= intNumMidSkillsUsed - 2) { strOutput2 = strOutput2 + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
-						strOutput2 = strOutput2 + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA];
+						if (BONUSULTIMACELLA >= intNumMidSkillsUsed - 2) { strOutput2 += ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Energy' + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' Treant Blood'; }
+						strOutput2 += '\n';
 						break;
 				}
 				break;
@@ -534,56 +448,54 @@ const reCalcHelper = (
 	//seconda gemma
 	BONUS0123456UNUSED = DAOCSTARTER_G2_EFFECT;//seconda gemma
 	if (DAOCSTARTER_G2_EFFECT < 6) {
-		REAME012 = DAOCSTARTER_REAME;
 		BONUSAMOUNT = DAOCSTARTER_G2_AMOUNT;//seconda gemma
 		BONUSULTIMACELLA = DAOCSTARTER_G2_TERZA;//seconda gemma
-
 		switch (BONUS0123456UNUSED) {
 			case "0":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] + '\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] + '\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] + '\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] + '\n';
 				break;
 			case "1":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] + '\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] + '\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] + '\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] + '\n';
 				break;
 			case "2":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
 				break;
 			case "3":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
 				break;
 			case "4":
-				switch (REAME012) {
+				switch (DAOCSTARTER_REAME) {
 					case "0":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "1":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "2":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA] + '\n';
 						break;
 				}
 				break;
 			case "5":
-				switch (REAME012) {
+				switch (DAOCSTARTER_REAME) {
 					case "0":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "1":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "2":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA] + '\n';
 						break;
 				}
 				break;
@@ -614,55 +526,54 @@ const reCalcHelper = (
 	//terza gemma
 	BONUS0123456UNUSED = DAOCSTARTER_G3_EFFECT;//terza gemma
 	if (DAOCSTARTER_G3_EFFECT < 6) {
-		REAME012 = DAOCSTARTER_REAME;
 		BONUSAMOUNT = DAOCSTARTER_G3_AMOUNT;//terza gemma
 		BONUSULTIMACELLA = DAOCSTARTER_G3_TERZA;//terza gemma
 		switch (BONUS0123456UNUSED) {
 			case "0":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] + '\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] + '\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] + '\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] + '\n';
 				break;
 			case "1":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] + '\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] + '\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] + '\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] + '\n';
 				break;
 			case "2":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
 				break;
 			case "3":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
 				break;
 			case "4":
-				switch (REAME012) {
+				switch (DAOCSTARTER_REAME) {
 					case "0":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "1":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "2":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA] + '\n';
 						break;
 				}
 				break;
 			case "5":
-				switch (REAME012) {
+				switch (DAOCSTARTER_REAME) {
 					case "0":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "1":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "2":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA] + '\n';
 						break;
 				}
 				break;
@@ -696,55 +607,54 @@ const reCalcHelper = (
 	//quarta gemma
 	BONUS0123456UNUSED = DAOCSTARTER_G4_EFFECT;//quarta gemma
 	if (DAOCSTARTER_G4_EFFECT < 6) {
-		REAME012 = DAOCSTARTER_REAME;
 		BONUSAMOUNT = DAOCSTARTER_G4_AMOUNT;//quarta gemma
 		BONUSULTIMACELLA = DAOCSTARTER_G4_TERZA;//quarta gemma
 		switch (BONUS0123456UNUSED) {
 			case "0":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] + '\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] + '\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrStatsName[BONUSULTIMACELLA] + '\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrStatsMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrStatsMat2[BONUSULTIMACELLA] + '\n';
 				break;
 			case "1":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] + '\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] + '\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrResistName[BONUSULTIMACELLA] + '\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrResistMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrResistMat2[BONUSULTIMACELLA] + '\n';
 				break;
 			case "2":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' blood essence jewel\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Giants Blood\n';
 				break;
 			case "3":
-				strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
-				strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
+				strOutput += arrGemStrength[BONUSAMOUNT] + ' mystic essence jewel\n';
+				strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' Essence of Life / ' + arrGemStrMat2[BONUSAMOUNT] + ' Mystic Essence \n';
 				break;
 			case "4":
-				switch (REAME012) {
+				switch (DAOCSTARTER_REAME) {
 					case "0":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusAlbName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusAlbMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "1":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusHibName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusHibMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "2":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrFocusMidName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1b[BONUSAMOUNT] + ' ' + arrFocusMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrFocusMidMat2[BONUSULTIMACELLA] + '\n';
 						break;
 				}
 				break;
 			case "5":
-				switch (REAME012) {
+				switch (DAOCSTARTER_REAME) {
 					case "0":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsAlbName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsAlbMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsAlbMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "1":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsHibName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsHibMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsHibMat2[BONUSULTIMACELLA] + '\n';
 						break;
 					case "2":
-						strOutput = strOutput + arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] + '\n';
-						strOutput2 = strOutput2 + '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA] + '\n';
+						strOutput += arrGemStrength[BONUSAMOUNT] + ' ' + arrSkillsMidName[BONUSULTIMACELLA] + '\n';
+						strOutput2 += '1 ' + arrGemStrGem[BONUSAMOUNT] + ' / ' + arrGemStrMat1a[BONUSAMOUNT] + ' ' + arrSkillsMidMat1[BONUSULTIMACELLA] + ' / ' + arrGemStrMat2[BONUSAMOUNT] + ' ' + arrSkillsMidMat2[BONUSULTIMACELLA] + '\n';
 						break;
 				}
 				break;
@@ -805,34 +715,34 @@ const reCalcHelper = (
 const doOutputLine = function (element1, element2, element3, realm) {
 	var tr = '';
 	switch (element1) {
-		case 0:
+		case "0":
 			tr += '- ';
 			switch (element3) {
-				case 0: tr += 'Strength: '; break;
-				case 1: tr += 'Dexterity: '; break;
-				case 2: tr += 'Quickness: '; break;
-				case 3: tr += 'Constitution: '; break;
-				case 4: tr += 'Intelligence: '; break;
-				case 5: tr += 'Piety: '; break;
-				case 6: tr += 'Empathy: '; break;
-				case 7: tr += 'Charisma: '; break;
+				case "0": tr += 'Strength: '; break;
+				case "1": tr += 'Dexterity: '; break;
+				case "2": tr += 'Quickness: '; break;
+				case "3": tr += 'Constitution: '; break;
+				case "4": tr += 'Intelligence: '; break;
+				case "5": tr += 'Piety: '; break;
+				case "6": tr += 'Empathy: '; break;
+				case "7": tr += 'Charisma: '; break;
 			}
 			tr += Math.floor(arrStats[element2] * 1.5) + '\n'; break;
-		case 1: tr = '- ' + arrResistUsed[element3] + ': ' + arrResist[element2] + '%\n'; break;
-		case 2: tr = '- ' + 'Hits: ' + arrHits[element2] + '\n'; break;
-		case 3: tr = '- ' + 'Power: ' + arrPower[element2] + '\n'; break;
-		case 4:
+		case "1": tr = '- ' + arrResistUsed[element3] + ': ' + arrResist[element2] + '%\n'; break;
+		case "2": tr = '- ' + 'Hits: ' + arrHits[element2] + '\n'; break;
+		case "3": tr = '- ' + 'Power: ' + arrPower[element2] + '\n'; break;
+		case "4":
 			switch (realm) {
-				case 0: tr = '- ' + arrFocusUsedAlb[element3] + ': ' + arrFocus[element2] + ' lvls\n'; break;
-				case 1: tr = '- ' + arrFocusUsedHib[element3] + ': ' + arrFocus[element2] + ' lvls\n'; break;
-				case 2: tr = '- ' + arrFocusUsedMid[element3] + ': ' + arrFocus[element2] + ' lvls\n'; break;
+				case "0": tr = '- ' + arrFocusUsedAlb[element3] + ': ' + arrFocus[element2] + ' lvls\n'; break;
+				case "1": tr = '- ' + arrFocusUsedHib[element3] + ': ' + arrFocus[element2] + ' lvls\n'; break;
+				case "2": tr = '- ' + arrFocusUsedMid[element3] + ': ' + arrFocus[element2] + ' lvls\n'; break;
 			}
 			break;
-		case 5:
+		case "5":
 			switch (realm) {
-				case 0: tr = '- ' + arrSkillsUsedAlb[element3] + ': ' + arrSkills[element2] + '\n'; break;
-				case 1: tr = '- ' + arrSkillsUsedHib[element3] + ': ' + arrSkills[element2] + '\n'; break;
-				case 2: tr = '- ' + arrSkillsUsedMid[element3] + ': ' + arrSkills[element2] + '\n'; break;
+				case "0": tr = '- ' + arrSkillsUsedAlb[element3] + ': ' + arrSkills[element2] + '\n'; break;
+				case "1": tr = '- ' + arrSkillsUsedHib[element3] + ': ' + arrSkills[element2] + '\n'; break;
+				case "2": tr = '- ' + arrSkillsUsedMid[element3] + ': ' + arrSkills[element2] + '\n'; break;
 			}
 			break;
 	}
