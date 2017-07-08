@@ -2,7 +2,7 @@
 
 const {Menu, Tray, BrowserWindow} = require('electron');
 const log = require('./log-module.js').getLog();
-const settingController = require('./controller/tray-setting.js');
+const settingCommonController = require('./controller/setting-common.js');
 const constants = require('./constants.js');
 let _tray = null;
 let _app;
@@ -20,9 +20,9 @@ module.exports = {
 const applySettings = async () => {
 	let minimizeToTray = false;
 	let quitMinimizeToTray = false;
-	let setting = await settingController.findOneByKey(constants.minimizeToTray);
+	let setting = await settingCommonController.findOneByKey(constants.minimizeToTray);
 	minimizeToTray = setting.value;
-	setting = await	settingController.findOneByKey(constants.quitMinimizeToTray);
+	setting = await	settingCommonController.findOneByKey(constants.quitMinimizeToTray);
 	quitMinimizeToTray = setting.value;
 	if (minimizeToTray) {
 		_mainWindow.on('minimize', event => {

@@ -8,26 +8,27 @@ const settingController = require('./controller/setting.js');
 const characterController = require('./controller/character.js');
 const teamController = require('./controller/team.js');
 const classeController = require('./controller/classe.js');
+const settingCommonController = require('./controller/setting-common.js');
 const gamedll = require('./gamedll-module.js');
 const constants = require('./constants.js');
 
 ipcMain.on(constants.getCharacterPerPage, async event => {
-	let setting = await settingController.findOneByKey(constants.accountItemsPerPage);
+	let setting = await settingCommonController.findOneByKey(constants.accountItemsPerPage);
 	event.sender.send(constants.getCharacterPerPageReply, setting.value);
 });
 
 ipcMain.on(constants.getAccountPerPage, async event => {
-	let setting = await settingController.findOneByKey(constants.accountItemsPerPage);
+	let setting = await settingCommonController.findOneByKey(constants.accountItemsPerPage);
 	event.sender.send(constants.getAccountPerPageReply, setting.value);
 });
 
 ipcMain.on(constants.getTeamPerPage, async event => {
-	let setting = await settingController.findOneByKey(constants.teamItemsPerPage);
+	let setting = await settingCommonController.findOneByKey(constants.teamItemsPerPage);
 	event.sender.send(constants.getTeamPerPageReply, setting.value);
 });
 
 ipcMain.on(constants.getSettingPerPage, async event => {
-	let setting = await settingController.findOneByKey(constants.characterItemsPerPage);
+	let setting = await settingCommonController.findOneByKey(constants.characterItemsPerPage);
 	event.sender.send(constants.getSettingPerPageReply, setting.value);
 });
 
@@ -98,7 +99,7 @@ ipcMain.on(constants.removeTeam, async (event, id) => {
 ipcMain.on(constants.playCharacter, async (event, characterArrayID) => {
 	let accountSet = new Set();
 	let accountArray;
-	let setting = await settingController.findOneByKey(constants.defaultLoginDelayMilli);
+	let setting = await settingCommonController.findOneByKey(constants.defaultLoginDelayMilli);
 	let characters = await characterController.getByIdArray(characterArrayID);
 	for (let character of characters) {
 		accountSet.add(character.account);

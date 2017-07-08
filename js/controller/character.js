@@ -9,7 +9,7 @@ const util = require('./common-util.js');
 const db = require('../db-module.js');
 const constants = require('../constants.js');
 const log = require('../log-module.js').getLog();
-const settingController = require('./setting.js');
+const settingCommonController = require('./setting-common.js');
 const accountController = require('./account.js');
 let waiting = -1;
 
@@ -146,7 +146,7 @@ module.exports = {
 		dialog.showSaveDialog({message: 'save as template'}, async (filename) => {
 			log.info(filename)
 			if (undefined != filename && '' != filename) {
-				const userdat = await settingController.findOneByKey(constants.pathToUserDat);
+				const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
 				const fileInput = path.dirname(userdat.value) + '\\' +
 					name.charAt(0).toUpperCase() + name.slice(1) +
 					'-' + serverController.toNumber(server) + '.ini';
@@ -167,7 +167,7 @@ module.exports = {
 		}
 		dialog.showOpenDialog({message: 'load template', properties: ['openFile', 'noResolveAliases']}, async filePaths => {
 			if (undefined != filePaths && '' != filePaths[0]) {
-				const userdat = await settingController.findOneByKey(constants.pathToUserDat);
+				const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
 				const fileOutput = path.dirname(userdat.value) + '\\' +
 					name.charAt(0).toUpperCase() + name.slice(1) +
 					'-' + serverController.toNumber(server) + '.ini';
@@ -256,7 +256,7 @@ module.exports = {
 	},
 
 	importFromAppDataStart: async event => {
-		let userdat = await settingController.findOneByKey(constants.pathToUserDat);
+		let userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
 		let chars = [];
 		if (fs.existsSync(userdat['value'])) {
 			const path = userdat['value'].replace(/user\.dat$/gi, '');

@@ -1,6 +1,6 @@
 'use strict';
 /*
- * DRY perchè NODE impazzisce con require intrecciati
+ * perchè NODE impazzisce con require intrecciati
  */
 const db = require('../db-module.js');
 

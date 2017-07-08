@@ -9,24 +9,24 @@ const handle = require('./handle-module.js');
 const constants = require('./constants.js');
 const backup = require('./backup-module.js');
 const log = require('./log-module.js').getLog();
-const settingController = require('./controller/setting.js');
 const characterController = require('./controller/character.js');
 const accountController = require('./controller/account.js');
 const serverController = require('./controller/server.js');
 const classeController = require('./controller/classe.js');
 const realmController = require('./controller/realm.js');
+const settingCommonController = require('./controller/setting-common.js');
 const userdatModule = require('./userdat-module.js');
 const autoit = require('./autoit-module.js');
 const spawn = child_process.spawn;
 
 module.exports = {
 	playCharacter: async id => {
-		const userdat = await settingController.findOneByKey(constants.pathToUserDat);
+		const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
 		}
 		await backup.backupUserDat(userdat);
-		const gamedll = await settingController.findOneByKey(constants.pathToGameDll);
+		const gamedll = await settingCommonController.findOneByKey(constants.pathToGameDll);
 		if (null == gamedll || !fs.existsSync(gamedll.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorGameDllNF);
 		}
@@ -53,12 +53,12 @@ module.exports = {
 	},
 
 	playAccount: async (id, _server) => {
-		const userdat = await settingController.findOneByKey(constants.pathToUserDat);
+		const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
 		}
 		await backup.backupUserDat(userdat);
-		const gamedll = await settingController.findOneByKey(constants.pathToGameDll);
+		const gamedll = await settingCommonController.findOneByKey(constants.pathToGameDll);
 		if (null == gamedll || !fs.existsSync(gamedll.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorGameDllNF);
 		}
@@ -77,17 +77,17 @@ module.exports = {
 			detached: true
 		});
 		log.info(constants.infoSpawnedChildPid, prc.pid);
-		await renameAccountWindow(prc, account);
+		await autoit.renameAccountWindow(prc, account);
 		await handle.killMutants();
 	},
 
 	playCharacterFromTeam: async (_character, res, windowed, borderless, width, height, positionX, positionY) => {
-		const userdat = await settingController.findOneByKey(constants.pathToUserDat);
+		const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
 		}
 		await backup.backupUserDat(userdat);
-		const gamedll = await settingController.findOneByKey(constants.pathToGameDll);
+		const gamedll = await settingCommonController.findOneByKey(constants.pathToGameDll);
 		if (null == gamedll || !fs.existsSync(gamedll.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorGameDllNF);
 		}

@@ -41,14 +41,6 @@ module.exports = {
 		);
 	},
 
-	findOneByKey: key => {
-		return new Promise(function(resolve, reject) {
-			db.settingDatastore.findOne({key: key}, (err, value) => {
-				resolve(value);
-			});
-		});
-	},
-
 	updateSettingByKey: (key, value) => {
 		return new Promise(function(resolve, reject) {
 			db.settingDatastore.update(

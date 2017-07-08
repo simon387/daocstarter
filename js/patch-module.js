@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const child_process = require('child_process');
 const constants = require('./constants.js');
-const settingController = require('./controller/setting.js');
+const settingCommonController = require('./controller/setting-common.js');
 
 module.exports = {
 	patchClient: async isTest => {
@@ -12,7 +12,7 @@ module.exports = {
 		if (isTest) {
 			exe = constants.camtestExe;
 		}
-		let gamedll = await settingController.findOneByKey(constants.pathToGameDll);
+		let gamedll = await settingCommonController.findOneByKey(constants.pathToGameDll);
 		if (fs.existsSync(gamedll.value)) {
 			const exec = child_process.exec;
 			const cmd = exe;

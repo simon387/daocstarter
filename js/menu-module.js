@@ -10,7 +10,7 @@ const patch = require('./patch-module.js');
 const child_process = require('child_process');
 const constants = require('./constants.js');
 const log = require('./log-module.js').getLog();
-const settingController = require('./controller/setting.js');
+const settingCommonController = require('./controller/setting-common.js');
 const characterController = require('./controller/character.js');
 
 Menu.getApplicationMenu();
@@ -94,7 +94,7 @@ const menuTemplate = [
 			{
 				label: 'Open DAoC user setting directory',
 				click: async () => {
-					let userdat = await settingController.findOneByKey(constants.pathToUserDat);
+					let userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
 					if (fs.existsSync(userdat.value)) {
 						shell.showItemInFolder(userdat.value);
 					}
@@ -106,7 +106,7 @@ const menuTemplate = [
 			{
 				label: 'Edit user.dat',
 				click: async () => {
-					let userdat = await settingController.findOneByKey(constants.pathToUserDat);
+					let userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
 					if (fs.existsSync(userdat.value)) {
 						shell.openItem(userdat.value);
 					}

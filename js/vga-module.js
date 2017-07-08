@@ -4,7 +4,7 @@ const os = require('os');
 const shell = require('node-powershell');
 const constants = require('./constants.js');
 const log = require('./log-module.js').getLog();
-const settingController = require('./controller/setting.js');
+const settingCommonController = require('./controller/setting-common.js');
 
 module.exports = {
 	getAllResolutions: () => {
@@ -13,7 +13,7 @@ module.exports = {
 				log.warn(constants.warnVGAModule);
 				return resolve (constants.defaultBaseResolutionsArray);
 			}
-			let setting = await settingController.findOneByKey(constants.customResolutionsCommaSeparated);
+			let setting = await settingCommonController.findOneByKey(constants.customResolutionsCommaSeparated);
 			const array = setting.value.split(',');
 			let ps;
 			try{
