@@ -42,7 +42,6 @@ var arrStatsName = new Array('fiery essence jewel', 'vapor essence jewel', 'airy
 var arrStatsMat1 = new Array('Essence of Life', 'Essence of Life', 'Essence of Life', 'Essence of Life', 'Essence of Life', 'Essence of Life', 'Essence of Life', 'Essence of Life');
 var arrStatsMat2 = new Array('Draconic Fire', 'Swamp Fog', 'Air Elemental Essence', 'Treant Blood', 'Undead Ash and Holy Water', 'Leviathan Blood', 'Heat From an Unearthly Pyre', 'Frost From a Wasteland');
 var arrGemStrength = new Array('Raw', 'Uncut', 'Rough', 'Flawed', 'Imperfect', 'Polished', 'Faceted', 'Precious', 'Flawless', 'Perfect');
-var marrImbue = new Array(new Array("0", "1", "1", "1", "1", "1", "1"), new Array("1", "1", "1", "1", "1", "2", "2"), new Array("1", "1", "1", "2", "2", "2", "2"), new Array("1", "1", "2", "2", "2", "3", "3"), new Array("1", "2", "2", "2", "3", "3", "4"), new Array("1", "2", "2", "3", "3", "4", "4"), new Array("2", "2", "3", "3", "4", "4", "5"), new Array("2", "3", "3", "4", "4", "5", "5"), new Array("2", "3", "3", "4", "5", "5", "6"), new Array("2", "3", "4", "4", "5", "6", "7"), new Array("2", "3", "4", "5", "6", "6", "7"), new Array("3", "4", "4", "5", "6", "7", "8"), new Array("3", "4", "5", "6", "6", "7", "9"), new Array("3", "4", "5", "6", "7", "8", "9"), new Array("3", "4", "5", "6", "7", "8", "10"), new Array("3", "5", "6", "7", "8", "9", "10"), new Array("4", "5", "6", "7", "8", "10", "11"), new Array("4", "5", "6", "8", "9", "10", "12"), new Array("4", "6", "7", "8", "9", "11", "12"), new Array("4", "6", "7", "8", "10", "11", "13"), new Array("4", "6", "7", "9", "10", "12", "13"), new Array("5", "6", "8", "9", "11", "12", "14"), new Array("5", "7", "8", "10", "11", "13", "15"), new Array("5", "7", "9", "10", "12", "13", "15"), new Array("5", "7", "9", "10", "12", "14", "16"), new Array("5", "8", "9", "11", "12", "14", "16"), new Array("6", "8", "10", "11", "13", "15", "17"), new Array("6", "8", "10", "12", "13", "15", "18"), new Array("6", "8", "10", "12", "14", "16", "18"), new Array("6", "9", "11", "12", "14", "16", "19"), new Array("6", "9", "11", "13", "15", "17", "20"), new Array("7", "9", "11", "13", "15", "17", "20"), new Array("7", "10", "12", "14", "16", "18", "21"), new Array("7", "10", "12", "14", "16", "19", "21"), new Array("7", "10", "12", "14", "17", "19", "22"), new Array("7", "10", "13", "15", "17", "20", "23"), new Array("8", "11", "13", "15", "17", "20", "23"), new Array("8", "11", "13", "16", "18", "21", "24"), new Array("8", "11", "14", "16", "18", "21", "24"), new Array("8", "11", "14", "16", "19", "22", "25"), new Array("8", "12", "14", "17", "19", "22", "26"), new Array("9", "12", "15", "17", "20", "23", "26"), new Array("9", "12", "15", "18", "20", "23", "27"), new Array("9", "13", "15", "18", "21", "24", "27"), new Array("9", "13", "16", "18", "21", "24", "28"), new Array("9", "13", "16", "19", "22", "25", "29"), new Array("10", "13", "16", "19", "22", "25", "29"), new Array("10", "14", "17", "20", "23", "26", "30"), new Array("10", "14", "17", "20", "23", "27", "31"), new Array("10", "14", "17", "20", "23", "27", "31"), new Array("10", "15", "18", "21", "24", "28", "32"));
 var arrGemStrGem = new Array('Lo', 'Um', 'On', 'Ee', 'Pal', 'Mon', 'Ros', 'Zo', 'Kath', 'Ra');
 var arrGemStrMat1a = new Array('1', '5', '9', '13', '17', '21', '25', '29', '33', '37');
 var arrGemStrMat1b = new Array('1', '6', '11', '16', '21', '26', '31', '36', '41', '46');
@@ -63,7 +62,7 @@ document.getElementById('spellcraft-button').onclick = () => {
 					"<div class='form-group'>" +
 						"<label for='spellcraft-character-dropdown' class='col-sm-2 control-label'>Spellcrafter</label>" +
 						"<div class='col-sm-4'>" +
-							"<select class='form-control' id='spellcraft-character-dropdown' onchange='reCalc(0, 0)' name='spellcraft-character-dropdown'></select>" +
+							"<select class='form-control' id='spellcraft-character-dropdown' name='spellcraft-character-dropdown' onchange='reCalc(0, 0)'></select>" +
 						"</div>" +
 						"<label for='spellcraft-qbar-dropdown' class='col-sm-2 control-label'>qbar</label>" +
 						"<div class='col-sm-4'>" +
@@ -79,13 +78,30 @@ document.getElementById('spellcraft-button').onclick = () => {
 				"</div>" +
 				"<div class='modal-footer'>" +
 					"<button type='button' class='btnX btn-default' id='spellcraft-add-item-button'>Add Item</button>\n" +
-					"<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>" +
-					"<!--button type='submit' class='btnX btn-primary btn-sm'>Import</button-->" +
+					"<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>\n" +
+					"<button type='submit' class='btnX btn-primary btn-sm'>Set</button>" +
 				"</div>" +
 			"</form>" +
 		"</div>" +
 	"</div>";
 
+	$('#spellcraft-form').on('submit', function(event) {
+		event.preventDefault();
+		let asd = $(this).serialize()
+		console.log(asd)
+		//let element = document.getElementById('spellcraft-character-dropdown');
+		//let qbarValue = element.options[element.selectedIndex].value;
+
+		ipcRenderer.send('spellcraft-form-submit-event',
+		42,
+		//document.getElementById('setting-value-number').value
+		);
+	});
+
+	ipcRenderer.on('spellcraft-form-submit-event-reply', event => {
+		$('#spellcraft-modal').modal('hide');
+	});
+	
 	ipcRenderer.send('get-spellcrafters');
 
 	generaPezzo();
@@ -118,7 +134,7 @@ const generaPezzo = () => {
 			"<label class='col-sm-2 control-label'>imbue</label>" +
 			"<div class='col-sm-3'>" +
 				"<input type='text' class='form-control' id='imbue" + itemCounter +
-				"' name='imbue" + itemCounter + "' placeholder='0' readonly>" +
+				"' placeholder='0' readonly>" +
 			"</div>" +
 		"</div>" +
 		"<hr>"
@@ -131,7 +147,7 @@ const generaGemma = (nItem, nRiga) => {
 		"<label class='col-sm-2 control-label'>Gem " + nRiga + "</label>" +
 		"<div class='col-sm-3'>" +
 			"<select class='form-control' id='effect" + nItem + nRiga +
-			"' name='effect" + nItem + nRiga + "' onchange='reCalc(" + nItem + "," + nRiga + ",true)'>" +
+			"' onchange='reCalc(" + nItem + "," + nRiga + ",true)'>" +
 				printOptionTag(0, '+ Stat') +
 				printOptionTag(1, '+ Resists') +
 				printOptionTag(2, '+ Hits') +
@@ -143,16 +159,16 @@ const generaGemma = (nItem, nRiga) => {
 		"</div>" +
 		"<div class='col-sm-3'>" +
 			"<select class='form-control' onchange='reCalc(" + nItem + "," + nRiga + ")' id='evalue" +
-			nItem + nRiga + "' name='effect" + nItem + nRiga + "'></select>" +
+			nItem + nRiga + "'></select>" +
 		"</div>" +
 		"<div class='col-sm-4'>" +
-			"<select class='form-control' onchange='reCalc(" + nItem + "," + nRiga + ")' id='ebonus" + nItem + nRiga + "' name='effect" + nItem + nRiga + "'></select>" +
+			"<select class='form-control' onchange='reCalc(" + nItem + "," + nRiga + ")' id='ebonus" + nItem + nRiga + "' ></select>" +
 		"</div>" +
 	"</div>";
 }
 
 const reCalc = (nItem, nRiga, refillFieldsFlag = false) => {
-	if (nItem == 0) {//se 0 0 proviene dalla dropdown char
+	if (0 == nItem) {//se 0 0 proviene dalla dropdown char
 		return resetAll();
 	}
 	let realm = getDropDownValue('spellcraft-character-dropdown');
@@ -453,7 +469,9 @@ const getItemStrength = (BONUS0123456UNUSED, itemStrength, BONUSAMOUNT) => {
 	}
 	switch (BONUS0123456UNUSED) {
 		case "0": itemStrength = (BONUSAMOUNT * 2) + 1; break;
-		case "1": if (BONUSAMOUNT == 0) { itemStrength = 1; }
+		case "1":
+		case 1:
+			if (BONUSAMOUNT == 0) { itemStrength = 1; }
 			if (BONUSAMOUNT == 1) { itemStrength = 2; }
 			if (BONUSAMOUNT == 2) { itemStrength = 4; }
 			if (BONUSAMOUNT == 3) { itemStrength = 8; }
@@ -464,11 +482,13 @@ const getItemStrength = (BONUS0123456UNUSED, itemStrength, BONUSAMOUNT) => {
 			if (BONUSAMOUNT == 8) { itemStrength = 28; }
 			if (BONUSAMOUNT == 9) { itemStrength = 32; }
 			break;
-		case "2": itemStrength1 = (BONUSAMOUNT * 2);
+		case "2":
+			itemStrength = (BONUSAMOUNT * 2);
 			if (itemStrength > 0) { itemStrength = itemStrength + 1; }
 			if (itemStrength == 0) { itemStrength = 1; }
 			break;
-		case "5": itemStrength = BONUSAMOUNT * 5;
+		case "5":
+			itemStrength = BONUSAMOUNT * 5;
 			if (itemStrength == 0) { itemStrength = 1; }
 			break;
 	}
