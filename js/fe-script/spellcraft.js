@@ -64,6 +64,7 @@ document.getElementById('spellcraft-button').onclick = () => {
 						"<div class='col-sm-4'>" +
 							"<select class='form-control' id='spellcraft-character-dropdown' name='spellcraft-character-dropdown' onchange='reCalc(0, 0)'></select>" +
 						"</div>" +
+						"<input type='hidden' id='spellcraft-character-name' name='spellcraft-character-name' value='' class='hidden'>" +
 						"<label for='spellcraft-qbar-dropdown' class='col-sm-2 control-label'>qbar</label>" +
 						"<div class='col-sm-4'>" +
 							"<select class='form-control' id='spellcraft-qbar-dropdown' name='spellcraft-qbar-dropdown'>" +
@@ -79,7 +80,7 @@ document.getElementById('spellcraft-button').onclick = () => {
 				"<div class='modal-footer'>" +
 					"<button type='button' class='btnX btn-default' id='spellcraft-add-item-button'>Add Item</button>\n" +
 					"<button type='button' class='btnX btn-default' data-dismiss='modal'>Close</button>\n" +
-					"<button type='submit' class='btnX btn-primary btn-sm'>Set</button>" +
+					"<button type='submit' class='btnX btn-primary btn-sm' id='sc-submit-button' disabled>Set</button>" +
 				"</div>" +
 			"</form>" +
 		"</div>" +
@@ -87,13 +88,11 @@ document.getElementById('spellcraft-button').onclick = () => {
 
 	$('#spellcraft-form').on('submit', function(event) {
 		event.preventDefault();
-		let asd = $(this).serialize()
-		console.log(asd)
-		//let element = document.getElementById('spellcraft-character-dropdown');
-		//let qbarValue = element.options[element.selectedIndex].value;
+		let objArray = $(this).serializeArray()
+		console.log(objArray)
 
 		ipcRenderer.send('spellcraft-form-submit-event',
-		42,
+		objArray,
 		//document.getElementById('setting-value-number').value
 		);
 	});
@@ -136,6 +135,7 @@ const generaPezzo = () => {
 				"<input type='text' class='form-control' id='imbue" + itemCounter +
 				"' placeholder='0' readonly>" +
 			"</div>" +
+			"<input type='hidden' id='pezzoGems" + itemCounter + "' name='pezzoGems" + itemCounter + "' value='' class='hidden'>" +
 		"</div>" +
 		"<hr>"
 	);
@@ -172,9 +172,7 @@ const reCalc = (nItem, nRiga, refillFieldsFlag = false) => {
 		return resetAll();
 	}
 	let realm = getDropDownValue('spellcraft-character-dropdown');
-	if (-1 === realm) {
-		return;
-	}
+	setCharName();
 	let effectValue = getEffectValue(nItem, nRiga);
 	let evalueElement = document.getElementById('evalue' + nItem + nRiga);
 	let ebonusElement = document.getElementById('ebonus' + nItem + nRiga);
@@ -194,9 +192,21 @@ const reCalc = (nItem, nRiga, refillFieldsFlag = false) => {
 		getDropDownValue('ebonus'+ nItem + 3),
 		getDropDownValue('effect'+ nItem + 4),
 		getDropDownValue('evalue'+ nItem + 4),
-		getDropDownValue('ebonus'+ nItem + 4), realm);
+		getDropDownValue('ebonus'+ nItem + 4), realm, nItem);
 
 	document.getElementById('imbue' + nItem).value = Math.floor(finalImbueResult);
+}
+
+const setCharName = () => {
+	let element = document.getElementById('spellcraft-character-dropdown');
+	let text = "";
+	try {
+		text = element.options[element.selectedIndex].text;
+		document.getElementById('spellcraft-character-name').value = text;
+		document.getElementById('sc-submit-button').disabled = false;
+	}
+	catch(e) {
+	}
 }
 
 const getDropDownValue = (id) => {
@@ -350,7 +360,7 @@ const reCalcHelper = (
 	DAOCSTARTER_G1_EFFECT, DAOCSTARTER_G1_AMOUNT, DAOCSTARTER_G1_TERZA,
 	DAOCSTARTER_G2_EFFECT, DAOCSTARTER_G2_AMOUNT, DAOCSTARTER_G2_TERZA,
 	DAOCSTARTER_G3_EFFECT, DAOCSTARTER_G3_AMOUNT, DAOCSTARTER_G3_TERZA,
-	DAOCSTARTER_G4_EFFECT, DAOCSTARTER_G4_AMOUNT, DAOCSTARTER_G4_TERZA, DAOCSTARTER_REAME) => {
+	DAOCSTARTER_G4_EFFECT, DAOCSTARTER_G4_AMOUNT, DAOCSTARTER_G4_TERZA, DAOCSTARTER_REAME, nItem) => {
 	var t1 = "";
 	var itemStrength1 = 0;
 	var itemStrength2 = 0;
@@ -422,8 +432,13 @@ const reCalcHelper = (
 	t1 += doOutputLine(DAOCSTARTER_G4_EFFECT, DAOCSTARTER_G4_AMOUNT, DAOCSTARTER_G4_TERZA, DAOCSTARTER_REAME);
 	console.log(t1);//value
 	console.log(strOutput);//recipe
+	setHiddenTextForSubmit(strOutput, nItem);
 	console.log(strOutput2);//ingredients
 	return i9;
+}
+
+const setHiddenTextForSubmit = (strOutput, nItem) => {
+	document.getElementById('pezzoGems' + nItem).value = strOutput;
 }
 
 const doOutputLine = function (element1, element2, element3, realm) {
