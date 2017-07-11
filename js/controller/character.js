@@ -62,6 +62,14 @@ module.exports = {
 		});
 	},
 
+	findOneByName: name => {
+		return new Promise((resolve, reject) => {
+			db.characterDatastore.findOne({name: name}, (err, character) => {
+				resolve(character);
+			});
+		});
+	},
+
 	create: obj => {
 		return new Promise(function(resolve, reject) {
 			db.characterDatastore.insert({
@@ -307,8 +315,17 @@ module.exports = {
 				resolve();
 			});
 		});
-	}
+	},
 
+	getFullIniName: (userdat, character, server) => {
+		return new Promise((resolve, reject) => {
+			resolve(
+				path.dirname(userdat.value) + constants.doubleSlash +
+				character.name.charAt(0).toUpperCase() +
+				character.name.slice(1) + constants.minus + server.n + constants.ini
+			);
+		})
+	}
 }
 
 const finish = async (event, chars) => {

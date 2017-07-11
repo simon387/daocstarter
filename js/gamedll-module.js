@@ -39,7 +39,8 @@ module.exports = {
 		if (await alreadyLoggedInCheck(character.account)) {
 			return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
 		}
-		await backup.backupCharacter(userdat, character, server);
+		const fullIniName = await characterController.getFullIniName(userdat, character, server);
+		await backup.backupCharacter(fullIniName);
 		const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
 			cwd: path.dirname(gamedll.value),
 			setsid: false,
@@ -100,7 +101,8 @@ module.exports = {
 		if (await alreadyLoggedInCheck(character.account)) {
 			return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
 		}
-		await backup.backupCharacter(userdat, character, server);
+		const fullIniName = await characterController.getFullIniName(userdat, character, server);
+		await backup.backupCharacter(fullIniName);
 		const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
 			cwd: path.dirname(gamedll.value),
 			setsid: false,

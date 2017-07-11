@@ -9,17 +9,13 @@ module.exports = {
 	backupUserDat: userdat => {
 		return new Promise(function(resolve, reject) {
 			resolve(backupFile(userdat.value));
-		})
+		});
 	},
 
-	backupCharacter: (userdat, character, server) => {
+	backupCharacter: (fullIniName) => {
 		return new Promise(function(resolve, reject) {
-			resolve(backupFile(
-				path.dirname(userdat.value) + constants.doubleSlash +
-				character.name.charAt(0).toUpperCase() +
-				character.name.slice(1) + constants.minus + server.n + constants.ini
-			));
-		})
+			resolve(backupFile(fullIniName));
+		});
 	}
 }
 

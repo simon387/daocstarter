@@ -21,8 +21,8 @@ module.exports = {
 			res.on('end', () => {
 				if (compareVersions(app.getVersion(), remoteVersion) < 0) {
 					const options = {
-						type: 'info',
-						title: 'Update available!',
+						type: constants.info,
+						title: constants.titleupdateAvailable,
 						detail: 'Version ' + remoteVersion + ' is available!\nThe GitHub webpage will be loaded for the download!'
 					}
 					opn(constants.githubReleases);

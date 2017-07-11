@@ -115,6 +115,9 @@ module.exports = {
 	getSpellcraftersReply: 'get-spellcrafters-reply',
 	spellcraftFormSubmitEvent: 'spellcraft-form-submit-event',
 	spellcraftFormSubmitEventReply: 'spellcraft-form-submit-event-reply',
+	info: 'info',
+	titleupdateAvailable: 'Update available!',
+	
 
 	handle_path: () => {
 		const handle_path_dev = path.join('vendor', 'handle', 'handle.exe');
