@@ -4,12 +4,12 @@
  */
 const db = require('../db-module.js');
 
-module.exports = {
-	findOneByKey: key => {
-		return new Promise(function(resolve, reject) {
-			db.settingDatastore.findOne({key: key}, (err, value) => {
-				resolve(value);
-			});
+const findOneByKey = key => {
+	return new Promise(function(resolve, reject) {
+		db.settingDatastore.findOne({key: key}, (err, value) => {
+			resolve(value);
 		});
-	}
+	});
 }
+
+module.exports = {findOneByKey};

@@ -8,13 +8,8 @@ let _tray = null;
 let _app;
 let _mainWindow;
 
-module.exports = {
-	setup: (app, mainWindow) => {
-		setTray(app, mainWindow);
-	},
-	applySettings: () => {
-		applySettings();
-	}
+const setup = (app, mainWindow) => {
+	setTray(app, mainWindow);
 }
 
 const applySettings = async () => {
@@ -103,3 +98,5 @@ const setTray = (app, mainWindow) => {
 		applySettings();
 	}
 }
+
+module.exports = {setup, applySettings};

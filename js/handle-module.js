@@ -6,29 +6,27 @@ const child_process = require('child_process');
 const constants = require('./constants.js');
 const log = require('./log-module.js').getLog();
 
-module.exports = {
-	killMutants: function () {
-		return new Promise(function(resolve, reject) {
-			log.info('killMutants called');
-			let aPID = [];
-			ps.lookup({
-				command: constants.gameDll,
-				psargs: constants.psargs
-			}, async (err, resultList) => {
-				if (err) {
-					log.error(err);
-				}
-				resultList.forEach(process => {
-					if (process){
-						aPID.push(process.pid);
-					}
-				});
-				if (aPID.length > 0) {
-					resolve(await getGameDllHandles(aPID));
+const killMutants = function () {
+	return new Promise(function(resolve, reject) {
+		log.info('killMutants called');
+		let aPID = [];
+		ps.lookup({
+			command: constants.gameDll,
+			psargs: constants.psargs
+		}, async (err, resultList) => {
+			if (err) {
+				log.error(err);
+			}
+			resultList.forEach(process => {
+				if (process){
+					aPID.push(process.pid);
 				}
 			});
+			if (aPID.length > 0) {
+				resolve(await getGameDllHandles(aPID));
+			}
 		});
-	}
+	});
 }
 
 function getGameDllHandles(aPID) {
@@ -94,3 +92,5 @@ function killHandles (aPID, aHex) {
 		resolve();
 	});
 }
+
+module.exports = {killMutants};

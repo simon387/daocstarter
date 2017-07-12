@@ -5,18 +5,16 @@ const path = require('path');
 const log = require('./log-module.js').getLog();
 const constants = require('./constants.js');
 
-module.exports = {
-	backupUserDat: userdat => {
-		return new Promise(function(resolve, reject) {
-			resolve(backupFile(userdat.value));
-		});
-	},
+const backupUserDat = userdat => {
+	return new Promise(function(resolve, reject) {
+		resolve(backupFile(userdat.value));
+	});
+}
 
-	backupCharacter: (fullIniName) => {
-		return new Promise(function(resolve, reject) {
-			resolve(backupFile(fullIniName));
-		});
-	}
+const backupCharacter = (fullIniName) => {
+	return new Promise(function(resolve, reject) {
+		resolve(backupFile(fullIniName));
+	});
 }
 
 const backupFile = inputFile => {
@@ -45,3 +43,5 @@ const backupFile = inputFile => {
 		log.error(e);
 	}
 }
+
+module.exports = {backupUserDat, backupCharacter};

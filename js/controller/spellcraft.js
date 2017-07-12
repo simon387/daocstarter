@@ -11,36 +11,35 @@ const serverController = require('./server.js');
 
 const log = require('../log-module.js').getLog();
 
-module.exports = {
-	handleSubmitSC: async (event, objArray) => {
-		//log.info('handleSubmitSC called');
-		const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
-		if (!fs.existsSync(userdat.value)) {
-			return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
-		}
-
-		/*
-objArray: [ { name: 'spellcraft-character-dropdown', value: '2' },
-  { name: 'spellcraft-character-name', value: 'Doublekek' },
-  { name: 'spellcraft-qbar-dropdown', value: '2' },
-  { name: 'pezzoGems1',
-    value: 'Raw blood essence jewel\r\nRaw dusty shielding jewel\r\nRaw mystic essence jewel\r\n' } ]
-
-		*/
-		log.info("objArray:", objArray);
-		const characterName = objArray[1].value;
-		const qbar = objArray[2].value;
-
-		const character = await characterController.findOneByName(characterName);
-		const server = await serverController.findOneByName(character.server);
-		//log.info('character=', character);
-		const fullIniName = await characterController.getFullIniName(userdat, character, server);
-
-		log.info('fullIniName=', fullIniName);
-
-		event.sender.send(constants.spellcraftFormSubmitEventReply);
+const handleSubmitSC = async (event, objArray) => {
+	//log.info('handleSubmitSC called');
+	const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
+	if (!fs.existsSync(userdat.value)) {
+		return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
 	}
+
+	/*
+objArray: [ { name: 'spellcraft-character-dropdown', value: '2' },
+{ name: 'spellcraft-character-name', value: 'Doublekek' },
+{ name: 'spellcraft-qbar-dropdown', value: '2' },
+{ name: 'pezzoGems1',
+value: 'Raw blood essence jewel\r\nRaw dusty shielding jewel\r\nRaw mystic essence jewel\r\n' } ]
+
+	*/
+	log.info("objArray:", objArray);
+	const characterName = objArray[1].value;
+	const qbar = objArray[2].value;
+
+	const character = await characterController.findOneByName(characterName);
+	const server = await serverController.findOneByName(character.server);
+	//log.info('character=', character);
+	const fullIniName = await characterController.getFullIniName(userdat, character, server);
+
+	log.info('fullIniName=', fullIniName);
+
+	event.sender.send(constants.spellcraftFormSubmitEventReply);
 }
+
 /*
 setIniOnPlayCharacter: (userdat, character) => {
 	return new Promise(function(resolve, reject) {
@@ -62,3 +61,5 @@ setIniOnPlayCharacter: (userdat, character) => {
 		resolve();
 	})
 	*/
+
+module.exports = {handleSubmitSC};
