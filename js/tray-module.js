@@ -55,9 +55,14 @@ const applySettings = async () => {
 	}
 	else {
 		_mainWindow.on('close', event => {
-			event.preventDefault();
-			_mainWindow.hide()
-			_app.exit(0);
+			try {
+				event.preventDefault();
+				_mainWindow.hide()
+				_app.exit(0);
+			}
+			catch(e) {
+				log.error(e);
+			}
 		});
 	}
 }
