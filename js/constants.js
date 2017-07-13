@@ -117,7 +117,9 @@ module.exports = {
 	spellcraftFormSubmitEventReply: 'spellcraft-form-submit-event-reply',
 	info: 'info',
 	titleupdateAvailable: 'Update available!',
-	
+	logInit: 'daocstarter init',
+	logQuit: 'daocstarter quit',
+	title: 'DAoC Starter v',
 
 	handle_path: () => {
 		const handle_path_dev = path.join('vendor', 'handle', 'handle.exe');

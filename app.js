@@ -2,8 +2,9 @@
 
 const path = require('path');
 const url = require('url');
-const {app, BrowserWindow, dialog} = require('electron');
+const {app, BrowserWindow} = require('electron');
 const commonUtil = require('./js/controller/common-util.js');
+const constants = require('./js/constants.js');
 const trayModule = require('./js/tray-module.js');
 const log = require('./js/log-module.js').getLog();
 require('./js/update-module.js').updateCheck();
@@ -13,7 +14,7 @@ require('./js/express-module.js');
 require('./js/menu-module.js');
 let mainWindow = null;
 
-log.info('daocstarter init');
+log.info(constants.logInit);
 
 const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
 	if (mainWindow) {
@@ -36,8 +37,8 @@ app.on('ready', () => {
 		minHeight: 400,
 		show: false,
 		resizable: true,
-		title: 'DAoC Starter v' + app.getVersion(),
-		icon: 'img/i.ico'
+		title: constants.title + app.getVersion(),
+		icon: constants.icoCompiled
 	});
 
 	mainWindow.loadURL(url.format({
@@ -58,5 +59,5 @@ app.on('ready', () => {
 });
 
 app.on('quit', () => {
-	log.info('daocstarter quit');
+	log.info(constants.logQuit);
 });
