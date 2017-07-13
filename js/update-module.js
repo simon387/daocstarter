@@ -26,7 +26,7 @@ const updateCheck = () => {
 				}
 				opn(constants.githubReleases);
 				dialog.showMessageBox(options)//[browserWindow, ]options[, callback]
-				electron.app.quit();
+				app.quit();
 			}
 		});
 	});
