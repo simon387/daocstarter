@@ -34,10 +34,12 @@ const renameAccountWindow = (prc, account) => {
 	});
 }
 
-const applyBorderless = (apply, prc, width, height, positionX, positionY) => {
+const applyBorderless = (apply, prc, width, height, positionX, positionY, resolution) => {
 	return new Promise(function(resolve, reject) {
 		if (true === apply) {
 			try {
+				let xy;
+				xy = resolution.split('x');
 				if (undefined === width || width < 800) {
 					width = xy[0];
 				}

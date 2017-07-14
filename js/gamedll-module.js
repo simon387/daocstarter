@@ -48,7 +48,7 @@ const playCharacter = async id => {
 	log.info(constants.infoSpawnedChildPid, prc.pid);
 	await characterController.updateLastLogin(id);
 	await autoit.renameCharacterWindow(prc, account, character);
-	await autoit.applyBorderless(character.borderless, character.width, character.height, character.positionX, character.positionY);
+	await autoit.applyBorderless(character.borderless, character.width, character.height, character.positionX, character.positionY, character.resolution);
 	await handle.killMutants();
 }
 
@@ -110,7 +110,7 @@ const playCharacterFromTeam = async (_character, res, windowed, borderless, widt
 	log.info(constants.infoSpawnedChildPid, prc.pid);
 	await characterController.updateLastLogin(character._id);
 	await autoit.renameCharacterWindow(prc, account, character);
-	await autoit.applyBorderless(borderless, width, height, positionX, positionY);
+	await autoit.applyBorderless(borderless, width, height, positionX, positionY, res);
 	await handle.killMutants();
 }
 
