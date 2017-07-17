@@ -6,11 +6,11 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 100% HTML+CSS+JS core platform independent Desktop application.  
 (Full features on Windows Machines Only)
 
-![alt tag](http://www.simonecelia.it/github/img/screen0.png)
-![alt tag](http://www.simonecelia.it/github/img/screen1.png)
-![alt tag](http://www.simonecelia.it/github/img/screen2.png)
-![alt tag](http://www.simonecelia.it/github/img/screen3.png)
-![alt tag](http://www.simonecelia.it/github/img/screen4.png)
+![alt tag](https://user-images.githubusercontent.com/18740246/28262306-db0478f8-6ae2-11e7-8212-930a8169d112.png)
+![alt tag](https://user-images.githubusercontent.com/18740246/28262307-db1cf806-6ae2-11e7-8e11-49e850738aa1.png)
+![alt tag](https://user-images.githubusercontent.com/18740246/28262308-db1f0420-6ae2-11e7-9df9-28f5273d9543.png)
+![alt tag](https://user-images.githubusercontent.com/18740246/28262309-db20729c-6ae2-11e7-94c9-b1aa310f09fe.png)
+![alt tag](https://user-images.githubusercontent.com/18740246/28262310-db27d3b6-6ae2-11e7-890a-eb1b4b9889f7.png)
 
 ## main features
 
