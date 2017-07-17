@@ -19,6 +19,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + Quickest login/logout system
 + Autoupdate system
 + Smart Gamma Calibration tool
++ Spellcrafting tool
 + No installation required, full portable executable
 
 ## quick infos
