@@ -13,7 +13,7 @@ const gamedll = require('./gamedll-module.js');
 const constants = require('./constants.js');
 
 ipcMain.on(constants.getCharacterPerPage, async event => {
-	let setting = await settingCommonController.findOneByKey(constants.accountItemsPerPage);
+	let setting = await settingCommonController.findOneByKey(constants.characterItemsPerPage);
 	event.sender.send(constants.getCharacterPerPageReply, setting.value);
 });
 
