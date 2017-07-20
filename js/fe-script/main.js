@@ -133,7 +133,7 @@ ipcRenderer.on('getAllFavouriteCharacters-reply', (event, favourites) => {
 		"<table class='table-draggable'>" +
 		'<tr>' +
 			'<td>' + item.name + '</td>' +
-			'<td>' + "<img height='32' width='32' src='../../img/" + item.classe + ".jpg'>" + '</td>' +
+			'<td>' + "<img height='32' width='32' src='../img/" + item.classe + ".jpg'>" + '</td>' +
 		'</tr>' +
 		'<tr>' +
 			'<td class="fav-details">' + item.classe + ' [' + item.account + '] of ' + item.server + '</td>' +

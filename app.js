@@ -42,7 +42,7 @@ app.on('ready', () => {
 	});
 
 	mainWindow.loadURL(url.format({
-		pathname: path.join(__dirname, 'html', 'views', 'main.html'),
+		pathname: path.join(__dirname, 'html', 'main.html'),
 		protocol: 'file',
 		slashes: true
 	}));
