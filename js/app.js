@@ -3,15 +3,15 @@
 const path = require('path');
 const url = require('url');
 const {app, BrowserWindow} = require('electron');
-const commonUtil = require('./js/controller/common-util.js');
-const constants = require('./js/constants.js');
-const trayModule = require('./js/tray-module.js');
-const log = require('./js/log-module.js').getLog();
-require('./js/update-module.js').updateCheck();
-require('./js/db-module.js').init();
-require('./js/ipc-module');
-require('./js/express-module.js');
-require('./js/menu-module.js');
+const commonUtil = require('./controller/common-util.js');
+const constants = require('./constants.js');
+const trayModule = require('./tray-module.js');
+const log = require('./log-module.js').getLog();
+require('./update-module.js').updateCheck();
+require('./db-module.js').init();
+require('./ipc-module');
+require('./express-module.js');
+require('./menu-module.js');
 let mainWindow = null;
 
 log.info(constants.logInit);
@@ -42,7 +42,7 @@ app.on('ready', () => {
 	});
 
 	mainWindow.loadURL(url.format({
-		pathname: path.join(__dirname, 'html', 'main.html'),
+		pathname: path.join(__dirname, '..', 'html', 'main.html'),
 		protocol: 'file',
 		slashes: true
 	}));
