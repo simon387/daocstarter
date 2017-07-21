@@ -126,15 +126,16 @@ ipcMain.on(constants.playTeamRow, async (event, id) => {
 			charArrayName.push(team['char' + i]);
 		}
 	}
-	let characters = await characterController.characterArrayName(charArrayName);
+	let characters = await characterController.getByNameArray(charArrayName);
 	for (let character of characters) {
 		accountSet.add(character.account);
 	}
 	accountArray = Array.from(accountSet);
 	if (accountArray.length == charArrayName.length) {
+		//TODO leva sto for e fai un'unica chiamata
 		for (let i = 0; i <= 7; i++) {
 			if (team['char' + i] != undefined && team['char' + i] != ' ') {
-				gamedll.playCharacterFromTeam(
+				await gamedll.playCharacterFromTeam(
 					team['char' + i],
 					team['res' + i],
 					team['windowed' + i],

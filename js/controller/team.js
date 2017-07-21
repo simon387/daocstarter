@@ -3,7 +3,6 @@
 const util = require('./common-util.js');
 const db = require('../db-module.js');
 
-
 const getAllTeamsForDT = () => {
 	return new Promise(function(resolve, reject) {
 		db.teamDatastore.find({}, (err, teams) => {
@@ -223,7 +222,6 @@ const update = (id, name, team) => {
 		});
 	});
 }
-
 
 module.exports = {
 	getAllTeamsForDT,

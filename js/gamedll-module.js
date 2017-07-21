@@ -82,36 +82,42 @@ const playAccount = async (id, _server) => {
 }
 
 const playCharacterFromTeam = async (_character, res, windowed, borderless, width, height, positionX, positionY) => {
-	const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
-	if (!fs.existsSync(userdat.value)) {
-		return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
-	}
-	await backup.backupUserDat(userdat);
-	const gamedll = await settingCommonController.findOneByKey(constants.pathToGameDll);
-	if (null == gamedll || !fs.existsSync(gamedll.value)) {
-		return dialog.showErrorBox(constants.error, constants.errorGameDllNF);
-	}
-	let character = await characterController.findOneByName(_character);
-	let account = await accountController.findOneByName(character.account);
-	let server = await serverController.findOneByName(character.server);
-	let classe = await classeController.findOneByName(character.classe);
-	let realm = await realmController.findOneByName(classe.realm);
-	await userdatModule.setIniOnPlayTeam(userdat, res, windowed);
-	if (await alreadyLoggedInCheck(character.account)) {
-		return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
-	}
-	const fullIniName = await characterController.getFullIniName(userdat, character, server);
-	await backup.backupCharacter(fullIniName);
-	const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
-		cwd: path.dirname(gamedll.value),
-		setsid: false,
-		detached: true
+	
+	return new Promise(async function(resolve, reject) {
+
+		const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
+		if (!fs.existsSync(userdat.value)) {
+			return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
+		}
+		await backup.backupUserDat(userdat);
+		const gamedll = await settingCommonController.findOneByKey(constants.pathToGameDll);
+		if (null == gamedll || !fs.existsSync(gamedll.value)) {
+			return dialog.showErrorBox(constants.error, constants.errorGameDllNF);
+		}
+		let character = await characterController.findOneByName(_character);
+		let account = await accountController.findOneByName(character.account);
+		let server = await serverController.findOneByName(character.server);
+		let classe = await classeController.findOneByName(character.classe);
+		let realm = await realmController.findOneByName(classe.realm);
+		await userdatModule.setIniOnPlayTeam(userdat, res, windowed);
+		if (await alreadyLoggedInCheck(character.account)) {
+			return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
+		}
+		const fullIniName = await characterController.getFullIniName(userdat, character, server);
+		await backup.backupCharacter(fullIniName);
+		const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
+			cwd: path.dirname(gamedll.value),
+			setsid: false,
+			detached: true
+		});
+		log.info(constants.infoSpawnedChildPid, prc.pid);
+		await characterController.updateLastLogin(character._id);
+		await autoit.renameCharacterWindow(prc, account, character);
+		await autoit.applyBorderless(borderless, width, height, positionX, positionY, res);
+		await handle.killMutants();
+
+		resolve();
 	});
-	log.info(constants.infoSpawnedChildPid, prc.pid);
-	await characterController.updateLastLogin(character._id);
-	await autoit.renameCharacterWindow(prc, account, character);
-	await autoit.applyBorderless(borderless, width, height, positionX, positionY, res);
-	await handle.killMutants();
 }
 
 const killCharacter = async id => {
