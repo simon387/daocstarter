@@ -75,4 +75,4 @@ possible with your report. If you can, please include:
   * :arrow_up: `:arrow_up:` when upgrading dependencies
   * :arrow_down: `:arrow_down:` when downgrading dependencies
   * :shirt: `:shirt:` when removing linter warnings
-  * :heavy_plus_sign: `:heavy_plus_sign:` when writing an enhancement(label) issue
+  * :bulb: `:bulb:` when writing an enhancement(label) issue, a new suggested feature
