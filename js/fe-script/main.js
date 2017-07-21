@@ -23,7 +23,7 @@ ipcRenderer.send('asynchronous-get-setting-per-page');
 ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 	localhost = 'http://localhost:' + port;
 
-	ipcRenderer.on('asynchronous-reply-get-character-per-page', (event, _length) => {
+	ipcRenderer.on('asynchronous-reply-get-character-per-page', (event, _length, order) => {
 		characterDataTable = datatable().$('#charactersDT').DataTable({
 			'aProcessing': false,
 			'aServerSide': false,
@@ -39,11 +39,12 @@ ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 					'character.items.per.page',
 					element.options[element.selectedIndex].value);
 				}, false);
-			}
+			},
+			order: order
 		});
 	});
 
-	ipcRenderer.on('asynchronous-reply-get-team-per-page', (event, _length) => {
+	ipcRenderer.on('asynchronous-reply-get-team-per-page', (event, _length, order) => {
 		teamDataTable = datatable().$('#teamsDT').DataTable({
 			'aProcessing': false,
 			'aServerSide': false,
@@ -59,11 +60,12 @@ ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 					'team.items.per.page',
 					element.options[element.selectedIndex].value);
 				}, false);
-			}
+			},
+			order: order
 		});
 	});
 
-	ipcRenderer.on('asynchronous-reply-get-account-per-page', (event, _length) => {
+	ipcRenderer.on('asynchronous-reply-get-account-per-page', (event, _length, order) => {
 		accountDataTable = datatable().$('#accountsDT').DataTable({
 			'aProcessing': false,
 			'aServerSide': false,
@@ -79,11 +81,12 @@ ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 					'account.items.per.page',
 					element.options[element.selectedIndex].value);
 				}, false);
-			}
+			},
+			order: order
 		});
 	});
 
-	ipcRenderer.on('asynchronous-reply-get-setting-per-page', (event, _length) => {
+	ipcRenderer.on('asynchronous-reply-get-setting-per-page', (event, _length, order) => {
 		settingDataTable = datatable().$('#settingsDT').DataTable({
 			'aProcessing': false,
 			'aServerSide': false,
@@ -96,10 +99,39 @@ ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 					'character.items.per.page',
 					element.options[element.selectedIndex].value);
 				}, false);
-			}
+			},
+			order: order
 		});
 	});
 })
+
+$('#charactersDT').on('order.dt', function() {
+	if (undefined != characterDataTable) {
+		let order = characterDataTable.order();
+		ipcRenderer.send('set-characters-order', order);
+	}
+});
+
+$('#teamsDT').on('order.dt', function() {
+	if (undefined != teamDataTable) {
+		let order = teamDataTable.order();
+		ipcRenderer.send('set-teams-order', order);
+	}
+});
+
+$('#accountsDT').on('order.dt', function() {
+	if (undefined != accountDataTable) {
+		let order = accountDataTable.order();
+		ipcRenderer.send('set-accounts-order', order);
+	}
+});
+
+$('#settingsDT').on('order.dt', function() {
+	if (undefined != settingDataTable) {
+		let order = settingDataTable.order();
+		ipcRenderer.send('set-settings-order', order);
+	}
+});
 
 //fa aprire le classi open-in-browser fuori dal main process
 const shell = require('electron').shell;

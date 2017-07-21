@@ -12,24 +12,57 @@ const settingCommonController = require('./controller/setting-common.js');
 const gamedll = require('./gamedll-module.js');
 const constants = require('./constants.js');
 
+const fixOrder = order => {
+	let defaultReturn = [0, 'asc'];
+	if (undefined == order || null == order) {
+		return defaultReturn;
+	} else {
+		if (undefined == order.value) {
+			return defaultReturn;
+		} else {
+			return order.value;
+		}
+	}
+}
+
 ipcMain.on(constants.getCharacterPerPage, async event => {
 	let setting = await settingCommonController.findOneByKey(constants.characterItemsPerPage);
-	event.sender.send(constants.getCharacterPerPageReply, setting.value);
+	let order = await settingCommonController.findOneByKey(constants.characterItemsOrder);
+	event.sender.send(constants.getCharacterPerPageReply, setting.value, fixOrder(order));
+});
+
+ipcMain.on(constants.setCharactersOrder, (event, order) => {
+	settingController.updateSettingByKey(constants.characterItemsOrder, order, true);
 });
 
 ipcMain.on(constants.getAccountPerPage, async event => {
 	let setting = await settingCommonController.findOneByKey(constants.accountItemsPerPage);
-	event.sender.send(constants.getAccountPerPageReply, setting.value);
+	let order = await settingCommonController.findOneByKey(constants.accountItemsOrder);
+	event.sender.send(constants.getAccountPerPageReply, setting.value, fixOrder(order));
+});
+
+ipcMain.on(constants.setAccountsOrder, (event, order) => {
+	settingController.updateSettingByKey(constants.accountItemsOrder, order, true);
 });
 
 ipcMain.on(constants.getTeamPerPage, async event => {
 	let setting = await settingCommonController.findOneByKey(constants.teamItemsPerPage);
-	event.sender.send(constants.getTeamPerPageReply, setting.value);
+	let order = await settingCommonController.findOneByKey(constants.teamItemsOrder);
+	event.sender.send(constants.getTeamPerPageReply, setting.value, fixOrder(order));
+});
+
+ipcMain.on(constants.setTeamsOrder, (event, order) => {
+	settingController.updateSettingByKey(constants.teamItemsOrder, order, true);
 });
 
 ipcMain.on(constants.getSettingPerPage, async event => {
-	let setting = await settingCommonController.findOneByKey(constants.characterItemsPerPage);
-	event.sender.send(constants.getSettingPerPageReply, setting.value);
+	let setting = await settingCommonController.findOneByKey(constants.settingItemsPerPage);
+	let order = await settingCommonController.findOneByKey(constants.settingItemsOrder);
+	event.sender.send(constants.getSettingPerPageReply, setting.value, fixOrder(order));
+});
+
+ipcMain.on(constants.setSettingsOrder, (event, order) => {
+	settingController.updateSettingByKey(constants.settingItemsOrder, order, true);
 });
 
 ipcMain.on(constants.setItemsPerPage, async (event, key, value) => {

@@ -7,7 +7,7 @@ const trayModule = require('../tray-module.js');
 
 const getAllSettingsForDT = () => {
 	return new Promise(function(resolve, reject) {
-		db.settingDatastore.find({_id: {$nin: ['3', '4', '5', '6']}}, (err, settings) => {
+		db.settingDatastore.find({_id: {$in: ['1', '10', '2', '7', '8', '9']}}, (err, settings) => {
 			let payload = new Object();
 			payload.aaData = [];
 			settings.forEach(setting => {
@@ -41,12 +41,12 @@ const saveSettingBooleano = (event, id, value) => {
 	);
 }
 
-const updateSettingByKey = (key, value) => {
+const updateSettingByKey = (key, value, upsert = false) => {
 	return new Promise(function(resolve, reject) {
 		db.settingDatastore.update(
 			{key: key},
 			{$set: {value: value}},
-			{returnUpdatedDocs: true, multi: false},
+			{returnUpdatedDocs: true, multi: false, upsert: upsert},
 			(err, numAffected, affectedDocuments) => {
 				resolve(numAffected);
 				if (err) {
