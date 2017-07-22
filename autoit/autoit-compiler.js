@@ -8,7 +8,7 @@ const distzip = 'dist.zip';
 const archive = archiver('zip', {zlib: {level: 9} /* Sets the compression level.0-9*/});
 const ignoreList = '--ignore=borderless\.js --ignore=CALGamma\.js --ignore=titlerenamer\.js --ignore=autoit-compiler\.js --ignore=daocstarter\.au3 --ignore=.*\.md$ --ignore=handle64\.exe --ignore=creative\.less --ignore=mixins\.less --ignore=variables\.less';
 const packagercmd = 'electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\\i.ico --overwrite ' + ignoreList;
-const autoitcmd = '& "C:\\Program Files (x86)\\AutoIt3\\Aut2Exe\\Aut2exe.exe" /in "C:\\electron\\daocstarter\\daocstarter.au3" /icon img\\i.ico /comp 4'
+const autoitcmd = '& "C:\\Program Files (x86)\\AutoIt3\\Aut2Exe\\Aut2exe.exe" /in "C:\\daocstarter\\daocstarter.au3" /icon img\\i.ico /comp 4'
 const daocstarterau3 = "daocstarter.au3";
 const exe = "daocstarter.exe"
 const buffer = new Buffer (
