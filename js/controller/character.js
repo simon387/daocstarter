@@ -317,9 +317,12 @@ const updateLastLogin = id => {
 const getFullIniName = (userdat, character, server) => {
 	return new Promise((resolve, reject) => {
 		resolve(
-			path.dirname(userdat.value) + constants.doubleSlash +
+			path.join(path.dirname(userdat.value),
 			character.name.charAt(0).toUpperCase() +
-			character.name.slice(1) + constants.minus + server.n + constants.ini
+			character.name.slice(1) + constants.minus + server.n + constants.ini)
+			/*path.dirname(userdat.value) + constants.doubleSlash +
+			character.name.charAt(0).toUpperCase() +
+			character.name.slice(1) + constants.minus + server.n + constants.ini*/
 		);
 	})
 }

@@ -4,7 +4,9 @@ let localhost;
 window.jQuery = window.$ = require('jquery');
 
 const {ipcRenderer, remote} = require('electron');
-const {dialog} = require('electron').remote;
+const {dialog, shell} = require('electron').remote;
+//const shell = require('electron').shell;
+
 const datatable = require('datatables.net');
 
 const playCSS = "class='btnX btn-primary btn-sm sr-button'";
@@ -96,7 +98,7 @@ ipcRenderer.on('asynchronous-reply-get-port', (event, port) => {
 				let element = document.querySelector('div#settingsDT_length label select');
 				element.addEventListener('change', e => {
 					ipcRenderer.send('asynchronous-set-items-per-page',
-					'character.items.per.page',
+					'setting.items.per.page',
 					element.options[element.selectedIndex].value);
 				}, false);
 			},
@@ -134,7 +136,6 @@ $('#settingsDT').on('order.dt', function() {
 });
 
 //fa aprire le classi open-in-browser fuori dal main process
-const shell = require('electron').shell;
 $('.open-in-browser').click((event) => {
 	event.preventDefault();
 	shell.openExternal(event.target.href);

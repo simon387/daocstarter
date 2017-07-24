@@ -116,7 +116,7 @@ module.exports = {
 	timestampFormat: 'DD/MM/YY HH:mm',
 	errorAlreadyLoggedIn: 'The account is already logged in!',
 	infoSpawnedChildPid: 'Spawned child pid:',
-	doubleSlash: '\\',
+//	doubleSlash: '\\',
 	minus: '-',
 	ini: '.ini',
 	getSpellcrafters: 'get-spellcrafters',

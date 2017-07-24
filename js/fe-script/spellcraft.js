@@ -88,13 +88,14 @@ document.getElementById('spellcraft-button').onclick = () => {
 
 	$('#spellcraft-form').on('submit', function(event) {
 		event.preventDefault();
-		let objArray = $(this).serializeArray()
-		console.log(objArray)
-
-		ipcRenderer.send('spellcraft-form-submit-event',
-		objArray,
-		//document.getElementById('setting-value-number').value
-		);
+		let objArray = $(this).serializeArray();
+		console.log(objArray);
+		let itemNames = [];
+		let elements = document.getElementsByClassName('form-control itemName');
+		for (let i = 0; i < elements.length; i++) {
+			itemNames.push(elements[i].value)
+		}
+		ipcRenderer.send('spellcraft-form-submit-event', objArray, itemNames);
 	});
 
 	ipcRenderer.on('spellcraft-form-submit-event-reply', event => {
@@ -125,18 +126,23 @@ const generaPezzo = () => {
 	itemCounter++;
 	const container = document.getElementById('container-spellcrafter');
 	container.insertAdjacentHTML('beforeend', 
-		generaGemma(itemCounter, 1) +
-		generaGemma(itemCounter, 2) +
-		generaGemma(itemCounter, 3) +
-		generaGemma(itemCounter, 4) +
 		"<div class='form-group'>" +
-			"<label class='col-sm-2 control-label'>imbue</label>" +
-			"<div class='col-sm-3'>" +
+			"<label class='col-sm-2 control-label'>Name</label>" +
+			"<div class='col-sm-4'>" +
+				"<input type='text' class='form-control itemName'" +
+				" placeholder='item " + itemCounter + "'>" +
+			"</div>" +
+			"<label class='col-sm-2 control-label'>Imbue</label>" +
+			"<div class='col-sm-4'>" +
 				"<input type='text' class='form-control' id='imbue" + itemCounter +
 				"' placeholder='0' readonly>" +
 			"</div>" +
 			"<input type='hidden' id='pezzoGems" + itemCounter + "' name='pezzoGems" + itemCounter + "' value='' class='hidden'>" +
 		"</div>" +
+		generaGemma(itemCounter, 1) +
+		generaGemma(itemCounter, 2) +
+		generaGemma(itemCounter, 3) +
+		generaGemma(itemCounter, 4) +
 		"<hr>"
 	);
 }

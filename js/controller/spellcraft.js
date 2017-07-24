@@ -11,8 +11,8 @@ const log = require('../log-module.js').getLog();
 
 let scdb;
 
-const handleSubmitSC = async (event, objArray) => {
-	log.info("handleSubmitSC: objArray:", objArray);
+const handleSubmitSC = async (event, objArray, itemNames) => {
+	log.info("handleSubmitSC: objArray:", objArray, "itemNames:", itemNames);
 	scdb = require('../json/spellcraft.json');
 	const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
 	if (!fs.existsSync(userdat.value)) {
@@ -25,9 +25,9 @@ const handleSubmitSC = async (event, objArray) => {
 		{ name: 'pezzoGems1',
 		value: 'Raw blood essence jewel\r\nRaw dusty shielding jewel\r\nRaw mystic essence jewel\r\n' } ]
 	*/
+	const realm = objArray[0].value == '0' ? 'albion' : objArray[0].value == '1' ? 'hibernia' : 'midgard';
 	const characterName = objArray[1].value;
 	const quickbar = objArray[2].value == '1' ? 'Quickbar' : objArray[2].value == '2' ? 'Quickbar2' : 'Quickbar3';
-	const realm = objArray[0].value == '0' ? 'albion' : objArray[0].value == '1' ? 'hibernia' : 'midgard';
 
 	const character = await characterController.findOneByName(characterName);
 	const server = await serverController.findOneByName(character.server);
@@ -35,12 +35,24 @@ const handleSubmitSC = async (event, objArray) => {
 
 	let currentSlot = 10;
 	for (let i = 3; i < objArray.length; i++) {
-		let gemme = objArray[i].value.split('\r\n');
-		for (let c = 0; c < gemme.length - 1; c++) {
-			let gemmaCode = await getGemmaCode(realm, gemme[c].toLowerCase());
-			await scriviGemmaInBarra(fullIniName, quickbar, currentSlot++, gemmaCode);
-		}
+		let gemmes = objArray[i].value.split('\r\n');
+		//TODO fare lo slot /say
 		currentSlot++;
+		console.log("metti label")
+		//for (let c = 0; c < gemmes.length - 1; c++) {
+		for (let c = 0; c < 4; c++) {
+			if (c < gemmes.length - 1) {
+				console.log("metti gemma")
+				let gemmaCode = await getGemmaCode(realm, gemmes[c].toLowerCase());
+				await scriviGemmaInBarra(fullIniName, quickbar, currentSlot++, gemmaCode);
+			}
+			else {
+				console.log("non fare niente")
+				//non fare niente
+				currentSlot++;
+			}
+		}
+		//currentSlot++;
 	}
 	event.sender.send(constants.spellcraftFormSubmitEventReply);
 }
@@ -55,6 +67,7 @@ const scriviGemmaInBarra = (fullIniName, quickbar, currentSlot, gemmaCode) => {
 	return new Promise((resolve, reject) => {
 		log.info("fullIniName=", fullIniName, "quickbar=", quickbar, "currentSlot=", currentSlot, "gemmaCode=", gemmaCode);
 		let fileIni = ini.parse(fs.readFileSync(fullIniName, constants.utf8));
+		//log.info('fileIni=', fileIni)
 		try {
 			fileIni[quickbar]['Hotkey_' + currentSlot] = gemmaCode;
 		}

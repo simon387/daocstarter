@@ -231,6 +231,6 @@ ipcMain.on(constants.getSpellcrafters, async event => {
 	event.sender.send(constants.getSpellcraftersReply, charsArray);
 });
 
-ipcMain.on(constants.spellcraftFormSubmitEvent, (event, objArray) => {
-	spellcraftController.handleSubmitSC(event, objArray);
+ipcMain.on(constants.spellcraftFormSubmitEvent, (event, objArray, itemNames) => {
+	spellcraftController.handleSubmitSC(event, objArray, itemNames);
 });
