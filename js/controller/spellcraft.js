@@ -110,17 +110,18 @@ const writeMacro = (fullIniName, itemName, macroNumber) => {
 		else {
 			itemName = 'item #' + macroNumber;
 		}
-
+		const h = '#';
 		try {
 			let fileIni = ini.parse(fs.readFileSync(fullIniName, constants.utf8));
-			fileIni['Macros']['Macro_' + macroNumber] = itemName + ',/s crafting ' + itemName;
+			//fileIni.Macros = 'Macros'//non crea la sezione macros
+			fileIni.Macros['Macro_' + macroNumber] = itemName + ',/s crafting ' + itemName;
 			fs.writeFileSync(fullIniName, ini.stringify(fileIni, {}));
 		}
 		catch(e) {
 			log.error(e);
 		}
 		finally {
-			return resolve('52,' + macroNumber + ',Macro #' + macroNumber + ',354');
+			return resolve('52,' + macroNumber + ',Macro '+ h + macroNumber + ',354');
 		}
 	});
 }
