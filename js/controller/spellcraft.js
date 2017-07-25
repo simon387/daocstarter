@@ -32,51 +32,112 @@ const handleSubmitSC = async (event, objArray, itemNames) => {
 	const character = await characterController.findOneByName(characterName);
 	const server = await serverController.findOneByName(character.server);
 	const fullIniName = await characterController.getFullIniName(userdat, character, server);
+	let macroNumber = await getNextAvailableMacroNumber(fullIniName);
 
 	let currentSlot = 10;
+	let itemNamesIndex = 0;
 	for (let i = 3; i < objArray.length; i++) {
 		let gemmes = objArray[i].value.split('\r\n');
-		//TODO fare lo slot /say
-		currentSlot++;
-		console.log("metti label")
-		//for (let c = 0; c < gemmes.length - 1; c++) {
+		
+		let macroCode = await writeMacro(fullIniName, itemNames[itemNamesIndex++], macroNumber++);
+		await scriviItemInBarra(fullIniName, quickbar, currentSlot++, macroCode);
 		for (let c = 0; c < 4; c++) {
 			if (c < gemmes.length - 1) {
-				console.log("metti gemma")
 				let gemmaCode = await getGemmaCode(realm, gemmes[c].toLowerCase());
-				await scriviGemmaInBarra(fullIniName, quickbar, currentSlot++, gemmaCode);
+				await scriviItemInBarra(fullIniName, quickbar, currentSlot++, gemmaCode);
 			}
 			else {
-				console.log("non fare niente")
-				//non fare niente
-				currentSlot++;
+				currentSlot++;//non fare niente, white space in barra
 			}
 		}
-		//currentSlot++;
 	}
 	event.sender.send(constants.spellcraftFormSubmitEventReply);
 }
 
 const getGemmaCode = (realm, gemma) => {
 	return new Promise((resolve, reject) => {
-		resolve(scdb[realm][gemma]);
+		return resolve(scdb[realm][gemma]);
 	});
 }
 
-const scriviGemmaInBarra = (fullIniName, quickbar, currentSlot, gemmaCode) => {
+const scriviItemInBarra = (fullIniName, quickbar, currentSlot, code) => {
 	return new Promise((resolve, reject) => {
-		log.info("fullIniName=", fullIniName, "quickbar=", quickbar, "currentSlot=", currentSlot, "gemmaCode=", gemmaCode);
+		log.info("fullIniName=", fullIniName, "quickbar=", quickbar, "currentSlot=", currentSlot, "code=", code);
 		let fileIni = ini.parse(fs.readFileSync(fullIniName, constants.utf8));
 		//log.info('fileIni=', fileIni)
 		try {
-			fileIni[quickbar]['Hotkey_' + currentSlot] = gemmaCode;
+			fileIni[quickbar]['Hotkey_' + currentSlot] = code;
+			fs.writeFileSync(fullIniName, ini.stringify(fileIni, {}));
 		}
 		catch(e) {
 			log.error(e);
 		}
-		fs.writeFileSync(fullIniName, ini.stringify(fileIni, {}));
-		resolve();
+		finally {
+			resolve();
+		}
+	});
+}
+
+const getNextAvailableMacroNumber = (fullIniName) => {
+	return new Promise((resolve, reject) => {
+		let counter = 1;
+		let macro = undefined;
+
+		try {
+			let fileIni = ini.parse(fs.readFileSync(fullIniName, constants.utf8));
+			while (true) {
+				macro = fileIni['Macros']['Macro_' + counter];
+				if (undefined == macro) {
+					break;
+				}
+				counter++;
+			}
+		}
+		catch(e) {
+			log.error(e);
+		}
+		finally {
+			return resolve(counter);
+		}
+	});
+}
+
+const writeMacro = (fullIniName, itemName, macroNumber) => {
+	return new Promise((resolve, reject) => {
+		if (!!itemName) {
+
+		}
+		else {
+			itemName = 'item #' + macroNumber;
+		}
+
+		try {
+			let fileIni = ini.parse(fs.readFileSync(fullIniName, constants.utf8));
+			fileIni['Macros']['Macro_' + macroNumber] = itemName + ',/s crafting ' + itemName;
+			fs.writeFileSync(fullIniName, ini.stringify(fileIni, {}));
+		}
+		catch(e) {
+			log.error(e);
+		}
+		finally {
+			return resolve('52,' + macroNumber + ',Macro #' + macroNumber + ',354');
+		}
 	});
 }
 
 module.exports = {handleSubmitSC};
+/*
+	Hotkey_5=52,1,Macro #1,354
+	Hotkey_6=52,7,Macro #7,354
+	Hotkey_7=52,4,Macro #4,354
+	Hotkey_8=52,3,Macro #3,354
+	Hotkey_9=52,6,Macro #6,354
+	[Macros]
+	Macro_1=EF,/effects none
+	Macro_2=AS,/autosplit c
+	Macro_3=SA,/statsanon
+	Macro_4=AN,/anon
+	Macro_5=assist,/assist %T
+	Macro_6=TP,/use 5 79
+	Macro_7=EFA,/effects all
+*/
