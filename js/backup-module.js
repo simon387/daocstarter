@@ -2,8 +2,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const log = require('./log-module.js').getLog();
-const constants = require('./constants.js');
+const log = require('./log-module').getLog();
+const constants = require('./constants');
 
 const backupUserDat = userdat => {
 	return new Promise(function(resolve, reject) {

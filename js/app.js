@@ -3,15 +3,15 @@
 const path = require('path');
 const url = require('url');
 const {app, BrowserWindow} = require('electron');
-const commonUtil = require('./controller/common-util.js');
-const constants = require('./constants.js');
-const trayModule = require('./tray-module.js');
-const log = require('./log-module.js').getLog();
-require('./update-module.js').updateCheck();
-require('./db-module.js').init();
+const commonUtil = require('./controller/common-util');
+const constants = require('./constants');
+const trayModule = require('./tray-module');
+const log = require('./log-module').getLog();
+require('./update-module').updateCheck();
+require('./db-module').init();
 require('./ipc-module');
-require('./express-module.js');
-require('./menu-module.js');
+require('./express-module');
+require('./menu-module');
 let mainWindow = null;
 
 log.info(constants.logInit);

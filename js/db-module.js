@@ -3,7 +3,7 @@
 const {app} = require('electron');
 const Datastore = require('nedb');
 const path = require('path');
-const constants = require('./constants.js');
+const constants = require('./constants');
 
 const init = () => {
 	//account

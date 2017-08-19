@@ -2,9 +2,9 @@
 
 const os = require('os');
 const shell = require('node-powershell');
-const constants = require('./constants.js');
-const log = require('./log-module.js').getLog();
-const settingCommonController = require('./controller/setting-common.js');
+const constants = require('./constants');
+const log = require('./log-module').getLog();
+const settingCommonController = require('./controller/setting-common');
 
 const getAllResolutions = () => {
 	return new Promise(async function(resolve, reject) {

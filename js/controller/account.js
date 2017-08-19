@@ -1,9 +1,8 @@
 'use strict';
 
-const util = require('./common-util.js');
-const db = require('../db-module.js');
-const log = require('../log-module.js').getLog();
-
+const util = require('./common-util');
+const db = require('../db-module');
+const log = require('../log-module').getLog();
 
 const findAllForDT =  () => {
 	return new Promise(function(resolve, reject) {

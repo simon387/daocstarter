@@ -4,8 +4,8 @@ const http = require('http');
 const compareVersions = require('compare-versions');
 const opn = require('opn');
 const {app, dialog} = require('electron');
-const log = require('./log-module.js').getLog();
-const constants = require('./constants.js');
+const log = require('./log-module').getLog();
+const constants = require('./constants');
 
 const updateCheck = () => {
 	const opts = {

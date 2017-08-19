@@ -1,7 +1,7 @@
 'use strict';
 
-const util = require('./common-util.js');
-const db = require('../db-module.js');
+const util = require('./common-util');
+const db = require('../db-module');
 
 const findAllClassesNames = () => {
 	return new Promise(function(resolve, reject) {

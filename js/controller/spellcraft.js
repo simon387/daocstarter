@@ -3,11 +3,11 @@
 const fs = require('fs');
 const ini = require('ini');
 const {ipcMain, dialog} = require('electron');
-const constants = require('../constants.js');
-const characterController = require('./character.js');
-const settingCommonController = require('./setting-common.js');
-const serverController = require('./server.js');
-const log = require('../log-module.js').getLog();
+const constants = require('../constants');
+const characterController = require('./character');
+const settingCommonController = require('./setting-common');
+const serverController = require('./server');
+const log = require('../log-module').getLog();
 
 let scdb;
 

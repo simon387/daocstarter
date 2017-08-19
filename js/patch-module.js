@@ -3,8 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 const child_process = require('child_process');
-const constants = require('./constants.js');
-const settingCommonController = require('./controller/setting-common.js');
+const constants = require('./constants');
+const settingCommonController = require('./controller/setting-common');
 
 const patchClient = async isTest => {
 	let exe = constants.camelotExe;

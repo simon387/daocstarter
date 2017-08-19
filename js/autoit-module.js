@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const child_process = require('child_process');
 const {dialog} = require('electron');
-const constants = require('./constants.js');
-const log = require('./log-module.js').getLog();
+const constants = require('./constants');
+const log = require('./log-module').getLog();
 const exec = child_process.exec;
 
 const renameCharacterWindow = (prc, account, character) => {

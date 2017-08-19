@@ -1,6 +1,6 @@
 'use strict';
 
-const db = require('../db-module.js');
+const db = require('../db-module');
 
 const findOneByName = name => {
 	return new Promise(function(resolve, reject) {

@@ -4,14 +4,14 @@ const fs = require('fs');
 const path = require('path');
 const opn = require('opn');
 const {shell, dialog, BrowserWindow, Menu} = require('electron');
-const handle = require('./handle-module.js');
-const gamedll = require('./gamedll-module.js');
-const patch = require('./patch-module.js');
 const child_process = require('child_process');
-const constants = require('./constants.js');
-const log = require('./log-module.js').getLog();
-const settingCommonController = require('./controller/setting-common.js');
-const characterController = require('./controller/character.js');
+const handle = require('./handle-module');
+const gamedll = require('./gamedll-module');
+const patch = require('./patch-module');
+const constants = require('./constants');
+const log = require('./log-module').getLog();
+const settingCommonController = require('./controller/setting-common');
+const characterController = require('./controller/character');
 
 Menu.getApplicationMenu();
 

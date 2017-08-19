@@ -1,8 +1,8 @@
 'use strict';
 
-const util = require('./common-util.js');
-const db = require('../db-module.js');
-const trayModule = require('../tray-module.js');
+const util = require('./common-util');
+const db = require('../db-module');
+const trayModule = require('../tray-module');
 
 
 const getAllSettingsForDT = () => {

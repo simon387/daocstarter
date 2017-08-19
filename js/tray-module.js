@@ -1,9 +1,9 @@
 'use strict'
 
 const {Menu, Tray, BrowserWindow} = require('electron');
-const log = require('./log-module.js').getLog();
-const settingCommonController = require('./controller/setting-common.js');
-const constants = require('./constants.js');
+const log = require('./log-module').getLog();
+const settingCommonController = require('./controller/setting-common');
+const constants = require('./constants');
 let _tray = null;
 let _app;
 let _mainWindow;

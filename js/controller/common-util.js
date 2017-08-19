@@ -1,8 +1,8 @@
 'use strict';
 
 const {ipcMain, BrowserWindow} = require('electron');
-const db = require('../db-module.js');
-const constants = require('../constants.js');
+const db = require('../db-module');
+const constants = require('../constants');
 
 const getAllNamesHelper = (docs, noSort = false) => {
 	let array = [];

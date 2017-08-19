@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const ini = require('ini');
 const {dialog} = require('electron');
-const constants = require('./constants.js');
-const log = require('./log-module.js').getLog();
+const constants = require('./constants');
+const log = require('./log-module').getLog();
 
 const setIniOnPlayCharacter = (userdat, character) => {
 	return new Promise(function(resolve, reject) {

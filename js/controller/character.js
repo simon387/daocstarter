@@ -4,13 +4,13 @@ const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
 const {dialog, ipcMain} = require('electron');
-const serverController = require('./server.js');
-const util = require('./common-util.js');
-const db = require('../db-module.js');
-const constants = require('../constants.js');
-const log = require('../log-module.js').getLog();
-const settingCommonController = require('./setting-common.js');
-const accountController = require('./account.js');
+const serverController = require('./server');
+const util = require('./common-util');
+const db = require('../db-module');
+const constants = require('../constants');
+const log = require('../log-module').getLog();
+const settingCommonController = require('./setting-common');
+const accountController = require('./account');
 let waiting = -1;
 
 const findAllForDT = () => {

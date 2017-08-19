@@ -2,15 +2,15 @@
 
 const fs = require('fs');
 const {ipcMain, dialog} = require('electron');
-const accountController = require('./controller/account.js');
-const spellcraftController = require('./controller/spellcraft.js');
-const settingController = require('./controller/setting.js');
-const characterController = require('./controller/character.js');
-const teamController = require('./controller/team.js');
-const classeController = require('./controller/classe.js');
-const settingCommonController = require('./controller/setting-common.js');
-const gamedll = require('./gamedll-module.js');
-const constants = require('./constants.js');
+const accountController = require('./controller/account');
+const spellcraftController = require('./controller/spellcraft');
+const settingController = require('./controller/setting');
+const characterController = require('./controller/character');
+const teamController = require('./controller/team');
+const classeController = require('./controller/classe');
+const settingCommonController = require('./controller/setting-common');
+const gamedll = require('./gamedll-module');
+const constants = require('./constants');
 
 const fixOrder = order => {
 	let defaultReturn = [0, 'asc'];

@@ -2,7 +2,7 @@
 /*
  * perchè NODE impazzisce con require intrecciati
  */
-const db = require('../db-module.js');
+const db = require('../db-module');
 
 const findOneByKey = key => {
 	return new Promise(function(resolve, reject) {

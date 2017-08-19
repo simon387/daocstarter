@@ -3,8 +3,8 @@
 const fs = require('fs');
 const ps = require('ps-node');
 const child_process = require('child_process');
-const constants = require('./constants.js');
-const log = require('./log-module.js').getLog();
+const constants = require('./constants');
+const log = require('./log-module').getLog();
 
 const killMutants = function () {
 	return new Promise(function(resolve, reject) {
