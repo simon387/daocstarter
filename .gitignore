@@ -10,3 +10,7 @@ tmp
 resources/
 *.au3
 test.js
+autoit/borderless/borderless.exe
+autoit/calgamma/CALGamma.exe
+autoit/titlerenamer/titlerenamer.exe
+.gitignore.swp
