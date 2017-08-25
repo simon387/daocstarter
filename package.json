@@ -1,7 +1,7 @@
 {
   "name": "daocstarter",
   "productName": "daocstarter",
-  "version": "3.8.2",
+  "version": "3.8.3",
   "description": "a DAOC starter tool",
   "main": "js/app.js",
   "homepage": "https://github.com/simon387/daocstarter",

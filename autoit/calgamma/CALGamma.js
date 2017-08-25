@@ -4,7 +4,7 @@ const fs = require('fs');
 const calgammau3 = "CALGamma.au3";
 const buffer = new Buffer (
 '#NoTrayIcon\r\n' +
-'#AutoIt3Wrapper_icon=C:\\electron\\daocstarter\\img\\i.ico\r\n' +
+'#AutoIt3Wrapper_icon=C:\\daocstarter\\img\\i.ico\r\n' +
 '#AutoIt3Wrapper_Compression=4\r\n' +
 '#include <GuiConstants.au3>\r\n' +
 '#Include <WinAPI.au3>\r\n' +
@@ -29,7 +29,7 @@ const buffer = new Buffer (
 'Global Const $slideMin = 0\r\n' +
 'Global Const $slideMax = 386\r\n' +
 '\r\n' +
-'FileInstall("GammaImage.jpg", @tempdir & "\\GammaImage.jpg", 1)\r\n' +
+'FileInstall("C:\\daocstarter\\img\\GammaImage.jpg", @tempdir & "\\GammaImage.jpg", 1)\r\n' +
 '$Main = GUICreate("CALGamma", 1024, 530,-1,-1)\r\n' +
 '\r\n' +
 'GUISetOnEvent($GUI_EVENT_CLOSE, "_Quit")\r\n' +

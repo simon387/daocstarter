@@ -35,7 +35,7 @@ function getGameDllHandles(aPID) {
 		const spawn = child_process.spawn;
 		let aHex = [];
 		const handle_exe= spawn(constants.handle_path(), ['-a', '-nobanner']);
-		const findstr_exe = spawn('findstr', ['DAoC']);//i
+		const findstr_exe = spawn('findstr', ['DAoCi']);//i
 		handle_exe.stdout.on('data', (data) => {
 			findstr_exe.stdin.write(data);
 		});
