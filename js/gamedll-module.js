@@ -102,7 +102,7 @@ const playCharacterFromTeam = async (_character, res, windowed, borderless, widt
 }
 
 const launchGameDll = async (gamedll, server, account, character = undefined, realm = undefined) => {
-	return new Promise(function(resolve, reject) {
+	return new Promise(async function(resolve, reject) {
 		const spawn = child_process.spawn;
 		const args = [server.ip, server.port, server.n];
 		const options = {
