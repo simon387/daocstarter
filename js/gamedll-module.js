@@ -17,7 +17,6 @@ const realmController = require('./controller/realm');
 const settingCommonController = require('./controller/setting-common');
 const userdatModule = require('./userdat-module');
 const autoit = require('./autoit-module');
-const spawn = child_process.spawn;
 
 const playCharacter = async id => {
 	const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
@@ -40,12 +39,7 @@ const playCharacter = async id => {
 	}
 	const fullIniName = await characterController.getFullIniName(userdat, character, server);
 	await backup.backupCharacter(fullIniName);
-	const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
-		cwd: path.dirname(gamedll.value),
-		setsid: false,
-		detached: true
-	});
-	log.info(constants.infoSpawnedChildPid, prc.pid);
+	const prc = await launchGameDll(gamedll, server, account, character, realm);
 	await characterController.updateLastLogin(id);
 	await autoit.renameCharacterWindow(prc, account, character);
 	await autoit.applyBorderless(character.borderless, character.width, character.height, character.positionX, character.positionY, character.resolution);
@@ -71,20 +65,13 @@ const playAccount = async (id, _server) => {
 	if (await alreadyLoggedInCheck(account.name)) {
 		return dialog.showErrorBox(constants.error, constants.errorAlreadyLoggedIn);
 	}
-	const prc = spawn(gamedll.value, [server.ip, server.port, server.n, account.name, account.password], {
-		cwd:path.dirname(gamedll.value),
-		setsid: false,
-		detached: true
-	});
-	log.info(constants.infoSpawnedChildPid, prc.pid);
+	const prc = await launchGameDll(gamedll, server, account);
 	await autoit.renameAccountWindow(prc, account);
 	await handle.killMutants();
 }
 
 const playCharacterFromTeam = async (_character, res, windowed, borderless, width, height, positionX, positionY) => {
-	
 	return new Promise(async function(resolve, reject) {
-
 		const userdat = await settingCommonController.findOneByKey(constants.pathToUserDat);
 		if (!fs.existsSync(userdat.value)) {
 			return dialog.showErrorBox(constants.error, constants.errorUserDatNF);
@@ -105,19 +92,52 @@ const playCharacterFromTeam = async (_character, res, windowed, borderless, widt
 		}
 		const fullIniName = await characterController.getFullIniName(userdat, character, server);
 		await backup.backupCharacter(fullIniName);
-		const prc = spawn(gamedll.value, [server.ip, server.port, server.n, character.account, account.password, character.name, realm.n], {
-			cwd: path.dirname(gamedll.value),
-			setsid: false,
-			detached: true
-		});
-		log.info(constants.infoSpawnedChildPid, prc.pid);
+		const prc = await launchGameDll(gamedll, server, account, character, realm);
 		await characterController.updateLastLogin(character._id);
 		await autoit.renameCharacterWindow(prc, account, character);
 		await autoit.applyBorderless(borderless, width, height, positionX, positionY, res);
 		await handle.killMutants();
-
 		resolve();
 	});
+}
+
+const launchGameDll = async (gamedll, server, account, character = undefined, realm = undefined) => {
+	return new Promise(function(resolve, reject) {
+		const spawn = child_process.spawn;
+		const args = [server.ip, server.port, server.n];
+		const options = {
+			cwd: path.dirname(gamedll.value),
+			setsid: false,
+			detached: true
+		};
+
+		if (undefined == character) {
+			args.push(account.name);
+			args.push(account.password);
+		}
+		else {
+			args.push(character.account);
+			args.push(account.password);
+			args.push(character.name);
+			args.push(realm.n);
+		}
+		const prc = spawn(gamedll.value, args, options);
+		log.info(constants.infoSpawnedChildPid, prc.pid);
+
+		prc.on('close', (code, signal) => {
+			log.info(`${prc.pid} close event, code=${code}, signal=${signal}`);
+		});
+
+		prc.on('exit', (code, signal) => {
+			log.info(`${prc.pid} exit event, code=${code}, signal=${signal}`);
+		});
+
+		prc.on('error', (err) => {
+			log.error(`${prc.pid} error event, err=${err}`);
+		});
+
+		return resolve(prc);
+	})
 }
 
 const killCharacter = async id => {

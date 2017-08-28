@@ -37,7 +37,7 @@ app.on('ready', () => {
 		minHeight: 400,
 		show: false,
 		resizable: true,
-		title: constants.title + app.getVersion() + " Master Tester Edition",
+		title: constants.title + app.getVersion(),
 		icon: constants.icoCompiled
 	});
 
