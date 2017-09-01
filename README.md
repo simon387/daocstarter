@@ -25,9 +25,9 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 ## quick infos
 
 + On Windows, when you need to log in more then 2 DAoC's accounts, you need to run the daocstarter.exe as admin
-+ The exe is portable, but the first time you run it you need to wait a bit because it transfers a lot of applications file in your user data settings
++ The exe is portable, but the first time you run it you need to wait a bit because it transfers a lot of applications files in your user data settings
 + The exe is big because there a lot of files: this is duo to Electron nature, there is an entire browser there! (plus lot of node's  modules)
-+ After the first "installation", the software is very fast! thanks to javascript!
++ After the first "installation", the software is very fast! thanks to v8 Google Javascript Engine!
 + All data and passwords are stored in your user data settings
 
 ## based on:
