@@ -29,7 +29,7 @@
     "electron-log": "^2.2.9",
     "express": "^4.16.2",
     "jquery": "^3.2.1",
-    "moment": "^2.18.1",
+    "moment": "^2.19.0",
     "nedb": "^1.8.0",
     "node-powershell": "^3.1.1",
     "opn": "^4.0.2",
