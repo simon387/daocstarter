@@ -31,7 +31,7 @@
     "jquery": "^3.2.1",
     "moment": "^2.19.0",
     "nedb": "^1.8.0",
-    "node-powershell": "^3.1.1",
+    "node-powershell": "^3.2.0",
     "opn": "^4.0.2",
     "portfinder": "^1.0.13",
     "ps-node": "^0.1.6"
