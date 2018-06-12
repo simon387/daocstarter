@@ -24,7 +24,7 @@
     "url": "git@github.com:simon387/daocstarter.git"
   },
   "dependencies": {
-    "compare-versions": "^3.2.1",
+    "compare-versions": "^3.3.0",
     "datatables.net": "1.10.15",
     "electron-log": "^2.2.14",
     "express": "^4.16.3",
