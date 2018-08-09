@@ -33,7 +33,7 @@
     "nedb": "^1.8.0",
     "node-powershell": "^3.3.1",
     "opn": "^4.0.2",
-    "portfinder": "^1.0.15",
+    "portfinder": "^1.0.16",
     "ps-node": "^0.1.6"
   }
 }
