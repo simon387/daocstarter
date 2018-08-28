@@ -24,7 +24,7 @@
     "url": "git@github.com:simon387/daocstarter.git"
   },
   "dependencies": {
-    "compare-versions": "^3.3.0",
+    "compare-versions": "^3.3.1",
     "datatables.net": "1.10.15",
     "electron-log": "^2.2.17",
     "express": "^4.16.3",
@@ -33,7 +33,7 @@
     "nedb": "^1.8.0",
     "node-powershell": "^3.3.1",
     "opn": "^4.0.2",
-    "portfinder": "^1.0.16",
+    "portfinder": "^1.0.17",
     "ps-node": "^0.1.6"
   }
 }
