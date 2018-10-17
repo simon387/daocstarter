@@ -15,9 +15,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "archiver": "^1.3.0",
-    "electron": "1.8.2-beta.4",
-    "ini": "^1.3.5"
+    "electron": "1.8.2-beta.4"
   },
   "repository": {
     "type": "git",
@@ -34,6 +32,8 @@
     "node-powershell": "^3.3.1",
     "opn": "^4.0.2",
     "portfinder": "^1.0.17",
-    "ps-node": "^0.1.6"
+    "ps-node": "^0.1.6",
+    "archiver": "^1.3.0",
+    "ini": "^1.3.5"
   }
 }
