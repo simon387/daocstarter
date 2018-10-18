@@ -92,7 +92,7 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 9. node .\autoit\autoit-compiler.js
 10. compile to exe daocstarter.au3 (parameters: ```/icon .\img\i.ico /comp 4```)
 
-**Note: Steps 1-8 can be done only the first time if you don't edit the autoit code.**
+**NOTE: Steps 1-8 can be done only the first time if you don't edit the autoit code.**
 
 ---
 
