@@ -12,6 +12,8 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 ![alt tag](https://user-images.githubusercontent.com/18740246/28262309-db20729c-6ae2-11e7-94c9-b1aa310f09fe.png)
 ![alt tag](https://user-images.githubusercontent.com/18740246/28262310-db27d3b6-6ae2-11e7-890a-eb1b4b9889f7.png)
 
+---
+
 ## main features
 
 + Advanced characters, accounts, teams, and settings management
@@ -22,6 +24,8 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + Spellcrafting tool
 + No installation required, full portable executable
 
+---
+
 ## quick infos
 
 + On Windows, when you need to log in more then 2 DAoC's accounts, you need to run the daocstarter.exe as admin
@@ -29,6 +33,8 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + The exe is big because there a lot of files: this is duo to Electron nature, there is an entire browser there! (plus lot of node's  modules)
 + After the first "installation", the software is very fast! thanks to v8 Google Javascript Engine!
 + All data and passwords are stored in your user data settings
+
+---
 
 ## based on:
 
@@ -56,20 +62,41 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 + node-powershell <https://github.com/rannn505/node-powershell>
 + and more!...
 
+---
+
 ## developer's installation:
 
 1. git clone git@github.com:simon387/daocstarter.git
 2. npm i
 
+---
+
 ## developer's debug start:
 
 1. npm start
 
+---
+
 ## creating windows single portable executable (from a Windows machine)
+
+**NOTE: if your dev working directory is ```C:\dev\daocstarter\``` you don't need to edit the scripts**
 
 1. install AutoIt or just get the Aut2exe.exe program
 2. edit autoit\autoit-compiler.js (adjust paths if differents)
-3. node .\autoit\autoit-compiler.js
+3. node .\autoit\borderless\borderless.js
+4. compile to exe .\autoit\borderless\borderless.au3 with Aut2Exe.exe (in the current directory)
+5. node .\autoit\calgamma\CALGamma.js
+6. compile to exe .\autoit\calgamma\CALGamma.au3 with Aut2Exe.exe (in the current directory)
+7. node .\autoit\titlerenamer\titlerenamer.js
+8. compile to exe .\autoit\titlerenamer\titlerenamer.au3 with Aut2Exe.exe (in the current directory)
+9. node .\autoit\autoit-compiler.js
+10. compile to exe daocstarter.au3 (parameters: ```/icon .\img\i.ico /comp 4```)
+
+Note:
+
+Steps 1-8 can be done only the first time if you don't edit the autoit code.
+
+---
 
 ## creating windows installer (not tested!)
 
@@ -78,6 +105,8 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 3. if not in a Windows environment, install Wine!
 4. electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\i.ico --overwrite
 5. electron-installer-windows --src dist/daocstarter-win32-x64 --dest dist/installers
+
+---
 
 ## License
 
