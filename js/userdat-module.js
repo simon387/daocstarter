@@ -15,6 +15,7 @@ const setIniOnPlayCharacter = (userdat, character) => {
 			xy = character.resolution.split('x');
 			config.main.screen_width = xy[0];
 			config.main.screen_height = xy[1];
+			config.main.fullscreen_windowed = character.windowed;
 		}
 		catch (e) {
 			log.error(e);
@@ -36,6 +37,7 @@ const setIniOnPlayAccount = (userdat, account) => {
 			xy = account.resolution.split('x');
 			config.main.screen_width = xy[0];
 			config.main.screen_height = xy[1];
+			config.main.fullscreen_windowed = account.windowed;
 		}
 		catch (e) {
 			log.error(e);
