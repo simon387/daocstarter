@@ -82,13 +82,13 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 **NOTE: if your dev working directory is ```C:\dev\daocstarter\``` you don't need to edit the scripts**
 
 1. install AutoIt or just get the Aut2exe.exe program
-2. edit autoit\autoit-compiler.js (adjust paths if differents)
-3. node .\autoit\borderless\borderless.js
-4. compile to exe .\autoit\borderless\borderless.au3 with Aut2Exe.exe (in the current directory)
-5. node .\autoit\calgamma\CALGamma.js
-6. compile to exe .\autoit\calgamma\CALGamma.au3 with Aut2Exe.exe (in the current directory)
-7. node .\autoit\titlerenamer\titlerenamer.js
-8. compile to exe .\autoit\titlerenamer\titlerenamer.au3 with Aut2Exe.exe (in the current directory)
+2. edit autoit-compiler.js (adjust paths if differents)
+3. node borderless.js
+4. compile to exe borderless.au3 with Aut2Exe.exe (in the current directory)
+5. node CALGamma.js
+6. compile to exe CALGamma.au3 with Aut2Exe.exe (in the current directory)
+7. node titlerenamer.js
+8. compile to exe titlerenamer.au3 with Aut2Exe.exe (in the current directory)
 9. node .\autoit\autoit-compiler.js
 10. compile to exe daocstarter.au3 (parameters: ```/icon .\img\i.ico /comp 4```)
 

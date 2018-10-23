@@ -10,6 +10,7 @@ const ignoreList = '--ignore=borderless\.js --ignore=CALGamma\.js --ignore=title
 const packagercmd = 'electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\\i.ico --overwrite ' + ignoreList;
 //YOU NEED TO EDIT THIS LINE
 const daocstarterau3Location = '"C:\\dev\\daocstarter\\daocstarter.au3"';
+// const daocstarterau3Location = '"C:\\dev\\rep-gh\\daocstarter\\daocstarter.au3"';
 //AND MAYBE THIS ONE TOO
 //const autoitcmd = '& "C:\\Program Files (x86)\\AutoIt3\\Aut2Exe\\Aut2exe.exe" /in ' + daocstarterau3Location + ' /icon img\\i.ico /comp 4';
 const autoitcmd = '"C:\\Program Files (x86)\\AutoIt3\\Aut2Exe\\Aut2exe.exe" /in ' + daocstarterau3Location + ' /icon img\\i.ico /comp 4';
