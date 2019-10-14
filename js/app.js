@@ -16,18 +16,23 @@ let mainWindow = null;
 
 log.info(constants.logInit);
 
-const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
-	if (mainWindow) {
-		if (mainWindow.isMinimized()) {
-			mainWindow.restore();
-		}
-		mainWindow.focus();
-	}
-});
-
-if (shouldQuit) {
+// const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
+// 	if (mainWindow) {
+// 		if (mainWindow.isMinimized()) {
+// 			mainWindow.restore();
+// 		}
+// 		mainWindow.focus();
+// 	}
+// });
+app.requestSingleInstanceLock();
+app.on('second-instance', (event, argv, cwd) => {
 	app.quit();
-}
+})
+
+// if (shouldQuit) {
+// 	console.log("quitto sto quittando")
+// 	app.quit();
+// }
 
 app.on('ready', () => {
 	mainWindow = new BrowserWindow({
