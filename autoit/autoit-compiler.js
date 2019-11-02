@@ -20,6 +20,9 @@ const exe = "daocstarter.exe"
 const buffer = new Buffer (
 	'#RequireAdmin\r\n' +
 	'#NoTrayIcon\r\n' +
+	'#pragma compile(Compression, 4)\r\n' +
+	'#pragma compile(Icon, .\\img\\i.ico)\r\n' +
+	'#pragma compile(x64, true)\r\n' +
 	'#include <Misc.au3>\r\n' +
 	'#include <array.au3>\r\n' +
 	'_Singleton(@ScriptName)\r\n' +
