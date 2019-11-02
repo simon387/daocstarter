@@ -1,5 +1,3 @@
-[![gitcheese.com](https://s3.amazonaws.com/gitcheese-ui-master/images/badge.svg)](https://www.gitcheese.com/donate/users/18740246/repos/80989370)
-
 # DAoC Starter
 
 A Dark Age of Camelot client starter <http://darkageofcamelot.com>  
