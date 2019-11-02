@@ -45,7 +45,7 @@ module.exports = {
 	psargs: 'ux',
 	utf8: 'utf-8',
 	updateHost: 'raw.githubusercontent.com',
-	updatePath: '/simon387/daocstarter/master/version',
+	updatePath: '/simon387/daocstarter/master/version.txt',
 	githubReleases: 'https://github.com/simon387/daocstarter/releases',
 	dbPath: path.join(app.getPath('userData'), 'db') + '/',
 	ywain: 'Ywain',
