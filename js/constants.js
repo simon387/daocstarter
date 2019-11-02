@@ -44,7 +44,7 @@ module.exports = {
 	userDat: 'user.dat',
 	psargs: 'ux',
 	utf8: 'utf-8',
-	updateHost: 'www.simonecelia.it',
+	updateHost: 'https://www.simonecelia.it',
 	updatePath: '/daocstarter/version.html',
 	githubReleases: 'https://github.com/simon387/daocstarter/releases',
 	dbPath: path.join(app.getPath('userData'), 'db') + '/',

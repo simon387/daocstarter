@@ -1,5 +1,3 @@
-[![gitcheese.com](https://s3.amazonaws.com/gitcheese-ui-master/images/badge.svg)](https://www.gitcheese.com/donate/users/18740246/repos/80989370)
-
 # DAoC Starter
 
 A Dark Age of Camelot client starter <http://darkageofcamelot.com>  
@@ -108,7 +106,6 @@ A Dark Age of Camelot client starter <http://darkageofcamelot.com>
 
 ## License
 
-[MIT](https://github.com/simon387/daocstarter/blob/master/LICENSE.md)
-
+[MIT](https://github.com/simon387/daocstarter/blob/master/LICENSE)
 
 When using the Daocstarter or other GitHub logos, be sure to follow the [GitHub logo guidelines](https://github.com/logos).
