@@ -6,7 +6,7 @@ const archiver = require('archiver');
 const packagejson = require('../package.json');
 const distzip = 'dist.zip';
 const archive = archiver('zip', {zlib: {level: 9} /* Sets the compression level.0-9*/});
-const ignoreList = '--ignore=version --ignore=borderless\.js --ignore=CALGamma\.js --ignore=titlerenamer\.js --ignore=autoit-compiler\.js --ignore=daocstarter\.au3 --ignore=.*\.md$ --ignore=handle64\.exe --ignore=creative\.less --ignore=mixins\.less --ignore=variables\.less';
+const ignoreList = '--ignore=version\.txt --ignore=borderless\.js --ignore=CALGamma\.js --ignore=titlerenamer\.js --ignore=autoit-compiler\.js --ignore=daocstarter\.au3 --ignore=.*\.md$ --ignore=handle64\.exe --ignore=creative\.less --ignore=mixins\.less --ignore=variables\.less';
 const packagercmd = 'electron-packager . daocstarter --platform win32 --arch x64 --out dist --icon=img\\i.ico --overwrite ' + ignoreList;
 //YOU NEED TO EDIT THIS LINE
 const daocstarterau3Location = '"C:\\dev\\daocstarter\\daocstarter.au3"';
