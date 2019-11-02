@@ -1,6 +1,6 @@
 'use strict';
 
-const http = require('http');
+const https = require('https');
 const compareVersions = require('compare-versions');
 const opn = require('opn');
 const {app, dialog} = require('electron');
@@ -12,13 +12,13 @@ const updateCheck = () => {
 		host: constants.updateHost,
 		path: constants.updatePath
 	}
-	let request = http.request(opts, res => {
+	let request = https.get(opts, res => {
 		let remoteVersion = '';
 		res.on('data', chunk => {
 			remoteVersion += chunk;
 		});
 		res.on('end', () => {
-			if (compareVersions(app.getVersion(), remoteVersion) < 0) {
+			if (compareVersions(app.getVersion(), remoteVersion.trim(), '>')) {
 				const options = {
 					type: constants.info,
 					title: constants.titleupdateAvailable,
@@ -29,9 +29,6 @@ const updateCheck = () => {
 				app.quit();
 			}
 		});
-	});
-	request.on('error', error => {
-		log.error(error.message);
 	});
 	request.end();
 }
