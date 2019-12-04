@@ -56,8 +56,8 @@ function removeAccountRow(id) {
 	}
 }
 
-function playAccountRow(id, server = null) {
-	if (null != server) {
+function playAccountRow(id, server) {
+	if (undefined == server) {
 		let e = document.getElementById(id);
 		server = e.options[e.selectedIndex].text;
 	}
