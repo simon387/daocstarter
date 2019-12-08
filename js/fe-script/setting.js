@@ -72,6 +72,10 @@ ipcRenderer.on('saveSettingStringa-reply', event => {
 	$('#edit-setting-modal-stringa').modal('hide');
 });
 
+const editSettingRowbooleano = (id) => {
+	editSettingRowBooleano(id);//per non pulire il db
+}
+
 const editSettingRowBooleano = (id) => {
 	document.getElementById('edit-setting-id-boolean').value = id;
 	ipcRenderer.send('edit-setting-booleano', id + '');

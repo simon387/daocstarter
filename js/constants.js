@@ -25,7 +25,7 @@ module.exports = {
 	setAccountsOrder: 'set-accounts-order',
 	settingItemsOrder: 'setting.items.order',
 	setSettingsOrder: 'set-settings-order',
-	typeBooleano: 'booleano',
+	typeBooleano: 'Booleano',
 	typeNumero: 'Numero',
 	typeFile: 'File',
 	typeStringa: 'Stringa',
